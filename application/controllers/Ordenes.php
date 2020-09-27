@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Inicio extends CI_Controller {
+class Ordenes extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -20,9 +20,11 @@ class Inicio extends CI_Controller {
 	 */
 	public function index()
 	{
-		$data ['activo'] = 2;
+		$data ['activo'] = 1;
 		$this->load->view('menu/menu_principal',$data);
-		$this->load->view('Dashboard/inicio');
+		$this->load->view('Compras/OrdenesCompra');
 		$this->load->view('layout/footer');
 	}
 }
+
+?>
