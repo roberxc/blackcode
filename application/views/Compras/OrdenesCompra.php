@@ -182,47 +182,50 @@
                   <thead>
                   <tr>
                     <th>Folio</th>
-                    <th>#</th>
+                    <th>Editar</th>
                     <th>Fecha</th>
                     <th>Proveedor</th>
-                    <th>#</th>
+                    <th>Estado</th>
                     <th>Total</th>
                     <th>Opciones</th>
                   </tr>
                   </thead>
                   <tbody>
                   <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>X</td>
-                    <td> 4</td>
-                    <td>X</td>
+                    <td>2</td>
+                    <td><a class="btn btn-block btn-primary">Editar</a></td>
+                    <td>20-09-2020</td>
+                    <td>HomeCenter</td>
+                    <td><select class="form-control select2bs4" style="width: 100%;">
+                            <option selected="selected">Pendiente</option>
+                            <option>Enviado</option>
+                          </select></td>
+                    <td> $40000</td>
+                    <td>#</td>
                   </tr>
                   <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 5.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td>5</td>
-                    <td>C</td>
-                    <td> 4</td>
-                    <td>X</td>
+                    <td>3</td>
+                    <td><a class="btn btn-block btn-primary">Editar</a></td>
+                    <td>22-09-2020</td>
+                    <td>HomeCenter</td>
+                    <td><select class="form-control select2bs4" style="width: 100%;">
+                            <option selected="selected">Pendiente</option>
+                            <option>Enviado</option>
+                          </select></td>
+                    <td> $70000</td>
+                    <td>#</td>
                   </tr>
                   <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 5.5
-                    </td>
-                    <td>Win 95+</td>
-                    <td>5.5</td>
-                    <td>A</td>
-                    <td> 4</td>
-                    <td>X</td>
+                    <td>8</td>
+                    <td><a class="btn btn-block btn-primary">Editar</a></td>
+                    <td>22-09-2020</td>
+                    <td>HomeCenter</td>
+                    <td><select class="form-control select2bs4" style="width: 100%;">
+                            <option selected="selected">Pendiente</option>
+                            <option>Enviado</option>
+                          </select></td>
+                    <td> $00000</td>
+                    <td>#</td>
                   </tr>
                   </tbody>
                   <tfoot>

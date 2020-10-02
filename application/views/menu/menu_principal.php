@@ -331,6 +331,7 @@
                   <p>Estadisticas</p>
                 </a>
               </li>
+              <!--
               <li class="nav-item">
                 <a href="pages/charts/flot.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -343,6 +344,7 @@
                   <p>Inline</p>
                 </a>
               </li>
+              -->
             </ul>
           </li>
           <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 1)){echo "menu-open"; }?>">
@@ -483,21 +485,10 @@
               <li class="nav-item">
                 <a href="pages/tables/simple.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Simple Tables</p>
+                  <p>Gestión de cuentas</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="pages/tables/data.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>DataTables</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>jsGrid</p>
-                </a>
-              </li>
+            
             </ul>
           </li>
 
