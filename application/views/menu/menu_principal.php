@@ -161,7 +161,7 @@
         </p>
       </li>
       <!-- Menu Body -->
-      
+
       <li class="user-body">
         <div class="row">
           <div class="col-4 text-center">
@@ -177,10 +177,10 @@
         <!-- /.row -->
       </li>
       <!-- Menu Footer-->
-      
+
     </ul>
   </li>
-      
+
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
           <i class="fas fa-th-large"></i>
@@ -226,14 +226,14 @@
             </a>
             <!--
             <ul class="nav nav-treeview">
-              
+
               <li class="nav-item">
                 <a href="./index.html" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v1</p>
                 </a>
               </li>
-              
+
               <li class="nav-item">
                 <a href="./index2.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -246,11 +246,11 @@
                   <p>Dashboard v3</p>
                 </a>
               </li>
-              
+
             </ul>
-          
+
           </li>
-          
+
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
@@ -260,7 +260,7 @@
               </p>
             </a>
           </li>
-          
+
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -316,190 +316,56 @@
             </ul>
           </li>
           -->
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-                Reportes
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Estadisticas</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Flot</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inline</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 1)){echo "menu-open"; }?>">
-            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">
-              <i class="nav-icon fas fa-comment-dollar"></i>
-              <p>
-                Compras
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url()?>Ordenes" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ordenes de compra</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/icons.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Proveedores</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/buttons.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Productos y Servicios</p>
-                </a>
-              </li>
-              <!--
-              <li class="nav-item">
-                <a href="pages/UI/sliders.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Sliders</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/modals.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Modals & Alerts</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/navbar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Navbar & Tabs</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/timeline.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Timeline</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/ribbons.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ribbons</p>
-                </a>
-              </li>
-              -->
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-poll-h"></i>
-              <p>
-                Ventas
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/forms/general.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>General Elements</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Advanced Elements</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/editors.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Editors</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/validation.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Validation</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
-              <p>
-                Finanzas
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/tables/simple.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Simple Tables</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/data.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>DataTables</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>jsGrid</p>
-                </a>
-              </li>
-            </ul>
-          </li>
 
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
-              <p>
-                Sistema
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/tables/simple.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Simple Tables</p>
+            <li class="nav-item has-treeview">
+              <a href="<?php echo base_url()?>EstadoProyecto" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">
+                <i class="nav-icon fas fa-poll-h"></i>
+                <p>
+                  Estado de proyectos
+                  <!-- <i class="right fas fa-angle-left"></i>-->
+                </p>
+              </a>
+              <li class="nav-item has-treeview">
+                <a href="<?php echo base_url()?>ProyectoEjecutados" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">
+                  <i class="nav-icon fas fa-poll-h"></i>
+                  <p>
+                    Proyecto ejecutados
+                    <!-- <i class="right fas fa-angle-left"></i>-->
+                  </p>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/data.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>DataTables</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>jsGrid</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+
+
+                  <li class="nav-item has-treeview">
+                    <a href="<?php echo base_url()?>RegistroTrabajo" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">
+                      <i class="nav-icon fas fa-poll-h"></i>
+                      <p>
+                        Registro trabajo diario
+                        <!-- <i class="right fas fa-angle-left"></i>-->
+                      </p>
+                    </a>
+
+
+                    <li class="nav-item has-treeview">
+                      <a href="<?php echo base_url()?>Operacion" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">
+                        <i class="nav-icon fas fa-poll-h"></i>
+                        <p>
+                          Operaciones
+                          <!-- <i class="right fas fa-angle-left"></i>-->
+                        </p>
+                      </a>
+
+                    <!--
+                      <li class="nav-item has-treeview">
+                        <a  href="<?php echo base_url()?>Operacion" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">
+                          <i class="nav-icon fas fa-poll-h"></i>
+                          <p>
+                            Documentos
+                            <!-- <i class="right fas fa-angle-left"></i>-->
+                          </p>
+                        </a>
+-->
+
+
 
           <!--
           <li class="nav-header">EXAMPLES</li>
