@@ -20,9 +20,36 @@ class Inicio extends CI_Controller {
 	 */
 	public function index()
 	{
-		$data ['activo'] = 2;
-		$this->load->view('menu/menu_principal',$data);
-		$this->load->view('Dashboard/inicio');
-		$this->load->view('layout/footer');
+
+		$user = $this->input->post('email');
+		$pass = $this->input->post('pass');
+		
+		if(isset($user) && $user === "supremo"){
+			$data ['activo'] = 2;
+			$this->load->view('menu/menu_supremo',$data);
+			$this->load->view('Dashboard/inicio');
+			$this->load->view('layout/footer');
+		}
+
+		if(isset($user) && $user === "proyecto"){
+			$data ['activo'] = 2;
+			$this->load->view('menu/menu_adminproyectos',$data);
+			$this->load->view('Dashboard/inicio');
+			$this->load->view('layout/footer');
+		}
+
+		if(isset($user) && $user === "bodeguero"){
+			$data ['activo'] = 2;
+			$this->load->view('menu/menu_bodeguero',$data);
+			$this->load->view('Dashboard/inicio');
+			$this->load->view('layout/footer');
+		}
+
+		if(isset($user) && $user === "trabajador"){
+			$data ['activo'] = 2;
+			$this->load->view('menu/menu_trabajador',$data);
+			$this->load->view('Dashboard/inicio');
+			$this->load->view('layout/footer');
+		}
 	}
 }
