@@ -104,7 +104,7 @@
                <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                      <div class="modal-header">
-                        <div align="center"><img src="<?php echo base_url();?>assets/Imagen/bot.gif"></div>
+                        <div align="center"><img src=""></div>
                         </br>
                         <h4 class="modal-title">Registra trabajo a realizar </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -153,7 +153,7 @@
                <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                      <div class="modal-header">
-                        <div align="center"><img src="bot.gif"></div>
+                        <div align="center"><img src=""></div>
                         </br>
                         <h4 class="modal-title">Registro Gastos de viáticos </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
