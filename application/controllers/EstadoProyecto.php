@@ -20,10 +20,17 @@ class EstadoProyecto extends CI_Controller {
 	 */
 	public function index()
 	{
-		$data ['activo'] = 2;
-		$this->load->view('menu/menu_principal',$data);
-		$this->load->view('Proyecto/Estado');
-		$this->load->view('layout/footer');
+
+		$name = $_SESSION['email'];
+
+		if(isset($name) && $name === "proyecto"){
+			$data ['activo'] = 2;
+			$this->load->view('menu/menu_adminproyectos',$data);
+			$this->load->view('Proyecto/Estado');
+			$this->load->view('layout/footer');
+		}
+
+
 	}
 }
 

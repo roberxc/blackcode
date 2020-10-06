@@ -23,29 +23,35 @@ class Inicio extends CI_Controller {
 
 		$user = $this->input->post('email');
 		$pass = $this->input->post('pass');
+
+		$data = array('email' => $user,
+						'id' => 0,
+						'login' => true);
+		$this->session->set_userdata($data);
+
+		$name = $_SESSION['email'];
 		
-		if(isset($user) && $user === "supremo"){
+		if(isset($name) && $name === "supremo"){
 			$data ['activo'] = 2;
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('Dashboard/inicio');
 			$this->load->view('layout/footer');
-		}
-
-		if(isset($user) && $user === "proyecto"){
+		}else if(isset($name) && $name === "proyecto"){
 			$data ['activo'] = 2;
 			$this->load->view('menu/menu_adminproyectos',$data);
 			$this->load->view('Dashboard/inicio');
 			$this->load->view('layout/footer');
-		}
-
-		if(isset($user) && $user === "bodeguero"){
+		}else if(isset($name) && $name === "bodeguero"){
 			$data ['activo'] = 2;
 			$this->load->view('menu/menu_bodeguero',$data);
 			$this->load->view('Dashboard/inicio');
 			$this->load->view('layout/footer');
-		}
-
-		if(isset($user) && $user === "trabajador"){
+		}else if(isset($name) && $name === "trabajador"){
+			$data ['activo'] = 2;
+			$this->load->view('menu/menu_trabajador',$data);
+			$this->load->view('Dashboard/InicioTrabajador');
+			$this->load->view('layout/footer');
+		}else{
 			$data ['activo'] = 2;
 			$this->load->view('menu/menu_trabajador',$data);
 			$this->load->view('Dashboard/inicio');

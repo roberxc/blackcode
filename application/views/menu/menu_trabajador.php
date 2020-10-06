@@ -217,36 +217,12 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 4)){echo "menu-open"; }?>">
-            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 4)){echo "active"; }?>">
+            <a href="<?php echo base_url();?>Operacion" class="nav-link <?php if(isset($activo) && ($activo == 4)){echo "active"; }?>">
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Operaciones
-                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url()?>TrabajosDiarios" class="nav-link <?php if(isset($activo) && ($activo == 4)){echo "active"; }?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Trabajos Diarios</p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="<?php echo base_url()?>TrabajosDiarios" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Gastos</p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="<?php echo base_url()?>TrabajosDiarios" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Personal Asistido</p>
-                </a>
-              </li>
-            
-            </ul>
           </li>
 
 

@@ -20,9 +20,22 @@ class Operacion extends CI_Controller {
 	 */
 	public function index()
 	{
-		$data ['activo'] = 2;
-		$this->load->view('menu/menu_adminproyectos',$data);
-		$this->load->view('Dashboard/Operacion');
-		$this->load->view('layout/footer');
+		$name = $_SESSION['email'];
+
+
+		if(isset($name) && $name === "trabajador"){
+			$data ['activo'] = 2;
+			$this->load->view('menu/menu_trabajador',$data);
+			$this->load->view('Trabajador/Operacion');
+			$this->load->view('layout/footer');
+		}
+
+		if(isset($name) && $name === "proyecto"){
+			$data ['activo'] = 2;
+			$this->load->view('menu/menu_adminproyectos',$data);
+			$this->load->view('Dashboard/Operacion');
+			$this->load->view('layout/footer');
+		}
+
 	}
 }

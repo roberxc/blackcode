@@ -20,6 +20,7 @@ class Login extends CI_Controller {
 	 */
 	public function index()
 	{
+		unset($_SESSION['email']);
 		$this->load->view('login');
 	}
 }
