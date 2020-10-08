@@ -35,7 +35,7 @@ class Inicio extends CI_Controller {
 			$data ['activo'] = 2;
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('Dashboard/inicio');
-			$this->load->view('layout/footer');
+			
 		}else if(isset($name) && $name === "proyecto"){
 			$data ['activo'] = 2;
 			$this->load->view('menu/menu_adminproyectos',$data);
@@ -50,11 +50,6 @@ class Inicio extends CI_Controller {
 			$data ['activo'] = 2;
 			$this->load->view('menu/menu_trabajador',$data);
 			$this->load->view('Dashboard/InicioTrabajador');
-			$this->load->view('layout/footer');
-		}else{
-			$data ['activo'] = 2;
-			$this->load->view('menu/menu_trabajador',$data);
-			$this->load->view('Dashboard/inicio');
 			$this->load->view('layout/footer');
 		}
 	}

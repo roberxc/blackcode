@@ -363,18 +363,6 @@
                   <p>Ordenes de compra</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="pages/UI/icons.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Proveedores</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/buttons.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Productos y Servicios</p>
-                </a>
-              </li>
               <!--
               <li class="nav-item">
                 <a href="pages/UI/sliders.html" class="nav-link">
