@@ -9,6 +9,11 @@
             </div>
             <!-- /.col -->
          </div>
+
+         <div class="col-sm-6">
+            <br>
+               <h4 class="m-0 text-dark">Dispositivo utilizado: <?php echo$dispositivo;?> </h4>
+         </div>
          <!-- /.row -->
       </div>
       <!-- /.container-fluid -->
@@ -23,11 +28,10 @@
                <!-- small box -->
                <div class="small-box bg-info">
                   <div class="inner">
-                     <h3>1° paso</h3>
                      <p>Registro trabajo</p>
                   </div>
                   <div class="icon">
-                     <i class="ion ion-bag"></i>
+                     <i class="ion ion-person-stalker"></i>
                   </div>
                   <a class="small-box-footer" href="<?php echo base_url()?>Inicio" data-toggle="modal"
                      data-target="#modal-lg1">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
@@ -35,13 +39,12 @@
             </div>
             <!-- small box  editar-->
             <div class="col-lg-3 col-6">
-               <div class="small-box bg-info">
+               <div class="small-box bg-success">
                   <div class="inner">
-                     <h3>2° paso</h3>
                      <p>Gastos de viáticos</p>
                   </div>
                   <div class="icon">
-                     <i class="ion ion-bag"></i>
+                     <i class="ion ion-cash"></i>
                   </div>
                   <a class="small-box-footer" href="<?php echo base_url()?>Inicio" data-toggle="modal"
                      data-target="#modal-lg2">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
@@ -52,11 +55,10 @@
                <!-- small box -->
                <div class="small-box bg-success">
                   <div class="inner">
-                     <h3>3° paso</h3>
                      <p>Materiales comprados durante los trabajos</p>
                   </div>
                   <div class="icon">
-                     <i class="ion ion-stats-bars"></i>
+                     <i class="ion ion-cash"></i>
                   </div>
                   <a class="small-box-footer" href="<?php echo base_url()?>Inicio" data-toggle="modal"
                      data-target="#modal-lg3">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
@@ -65,13 +67,40 @@
             <!-- ./col -->
             <div class="col-lg-3 col-6">
                <!-- small box -->
-               <div class="small-box bg-warning">
+               <div class="small-box bg-success">
                   <div class="inner">
-                     <h3>4° paso</h3>
                      <p>Materiales comprados antes de los trabajos</p>
                   </div>
                   <div class="icon">
-                     <i class="ion ion-person-add"></i>
+                     <i class="ion ion-cash"></i>
+                  </div>
+                  <a class="small-box-footer" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                     data-target="#modal-lg4">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
+               </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+               <!-- small box -->
+               <div class="small-box bg-success">
+                  <div class="inner">
+                     <p>Materiales de bodega</p>
+                  </div>
+                  <div class="icon">
+                     <i class="ion ion-cash"></i>
+                  </div>
+                  <a class="small-box-footer" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                     data-target="#modal-lg4">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
+               </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+               <!-- small box -->
+               <div class="small-box bg-success">
+                  <div class="inner">
+                     <p>Combustible</p>
+                  </div>
+                  <div class="icon">
+                     <i class="ion ion-cash"></i>
                   </div>
                   <a class="small-box-footer" href="<?php echo base_url()?>Inicio" data-toggle="modal"
                      data-target="#modal-lg4">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
@@ -80,18 +109,45 @@
             <!-- ./col -->
             <div class="col-lg-3 col-6">
                <!-- small box -->
-               <div class="small-box bg-danger">
+               <div class="small-box bg-success">
                   <div class="inner">
-                     <h3>5° paso</h3>
                      <p>Gastos varios</p>
                   </div>
                   <div class="icon">
-                     <i class="ion ion-pie-graph"></i>
+                     <i class="ion ion-cash"></i>
                   </div>
                   <a class="small-box-footer" href="<?php echo base_url()?>Inicio" data-toggle="modal"
                      data-target="#modal-lg5">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
                </div>
             </div>
+
+            <div class="col-lg-3 col-6">
+               <!-- small box -->
+               <div class="small-box bg-info">
+                  <div class="inner">
+                     <p>Subir documentos/fotos</p>
+                  </div>
+                  <div class="icon">
+                     <i class="ion ion-arrow-up-a"></i>
+                  </div>
+                  <a class="small-box-footer" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                     data-target="#modal-lg5">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
+               </div>
+            </div>
+            <div class="col-lg-3 col-6">
+               <!-- small box -->
+               <div class="small-box bg-info">
+                  <div class="inner">
+                     <p>Asistencia de personal</p>
+                  </div>
+                  <div class="icon">
+                     <i class="ion ion-person"></i>
+                  </div>
+                  <a class="small-box-footer" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                     data-target="#modal-lg5">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
+               </div>
+            </div>
+
             <!-- ./col -->
          </div>
          <!-- /.row -->
@@ -114,32 +170,38 @@
                      <div class="modal-body">
                         <div class="form-group">
                            <label for="exampleInputEmail1">Codigo de servicio</label>
-                           <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                           <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Ingrese">
                         </div>
                         <div class="form-group">
                            <label for="exampleInputEmail1">Fecha</label>
-                           <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                           <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                              <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
+                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                           </div>
+                        </div>
+                        
                         </div>
                         <div class="form-group">
                            <label for="exampleInputEmail1">Persona a cargo</label>
-                           <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                           <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Ingrese">
                         </div>
                         <div class="form-group">
                            <label for="exampleInputEmail1">Proyecto / Cliente</label>
-                           <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                           <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Ingrese">
                         </div>
                         <div class="form-group">
                            <label for="exampleInputEmail1">Detalle de los trabajos realizados</label>
-                           <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                           <textarea class="form-control" rows="3" placeholder="Ingrese"></textarea>
                         </div>
                         <div class="form-group">
                            <label for="exampleInputEmail1">Suma asignada</label>
-                           <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                           <input type="email" class="form-control" id="exampleInputEmail1">
                         </div>
                      </div>
                      <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                           data-target="#modal-l">Guardar y siguente</button>
+                           data-target="#modal-l">Guardar</button>
                         </tr>
                      </div>
                   </div>
@@ -209,7 +271,7 @@
                      </div>
                      <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                           data-target="#modal-l">Guardar y siguente</button>
+                           data-target="#modal-l">Guardar</button>
                         </tr>
                      </div>
                   </div>
@@ -222,76 +284,42 @@
                <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                      <div class="modal-header">
-                        <div align="center"><img src="bot.gif"></div>
-                        </br>
-                        <h4 class="modal-title">Materiales comprados durante los trabajos </h4>
+                        <h4 class="modal-title">Materiales comprados durante los trabajos</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
                      </div>
                      <div class="modal-body">
-                     <form role="form" id="form" action="">
-                           <div class="card-body">
-                              <div class="row">
-                                 <div class="col-sm-4">
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                       <label>Material</label>
-                                       <div class="input-group mb-3" id ="divmaterial1">
-                                          <input type="text" class="form-control" placeholder="Ingrese" name="mytext[]">
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="col-sm-2">
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                       <label>Cantidad</label>
-                                       <div class="input-group mb-3" id ="divcantidadmat1">
-                                          <input type="text" class="form-control" placeholder="Ingrese" name="mytext[]">
-                                       </div>
-                                    </div>
-                                 </div>
+                        <form role="form" id="form" action="">
+                           <div class="table-responsive">
+                                 <table class="table table-bordered" id="dynamic_field">
+                                    <tr>
+                                       <td>
+                                          <label>Material</label>
+                                          <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
+                                       </td>
 
-                                 <div class="col-sm-2">
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                       <label>Valor * Unidad</label>
-                                       <div class="input-group mb-3" id ="divvalormat1">
-                                          <div class="input-group-prepend">
-                                             <span class="input-group-text">$</span>
-                                          </div>
-                                          <input type="text" class="form-control" placeholder="Ingrese" name="mytext[]">
-                                       </div>
-                                    </div>
-                                 </div>
+                                       <td>
+                                          <label>Cantidad</label>
+                                          <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
+                                       </td>
 
-                                 <div class="col-sm-2">
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                       <label>Eliminar</label>
-                                       <div class="input-group mb-3" id ="divdeletemat1">
-                                          <button type="button" class="btn"><i class="fa fa-trash btndeletemat1"></i></button>
-                                       </div>
-                                    </div>
-                                 </div>
-
-                                 <div class="col-sm-2">
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                       <label>Agregar más</label>
-                                       <div class="input-group mb-3">
-                                          <button type="button" class="btn btn-block btn-primary" id="btnmat1agregar">+</button>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
+                                       <td>
+                                          <label>Valor/Unidad</label>
+                                          <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
+                                       </td>
+                                       <td>
+                                          <label>Agregar más</label>
+                                          <button type="button" name="add" id="addmaterial" class="btn btn-success">+</button>
+                                       </td>
+                                    </tr>
+                                 </table>
+                           </div>
+                           <div class="modal-footer justify-content-between">
+                              <button type="button" class="btn btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                                 data-target="#modal-l">Guardar</button>
                            </div>
                         </form>
-                     </div>
-                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                           data-target="#modal-l">Guardar y siguente</button>
-                        </tr>
                      </div>
                   </div>
                   <!-- /.modal-content -->
@@ -304,64 +332,42 @@
                <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                      <div class="modal-header">
-                        <div align="center"><img src="bot.gif"></div>
-                        </br>
                         <h4 class="modal-title">Materiales comprados antes de los trabajos </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
                      </div>
                      <div class="modal-body">
-                        <div class="form-group">
-                           <label>Desayuno</label>
-                           <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                 <span class="input-group-text">$</span>
-                              </div>
-                              <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                     <form role="form" id="form" action="">
+                           <div class="table-responsive">
+                                 <table class="table table-bordered" id="dynamic_field2">
+                                    <tr>
+                                       <td>
+                                          <label>Material</label>
+                                          <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
+                                       </td>
+
+                                       <td>
+                                          <label>Cantidad</label>
+                                          <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
+                                       </td>
+
+                                       <td>
+                                          <label>Valor/Unidad</label>
+                                          <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
+                                       </td>
+                                       <td>
+                                          <label>Agregar más</label>
+                                          <button type="button" name="add" id="addmaterial2" class="btn btn-success">+</button>
+                                       </td>
+                                    </tr>
+                                 </table>
                            </div>
-                        </div>
-                        <div class="form-group">
-                           <label>Almuerzo</label>
-                           <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                 <span class="input-group-text">$</span>
-                              </div>
-                              <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                           <div class="modal-footer justify-content-between">
+                              <button type="button" class="btn btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                                 data-target="#modal-l">Guardar</button>
                            </div>
-                        </div>
-                        <div class="form-group">
-                           <label>Cena</label>
-                           <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                 <span class="input-group-text">$</span>
-                              </div>
-                              <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                           </div>
-                        </div>
-                        <div class="form-group">
-                           <label>Agua</label>
-                           <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                 <span class="input-group-text">$</span>
-                              </div>
-                              <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                           </div>
-                        </div>
-                        <div class="form-group">
-                           <label>Alojamiento</label>
-                           <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                 <span class="input-group-text">$</span>
-                              </div>
-                              <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                           </div>
-                        </div>
-                     </div>
-                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                           data-target="#modal-l">Guardar y siguente</button>
-                        </tr>
+                        </form>
                      </div>
                   </div>
                   <!-- /.modal-content -->
@@ -374,8 +380,6 @@
                <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                      <div class="modal-header">
-                        <div align="center"><img src="bot.gif"></div>
-                        </br>
                         <h4 class="modal-title">Gastos varios </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -430,7 +434,7 @@
                      </div>
                      <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                           data-target="#modal-l">Guardar y siguente</button>
+                           data-target="#modal-l">Guardar</button>
                         </tr>
                      </div>
                   </div>
@@ -448,5 +452,8 @@
    </section>
    <!-- /.content -->
 </div>
+<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/operaciones.js"></script>
 </body>
 </html>

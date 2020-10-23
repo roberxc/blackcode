@@ -34,17 +34,17 @@ class Inicio extends CI_Controller {
 		if(isset($name) && $name === "supremo"){
 			$data ['activo'] = 2;
 			$this->load->view('menu/menu_supremo',$data);
-			$this->load->view('Dashboard/inicio');
+			$this->load->view('Dashboard/Inicio');
 			
 		}else if(isset($name) && $name === "proyecto"){
 			$data ['activo'] = 2;
 			$this->load->view('menu/menu_adminproyectos',$data);
-			$this->load->view('Dashboard/inicio');
+			$this->load->view('Dashboard/Inicio');
 			$this->load->view('layout/footer');
 		}else if(isset($name) && $name === "bodeguero"){
 			$data ['activo'] = 2;
 			$this->load->view('menu/menu_bodeguero',$data);
-			$this->load->view('Dashboard/inicio');
+			$this->load->view('Dashboard/Inicio');
 			$this->load->view('layout/footer');
 		}else if(isset($name) && $name === "trabajador"){
 			$data ['activo'] = 2;

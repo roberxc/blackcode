@@ -18,15 +18,33 @@ class Operacion extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	public function __construct(){
+		parent::__construct();// you have missed this line.
+		$this->load->library('Mobile_Detect');
+		
+	 }
+
 	public function index()
 	{
 		$name = $_SESSION['email'];
+		$detect = new CI_Mobile_Detect();
+		if ($detect->isMobile()) {
+			// Detecta si es un móvil
+			if(isset($name) && $name === "trabajador"){
+				$data ['activo'] = 2;
+				$data ['dispositivo'] = 'Mobil';
+				$this->load->view('menu/menu_trabajador',$data);
+				$this->load->view('Trabajador/Operacion',$data);
+				$this->load->view('layout/footer');
+			}
+		}
 
 
 		if(isset($name) && $name === "trabajador"){
 			$data ['activo'] = 2;
+			$data ['dispositivo'] = 'PC';
 			$this->load->view('menu/menu_trabajador',$data);
-			$this->load->view('Trabajador/Operacion');
+			$this->load->view('Trabajador/Operacion',$data);
 			$this->load->view('layout/footer');
 		}
 
