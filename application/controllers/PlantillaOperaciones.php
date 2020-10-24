@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Operacion extends CI_Controller {
+class PlantillaOperaciones extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -20,22 +20,11 @@ class Operacion extends CI_Controller {
 	 */
 	public function index()
 	{
-		$name = $_SESSION['email'];
-
-
-		if(isset($name) && $name === "trabajador"){
-			$data ['activo'] = 2;
-			/**$this->load->view('menu/menu_trabajador',$data);**/
-			$this->load->view('Operaciones/index');
-			/**$this->load->view('layout/footer');**/
-		}
-
-		if(isset($name) && $name === "proyecto"){
-			$data ['activo'] = 2;
-			$this->load->view('menu/menu_adminproyectos',$data);
-			$this->load->view('Dashboard/Operacion');
-			$this->load->view('layout/footer');
-		}
-
+		$data ['activo'] = 2;
+		
+		$this->load->view('Operaciones/planilla');
+		
 	}
 }
+
+?>
