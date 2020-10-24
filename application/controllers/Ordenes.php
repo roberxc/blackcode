@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
 class Ordenes extends CI_Controller {
 
 	/**
@@ -18,8 +19,13 @@ class Ordenes extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+
+
+	 
+
 	public function index()
 	{
+		
 		$data ['activo'] = 1;
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Ordenes/Ordenes');
