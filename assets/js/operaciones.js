@@ -4,9 +4,9 @@ $(document).ready(function(){
 	$('#addmaterial').click(function(){
 		i++;
     $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="name[]" placeholder="Ingrese" class="form-control name_list" /></td>'+
-    '<td><input type="text" name="cantidad" placeholder="Ingrese" id="'+i+'" class="form-control"/></td>'+
-    '<td><input type="text" name="valor" placeholder="Ingrese" id="'+i+'" class="form-control"/></td>'+
-    '<td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+    '<td><input type="text" name="cantidad" placeholder="Ingrese" class="form-control"/></td>'+
+    '<td><input type="text" name="valor" placeholder="Ingrese" class="form-control"/></td>'+
+    '<td><button type="button" name="remove" class="btn btn-danger btn_remove">X</button></td></tr>');
 	});
 	
 	$(document).on('click', '.btn_remove', function(){

@@ -2,7 +2,7 @@ $(document).ready(function(){
 	var i=1;
 	$('#addarchivo').click(function(){
 		i++;
-    $('#tabla_archivo').append('<tr id="row'+i+'"><td><div class="input-group"><div class="custom-file"><input type="file" class="custom-file-input" id="exampleInputFile"><label class="custom-file-label" for="exampleInputFile">Adjuntar archivo</label></div><div class="input-group-append"><span class="input-group-text" id="">Subir</span></div></div></td>'+
+    $('#tabla_archivo').append('<tr id="row'+i+'"><td><input type="file" name="archivossubidos[]"></td>'+
     '<td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_removearchivo">X</button></td></tr>');
 	});
 	
