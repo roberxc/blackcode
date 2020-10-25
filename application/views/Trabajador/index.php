@@ -157,14 +157,49 @@
                             <label class="label-control" for="cmessage">Detalle de los trabajos realizados</label>
                             <div class="help-block with-errors"></div>
                         </div>
-                    <a class="btn-solid-reg mfp-close page-scroll" href="<?php echo base_url()?>PlantillaOperaciones" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Siguiente</a>
+                        <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#trabajadores">Siguiente</a></br> </br>
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
         </div> <!-- end of container -->
     </div> <!-- end of lightbox-basic -->
     <!-- end of details lightbox 1 -->
-    
-    	
+
+    <div id="trabajadores" class="lightbox-basic zoom-anim-dialog mfp-hide">
+        <div class="container">
+            <div class="row">
+                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
+                <div class="col-lg-4" id="dynamic_field">
+                    <h3>Agregar personal</h3>
+                    <hr>
+                    <table class="table table-bordered" >
+                        <TR>
+                           <TH>Rut</TH>
+                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
+                        </TR>
+                        <TR>
+                           <TH>Nombre completo</TH>
+                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
+                        </TR>
+                        <TR>
+                           <TH>Agregar más</TH>
+                           <TD><button type="button" name="add" id="agregarTrabajador" class="btn btn-success">+</button></TD>
+                        </TR>
+                     </table>
+                    
+                </div> <!-- end of col -->
+                
+                <a class="btn-solid-reg mfp-close page-scroll" href="<?php echo base_url()?>PlantillaOperaciones" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Siguiente</a>
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of lightbox-basic -->
+    <!-- end of details lightbox 1 -->
+
+
+    <!-- Scripts modal -->
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+      <script type="text/javascript" src="<?php echo base_url()?>assets/js/PersonalAsistencia.js"></script>
+  	
     <!-- Scripts -->
     <script src="assets/js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
     <script src="assets/js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
