@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class PlantillaOperaciones extends CI_Controller {
+class AsistenciaTrabajador extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -22,7 +22,7 @@ class PlantillaOperaciones extends CI_Controller {
 	{
 		$data ['activo'] = 2;
 		
-		$this->load->view('Trabajador/planilla');
+		$this->load->view('Trabajador/Asistencia');
 		
 	}
 }
