@@ -197,7 +197,7 @@
                            <i class="ion ion-person"></i>
                         </div>
                            <a class="small-box-footer" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                              data-target="#modal-lg6">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
+                              data-target="#modal-asistencia">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                      </div>
                   </div>
@@ -502,7 +502,7 @@
          </div>
 
          <!-- Asistencia -->
-         <div class="modal fade" id="modal-lg6">
+         <div class="modal fade" id="modal-asistencia">
             <div class="modal-dialog modal-lg">
                <div class="modal-content">
                   <div class="modal-header">
