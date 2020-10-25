@@ -138,7 +138,7 @@
                            <i class="ion ion-cash"></i>
                         </div>
                         <a class="small-box-footer" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                           data-target="#modal-lg4">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
+                           data-target="#modal-lg5">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
                      </div>
                   </div>
 
@@ -152,7 +152,7 @@
                            <i class="ion ion-cash"></i>
                         </div>
                         <a class="small-box-footer" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                           data-target="#modal-lg4">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
+                           data-target="#modal-lg9">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
                      </div>
                   </div>
                   <!-- ./col -->
@@ -166,7 +166,7 @@
                            <i class="ion ion-cash"></i>
                         </div>
                         <a class="small-box-footer" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                           data-target="#modal-lg5">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
+                           data-target="#modal-lg10">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
                      </div>
                   </div>
 
@@ -179,7 +179,7 @@
                            <i class="ion ion-arrow-up-a"></i>
                         </div>
                         <a class="small-box-footer" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                           data-target="#modal-lg5">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
+                           data-target="#modal-lg6">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
                      </div>
                   </div>
                   
@@ -418,8 +418,49 @@
             </div>
             <!-- /.modal-dialog -->
          </div>
-         <!-- Gastos varios -->
+         <!-- Materiales de bodega -->
          <div class="modal fade" id="modal-lg5">
+            <div class="modal-dialog modal-lg">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h4 class="modal-title">Materiales de bodega </h4>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+                  <div class="modal-body">
+                     <form role="form" id="form" action="">
+                        <div class="table-responsive">
+                           <table class="table table-bordered" id="tabla_bodega">
+                              <tr>
+                                 <td>
+                                    <p><label>Material</label></p>
+                                    <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
+                                 </td>
+                                 <td>
+                                    <p><label>Cantidad</label></p>
+                                    <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
+                                 </td>
+                                 <td>
+                                    <p><label>Agregar más</label></p>
+                                    <button type="button" name="add" id="addmaterial_bodega" class="btn btn-success">+</button>
+                                 </td>
+                              </tr>
+                           </table>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                           <button type="button" class="btn btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                              data-target="#modal-l">Guardar</button>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+               <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+         </div>
+         <!-- Gastos varios -->
+         <div class="modal fade" id="modal-lg6">
             <div class="modal-dialog modal-lg">
                <div class="modal-content">
                   <div class="modal-header">
@@ -434,12 +475,12 @@
                            <tr>
                               <td>
                                  <p><label>Archivo</label></p>
-                                    <div class="input-group">
-                                       <div class="custom-file">
-                                          <input type="file" class="custom-file-input" id="exampleInputFile">
-                                          <label class="custom-file-label" for="exampleInputFile">Adjuntar archivo</label>
-                                       </div>
-                                    </div>
+                                 <div class="input-group">
+                                    
+                                       <input type="file" name="archivossubidos[]">
+                                       
+
+                                 </div>
                               </td>
                               <td>
                                  <p><label>Agregar más</label></p>
@@ -589,9 +630,104 @@
                                     <input type="time" id="default-picker" class="form-control">
                                  </td>
                                  <td>
-                                    <label>Añadir más</label>
-                                    <br>
+                                    <p><label>Añadir más</label></p>
                                     <button type="button" name="add" id="addpersonal_tarde" class="btn btn-success">+</button>
+                                 </td>
+                              </tr>
+                           </table>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                           <button type="button" class="btn btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                              data-target="#modal-l">Guardar</button>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+               <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+         </div>
+         <!-- Combustible -->
+         <div class="modal fade" id="modal-lg9">
+            <div class="modal-dialog modal-lg">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h4 class="modal-title">Combustible</h4>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+                  <div class="modal-body">
+                     <form role="form" id="form" action="">
+                        <div class="table-responsive">
+                           <table class="table table-bordered" id="tabla_personal_tarde">
+                              <tr>
+                                 <td>
+                                    <div class="form-group">
+                                       <label>Tipo</label>
+                                       <select class="form-control select2" style="width: 100%;">
+                                       <option selected="selected">Seleccione</option>
+                                       <option>Petróleo</option>
+                                       <option>Gasolina</option>
+                                       </select>
+                                    </div>
+                                 </td>
+
+                                 <td>
+                                    <label>Valor</label>
+                                    <div class="input-group mb-3">
+                                       <div class="input-group-prepend">
+                                          <span class="input-group-text">$</span>
+                                       </div>
+                                       <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                    </div>
+                                 </td>
+                              </tr>
+                           </table>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                           <button type="button" class="btn btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                              data-target="#modal-l">Guardar</button>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+               <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+         </div>
+
+         <!-- Gastos varios -->
+         <div class="modal fade" id="modal-lg10">
+            <div class="modal-dialog modal-lg">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h4 class="modal-title">Gastos varios </h4>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+                  <div class="modal-body">
+                     <form role="form" id="form" action="">
+                        <div class="table-responsive">
+                           <table class="table table-bordered" id="tabla_gastosvarios">
+                              <tr>
+                                 <td>
+                                    <p><label>Nombre</label></p>
+                                    <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
+                                 </td>
+                                 <td>
+                                    <p><label>Valor</label></p>
+                                    <div class="input-group mb-3">
+                                       <div class="input-group-prepend">
+                                          <span class="input-group-text">$</span>
+                                       </div>
+                                       <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                    </div>
+                                 </td>
+                                 <td>
+                                    <p><label>Agregar más</label></p>
+                                    <button type="button" name="add" id="addgastos_varios" class="btn btn-success">+</button>
                                  </td>
                               </tr>
                            </table>
@@ -620,9 +756,17 @@
 </div>
 <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="<?php echo base_url()?>assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/operaciones.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/asistencia_tarde.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/asistencia_mañana.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/adjuntar_archivo.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/material_bodega.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/gastos_varios.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+  bsCustomFileInput.init();
+});
+</script>
 </body>
 </html>
