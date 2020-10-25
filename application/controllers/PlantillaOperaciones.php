@@ -22,7 +22,7 @@ class PlantillaOperaciones extends CI_Controller {
 	{
 		$data ['activo'] = 2;
 		
-		$this->load->view('Operaciones/planilla');
+		$this->load->view('Trabajador/planilla');
 		
 	}
 }

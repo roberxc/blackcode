@@ -27,20 +27,12 @@ class Operacion extends CI_Controller {
 	public function index()
 	{
 		$name = $_SESSION['email'];
-		$detect = new CI_Mobile_Detect();
-		if ($detect->isMobile()) {
-			// Detecta si es un móvil
-			if(isset($name) && $name === "trabajador"){
-				$this->load->view('Trabajador/index');
-			}
-		}
-
 
 		if(isset($name) && $name === "trabajador"){
 			$data ['activo'] = 2;
 			$data ['dispositivo'] = 'PC';
 			$this->load->view('menu/menu_trabajador',$data);
-			$this->load->view('Trabajador/OperacionPC',$data);
+			$this->load->view('Trabajador/DetalleOperacionPC',$data);
 			$this->load->view('layout/footer');
 
 		}
