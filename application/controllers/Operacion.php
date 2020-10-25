@@ -31,14 +31,13 @@ class Operacion extends CI_Controller {
 		if ($detect->isMobile()) {
 			// Detecta si es un móvil
 			if(isset($name) && $name === "trabajador"){
-				$data ['activo'] = 2;
 				$data ['dispositivo'] = 'Mobil';
 				$this->load->view('Operaciones/index');
 			}
 		}
 
 
-		if(isset($name) && $name === "trabajador"){
+		else{
 			$data ['activo'] = 2;
 			$data ['dispositivo'] = 'PC';
 			$this->load->view('menu/menu_trabajador',$data);
@@ -46,13 +45,5 @@ class Operacion extends CI_Controller {
 			$this->load->view('layout/footer');
 
 		}
-
-		if(isset($name) && $name === "proyecto"){
-			$data ['activo'] = 2;
-			$this->load->view('menu/menu_adminproyectos',$data);
-			$this->load->view('Dashboard/Operacion');
-			$this->load->view('layout/footer');
-		}
-
 	}
 }
