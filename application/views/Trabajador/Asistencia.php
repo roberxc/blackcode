@@ -55,30 +55,8 @@
          <!-- end of mobile menu toggle button -->
          <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav ml-auto">
-               <li class="nav-item">
-                  <a class="nav-link page-scroll" href="#header">Home <span class="sr-only">(current)</span></a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link page-scroll" href="#services">Services</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link page-scroll" href="#pricing">Pricing</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link page-scroll" href="#request">Request</a>
-               </li>
-               <!-- Dropdown Menu -->          
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle page-scroll" href="#about" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">About</a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                     <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">Terms Conditions</span></a>
-                     <div class="dropdown-items-divide-hr"></div>
-                     <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">Privacy Policy</span></a>
-                  </div>
-               </li>
-               <!-- end of dropdown menu -->
-               <li class="nav-item">
-                  <a class="nav-link page-scroll" href="#contact">Contact</a>
+            <li class="nav-item">
+               <a class="nav-link page-scroll" href="<?php echo base_url()?>PlantillaOperaciones" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Cancelar</a>
                </li>
             </ul>
          </div>
@@ -99,7 +77,7 @@
    
                   <div class="card">
                      <div class="card-body">
-                        <div class="card-title">Rober Astorga</div>
+                        <div class="card-title">Paulo Mancilla</div>
                         <hr class="cell-divide-hr">
                         </br></br>
                         <table class="table table-bordered" >
@@ -111,6 +89,11 @@
                            <TH>Hora de salida(En Mañana)</TH>
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
+
+                        <TR>
+                        <TD COLSPAN=2>Asistencia en la tarde:</TD> 
+                        </TR>
+
                         <TR>
                            <TH>Hora de retorno(En Tarde)</TH>
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
@@ -146,38 +129,7 @@
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
-                           <TH>Hora de retorno(En Tarde)</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Hora de Salida(En Tarde)</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Hora de retorno(En Tarde)</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                     </table>
-                        <hr class="cell-divide-hr">
-                        <div class="button-wrapper">
-                           <a class="btn-solid-reg page-scroll" href="#request">Guardar</a>
-                        </div>
-                     </div>
-                  </div>
-
-                  <div class="card">
-                     <div class="card-body">
-                        <div class="card-title">Rober Astorga</div>
-                        <hr class="cell-divide-hr">
-                        </br></br>
-                        <table class="table table-bordered" >
-                        <TR>
-                           <TH>Rut</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Hora de salida(En Mañana)</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
+                        <TD COLSPAN=2>Asistencia en la tarde:</TD> 
                         </TR>
                         <TR>
                            <TH>Hora de retorno(En Tarde)</TH>
@@ -201,7 +153,7 @@
 
                   <div class="card">
                      <div class="card-body">
-                        <div class="card-title">Rober Astorga</div>
+                        <div class="card-title">Daniel Ossandon</div>
                         <hr class="cell-divide-hr">
                         </br></br>
                         <table class="table table-bordered" >
@@ -212,6 +164,46 @@
                         <TR>
                            <TH>Hora de salida(En Mañana)</TH>
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
+                        </TR>
+                        <TR>
+                        <TD COLSPAN=2>Asistencia en la tarde:</TD> 
+                        </TR>
+                        <TR>
+                           <TH>Hora de retorno(En Tarde)</TH>
+                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
+                        </TR>
+                        <TR>
+                           <TH>Hora de Salida(En Tarde)</TH>
+                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
+                        </TR>
+                        <TR>
+                           <TH>Hora de retorno(En Tarde)</TH>
+                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
+                        </TR>
+                     </table>
+                        <hr class="cell-divide-hr">
+                        <div class="button-wrapper">
+                           <a class="btn-solid-reg page-scroll" href="#request">Guardar</a>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="card">
+                     <div class="card-body">
+                        <div class="card-title">Camilo Contreras</div>
+                        <hr class="cell-divide-hr">
+                        </br></br>
+                        <table class="table table-bordered" >
+                        <TR>
+                           <TH>Rut</TH>
+                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
+                        </TR>
+                        <TR>
+                           <TH>Hora de salida(En Mañana)</TH>
+                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
+                        </TR>
+                        <TR>
+                        <TD COLSPAN=2>Asistencia en la tarde:</TD> 
                         </TR>
                         <TR>
                            <TH>Hora de retorno(En Tarde)</TH>
@@ -240,8 +232,7 @@
             <!-- end of row -->
          </div>
          <!-- end of container -->
-
-        
+         </div>
 
 
          <div id="contact" class="form-2">
@@ -249,9 +240,8 @@
                <div class="row">
                   <div class="col-lg-12">
                      <h2>Guardar Asistencia de los trabajadores</h2>
-                     <div class="form-group">
-                     <a class="btn-solid-reg mfp-close page-scroll" href="<?php echo base_url()?>PlantillaOperaciones" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Siguiente</a>
-                  </div>
+                     <a class="btn-solid-reg " href="<?php echo base_url()?>PlantillaOperaciones"  <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>>Guardar</a><a class="btn-solid-reg " href="<?php echo base_url()?>PlantillaOperaciones"  <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>>Cancelar</a>
+                     
                   </div>
                </div>
                <!-- end of col -->
@@ -262,40 +252,11 @@
       </div>
       <!-- end of form-2 -->
       <!-- end of contact -->
-      </div> <!-- end of cards-2 -->
-      <!-- end of pricing -->
-      <!-- Contact -->
-
+      
      
-      <div id="confirmar" class="lightbox-basic zoom-anim-dialog mfp-hide">
-         <div class="container">
-            <div class="row">
-               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-               <div class="col-lg-4">
-                  <h4>Gasto total: $17000 </br>Vuelto: $3000</h4>
-                  <a class="btn-solid-reg mfp-close page-scroll" href="<?php echo base_url()?>Operacion" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Guardar</a> <a class="btn-outline-reg mfp-close as-button" href="#screenshots">Atras</a>
-               </div>
-               <!-- end of col -->
-            </div>
-            <!-- end of row -->
-         </div>
-         <!-- end of container -->
-      </div>
-      <!-- end of lightbox-basic -->
-      <!-- end of details lightbox 1 -->
       
-
       
-
-
-      
-
-      <!-- Scripts modal -->
-      <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-      <script type="text/javascript" src="<?php echo base_url()?>assets/js/MaterialesDurante.js"></script>
-      <script type="text/javascript" src="<?php echo base_url()?>assets/js/MaterialesAntes.js"></script>
-      <script type="text/javascript" src="<?php echo base_url()?>assets/js/MaterialesBodega.js"></script>
+     
       <!-- Scripts -->
       <script src="assets/js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
       <script src="assets/js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->

@@ -56,30 +56,9 @@
          <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav ml-auto">
                <li class="nav-item">
-                  <a class="nav-link page-scroll" href="#header">Home <span class="sr-only">(current)</span></a>
+               <a class="nav-link page-scroll" href="<?php echo base_url()?>login" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Cancelar</a>
                </li>
-               <li class="nav-item">
-                  <a class="nav-link page-scroll" href="#services">Services</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link page-scroll" href="#pricing">Pricing</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link page-scroll" href="#request">Request</a>
-               </li>
-               <!-- Dropdown Menu -->          
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle page-scroll" href="#about" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">About</a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                     <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">Terms Conditions</span></a>
-                     <div class="dropdown-items-divide-hr"></div>
-                     <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">Privacy Policy</span></a>
-                  </div>
-               </li>
-               <!-- end of dropdown menu -->
-               <li class="nav-item">
-                  <a class="nav-link page-scroll" href="#contact">Contact</a>
-               </li>
+               
             </ul>
          </div>
       </nav>
@@ -103,8 +82,8 @@
                      <div class="card-body">
                         <div class="card-title">Marcar Asistencia</div>
                         <hr class="cell-divide-hr">
-                        <div class="price">
-                        <a class="btn-solid-reg mfp-close page-scroll" href="<?php echo base_url()?>AsistenciaTrabajador" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Siguiente</a>
+                        <div class="button-wrapper">
+                        <a class="btn-solid-reg " href="<?php echo base_url()?>AsistenciaTrabajador"  <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>>Ingresar</a>
                         </div>
                         <hr class="cell-divide-hr">
                      </div>
