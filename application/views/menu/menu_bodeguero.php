@@ -216,8 +216,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 4)){echo "menu-open"; }?>">
-            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 4)){echo "active"; }?>">
+          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 1)){echo "menu-open"; }?>">
+            <a href="<?php echo base_url()?>RegistroEntrada" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Registro entrada
@@ -227,8 +227,8 @@
 
           </li>
 
-          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 4)){echo "menu-open"; }?>">
-            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 4)){echo "active"; }?>">
+          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 2)){echo "menu-open"; }?>">
+            <a href="<?php echo base_url()?>RegistroSalida" class="nav-link <?php if(isset($activo) && ($activo == 2)){echo "active"; }?>">
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Registro salida
@@ -238,8 +238,8 @@
 
           </li>
 
-          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 4)){echo "menu-open"; }?>">
-            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 4)){echo "active"; }?>">
+          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 3)){echo "menu-open"; }?>">
+            <a href="<?php echo base_url()?>Stock" class="nav-link <?php if(isset($activo) && ($activo == 3)){echo "active"; }?>">
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Stock
