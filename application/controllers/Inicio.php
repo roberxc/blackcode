@@ -35,6 +35,7 @@ class Inicio extends CI_Controller {
 			$data ['activo'] = 2;
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('Dashboard/Inicio');
+			$this->load->view('layout/footer');
 			
 		}else if($this->session->userdata('email') === "proyecto"){
 			$data ['activo'] = 2;
