@@ -224,13 +224,6 @@
                               <td>$8.300</td>
                               <td>$44.300</td>
                            </tr>
-                           <tr>
-                              <th>$4.300</th>
-                              <td>$24.300</td>
-                              <td>$5.300</td>
-                              <td>$8.300</td>
-                              <td>$44.300</td>
-                           </tr>
                         </tbody>
                         <!--Table body-->
                      </table>
@@ -256,14 +249,14 @@
                         <!--Table body-->
                         <tbody>
                            <tr>
-                              <th scope="row">1</th>
-                              <td>Kate</td>
-                              <td>Moss</td>
+                              <th>Material1</th>
+                              <td>10</td>
+                              <td>400</td>
                            </tr>
                            <tr>
-                              <th scope="row">2</th>
-                              <td>Anna</td>
-                              <td>Wintour</td>
+                              <th>Material2</th>
+                              <td>50</td>
+                              <td>500</td>
                            </tr>
                         </tbody>
                         <!--Table body-->
@@ -290,14 +283,14 @@
                         <!--Table body-->
                         <tbody>
                            <tr>
-                              <th scope="row">1</th>
-                              <td>Kate</td>
-                              <td>Moss</td>
+                              <th>Material1</th>
+                              <td>10</td>
+                              <td>400</td>
                            </tr>
                            <tr>
-                              <th scope="row">2</th>
-                              <td>Anna</td>
-                              <td>Wintour</td>
+                              <th>Material2</th>
+                              <td>50</td>
+                              <td>500</td>
                            </tr>
                         </tbody>
                         <!--Table body-->
@@ -323,12 +316,13 @@
                         <!--Table body-->
                         <tbody>
                            <tr>
-                              <th scope="row">1</th>
-                              <td>Kate</td>
+                              <th>Material1</th>
+                              <td>10</td>
+
                            </tr>
                            <tr>
-                              <th scope="row">2</th>
-                              <td>Anna</td>
+                              <th>Material2</th>
+                              <td>50</td>
                            </tr>
                         </tbody>
                         <!--Table body-->
@@ -354,12 +348,8 @@
                         <!--Table body-->
                         <tbody>
                            <tr>
-                              <th scope="row">1</th>
-                              <td>Kate</td>
-                           </tr>
-                           <tr>
-                              <th scope="row">2</th>
-                              <td>Anna</td>
+                              <th>Petróleo</th>
+                              <th>$56403</th>
                            </tr>
                         </tbody>
                         <!--Table body-->
@@ -377,35 +367,16 @@
                         <!--Table head-->
                         <thead>
                            <tr>
-                              <th>#</th>
-                              <th>Name</th>
-                              <th>Surname</th>
-                              <th>Country</th>
-                              <th>City</th>
-                              <th>Position</th>
-                              <th>Age</th>
+                              <th>Nombre</th>
+                              <th>Valor</th>
                            </tr>
                         </thead>
                         <!--Table head-->
                         <!--Table body-->
                         <tbody>
                            <tr>
-                              <th scope="row">1</th>
-                              <td>Kate</td>
-                              <td>Moss</td>
-                              <td>USA / The United Kingdom / China / Russia </td>
-                              <td>New York City / Warsaw / Lodz / Amsterdam / London / Chicago</td>
-                              <td>Web Designer /UX designer / Ul designer / JavaScript Developer</td>
-                              <td>23</td>
-                           </tr>
-                           <tr>
-                              <th scope="row">2</th>
-                              <td>Anna</td>
-                              <td>Wintour</td>
-                              <td>USA / The United Kingdom / China / Russia </td>
-                              <td>New York City / Warsaw / Lodz / Amsterdam / London / Chicago</td>
-                              <td>Web Designer /UX designer / Ul designer / JavaScript Developer</td>
-                              <td>36</td>
+                              <th>Gasto1</th>
+                              <td>$3.000</td>
                            </tr>
                         </tbody>
                         <!--Table body-->
@@ -432,14 +403,14 @@
                         <!--Table body-->
                         <tbody>
                            <tr>
-                              <th scope="row">1</th>
-                              <td>Kate</td>
-                              <td>Moss</td>
+                              <th>Material1</th>
+                              <td>10</td>
+                              <td>$3.000</td>
                            </tr>
                            <tr>
-                              <th scope="row">2</th>
-                              <td>Anna</td>
-                              <td>Wintour</td>
+                              <th>Material2</th>
+                              <td>10</td>
+                              <td>$3.000</td>
                            </tr>
                         </tbody>
                         <!--Table body-->
