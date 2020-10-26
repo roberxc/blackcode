@@ -50,7 +50,7 @@
                 <i class="ion ion-stats-bars"></i>
               </div>
               <a href="<?php echo base_url()?>Inicio" class="small-box-footer" data-toggle="modal" 
-            data-target="#oficina">Administrar <i class="fas fa-arrow-circle-right"></i></a>
+            data-target="#oficina1">Administrar <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -91,7 +91,7 @@
 
 
     <!-- Modal administracion oficina -->
-    <div class="modal fade" id="oficina">
+    <div class="modal fade" id="oficina1">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div class="modal-header">
@@ -130,8 +130,7 @@
                             <div class="icon">
                               <i class="ion ion-stats-bars"></i>
                             </div>
-                            <a href="<?php echo base_url()?>Inicio" class="small-box-footer" data-toggle="modal" 
-                          data-target="#costo-fijo">Administrar <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="<?php echo base_url()?>ControladorAdmin/MenuCaja" class="small-box-footer">Administrar <i class="fas fa-arrow-circle-right"></i></a>
                           </div>
                         </div>
                       </div>

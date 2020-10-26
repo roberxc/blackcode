@@ -137,7 +137,8 @@
                         Usuario2
                      </td>
                      <td class="project-actions text-right">
-                        <a class="btn btn-primary btn-sm" href="#">
+                        <a class="btn btn-primary btn-sm" href="#" data-toggle="modal"
+                           data-target="#modal-detalle">
                         <i class="far fa-eye">
                         </i>
                         Detalle
@@ -163,7 +164,8 @@
                         Usuario3
                      </td>
                      <td class="project-actions text-right">
-                        <a class="btn btn-primary btn-sm" href="#">
+                        <a class="btn btn-primary btn-sm" href="#" data-toggle="modal"
+                           data-target="#modal-detalle">
                         <i class="far fa-eye">
                         </i>
                         Detalle
@@ -223,11 +225,11 @@
                               <td>$44.300</td>
                            </tr>
                            <tr>
-                              <th scope="row">2</th>
-                              <td>Anna</td>
-                              <td>Wintour</td>
-                              <td>USA / The United Kingdom / China / Russia </td>
-                              <td>New York City / Warsaw / Lodz / Amsterdam / London / Chicago</td>
+                              <th>$4.300</th>
+                              <td>$24.300</td>
+                              <td>$5.300</td>
+                              <td>$8.300</td>
+                              <td>$44.300</td>
                            </tr>
                         </tbody>
                         <!--Table body-->

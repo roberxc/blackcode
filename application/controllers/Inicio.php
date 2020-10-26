@@ -21,14 +21,14 @@ class Inicio extends CI_Controller {
 	public function index()
 	{
 
-			$user = $this->input->post('email');
-			if(isset($user)){
-				$data = array('email' => $user,
-				'id' => 0,
-				'login' => true);
-				$this->session->set_userdata($data);
+		$user = $this->input->post('email');
+		if(isset($user)){
+			$data = array('email' => $user,
+			'id' => 0,
+			'login' => true);
+			$this->session->set_userdata($data);
 
-			}
+		}
 			
 
 		if($this->session->userdata('email') === 'supremo'){
