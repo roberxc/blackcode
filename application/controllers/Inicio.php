@@ -31,14 +31,9 @@ class Inicio extends CI_Controller {
 		}
 			
 
-		if($this->session->userdata('email') === 'supremo'){
+		if($this->session->userdata('email') === 'admin'){
 			$data ['activo'] = 2;
 			$this->load->view('menu/menu_supremo',$data);
-			$this->load->view('Dashboard/Inicio');
-			$this->load->view('layout/footer');
-		}else if($this->session->userdata('email') === "proyecto"){
-			$data ['activo'] = 2;
-			$this->load->view('menu/menu_adminproyectos',$data);
 			$this->load->view('Dashboard/Inicio');
 			$this->load->view('layout/footer');
 		}else if($this->session->userdata('email') === "bodeguero"){
