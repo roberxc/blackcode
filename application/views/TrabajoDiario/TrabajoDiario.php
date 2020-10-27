@@ -114,12 +114,16 @@
                            data-target="#modal-detalle">
                         <i class="far fa-eye">
                         </i>
-                        Detalle
                         </a>
-                        <a class="btn btn-info btn-sm" href="#">
+                        <a class="btn btn-info btn-sm" href="#" data-toggle="modal"
+                           data-target="#modal-archivos">
                         <i class="fas fa-upload">
                         </i>
-                        Archivos
+                        </a>
+                        <a class="btn btn-info btn-sm" href="#" data-toggle="modal"
+                           data-target="#modal-asistencia">
+                        <i class="fas fa-book-open">
+                        </i>
                         </a>
                      </td>
                   </tr>
@@ -141,12 +145,16 @@
                            data-target="#modal-detalle">
                         <i class="far fa-eye">
                         </i>
-                        Detalle
                         </a>
-                        <a class="btn btn-info btn-sm" href="#">
+                        <a class="btn btn-info btn-sm" href="#" data-toggle="modal"
+                           data-target="#modal-archivos">
                         <i class="fas fa-upload">
                         </i>
-                        Archivos
+                        </a>
+                        <a class="btn btn-info btn-sm" href="#" data-toggle="modal"
+                           data-target="#modal-asistencia">
+                        <i class="fas fa-book-open">
+                        </i>
                         </a>
                      </td>
                   </tr>
@@ -168,12 +176,16 @@
                            data-target="#modal-detalle">
                         <i class="far fa-eye">
                         </i>
-                        Detalle
                         </a>
-                        <a class="btn btn-info btn-sm" href="#">
+                        <a class="btn btn-info btn-sm" href="#" data-toggle="modal"
+                           data-target="#modal-archivos">
                         <i class="fas fa-upload">
                         </i>
-                        Archivos
+                        </a>
+                        <a class="btn btn-info btn-sm" href="#" data-toggle="modal"
+                           data-target="#modal-asistencia">
+                        <i class="fas fa-book-open">
+                        </i>
                         </a>
                      </td>
                   </tr>
@@ -185,6 +197,217 @@
       <!-- /.card -->
       <!-- /.container-fluid -->
    </section>
+   <!-- Asistencia -->
+   <div class="modal fade" id="modal-asistencia">
+      <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h4 class="modal-title">Asistencia Personal</h4>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <div class="row">
+                  <div class="col-lg-3 col-6">
+                     <!-- small box -->
+                     <div class="small-box bg-info">
+                        <div class="inner">
+                           <p>Mañana</p>
+                        </div>
+                        <div class="icon">
+                           <i class="ion ion-clock"></i>
+                        </div>
+                        <a class="small-box-footer" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                           data-target="#modal-lg7">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
+                     </div>
+                  </div>
+                  <div class="col-lg-3 col-6">
+                     <!-- small box -->
+                     <div class="small-box bg-info">
+                        <div class="inner">
+                           <p>Tarde</p>
+                        </div>
+                        <div class="icon">
+                           <i class="ion ion-clock"></i>
+                        </div>
+                        <a class="small-box-footer" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                           data-target="#modal-lg8">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!-- Asistencia mañana -->
+   <div class="modal fade" id="modal-lg7">
+      <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h4 class="modal-title">Asistencia Personal Mañana</h4>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <form role="form" id="form" action="">
+                  <div class="table-responsive">
+                     <table class="table table-bordered" id="tabla_personal_mañana">
+                        <tr>
+                           <td>
+                              <label>Rut</label>
+                           </td>
+                           <td>
+                              <label>Nombre Completo</label>
+                           </td>
+                           <td>
+                              <label>Hora Salida</label>
+                           </td>
+                        </tr>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 4-3
+                              </td>
+                              <td>
+                                 Trabajador1
+                              </td>
+                              <td>
+                                 17:40
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 5-3
+                              </td>
+                              <td>
+                                 Trabajador2
+                              </td>
+                              <td>
+                                 17:40
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 6-3
+                              </td>
+                              <td>
+                                 Trabajador3
+                              </td>
+                              <td>
+                                 17:40
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </form>
+            </div>
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!-- Asistencia de tarde -->
+   <div class="modal fade" id="modal-lg8">
+      <div class="modal-dialog modal-xl">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h4 class="modal-title">Asistencia Personal Tarde</h4>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <form role="form" id="form" action="">
+                  <div class="table-responsive">
+                     <table class="table table-bordered" id="tabla_personal_tarde">
+                        <tr>
+                           <td>
+                              <label>Rut</label>
+                           </td>
+                           <td>
+                              <label>Nombre Completo</label>
+                           </td>
+                           <td>
+                              <label>Hora Retorno</label>
+                           </td>
+                           <td>
+                              <label>Hora Salida</label>
+                           </td>
+                           <td>
+                              <label>Hora Retorno</label>
+                           </td>
+                        </tr>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 12-5
+                              </td>
+                              <td>
+                                 Trabajador1
+                              </td>
+                              <td>
+                                 12:40
+                              </td>
+                              <td>
+                                 14:40
+                              </td>
+                              <td>
+                                 17:20
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 11-5
+                              </td>
+                              <td>
+                                 Trabajador2
+                              </td>
+                              <td>
+                                 12:40
+                              </td>
+                              <td>
+                                 14:40
+                              </td>
+                              <td>
+                                 17:20
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 2-5
+                              </td>
+                              <td>
+                                 Trabajador3
+                              </td>
+                              <td>
+                                 12:40
+                              </td>
+                              <td>
+                                 14:40
+                              </td>
+                              <td>
+                                 17:20
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                     <button type="button" class="btn btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                        data-target="#modal-l">Guardar</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
    <!-- Modal de detalle -->
    <div class="modal fade" id="modal-detalle">
       <div class="modal-dialog modal-lg">
@@ -198,6 +421,18 @@
                </button>
             </div>
             <div class="modal-body">
+               <div class="card card-default">
+                  <div class="modal-body">
+                     <div class="form-group">
+                        <label for="exampleInputEmail1">Detalle del Trabajo realizado</label>
+                        <textarea class="form-control" rows="3" placeholder="Ejemplo detalle trabajo" disabled></textarea>
+                     </div>
+                     <div class="form-group">
+                        <label for="exampleInputEmail1">Suma asignada</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="$140.000" disabled>
+                     </div>
+                  </div>
+               </div>
                <div class="card card-default">
                   <div class="table-responsive">
                      <div class="modal-header">
@@ -318,7 +553,6 @@
                            <tr>
                               <th>Material1</th>
                               <td>10</td>
-
                            </tr>
                            <tr>
                               <th>Material2</th>
@@ -430,7 +664,7 @@
                         <div class="form-group">
                            <label>Gasto total</label>
                            <div class="form-group">
-                              <input type="text" class="form-control">
+                              <input type="text" class="form-control" disabled>
                            </div>
                         </div>
                         <!-- /.form-group -->
@@ -440,7 +674,7 @@
                         <div class="form-group">
                            <label>Vuelto</label>
                            <div class="form-group">
-                              <input type="text" class="form-control">
+                              <input type="text" class="form-control" disabled>
                            </div>
                         </div>
                         <!-- /.form-group -->
@@ -483,382 +717,72 @@
       </div>
       <!-- /.modal-dialog -->
    </div>
-   <!-- Modal de gastos viaticos -->
-   <div class="modal fade" id="modal-gastosviaticos">
+   <!-- Archivos -->
+   <div class="modal fade" id="modal-archivos">
       <div class="modal-dialog modal-lg">
          <div class="modal-content">
             <div class="modal-header">
                <div align="center"><img src=""></div>
                </br>
-               <h4 class="modal-title">Detalle de trabajo</h4>
+               <h4 class="modal-title">Archivos</h4>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
                </button>
             </div>
-            <div class="modal-body">
-               <div class="form-group">
-                  <label for="exampleInputEmail1">Detalle de los trabajos realizados</label>
-                  <textarea class="form-control" rows="3" placeholder="Ingrese"></textarea>
-               </div>
-               <div class="form-group">
-                  <label for="exampleInputEmail1">Suma asignada</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1">
-               </div>
-               <form role="form" id="form" action="">
-                  <div class="table-responsive">
-                     <table class="table table-bordered" id="dynamic_field">
+            <div class="card card-info">
+               <div class="card-body p-0">
+                  <table class="table">
+                     <thead>
                         <tr>
-                           <td>
-                              <label>Material</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Cantidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Valor/Unidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
+                           <th>Archivo</th>
+                           <th></th>
                         </tr>
-                     </table>
-                  </div>
-               </form>
-            </div>
-         </div>
-         <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-   </div>
-   <!-- Materiales comprados durante los trabajos -->
-   <div class="modal fade" id="modal-matdurante">
-      <div class="modal-dialog modal-lg">
-         <div class="modal-content">
-            <div class="modal-header">
-               <div align="center"><img src=""></div>
-               </br>
-               <h4 class="modal-title">Detalle de trabajo</h4>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-               </button>
-            </div>
-            <div class="modal-body">
-               <div class="form-group">
-                  <label for="exampleInputEmail1">Detalle de los trabajos realizados</label>
-                  <textarea class="form-control" rows="3" placeholder="Ingrese"></textarea>
-               </div>
-               <div class="form-group">
-                  <label for="exampleInputEmail1">Suma asignada</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1">
-               </div>
-               <form role="form" id="form" action="">
-                  <div class="table-responsive">
-                     <table class="table table-bordered" id="dynamic_field">
+                     </thead>
+                     <tbody>
                         <tr>
-                           <td>
-                              <label>Material</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
+                           <td>Functional-requirements.docx</td>
+                           <td class="text-right py-0 align-middle">
+                              <div class="btn-group btn-group-sm">
+                                 <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                 <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                              </div>
                            </td>
-                           <td>
-                              <label>Cantidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
+                        <tr>
+                           <td>UAT.pdf</td>
+                           <td class="text-right py-0 align-middle">
+                              <div class="btn-group btn-group-sm">
+                                 <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                 <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                              </div>
                            </td>
-                           <td>
-                              <label>Valor/Unidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
+                        <tr>
+                           <td>Email-from-flatbal.mln</td>
+                           <td class="text-right py-0 align-middle">
+                              <div class="btn-group btn-group-sm">
+                                 <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                 <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                              </div>
                            </td>
-                        </tr>
-                     </table>
-                  </div>
-               </form>
-            </div>
-         </div>
-         <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-   </div>
-   <!-- Materiales comprados antes de los trabajos -->
-   <div class="modal fade" id="modal-matantes">
-      <div class="modal-dialog modal-lg">
-         <div class="modal-content">
-            <div class="modal-header">
-               <div align="center"><img src=""></div>
-               </br>
-               <h4 class="modal-title">Detalle de trabajo</h4>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-               </button>
-            </div>
-            <div class="modal-body">
-               <div class="form-group">
-                  <label for="exampleInputEmail1">Detalle de los trabajos realizados</label>
-                  <textarea class="form-control" rows="3" placeholder="Ingrese"></textarea>
+                        <tr>
+                           <td>Logo.png</td>
+                           <td class="text-right py-0 align-middle">
+                              <div class="btn-group btn-group-sm">
+                                 <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                 <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                              </div>
+                           </td>
+                        <tr>
+                           <td>Contract-10_12_2014.docx</td>
+                           <td class="text-right py-0 align-middle">
+                              <div class="btn-group btn-group-sm">
+                                 <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                 <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                              </div>
+                           </td>
+                     </tbody>
+                  </table>
                </div>
-               <div class="form-group">
-                  <label for="exampleInputEmail1">Suma asignada</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1">
-               </div>
-               <form role="form" id="form" action="">
-                  <div class="table-responsive">
-                     <table class="table table-bordered" id="dynamic_field">
-                        <tr>
-                           <td>
-                              <label>Material</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Cantidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Valor/Unidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                        </tr>
-                     </table>
-                  </div>
-               </form>
-            </div>
-         </div>
-         <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-   </div>
-   <!-- Modal de materiales bodega -->
-   <div class="modal fade" id="modal-matbodega">
-      <div class="modal-dialog modal-lg">
-         <div class="modal-content">
-            <div class="modal-header">
-               <div align="center"><img src=""></div>
-               </br>
-               <h4 class="modal-title">Detalle de trabajo</h4>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-               </button>
-            </div>
-            <div class="modal-body">
-               <div class="form-group">
-                  <label for="exampleInputEmail1">Detalle de los trabajos realizados</label>
-                  <textarea class="form-control" rows="3" placeholder="Ingrese"></textarea>
-               </div>
-               <div class="form-group">
-                  <label for="exampleInputEmail1">Suma asignada</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1">
-               </div>
-               <form role="form" id="form" action="">
-                  <div class="table-responsive">
-                     <table class="table table-bordered" id="dynamic_field">
-                        <tr>
-                           <td>
-                              <label>Material</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Cantidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Valor/Unidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                        </tr>
-                     </table>
-                  </div>
-               </form>
-            </div>
-         </div>
-         <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-   </div>
-   <!-- Modal de combustible -->
-   <div class="modal fade" id="modal-combustible">
-      <div class="modal-dialog modal-lg">
-         <div class="modal-content">
-            <div class="modal-header">
-               <div align="center"><img src=""></div>
-               </br>
-               <h4 class="modal-title">Detalle de trabajo</h4>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-               </button>
-            </div>
-            <div class="modal-body">
-               <div class="form-group">
-                  <label for="exampleInputEmail1">Detalle de los trabajos realizados</label>
-                  <textarea class="form-control" rows="3" placeholder="Ingrese"></textarea>
-               </div>
-               <div class="form-group">
-                  <label for="exampleInputEmail1">Suma asignada</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1">
-               </div>
-               <form role="form" id="form" action="">
-                  <div class="table-responsive">
-                     <table class="table table-bordered" id="dynamic_field">
-                        <tr>
-                           <td>
-                              <label>Material</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Cantidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Valor/Unidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                        </tr>
-                     </table>
-                  </div>
-               </form>
-            </div>
-         </div>
-         <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-   </div>
-   <!-- Modal de gastos varios-->
-   <div class="modal fade" id="modal-gastosvarios">
-      <div class="modal-dialog modal-lg">
-         <div class="modal-content">
-            <div class="modal-header">
-               <div align="center"><img src=""></div>
-               </br>
-               <h4 class="modal-title">Detalle de trabajo</h4>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-               </button>
-            </div>
-            <div class="modal-body">
-               <div class="form-group">
-                  <label for="exampleInputEmail1">Detalle de los trabajos realizados</label>
-                  <textarea class="form-control" rows="3" placeholder="Ingrese"></textarea>
-               </div>
-               <div class="form-group">
-                  <label for="exampleInputEmail1">Suma asignada</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1">
-               </div>
-               <form role="form" id="form" action="">
-                  <div class="table-responsive">
-                     <table class="table table-bordered" id="dynamic_field">
-                        <tr>
-                           <td>
-                              <label>Material</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Cantidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Valor/Unidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                        </tr>
-                     </table>
-                  </div>
-               </form>
-               <form role="form" id="form" action="">
-                  <div class="table-responsive">
-                     <table class="table table-bordered" id="dynamic_field">
-                        <tr>
-                           <td>
-                              <label>Material</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Cantidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Valor/Unidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                        </tr>
-                     </table>
-                  </div>
-               </form>
-               <form role="form" id="form" action="">
-                  <div class="table-responsive">
-                     <table class="table table-bordered" id="dynamic_field">
-                        <tr>
-                           <td>
-                              <label>Material</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Cantidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Valor/Unidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                        </tr>
-                     </table>
-                  </div>
-               </form>
-               <form role="form" id="form" action="">
-                  <div class="table-responsive">
-                     <table class="table table-bordered" id="dynamic_field">
-                        <tr>
-                           <td>
-                              <label>Material</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Cantidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Valor/Unidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                        </tr>
-                     </table>
-                  </div>
-               </form>
-               <form role="form" id="form" action="">
-                  <div class="table-responsive">
-                     <table class="table table-bordered" id="dynamic_field">
-                        <tr>
-                           <td>
-                              <label>Material</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Cantidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Valor/Unidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                        </tr>
-                     </table>
-                  </div>
-               </form>
-               <form role="form" id="form" action="">
-                  <div class="table-responsive">
-                     <table class="table table-bordered" id="dynamic_field">
-                        <tr>
-                           <td>
-                              <label>Material</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Cantidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                           <td>
-                              <label>Valor/Unidad</label>
-                              <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
-                           </td>
-                        </tr>
-                     </table>
-                  </div>
-               </form>
+               <!-- /.card-body -->
             </div>
          </div>
          <!-- /.modal-content -->
