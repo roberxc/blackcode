@@ -39,7 +39,7 @@ class Inicio extends CI_Controller {
 		}else if($this->session->userdata('email') === "bodeguero"){
 			$data ['activo'] = 2;
 			$this->load->view('menu/menu_bodeguero',$data);
-			$this->load->view('Dashboard/Inicio');
+			$this->load->view('Dashboard/InicioBodeguero');
 			$this->load->view('layout/footer');
 		}else if($this->session->userdata('email') === "trabajador"){
 			$data ['activo'] = 2;

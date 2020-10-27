@@ -1,6 +1,6 @@
 <!-- /.content-wrapper -->
 <footer class="main-footer">
-   <strong>Copyright &copy;  <a href="http://adminlte.io">CDH Ingenieria</a>.</strong>
+   <strong>Copyright &copy;  <a href="http://adminlte.io">BlackCode</a>.</strong>
    All rights reserved.
 </footer>
 <!-- Control Sidebar -->
