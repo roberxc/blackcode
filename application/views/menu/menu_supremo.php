@@ -122,7 +122,7 @@
     <a href="index3.html" class="brand-link">
       <img src="<?php echo base_url();?>assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">CDH Ingenieria</span>
+      <span class="brand-text font-weight-light">BlackCode</span>
     </a>
 
     <!-- Sidebar -->
@@ -242,24 +242,25 @@
             </ul>
           </li>
           -->
-
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
+        
+          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 3)){echo "menu-open"; }?>">
+            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 3)){echo "active"; }?>">
+              <i class="nav-icon fas fa-table"></i>
               <p>
-                Reportes
-                <i class="right fas fa-angle-left"></i>
+                Trabajos Diarios
+                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
+                <a href="<?php echo base_url()?>Operacion/trabajoDiario" class="nav-link <?php if(isset($activo) && ($activo == 3)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Estadisticas</p>
+                  <p>Trabajos realizados</p>
                 </a>
               </li>
             </ul>
           </li>
+<<<<<<< HEAD
 
 
 
@@ -289,51 +290,27 @@
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-poll-h"></i>
-              <p>
-                Ventas
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/forms/general.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>General Elements</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Advanced Elements</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/editors.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Editors</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/validation.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Validation</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 3)){echo "menu-open"; }?>">
-            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 3)){echo "active"; }?>">
+=======
+          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 5)){echo "menu-open"; }?>">
+            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 5)){echo "active"; }?>">
               <i class="nav-icon fas fa-table"></i>
+>>>>>>> ca67d80d0a10572e3b29854d75e735183f907731
               <p>
-                Trabajos Diarios
+                Administracion oficina
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url()?>Operacion/trabajoDiario" class="nav-link <?php if(isset($activo) && ($activo == 3)){echo "active"; }?>">
+                <a href="<?php echo base_url()?>ControladorAdmin/MenuCaja" class="nav-link <?php if(isset($activo) && ($activo == 5)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Trabajos realizados</p>
+                  <p>Caja Chica</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url()?>ControladorAdmin/trabajoDiario" class="nav-link <?php if(isset($activo) && ($activo == 3)){echo "active"; }?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Costos fijos</p>
                 </a>
               </li>
             </ul>

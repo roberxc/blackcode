@@ -43,7 +43,7 @@ class ControladorAdmin extends CI_Controller {
 	public function MenuCaja()
 	{
 		
-		$data ['activo'] = 1;
+		$data ['activo'] = 5;
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Dashboard/CajaChica');
 		$this->load->view('layout/footer');

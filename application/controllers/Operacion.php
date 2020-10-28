@@ -32,7 +32,7 @@ class Operacion extends CI_Controller {
 	public function trabajoDiario()
 	{
 		$name = $_SESSION['email'];
-		if(isset($name) && $name === "supremo"){
+		if(isset($name) && $name === "admin"){
 			$data ['activo'] = 3;
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('TrabajoDiario/TrabajoDiario');
