@@ -1,3 +1,4 @@
+
 <div class="content-wrapper">
    <div class="content-header">
       <div class="container-fluid">
@@ -61,61 +62,50 @@
             </div>
             <!-- /.row -->
          </div>
-      </div>
-      <div class="card card-default">
-         <div class="table-responsive">
-            <table id="table_reajustar_stock" name="table_reajustar_stock" class="table table-bordered table-striped" style="width: 100%;">
-               <thead>
-                  <tr>
-                     <th>ID</th>
-                     <!-- 0 -->
-                     <th>Nombre de Item</th>
-                     <!-- 1 -->
-                     <th>Codigo Item</th>
-                     <!-- 2 -->
-                     <th>Stock</th>
-                     <!-- 3 -->
-                     <th>Acción</th>
-                     <!-- 6 -->
-                  </tr>
-                  <tr>
-                     <td>1</td>
-                     <td>Cañeria de cobre</td>
-                     <td>001</td>
-                     <td>20</td>
-                     <td><a href="#" class="fas fa-eye" style="font-size: 20px;" ></a></td>
-                  </tr>
-                  <tr>
-                     <td>2</td>
-                     <td>Cañeria de oro</td>
-                     <td>002</td>
-                     <td>15</td>
-                     <td><a href="#" class="fas fa-eye" style="font-size: 20px;" ></a></td>
-                  </tr>
-                  <tr>
-                     <td>3</td>
-                     <td>Cañeria de hierro</td>
-                     <td>003</td>
-                     <td>23</td>
-                     <td><a href="#" class="fas fa-eye" style="font-size: 20px;" ></a></td>
-                  </tr>
-                  <tr>
-                     <td>4</td>
-                     <td>Pernos</td>
-                     <td>004</td>
-                     <td>66</td>
-                     <td><a href="#" class="fas fa-eye" style="font-size: 20px;" ></a></td>
-                  </tr>
-                  <tr>
-                     <td>5</td>
-                     <td>Cemento</td>
-                     <td>005</td>
-                     <td>17-</td>
-                     <td><a href="#" class="fas fa-eye" style="font-size: 20px;" ></a></td>
-                  </tr>
-               </thead>
-            </table>
-         </div>
+   </div>
+   
+   <div class="card card-default">
+            <div class="table-responsive">
+               <table id="table_reajustar_stock" name="table_reajustar_stock" class="table table-bordered table-striped" style="width: 100%;">
+                  <thead>
+                     <tr>
+                        <!-- 0 -->
+                        <th>Nombre de Item</th>
+                        <!-- 1 -->
+                        <th>Codigo Item</th>
+                        <!-- 2 -->
+                        <th>Stock</th>
+                        <!-- 6 -->
+                     </tr>
+                     <tr>
+                        <td>Cañeria de cobre</td>
+                        <td>001</td>
+                        <td>20</td>
+                     </tr>
+                     <tr>
+                        <td>Cañeria de oro</td>
+                        <td>002</td>
+                        <td>15</td>
+                     </tr>
+                     <tr>
+                        <td>Cañeria de hierro</td>
+                        <td>003</td>
+                        <td>23</td>
+                     </tr>
+                     <tr>
+                        <td>Pernos</td>
+                        <td>004</td>
+                        <td>66</td>
+                     </tr>
+                     <tr>
+                        <td>Cemento</td>
+                        <td>005</td>
+                        <td>17-</td>
+                     </tr>
+                  </thead>
+               </table>
+            </div>
+      
       </div>
       <div id="modal"></div>
       <!-- Modal -->

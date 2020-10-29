@@ -17,6 +17,8 @@ class Stock extends CI_Controller
 		$this->load->view('Bodega/Stock');
 		$this->load->view('layout/footer');
     }
+
+    
     /*
     public function fetch_data()
     {

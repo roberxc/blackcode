@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>CDH Ingenieria</title>
+  <title>BlackCode</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -123,7 +123,7 @@
     <a href="index3.html" class="brand-link">
       <img src="<?php echo base_url();?>assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">CDH Ingenieria</span>
+      <span class="brand-text font-weight-light">BlackCode</span>
     </a>
 
     <!-- Sidebar -->
@@ -148,7 +148,6 @@
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Registro entrada
-                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
 
@@ -159,7 +158,6 @@
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Registro salida
-                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
 
@@ -170,7 +168,6 @@
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Stock
-                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
 

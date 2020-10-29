@@ -1,20 +1,27 @@
 
 
 <div class="content-wrapper">
-    <section class="content-header">
-        <h1>Registro de Salidas</h1>
-        <ol class="breadcrumb">
-            <li>
-                <a href="<?php echo base_url(); ?>Login">
-                    <i class="fa fa-dashboard"></i>Inicio >> 
-                </a>
-            </li>
-            <li class="active"> Stock</li>
-        </ol>
-        <button data-toggle="modal" href="#miModal" class="btn btn-primary">
-              Ingresar Salida
+    <div class="content-header">
+      <div class="container-fluid">
+         <div class="row mb-2">
+            <div class="col-sm-6">
+               <h1 class="m-0 text-dark">Registro de Salidas</h1>
+            </div>
+            <div class="col-sm-6">
+               <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                  <li class="breadcrumb-item active">Registro de Salidas</li>
+               </ol>
+            </div>
+            <!-- /.col -->
+         </div>
+         <!-- /.row -->
+      </div>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#miModal">
+              Ingresar Entrada
         </button>
-    </section>
+      <!-- /.container-fluid -->
+   </div>
     <section class="content">
         <div class="box box-info ">
             <div class="box-body">

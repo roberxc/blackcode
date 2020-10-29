@@ -20,7 +20,8 @@ class Operacion extends CI_Controller {
 				$this->load->view('Trabajador/index');
 			}
 		}else{
-			$data ['activo'] = 2;
+			$data ['activo'] = 8;
+			$data ['activomenu'] = 1;
 			$data ['dispositivo'] = 'PC';
 			$this->load->view('menu/menu_trabajador',$data);
 			$this->load->view('Trabajador/OperacionPC',$data);
@@ -36,6 +37,32 @@ class Operacion extends CI_Controller {
 			$data ['activo'] = 3;
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('TrabajoDiario/TrabajoDiario');
+			$this->load->view('layout/footer');
+
+		}
+	}
+
+	public function stockBodega()
+	{
+		$name = $_SESSION['email'];
+		if(isset($name) && $name === "trabajador"){
+			$data ['activo'] = 9;
+			$data ['activomenu'] = 1;
+			$this->load->view('menu/menu_trabajador',$data);
+			$this->load->view('Trabajador/StockBodega');
+			$this->load->view('layout/footer');
+
+		}
+	}
+
+	public function trabajosRealizados()
+	{
+		$name = $_SESSION['email'];
+		if(isset($name) && $name === "trabajador"){
+			$data ['activo'] = 10;
+			$data ['activomenu'] = 1;
+			$this->load->view('menu/menu_trabajador',$data);
+			$this->load->view('Trabajador/TrabajosRealizados');
 			$this->load->view('layout/footer');
 
 		}
