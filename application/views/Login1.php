@@ -23,10 +23,10 @@
 <link rel="stylesheet" href="<?php echo base_url()?>assets/plugins/fontawesome-free/css/all.min.css">
 <!--===============================================================================================-->
 </head>
-<body >
+<body  >
 	
-	<div class="limiter" >
-		<div class="container-login100" >
+	<div class="limiter"  >
+		<div class="container-login100"  >
 			<div class="wrap-login100" >
 				<div class="login100-pic js-tilt" data-tilt>
 					<img src="assets/login/images/logo.png" alt="IMG">
