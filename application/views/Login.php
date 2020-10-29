@@ -22,7 +22,6 @@
       <div class="login-box">
          <div class="login-logo">
             <b>CDH</b> Ingenieria
-            <p><?php echo base_url()?></p>
          </div>
          <!-- /.login-logo -->
          <div class="card">
