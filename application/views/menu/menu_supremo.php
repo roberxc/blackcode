@@ -260,7 +260,7 @@
               </li>
             </ul>
           </li>
-<<<<<<< HEAD
+
 
 
 
@@ -290,11 +290,11 @@
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-poll-h"></i>
-=======
+
           <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 5)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 5)){echo "active"; }?>">
               <i class="nav-icon fas fa-table"></i>
->>>>>>> ca67d80d0a10572e3b29854d75e735183f907731
+
               <p>
                 Administracion oficina
                 <i class="fas fa-angle-left right"></i>

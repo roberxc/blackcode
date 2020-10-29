@@ -23,7 +23,7 @@ class Login extends CI_Controller {
 		if(isset($_SESSION['email'])){
 			unset($_SESSION['email']);
 		}
-		$this->load->view('Login');
+		$this->load->view('Login1');
 	}
 }
 
