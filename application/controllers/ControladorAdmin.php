@@ -48,6 +48,14 @@ class ControladorAdmin extends CI_Controller {
 		$this->load->view('Dashboard/CajaChica');
 		$this->load->view('layout/footer');
 	}
+	public function vueltocaja()
+	{
+		
+		$data ['activo'] = 5;
+		$this->load->view('menu/menu_supremo',$data);
+		$this->load->view('Dashboard/Vuelto');
+		$this->load->view('layout/footer');
+	}
 }
 
 ?>

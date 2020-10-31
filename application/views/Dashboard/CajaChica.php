@@ -53,6 +53,21 @@
               <a href="<?php echo base_url()?>ControladorAdmin/CajaEgreso" class="small-box-footer">Más detalle <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
+           <!-- ./col -->
+           <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h4>Vueltos</h4>
+
+                <p>Registro vuelto de los egreso asignados </p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="<?php echo base_url()?>ControladorAdmin/vueltocaja" class="small-box-footer">Más detalle <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
 
           <div class="col-lg-3 col-8">
             <!-- small box -->
