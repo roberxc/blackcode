@@ -4,6 +4,7 @@
 	<title>Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="assets/css/particles-login.css">
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="assets/login/images/icons/favicon.ico"/>
 <!--===============================================================================================-->
@@ -23,11 +24,13 @@
 <link rel="stylesheet" href="<?php echo base_url()?>assets/plugins/fontawesome-free/css/all.min.css">
 <!--===============================================================================================-->
 </head>
-<body  >
-	
-	<div class="limiter"  >
-		<div class="container-login100"  >
-			<div class="wrap-login100" >
+<body>
+	<div class="container text-center limiter">
+  <div id="particles-js"></div>
+  <div id="overlay">
+
+		<div class="container-login100">
+			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
 					<img src="assets/login/images/logo.png" alt="IMG">
 				</div>
@@ -58,28 +61,13 @@
 							Ingresar
 						</button>
 					</div></br></br></br>
-<!--
-					<div class="text-center p-t-12">
-						<span class="txt1">
-							Olvido su
-						</span>
-						<a class="txt2" href="#">
-							Correo / Contraseña?
-						</a>
-					</div>
--->
-<!--
-					<div class="text-center p-t-136">
-						<a class="txt2" href="#">
-							Crear cuenta
-							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-						</a>
-					</div>
--->
 				</form>
 			</div>
-		</div>
+		
 	</div>
+  </div>
+</div>
+	
 	
 	
 
@@ -93,11 +81,6 @@
 	<script src="assets/login/diseño/select2/select2.min.js"></script>
 <!--===============================================================================================-->
 	<script src="assets/login/diseño/tilt/tilt.jquery.min.js"></script>
-	<script >
-		$('.js-tilt').tilt({
-			scale: 1.1
-		})
-	</script>
 <!--===============================================================================================-->
 	<script src="assets/login/js/main.js"></script>
 <!--===============================================================================================-->
