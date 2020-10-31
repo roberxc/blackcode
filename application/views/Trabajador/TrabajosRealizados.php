@@ -22,7 +22,7 @@
    </div>
    <!-- /.content-header -->
    <!-- Main content -->
-   <div class="card-header">
+   <section class="content">
       <!-- SELECT2 EXAMPLE -->
       <div class="card card-default">
          <div class="card-header">
@@ -69,10 +69,9 @@
             </div>
             <!-- /.row -->
          </div>
-      </div>
    </div>
    <!-- Default box -->
-   <section class="content">
+   
       <div class="card">
          <div class="card-body p-0">
             <table class="table table-striped projects">

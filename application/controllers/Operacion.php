@@ -53,6 +53,15 @@ class Operacion extends CI_Controller {
 			$this->load->view('layout/footer');
 
 		}
+
+		else if(isset($name) && $name === "admin"){
+			$data ['activo'] = 9;
+			$data ['activomenu'] = 1;
+			$this->load->view('menu/menu_supremo',$data);
+			$this->load->view('Trabajador/StockBodega');
+			$this->load->view('layout/footer');
+
+		}
 	}
 
 	public function trabajosRealizados()

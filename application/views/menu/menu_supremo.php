@@ -260,37 +260,6 @@
               </li>
             </ul>
           </li>
-
-
-
-
-          
-          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 1)){echo "menu-open"; }?>">
-            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">
-              <i class="nav-icon fas fa-comment-dollar"></i>
-              <p>
-                Compras
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url()?>Ordenes" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ordenes de compra</p>
-                </a>
-              </li>
-              
-            </ul>
-          </li>
-
-     
-
-
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-poll-h"></i>
-
           <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 5)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 5)){echo "active"; }?>">
               <i class="nav-icon fas fa-table"></i>
@@ -311,6 +280,23 @@
                 <a href="<?php echo base_url()?>ControladorAdmin/trabajoDiario" class="nav-link <?php if(isset($activo) && ($activo == 3)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Costos fijos</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 9)){echo "menu-open"; }?>">
+            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 9)){echo "active"; }?>">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Bodega
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url()?>Operacion/stockBodega" class="nav-link <?php if(isset($activo) && ($activo == 9)){echo "active"; }?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Stock</p>
                 </a>
               </li>
             </ul>
