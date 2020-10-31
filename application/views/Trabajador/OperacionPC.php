@@ -45,11 +45,23 @@
                   <!-- /.card-header -->
                   <!-- form start -->
                   <form role="form">
+                  
                      <div class="card-body">
+                     <div class="form-group">
+                           <label for="exampleInputEmail1">Tipo de trabajo</label>
+                           <select class="form-control" name="cars" id="cars">
+                              <option value="volvo">Seleccionar</option>
+                              <option value="volvo">Municipalidad</option>
+                              <option value="saab">Copec</option>
+                              <option value="mercedes">Proyecto</option>
+                              
+                           </select>
+                        </div>
                         <div class="form-group">
                            <label for="exampleInputEmail1">Codigo de servicio</label>
                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Ingrese">
                         </div>
+                        
                         <div class="form-group">
                            <label for="exampleInputEmail1">Fecha</label>
                            <div class="input-group date" id="reservationdate" data-target-input="nearest">

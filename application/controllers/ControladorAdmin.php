@@ -56,6 +56,14 @@ class ControladorAdmin extends CI_Controller {
 		$this->load->view('Dashboard/Vuelto');
 		$this->load->view('layout/footer');
 	}
+	public function registroTrabajador()
+	{
+		
+		$data ['activo'] = 6;
+		$this->load->view('menu/menu_supremo',$data);
+		$this->load->view('Administracion/Registro');
+		$this->load->view('layout/footer');
+	}
 }
 
 ?>

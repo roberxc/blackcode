@@ -117,8 +117,18 @@
             <div class="row">
                 <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
                 <div class="col-lg-4">
-                    <h4>Codigo: 001 </br>Suma Asignada: $20000</h4>
+                    <h4>Codigo:  </br>Suma Asignada: $20000</h4>
                     <form id="contactForm" data-toggle="validator" data-focus="false">
+                    <div class="form-group">
+                           <label for="cars">Tipo de trabajo</label>
+                           <select class="form-control-input" name="cars" id="cars">
+                              <option value="volvo">Seleccionar</option>
+                              <option value="volvo">Municipalidad</option>
+                              <option value="saab">Copec</option>
+                              <option value="mercedes">Proyecto</option>
+                              
+                           </select>
+                        </div>
                         <div class="form-group">
                             <input type="date" class="form-control-input" id="cname" required>
                             <label class="label-control" for="cname">Fecha</label>
