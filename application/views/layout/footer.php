@@ -1,7 +1,7 @@
 <!-- /.content-wrapper -->
 <footer class="main-footer">
    <strong>Copyright &copy;  <a href="http://adminlte.io">BlackCode</a>.</strong>
-   All rights reserved.
+   Todos los derechos reservados.
 </footer>
 <!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">

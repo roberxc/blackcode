@@ -47,7 +47,7 @@ class Operacion extends CI_Controller {
 		$name = $_SESSION['email'];
 		if(isset($name) && $name === "trabajador"){
 			$data ['activo'] = 9;
-			$data ['activomenu'] = 1;
+			$data ['activomenu'] = 2;
 			$this->load->view('menu/menu_trabajador',$data);
 			$this->load->view('Trabajador/StockBodega');
 			$this->load->view('layout/footer');

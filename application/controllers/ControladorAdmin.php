@@ -60,6 +60,7 @@ class ControladorAdmin extends CI_Controller {
 	{
 		
 		$data ['activo'] = 6;
+		$data ['activomenu'] = 2;
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/Registro');
 		$this->load->view('layout/footer');
