@@ -164,7 +164,6 @@
           <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 5)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 5)){echo "active"; }?>">
               <i class="nav-icon fas fa-table"></i>
-
               <p>
                 Administracion oficina
                 <i class="fas fa-angle-left right"></i>

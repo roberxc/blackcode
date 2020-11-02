@@ -75,8 +75,11 @@
             <div class="small-box bg-success">
               <div class="inner">
                 <h4>Total de la caja chica</h4>
-
-                <h3>$100.000</h3>
+                
+                <h3><?php if (isset($totalcajachica)){
+                  echo '$'.$totalcajachica[0]->Balance;
+                   
+                }?></h3>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>

@@ -4,24 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ControladorAdmin extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
-
-
-	 
+	function __construct(){
+		parent::__construct();
+		$this->load->model('CajaChicaModel');
+		$this->load->helper(array('form', 'url'));
+	}
 
 	public function CajaEgreso()
 	{
@@ -42,15 +29,14 @@ class ControladorAdmin extends CI_Controller {
 	}
 	public function MenuCaja()
 	{
-		
 		$data ['activo'] = 5;
+		$data ['totalcajachica'] = $this->CajaChicaModel->obtenerTotalCajaChica();
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Dashboard/CajaChica');
 		$this->load->view('layout/footer');
 	}
 	public function vueltocaja()
 	{
-		
 		$data ['activo'] = 5;
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Dashboard/Vuelto');
@@ -65,6 +51,45 @@ class ControladorAdmin extends CI_Controller {
 		$this->load->view('Administracion/Registro');
 		$this->load->view('layout/footer');
 	}
+
+	//Metodos para registro con base de datos
+	public function ingresoCajaChica(){
+		if ($this->input->is_ajax_request()) {
+			//Validaciones
+			$this->form_validation->set_rules('montoingreso', 'Monto', 'required');
+			$this->form_validation->set_rules('fechaingreso', 'Fecha', 'required');
+
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+			} else {
+				$ajax_data = $this->input->post();
+
+				if ($this->CajaChicaModel->registroIngreso($ajax_data['fechaingreso'],$ajax_data['montoingreso'])) {
+					$data = array('response' => "success", 'message' => "Monto ingresado correctamente!");
+				} else {
+					$data = array('response' => "error", 'message' => "Falló el ingreso");
+				}
+			}
+
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+	}
+
+	public function obtenerIngresosCajaChica(){
+		if ($this->input->is_ajax_request()) {
+			$posts = $this->CajaChicaModel->obtenerIngresos();
+			echo json_encode($posts);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+	}
+
+
+
 }
 
 ?>
