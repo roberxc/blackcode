@@ -1,30 +1,62 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Login extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
-	public function index()
-	{
-		if(isset($_SESSION['email'])){
-			unset($_SESSION['email']);
-		}
-		$this->load->view('Login');
+	public function __construct(){
+		parent::__construct();
+		$this->load->library(array('form_validation','session'));
+		$this->load->helper(array('auth/login_rules'));
+		$this->load->model('Auth');
 	}
-}
+	
+	public function index(){
+		$this->load->view('login');
+		
+	}
 
-?>
+	public function validate(){
+		$this->form_validation->set_error_delimiters('', '');
+		$email = $this->input->post('email');
+		$password = $this->input->post('password');
+		$rules = getLoginRules();
+		$this->form_validation->set_rules($rules);
+		if($this->form_validation->run() === FALSE){
+			$this->output->set_status_header(400);
+			$errors = array(
+				'email' => form_error('email'),
+				'password' => form_error('password')
+
+			);
+			echo json_encode($errors);
+			
+		}else{
+			$usr= $this->input->post('email');
+			$pass= $this->input->post('password');
+			if(!$res = $this->Auth->login($usr, $pass)){
+				echo json_encode(array('msg' => 'Verifique sus credenciales '));
+				$this->output->set_status_header(401);
+				exit;
+
+			}
+			$data = array(
+				'id' => $res->id,
+				'id_tipousuario' => $res->id_tipousuario,
+				'nombre_usuario' => $res->nombre_usuario,
+				'is_logged' => TRUE,
+
+			);
+			$this->session->set_userdata($data);
+			$this->session->set_flashdata('msg', 'Bienvenido al sistema '.$data['nombre_usuario']);
+			echo json_encode(array("url" => base_url('dashboard')));
+
+		}
+
+	}
+	public function logout(){
+		$vars = array('id','id_tipousuario','nombre_usuario','is_logged');
+		$this->session->unset_userdata($vars);
+		$this->session->sess_destroy();
+		redirect('login');
+			//aqui se destuye la sesion y te redirige a login
+	}		
+}
