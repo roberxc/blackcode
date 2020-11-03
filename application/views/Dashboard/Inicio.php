@@ -5,6 +5,10 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Bienvenido <?php $set_data = $this->session->all_userdata(); 
+            if (isset($set_data['nombre_usuario'])) {
+              echo $set_data['nombre_usuario'];
+            }?></h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->

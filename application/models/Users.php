@@ -17,6 +17,16 @@ class Users extends CI_Model{
         }
         return true;
     }
+
+    public function getTipoUsuario(string $correo){
+
+        $this->db->select('id_tipousuario');
+        $this->db->from('usuario');
+        $this->db->where('correo', $correo);
+        $query = $this->db->get();
+
+        return $query->result();
+    }
 }
 
 

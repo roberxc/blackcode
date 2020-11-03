@@ -32,8 +32,8 @@ class Operacion extends CI_Controller {
 
 	public function trabajoDiario()
 	{
-		$name = $_SESSION['email'];
-		if(isset($name) && $name === "admin"){
+		$set_data = $this->session->all_userdata();
+		if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
 			$data ['activo'] = 3;
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('TrabajoDiario/TrabajoDiario');
@@ -44,8 +44,8 @@ class Operacion extends CI_Controller {
 
 	public function stockBodega()
 	{
-		$name = $_SESSION['email'];
-		if(isset($name) && $name === "trabajador"){
+		$set_data = $this->session->all_userdata();
+		if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 2) {
 			$data ['activo'] = 9;
 			$data ['activomenu'] = 2;
 			$this->load->view('menu/menu_trabajador',$data);
@@ -54,7 +54,7 @@ class Operacion extends CI_Controller {
 
 		}
 
-		else if(isset($name) && $name === "admin"){
+		else if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
 			$data ['activo'] = 9;
 			$data ['activomenu'] = 1;
 			$this->load->view('menu/menu_supremo',$data);
@@ -66,8 +66,8 @@ class Operacion extends CI_Controller {
 
 	public function trabajosRealizados()
 	{
-		$name = $_SESSION['email'];
-		if(isset($name) && $name === "trabajador"){
+		$set_data = $this->session->all_userdata();
+		if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 2) {
 			$data ['activo'] = 10;
 			$data ['activomenu'] = 1;
 			$this->load->view('menu/menu_trabajador',$data);
