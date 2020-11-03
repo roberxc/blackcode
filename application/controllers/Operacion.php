@@ -11,7 +11,6 @@ class Operacion extends CI_Controller {
 
 	public function index()
 	{
-		$name = $_SESSION['email'];
 		$detect = new CI_Mobile_Detect();
 		if ($detect->isMobile()) {
 			// Detecta si es un móvil
