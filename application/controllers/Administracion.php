@@ -14,6 +14,7 @@ class Administracion extends CI_Controller {
 	{
 		
 		$data ['activo'] = 1;
+		$this->load->view('layout/nav');
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/Egreso');
 		$this->load->view('layout/footer');
@@ -23,6 +24,7 @@ class Administracion extends CI_Controller {
 	{
 		
 		$data ['activo'] = 1;
+		$this->load->view('layout/nav');
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/Ingreso');
 		$this->load->view('layout/footer');
@@ -31,6 +33,7 @@ class Administracion extends CI_Controller {
 	{
 		$data ['activo'] = 5;
 		$data ['totalcajachica'] = $this->CajaChicaModel->obtenerTotalCajaChica();
+		$this->load->view('layout/nav');
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/CajaChica');
 		$this->load->view('layout/footer');
@@ -38,6 +41,7 @@ class Administracion extends CI_Controller {
 	public function vueltocaja()
 	{
 		$data ['activo'] = 5;
+		$this->load->view('layout/nav');
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/Vuelto');
 		$this->load->view('layout/footer');
@@ -45,6 +49,7 @@ class Administracion extends CI_Controller {
 	public function registroTrabajador(){
 		$data ['activo'] = 6;
 		$data ['activomenu'] = 2;
+		$this->load->view('layout/nav');
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/GestionCuentas');
 		$this->load->view('layout/footer');
@@ -150,12 +155,13 @@ class Administracion extends CI_Controller {
 				$data = array('response' => "error", 'message' => validation_errors());
 			} else {
 				$ajax_data = $this->input->post();
-
-				if ($this->CajaChicaModel->registroIngreso($ajax_data['fechaingreso'],$ajax_data['montoingreso'])) {
-					$data = array('response' => "success", 'message' => "Monto ingresado correctamente!");
-				} else {
-					$data = array('response' => "error", 'message' => "Falló el ingreso");
+				
+				if (!$this->Users->create($ajax_data)) {
+					$data = array('response' => "error", 'message' => "Falló el registro");
+				}else{
+					$data = array('response' => "success", 'message' => "Cuenta creada correctamente!");
 				}
+
 			}
 
 			echo json_encode($data);

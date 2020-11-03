@@ -43,7 +43,7 @@
             <div class="icon">
                <i class="ion ion-person-add"></i>
             </div>
-            <a href="<?php echo base_url()?>ControladorAdmin/registroTrabajador" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="<?php echo base_url()?>Administracion/registroTrabajador" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
          </div>
       </div>
           <!-- ./col -->
@@ -117,7 +117,7 @@
                            <div class="icon">
                               <i class="ion ion-stats-bars"></i>
                            </div>
-                           <a href="<?php echo base_url()?>ControladorAdmin/MenuCaja" class="small-box-footer">Administrar <i class="fas fa-arrow-circle-right"></i></a>
+                           <a href="<?php echo base_url()?>Administracion/MenuCaja" class="small-box-footer">Administrar <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                      </div>
                   </div>

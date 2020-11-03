@@ -22,6 +22,7 @@ class Operacion extends CI_Controller {
 			$data ['activo'] = 8;
 			$data ['activomenu'] = 1;
 			$data ['dispositivo'] = 'PC';
+			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_trabajador',$data);
 			$this->load->view('Trabajador/OperacionPC',$data);
 			$this->load->view('layout/footer');
@@ -34,6 +35,7 @@ class Operacion extends CI_Controller {
 		$set_data = $this->session->all_userdata();
 		if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
 			$data ['activo'] = 3;
+			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('TrabajoDiario/TrabajoDiario');
 			$this->load->view('layout/footer');
@@ -47,6 +49,7 @@ class Operacion extends CI_Controller {
 		if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 2) {
 			$data ['activo'] = 9;
 			$data ['activomenu'] = 2;
+			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_trabajador',$data);
 			$this->load->view('Trabajador/StockBodega');
 			$this->load->view('layout/footer');
@@ -56,6 +59,7 @@ class Operacion extends CI_Controller {
 		else if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
 			$data ['activo'] = 9;
 			$data ['activomenu'] = 1;
+			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('Trabajador/StockBodega');
 			$this->load->view('layout/footer');
@@ -69,6 +73,7 @@ class Operacion extends CI_Controller {
 		if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 2) {
 			$data ['activo'] = 10;
 			$data ['activomenu'] = 1;
+			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_trabajador',$data);
 			$this->load->view('Trabajador/TrabajosRealizados');
 			$this->load->view('layout/footer');
