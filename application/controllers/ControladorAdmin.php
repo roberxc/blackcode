@@ -78,6 +78,36 @@ class ControladorAdmin extends CI_Controller {
 
 	}
 
+	public function egresoCajaChica(){
+		if ($this->input->is_ajax_request()) {
+			//Validaciones
+			$this->form_validation->set_rules('montoegreso', 'Monto', 'required');
+			$this->form_validation->set_rules('fechaegreso', 'Fecha', 'required');
+			$this->form_validation->set_rules('destinatario', 'Destinatario', 'required');
+			$total = $this->CajaChicaModel->obtenerTotalCajaChica();
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+			} else {
+				$ajax_data = $this->input->post();
+				if($ajax_data['montoegreso']<=$total[0]->Balance){
+					if ($this->CajaChicaModel->registroEgreso($ajax_data['fechaegreso'],$ajax_data['montoegreso'],
+						$ajax_data['destinatario'],$ajax_data['detalle'])) {
+					$data = array('response' => "success", 'message' => "Egreso registrado correctamente!");
+					} else {
+						$data = array('response' => "error", 'message' => "Falló el ingreso");
+					}
+				}else{
+					$data = array('response' => "error", 'message' => "El monto ingresado es mayor al total de la caja chica");
+				}
+			}
+
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+	}
+
 	public function obtenerIngresosCajaChica(){
 		if ($this->input->is_ajax_request()) {
 			$posts = $this->CajaChicaModel->obtenerIngresos();
@@ -86,6 +116,24 @@ class ControladorAdmin extends CI_Controller {
 			echo "'No direct script access allowed'";
 		}
 
+	}
+
+	public function obtenerEgresosCajaChica(){
+		if ($this->input->is_ajax_request()) {
+			$posts = $this->CajaChicaModel->obtenerEgresos();
+			echo json_encode($posts);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+	}
+
+	public function obtenerVueltosCajaChica(){
+		if ($this->input->is_ajax_request()) {
+			$posts = $this->CajaChicaModel->obtenerVueltos();
+			echo json_encode($posts);
+		} else {
+			echo "'No direct script access allowed'";
+		}
 	}
 
 

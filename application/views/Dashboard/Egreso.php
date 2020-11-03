@@ -1,3 +1,6 @@
+<head>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+</head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Main Sidebar Container -->
@@ -21,7 +24,7 @@
                 <!-- SELECT2 EXAMPLE -->
                 <h4>Registrar salida de caja chica </h4>
                 <div class="card card-default">
-                
+                <form role="form" id="form" method="POST">
                   <!-- /.card-header -->
                   <div class="card-body">
                     <div class="row">
@@ -31,7 +34,7 @@
                         <div class="form-group">
                           <label>Fecha</label>
                               <div class="form-group">
-                                <input type="date" class="form-control" placeholder="Ingrese">
+                                <input type="date" class="form-control" placeholder="Ingrese" id="fechaegreso">
                               </div>
                         </div>
                         <!-- /.form-group -->
@@ -43,7 +46,7 @@
                         <div class="form-group">
                           <label>Monto</label>
                               <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Ingrese">
+                                <input type="text" class="form-control" placeholder="Ingrese" id="montoegreso">
                               </div>
                         </div>
                         <!-- /.form-group -->
@@ -53,7 +56,7 @@
                         <div class="form-group">
                           <label>Destinatario</label>
                               <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Ingrese">
+                                <input type="text" class="form-control" placeholder="Ingrese" id="destinatario">
                               </div>
                         </div>
                         <!-- /.form-group -->
@@ -63,7 +66,7 @@
                         <div class="form-group">
                           <label>Detalle</label>
                               <div class="form-group">
-                              <textarea type="text" class="form-control" placeholder="Ingrese"></textarea>
+                              <textarea type="text" class="form-control" placeholder="Ingrese" id="detalle"></textarea>
                               </div>
                         </div>
                         <!-- /.form-group -->
@@ -73,7 +76,7 @@
                         <!-- /.form-group -->
                         <div class="form-group">
                           <label class="invisible">Guardar</label>
-                          <button type="button" class="btn btn-block btn-primary">Guardar</button>
+                          <button type="button" class="btn btn-block btn-primary" id="add">Guardar</button>
                         </div>
                         <!-- /.form-group -->
                       </div>
@@ -81,6 +84,7 @@
                     </div>
                     <!-- /.row -->
                   </div>
+                  </form>
                 </div>
               </div>
             <!-- /.card -->
@@ -97,62 +101,12 @@
                     <th>Fecha</th>
                     <th>Monto $</th>
                     <th>Destinatario</th>
+                    <th>Detalle</th>
                     <th></th>
                   </tr>
                   </thead>
-                  <tbody>
-                  <tr>
-                    <td>25/10/2020</td>
-                    <td>20000</td>
-                    <td>Juan perez</td>
-                    <td >
-                        <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Editar
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Eliminar
-                          </a>
-                      </td>
+                  <tbody id="tbody">
                   
-                  </tr>
-                  <tr>
-                    <td>26/10/2020</td>
-                    <td>40000</td>
-                    <td>Sergio Adones</td>
-                    <td >
-                        <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Editar
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Eliminar
-                          </a>
-                      </td>
-                  </tr>
-                  <tr>
-                    <td>27/10/2020</td>
-                    <td>500000</td>
-                    <td>Sebastian Miranda</td>
-                    <td >
-                        <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Editar
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Eliminar
-                          </a>
-                      </td>
-                  </tr>
                   </tbody>
 
                 </table>
@@ -179,34 +133,16 @@
 <!-- ./wrapper -->
 
 
-<!-- Bootstrap 4 -->
-<script src="<?php echo base_url()?>assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- DataTables -->
-<script src="<?php echo base_url()?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="<?php echo base_url()?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="<?php echo base_url()?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="<?php echo base_url()?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url()?>assets/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url()?>assets/dist/js/demo.js"></script>
-<!-- page script -->
-<script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+   <script src="<?php echo base_url()?>assets/js/CajaChica/egreso_cajachica.js"></script>
 </body>
 </html>

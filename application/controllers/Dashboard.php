@@ -23,10 +23,13 @@ class Dashboard extends CI_Controller {
             'aside' => $this->load->view('layout/aside','',TRUE),
             'content' => $view,
             'footer' => $this->load->view('layout/footer','',TRUE),
-          
-        );  
-         
-        $this->load->view('Dashboard/inicio',$data);
+        );
+
+        $data ['activo'] = 2;
+		$this->load->view('menu/menu_supremo',$data);
+		$this->load->view('Dashboard/Inicio');
+		$this->load->view('layout/footer');
+
 
     }
 }

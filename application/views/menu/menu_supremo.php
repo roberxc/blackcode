@@ -97,7 +97,7 @@
             <a href="#"></a>
           </div>
           <div class="col-6 text-center">
-            <a href="<?php echo base_url()?>Login">Cerrar Sesión</a>
+            <a href="<?php echo base_url()?>Login/logout">Cerrar Sesión</a>
           </div>
         </div>
         <!-- /.row -->
