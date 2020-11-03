@@ -26,19 +26,16 @@
     echo "<br>";
     echo form_label('Correo electrónico');
     echo form_input(array('type' => 'email', 'name' => 'email'));
-   
     echo "<br>";
+    
     echo form_label('Contraseña');
     echo form_password('password');
-
     echo "<br>";
     echo form_label('Confirmacion de contraseña');
     echo form_password('password_confirm');
-
     echo "<br>";
+    
     echo form_submit('submit', 'Enviar datos');
-
-
     echo form_close();
 ?> 
 

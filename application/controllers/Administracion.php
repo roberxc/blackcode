@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-class ControladorAdmin extends CI_Controller {
+class Administracion extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
@@ -15,7 +15,7 @@ class ControladorAdmin extends CI_Controller {
 		
 		$data ['activo'] = 1;
 		$this->load->view('menu/menu_supremo',$data);
-		$this->load->view('Dashboard/Egreso');
+		$this->load->view('Administracion/Egreso');
 		$this->load->view('layout/footer');
 	}
 
@@ -24,7 +24,7 @@ class ControladorAdmin extends CI_Controller {
 		
 		$data ['activo'] = 1;
 		$this->load->view('menu/menu_supremo',$data);
-		$this->load->view('Dashboard/Ingreso');
+		$this->load->view('Administracion/Ingreso');
 		$this->load->view('layout/footer');
 	}
 	public function MenuCaja()
@@ -32,23 +32,21 @@ class ControladorAdmin extends CI_Controller {
 		$data ['activo'] = 5;
 		$data ['totalcajachica'] = $this->CajaChicaModel->obtenerTotalCajaChica();
 		$this->load->view('menu/menu_supremo',$data);
-		$this->load->view('Dashboard/CajaChica');
+		$this->load->view('Administracion/CajaChica');
 		$this->load->view('layout/footer');
 	}
 	public function vueltocaja()
 	{
 		$data ['activo'] = 5;
 		$this->load->view('menu/menu_supremo',$data);
-		$this->load->view('Dashboard/Vuelto');
+		$this->load->view('Administracion/Vuelto');
 		$this->load->view('layout/footer');
 	}
-	public function registroTrabajador()
-	{
-		
+	public function registroTrabajador(){
 		$data ['activo'] = 6;
 		$data ['activomenu'] = 2;
 		$this->load->view('menu/menu_supremo',$data);
-		$this->load->view('Administracion/Registro');
+		$this->load->view('Administracion/GestionCuentas');
 		$this->load->view('layout/footer');
 	}
 
@@ -134,6 +132,37 @@ class ControladorAdmin extends CI_Controller {
 		} else {
 			echo "'No direct script access allowed'";
 		}
+	}
+
+	//Metodos para la gestion de cuentas, registro de cuentas
+	public function registroCuentas(){
+		if ($this->input->is_ajax_request()) {
+			//Validaciones
+			$this->form_validation->set_rules('name', 'Nombre completo', 'required');
+			$this->form_validation->set_rules('rut', 'Rut', 'required');
+			$this->form_validation->set_rules('telefono', 'Telefono', 'required');
+			$this->form_validation->set_rules('email', 'Correo', 'required|valid_email');
+			$this->form_validation->set_rules('tipo', 'Tipo', 'required');
+			$this->form_validation->set_rules('password', 'Contraseña', 'required');
+			$this->form_validation->set_rules('password_confirm', 'Confirmar contraseña', 'required');
+
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+			} else {
+				$ajax_data = $this->input->post();
+
+				if ($this->CajaChicaModel->registroIngreso($ajax_data['fechaingreso'],$ajax_data['montoingreso'])) {
+					$data = array('response' => "success", 'message' => "Monto ingresado correctamente!");
+				} else {
+					$data = array('response' => "error", 'message' => "Falló el ingreso");
+				}
+			}
+
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
 	}
 
 

@@ -176,7 +176,7 @@ if (isset($set_data['nombre_usuario'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url()?>ControladorAdmin/MenuCaja" class="nav-link <?php if(isset($activo) && ($activo == 5)){echo "active"; }?>">
+                <a href="<?php echo base_url()?>Administracion/MenuCaja" class="nav-link <?php if(isset($activo) && ($activo == 5)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Caja Chica</p>
                 </a>
@@ -216,7 +216,7 @@ if (isset($set_data['nombre_usuario'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-              <a href="<?php echo base_url()?>ControladorAdmin/registroTrabajador" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
+              <a href="<?php echo base_url()?>Administracion/registroTrabajador" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Gestión de cuentas</p>
                 </a>
