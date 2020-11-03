@@ -31,7 +31,7 @@
                             <tr>
                                 <th>ID</th> <!-- 0 -->
                                 <th>Nombre de Item</th> <!-- 1 -->
-                                <th>Codigo Item</th> <!-- 2 -->
+                                <th>Tipo Item</th> <!-- 2 -->
                                 <th>Fecha de Salida</th>   <!-- 3 -->
                                 <th>Cantidad Salida</th>        <!-- 4 --> 
                                 <th>Acción</th>             <!-- 5 -->
@@ -39,38 +39,43 @@
                             <tr>
                               <td>1</td>
                               <td>Cañeria de cobre</td>
-                              <td>001</td>
+                              <td>Cañerias</td>
                               <td>19/10/2020</td>
                               <td>10</td>
-                              <td><a href="#" class="glyphicon glyphicon-edit" style="font-size: 20px;"></a></td>                            </tr>
+                              <td><a href="#" class="fas fa-edit" style="font-size: 20px;"></a>
+                              <a href="#" class="fas fa-eye" style="font-size: 20px;" ></a></td>                            </tr>
                             <tr>
                               <td>2</td>
                               <td>Cañeria de oro</td>
-                              <td>002</td>
+                              <td>Cañerias</td>
                               <td>20/10/2020</td>
                               <td>26</td>
-                              <td><a href="#" class="glyphicon glyphicon-edit" style="font-size: 20px;"></a></td>                            </tr>
+                              <td><a href="#" class="fas fa-edit" style="font-size: 20px;"></a>
+                              <a href="#" class="fas fa-eye" style="font-size: 20px;" ></a></td>                            </tr>
                             <tr>
                               <td>3</td>
                               <td>Cañeria de hierro</td>
-                              <td>003</td>
+                              <td>Cañerias</td>
                               <td>21/10/2020</td>
                               <td>15</td>
-                              <td><a href="#" class="glyphicon glyphicon-edit" style="font-size: 20px;"></a></td>                            </tr>
+                              <td><a href="#" class="fas fa-edit" style="font-size: 20px;"></a>
+                              <a href="#" class="fas fa-eye" style="font-size: 20px;" ></a></td>                            </tr>
                             <tr>
                               <td>4</td>
                               <td>Pernos</td>
-                              <td>004</td>
+                              <td>Herramientas</td>
                               <td>22/10/2020</td>
                               <td>39</td>
-                              <td><a href="#" class="glyphicon glyphicon-edit" style="font-size: 20px;"></a></td>                            </tr>
+                              <td><a href="#" class="fas fa-edit" style="font-size: 20px;"></a>
+                              <a href="#" class="fas fa-eye" style="font-size: 20px;" ></a></td>                            </tr>
                             <tr>
                               <td>5</td>
                               <td>Cemento</td>
-                              <td>005</td>
+                              <td>Construccion</td>
                               <td>23/10/2020</td>
                               <td>5</td>
-                              <td><a href="#" class="glyphicon glyphicon-edit" style="font-size: 20px;"></a></td></tr>   
+                              <td><a href="#" class="fas fa-edit" style="font-size: 20px;"></a>
+                              <a href="#" class="fas fa-eye" style="font-size: 20px;" ></a></td></tr>   
                                                    </thead>
                     </table>
                 </div>
@@ -90,7 +95,13 @@
         </div>
         <div class="modal-body">
           <p>Ingrese nombre del item: <input type="text" require></p><br>
-          <p>Ingrese codigo del item: <input type="text" require></p><br>
+          <p>Ingrese tipo de item: 
+            <select name="tipoitem">
+              <option>Cañerias</option>
+              <option>Herramientas</option>
+              <option>Construccion</option>
+            </select>
+          </p><br>
           <p>Ingrese fecha de salida: <input type="date" require></p><br>
           <p>Ingrese cantidad salida: <input type="number" require></p><br>
         </div>

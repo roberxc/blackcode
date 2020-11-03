@@ -71,7 +71,7 @@
                      <!-- 0 -->
                      <th>Nombre de Item</th>
                      <!-- 1 -->
-                     <th>Codigo Item</th>
+                     <th>Tipo Item</th>
                      <!-- 2 -->
                      <th>Stock</th>
                      <!-- 3 -->
@@ -81,36 +81,36 @@
                   <tr>
                      <td>1</td>
                      <td>Cañeria de cobre</td>
-                     <td>001</td>
+                     <td>Cañerias</td>
                      <td>20</td>
                      <td><a href="#" class="fas fa-eye" style="font-size: 20px;" ></a></td>
                   </tr>
                   <tr>
                      <td>2</td>
                      <td>Cañeria de oro</td>
-                     <td>002</td>
+                     <td>Cañerias</td>
                      <td>15</td>
                      <td><a href="#" class="fas fa-eye" style="font-size: 20px;" ></a></td>
                   </tr>
                   <tr>
                      <td>3</td>
                      <td>Cañeria de hierro</td>
-                     <td>003</td>
+                     <td>Cañerias</td>
                      <td>23</td>
                      <td><a href="#" class="fas fa-eye" style="font-size: 20px;" ></a></td>
                   </tr>
                   <tr>
                      <td>4</td>
                      <td>Pernos</td>
-                     <td>004</td>
+                     <td>Herramientas</td>
                      <td>66</td>
                      <td><a href="#" class="fas fa-eye" style="font-size: 20px;" ></a></td>
                   </tr>
                   <tr>
                      <td>5</td>
                      <td>Cemento</td>
-                     <td>005</td>
-                     <td>17-</td>
+                     <td>Construccion</td>
+                     <td>17</td>
                      <td><a href="#" class="fas fa-eye" style="font-size: 20px;" ></a></td>
                   </tr>
                </thead>
