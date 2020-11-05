@@ -41,7 +41,8 @@ class Login extends CI_Controller {
 			$data = array(
 				'id' => $res->id,
 				'id_tipousuario' => $res->id_tipousuario,
-				'nombre_usuario' => $res->nombre_usuario,
+				'email' => $res->correo,
+				'nombre_completo' => $res->nombre_completo,
 				'is_logged' => TRUE,
 
 			);
@@ -49,7 +50,7 @@ class Login extends CI_Controller {
 
 
 			
-			$this->session->set_flashdata('msg', 'Bienvenido al sistema '.$data['nombre_usuario']);
+			$this->session->set_flashdata('msg', 'Bienvenido al sistema '.$data['nombre_completo']);
 			echo json_encode(array("url" => base_url('Inicio')));
 
 		}

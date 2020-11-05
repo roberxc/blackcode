@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <?php $set_data = $this->session->all_userdata(); 
-if (isset($set_data['nombre_usuario'])) {
-  $nombre = $set_data['nombre_usuario'];
+if (isset($set_data['nombre_completo'])) {
+  $nombre = $set_data['nombre_completo'];
 }?>
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->

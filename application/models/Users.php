@@ -6,10 +6,12 @@ class Users extends CI_Model{
 
     public function create($datos){
         $datos = array(
-            'nombre_usuario' => $datos['nombre_usuario'],
-            'correo' => $datos['correo'],
-            'contrasena' => $datos['contrasena'],
-            'id_tipousuario' => 1,
+            'nombre_completo' => $datos['name'],
+            'Rut' => $datos['rut'],
+            'Telefono' => $datos['telefono'],
+            'correo' => $datos['email'],
+            'contrasena' => $datos['password'],
+            'id_tipousuario' => $datos['tipo'],
             
         );
         if(!$this->db->insert('usuario', $datos)){

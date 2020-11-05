@@ -66,6 +66,12 @@ $(document).on('click', '#add', function(e) {
 
 });
 
+$(document).on('click', '#back', function(e) {
+
+    e.preventDefault();
+    window.location.href = "MenuCaja";
+});
+
 function fetch() {
     $.ajax({
         url: "obtenerEgresosCajaChica",

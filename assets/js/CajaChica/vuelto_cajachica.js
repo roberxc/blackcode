@@ -1,22 +1,22 @@
-$(document).on('click', '#add', function(e) {
+$(document).on('click', '#guardarvuelto', function(e) {
     e.preventDefault();
 
-    var monto = $("#montoingreso").val();
-    var fecha = $("#fechaingreso").val();
+    var vuelto = $("#vuelto").val();
+    var fecha = $("#fecha").val();
 
     $.ajax({
-        url: "ingresoCajaChica",
+        url: "registroVuelto",
         type: "post",
         dataType: "json",
         data: {
-            montoingreso: monto,
-            fechaingreso: fecha,
+            vuelto: vuelto,
+            fecha: fecha,
         },
         success: function(data) {
             if (data.response == "success") {
                 fetch();
-                $('#exampleModal').modal('hide')
-                $("#form")[0].reset();
+                $('#vuelto1').modal('hide')
+                $("#formvuelto")[0].reset();
                 Command: toastr["success"](data.message)
 
                 toastr.options = {
@@ -62,6 +62,15 @@ $(document).on('click', '#add', function(e) {
 
 });
 
+$(document).on('click', '#ingresar', function(e) {
+    e.preventDefault();
+    var my_row_value = $(this).attr('data-row-val');
+    document.getElementById("fecha").value = my_row_value;
+
+});
+
+
+
 $(document).on('click', '#back', function(e) {
 
     e.preventDefault();
@@ -70,7 +79,7 @@ $(document).on('click', '#back', function(e) {
 
 function fetch() {
     $.ajax({
-        url: "obtenerIngresosCajaChica",
+        url: "obtenerVueltosCajaChica",
         type: "get",
         dataType: "json",
         success: function(data) {
@@ -78,20 +87,18 @@ function fetch() {
             var tbody = "";
             for (var key in data) {
                 tbody += "<tr>";
-                tbody += "<td>" + data[key]['FechaIngreso'] + "</td>";
-                tbody += "<td>" + data[key]['MontoIngreso'] + "</td>";
+                tbody += "<td>" + data[key]['NombreDestinatario'] + "</td>";
+                tbody += "<td>" + data[key]['Fecha'] + "</td>";
+                tbody += "<td>" + data[key]['Asignado'] + "</td>";
+                tbody += "<td>" + data[key]['Vuelto'] + "</td>";
                 tbody += `<td>
-                            <a class="btn btn-info btn-sm" href="<?php echo base_url()?>ControladorAdmin/CajaIngreso" data-toggle="modal" data-target="#EditarIngreso" value="${data[key]['id']}">
+                            <a class="btn btn-info btn-sm" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                            data-target="#vuelto1" id="ingresar" data-row-val="`+ data[key]['Fecha'] + `">
                                 <i class="fas fa-pencil-alt">
                                 </i>
-                                Editar
+                                Ingresar
                             </a>
-                            <a class="btn btn-danger btn-sm" href="#">
-                                <i class="fas fa-trash">
-                                </i>
-                                Eliminar
-                           </a>
-                            </td>`;
+                        </td>`;
                 tbody += "<tr>";
             }
 

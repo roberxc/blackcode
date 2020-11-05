@@ -80,6 +80,15 @@
                         </div>
                         <!-- /.form-group -->
                       </div>
+                      <div class="col-md-2">
+                              <!-- /.form-group -->
+                              <div class="form-group">
+                              <label class="invisible">Volver</label>
+                              <button type="button" class="btn btn-block btn-warning" id="back">Volver</button>
+     
+                              </div>
+                              <!-- /.form-group -->
+                           </div>
                       <!-- /.col -->
                     </div>
                     <!-- /.row -->

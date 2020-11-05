@@ -99,6 +99,16 @@ class CajaChicaModel extends CI_Model {
 		$query = $this->db->get('cajachica');
 		return $query->result();
 		
+	}
+	
+	//Actualiza el vuelto de un destinatario 
+	public function actualizarVuelto(int $vuelto,string $fecha){
+		
+		$this->db->set('Vuelto', $vuelto, FALSE);
+		$this->db->where('FechaEgreso', $fecha);
+
+		return $this->db->update('egresocaja'); // gives UPDATE mytable SET field = field+1 WHERE id = 2
+		
     }
 
 
