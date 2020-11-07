@@ -1,7 +1,12 @@
 $(document).on('click', '#add', function(e) {
     e.preventDefault();
 
-    var fecha = $("#fechaegreso").val();
+    var currentdate = new Date(); 
+    var datetime = currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds();
+
+    var fecha = $("#fechaegreso").val() + ' ' + datetime;
     var monto = $("#montoegreso").val();
     var destinatario = $("#destinatario").val();
     var detalle = $("#detalle").val();

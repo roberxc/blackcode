@@ -1,7 +1,12 @@
 $(document).on('click', '#add', function(e) {
     e.preventDefault();
 
-    var fecha = $("#fechaegreso").val();
+    var currentdate = new Date(); 
+    var datetime = currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds();
+
+    var fecha = $("#fechaegreso").val() + ' ' + datetime;
     var monto = $("#montoegreso").val();
     var destinatario = $("#destinatario").val();
     var detalle = $("#detalle").val();
@@ -66,38 +71,32 @@ $(document).on('click', '#add', function(e) {
 
 });
 
-function fetch() {
-    $.ajax({
-        url: "obtenerEgresosCajaChica",
-        type: "get",
-        dataType: "json",
-        success: function(data) {
-            var i = 1;
-            var tbody = "";
-            for (var key in data) {
-                tbody += "<tr>";
-                tbody += "<td>" + data[key]['FechaEgreso'] + "</td>";
-                tbody += "<td>" + data[key]['MontoEgreso'] + "</td>";
-                tbody += "<td>" + data[key]['NombreDestinatario'] + "</td>";
-                tbody += "<td>" + data[key]['Detalle'] + "</td>";
-                tbody += `<td>
-                            <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#EditarIngreso" value="${data[key]['id']}">
-                                <i class="fas fa-pencil-alt">
-                                </i>
-                                Editar
-                            </a>
-                            <a class="btn btn-danger btn-sm" href="#">
-                                <i class="fas fa-trash">
-                                </i>
-                                Eliminar
-                           </a>
-                            </td>`;
-                tbody += "<tr>";
-            }
+$(document).on('click', '#back', function(e) {
 
-            $("#tbody").html(tbody);
+    e.preventDefault();
+    window.location.href = "MenuCaja";
+});
+
+function generarCodigo(){
+    var codigo = $("#tipo_trabajo").val();
+    document.getElementById("codigo_servicio").value = codigo;
+
+    $.ajax({
+        url: "obtenerCodigoServicio",
+        type: "post",
+        dataType: "json",
+        data: {
+            codigo: codigo,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                
+            } else {
+               
+                
+            }
         }
     });
 }
 
-fetch();
+

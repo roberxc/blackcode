@@ -44,53 +44,50 @@
                   </div>
                   <!-- /.card-header -->
                   <!-- form start -->
-                  <form role="form">
+                  <form role="form" id="form" method="POST">
                   
                      <div class="card-body">
                      <div class="form-group">
                            <label for="exampleInputEmail1">Tipo de trabajo</label>
-                           <select class="form-control" name="cars" id="cars">
-                              <option value="volvo">Seleccionar</option>
-                              <option value="volvo">Municipalidad</option>
-                              <option value="saab">Copec</option>
-                              <option value="mercedes">Proyecto</option>
+                           <select class="form-control" name="cars" id="tipo_trabajo" onchange="generarCodigo()">
+                              <option value="">Seleccionar</option>
+                              <option value="MNC">Municipalidad</option>
+                              <option value="CPC">Copec</option>
+                              <option value="PRT">Proyecto</option>
                               
                            </select>
                         </div>
                         <div class="form-group">
                            <label for="exampleInputEmail1">Codigo de servicio</label>
-                           <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Ingrese">
+                           <input type="text" class="form-control" id="codigo_servicio" disabled>
                         </div>
                         
                         <div class="form-group">
-                           <label for="exampleInputEmail1">Fecha</label>
-                           <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                              <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
-                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                              </div>
-                           </div>
+                           <label>Fecha</label>
+                                 <div class="form-group">
+                                    <input type="date" class="form-control" placeholder="Ingrese" data-date-format="dd/mm/yyyy" id="fechaoperacion">
+                                 </div>
                            <div class="form-group">
                               <label for="exampleInputEmail1">Persona a cargo</label>
-                              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Ingrese">
+                              <input type="email" class="form-control" id="persona_cargo" placeholder="Ingrese">
                            </div>
                            <div class="form-group">
                               <label for="exampleInputEmail1">Proyecto / Cliente</label>
-                              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Ingrese">
+                              <input type="email" class="form-control" id="tipo" placeholder="Ingrese">
                            </div>
                            <div class="form-group">
                               <label for="exampleInputEmail1">Detalle de los trabajos realizados</label>
-                              <textarea class="form-control" rows="3" placeholder="Ingrese"></textarea>
+                              <textarea class="form-control" rows="3" placeholder="Ingrese" id="detalle"></textarea>
                            </div>
                            <div class="form-group">
                               <label for="exampleInputEmail1">Suma asignada</label>
-                              <input type="email" class="form-control" id="exampleInputEmail1">
+                              <input type="email" class="form-control" id="sumaasignada">
                            </div>
 
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
-                           <button type="submit" class="btn btn-primary">Guardar</button>
+                           <button type="submit" class="btn btn-primary" id="add">Guardar</button>
                         </div>
                      </div>
                   </form>
@@ -584,6 +581,10 @@
                                     <input type="text" name="name[]" placeholder="Ingrese" class="form-control" />
                                  </td>
                                  <td>
+                                    <label>Hora Entrada</label>
+                                    <input type="time" id="default-picker" class="form-control">
+                                 </td>
+                                 <td>
                                     <label>Hora Salida</label>
                                     <input type="time" id="default-picker" class="form-control">
                                  </td>
@@ -775,6 +776,7 @@
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/adjuntar_archivo.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/material_bodega.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/gastos_varios.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/Operaciones/ingreso_planilla.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
   bsCustomFileInput.init();

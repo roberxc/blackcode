@@ -39,9 +39,9 @@ class Login extends CI_Controller {
 
 			}
 			$data = array(
-				'id' => $res->id,
+				'ID_Usuario' => $res->ID_Usuario,
 				'id_tipousuario' => $res->id_tipousuario,
-				'email' => $res->correo,
+				'correo' => $res->correo,
 				'nombre_completo' => $res->nombre_completo,
 				'is_logged' => TRUE,
 
@@ -57,7 +57,7 @@ class Login extends CI_Controller {
 
 	}
 	public function logout(){
-		$vars = array('id','id_tipousuario','nombre_usuario','is_logged');
+		$vars = array('ID_Usuario','id_tipousuario','nombre_usuario','is_logged');
 		$this->session->unset_userdata($vars);
 		$this->session->sess_destroy();
 		redirect('login');

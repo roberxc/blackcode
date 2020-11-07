@@ -6,6 +6,7 @@ class Operacion extends CI_Controller {
 	public function __construct(){
 		parent::__construct();// you have missed this line.
 		$this->load->library('Mobile_Detect');
+		$this->load->model('OperacionesModel');
 		
 	 }
 
@@ -77,6 +78,16 @@ class Operacion extends CI_Controller {
 			$this->load->view('Trabajador/TrabajosRealizados');
 			$this->load->view('layout/footer');
 
+		}
+	}
+
+	//Metodos con base de datos
+	public function obtenerCodigoServicio(){
+		if ($this->input->is_ajax_request()) {
+			$posts = $this->OperacionesModel->consultarCodigoServicio();
+			echo json_encode($posts);
+		} else {
+			echo "'No direct script access allowed'";
 		}
 	}
 }

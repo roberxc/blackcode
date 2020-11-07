@@ -42,7 +42,7 @@
                               <div class="form-group">
                                  <label>Fecha</label>
                                  <div class="form-group">
-                                    <input type="date" class="form-control" placeholder="Ingrese">
+                                    <input type="date" class="form-control" placeholder="Ingrese" data-date-format="dd/mm/yyyy">
                                  </div>
                               </div>
                               <!-- /.form-group -->

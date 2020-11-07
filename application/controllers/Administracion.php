@@ -25,9 +25,10 @@ class Administracion extends CI_Controller {
 	{
 		
 		$data ['activo'] = 5;
+		$data['include_css'] = array("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css");
 		$this->load->view('layout/nav');
 		$this->load->view('menu/menu_supremo',$data);
-		$this->load->view('Administracion/Ingreso');
+		$this->load->view('Administracion/Ingreso',$data);
 		$this->load->view('layout/footer');
 	}
 	public function MenuCaja()

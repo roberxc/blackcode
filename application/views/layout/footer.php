@@ -1,7 +1,6 @@
-    <!-- FOOTER -->
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-<script src="http://localhost/hospital/assets/libs/sweetalert2/dist/sweetalert2.min.js"></script>
-<script src="http://localhost/hospital/assets/js/dashboard/show_users.js"></script>
+<!-- FOOTER -->
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
 <script src="<?php echo base_url();?>assets/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="<?php echo base_url();?>assets/plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -22,9 +21,7 @@
 <script src="<?php echo base_url();?>assets/plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
 <script src="<?php echo base_url();?>assets/plugins/moment/moment.min.js"></script>
-<script src="<?php echo base_url();?>assets/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script src="<?php echo base_url();?>assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summernote -->
 <script src="<?php echo base_url();?>assets/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->

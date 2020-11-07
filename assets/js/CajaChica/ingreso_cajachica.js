@@ -1,8 +1,13 @@
 $(document).on('click', '#add', function(e) {
     e.preventDefault();
 
+    var currentdate = new Date(); 
+    var datetime = currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds();
+
     var monto = $("#montoingreso").val();
-    var fecha = $("#fechaingreso").val();
+    var fecha = $("#fechaingreso").val() + ' ' + datetime;
 
     $.ajax({
         url: "ingresoCajaChica",
