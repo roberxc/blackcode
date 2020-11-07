@@ -15,9 +15,11 @@ class Operacion extends CI_Controller {
 		$detect = new CI_Mobile_Detect();
 		if ($detect->isMobile()) {
 			// Detecta si es un móvil
+
+		
 				$data ['dispositivo'] = 'Mobil';
 				$this->load->view('Trabajador/index');
-			
+
 		}else{
 			$data ['activo'] = 8;
 			$data ['activomenu'] = 1;
