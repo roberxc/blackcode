@@ -91,11 +91,6 @@ function fetch() {
                                 </i>
                                 Editar
                             </a>
-                            <a class="btn btn-danger btn-sm" href="#">
-                                <i class="fas fa-trash">
-                                </i>
-                                Eliminar
-                           </a>
                             </td>`;
                 tbody += "<tr>";
             }

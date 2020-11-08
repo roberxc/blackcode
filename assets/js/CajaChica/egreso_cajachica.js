@@ -86,24 +86,27 @@ function fetch() {
             var i = 1;
             var tbody = "";
             for (var key in data) {
-                tbody += "<tr>";
-                tbody += "<td>" + data[key]['FechaEgreso'] + "</td>";
-                tbody += "<td>" + data[key]['MontoEgreso'] + "</td>";
-                tbody += "<td>" + data[key]['NombreDestinatario'] + "</td>";
-                tbody += "<td>" + data[key]['Detalle'] + "</td>";
-                tbody += `<td>
-                            <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#EditarIngreso" value="${data[key]['id']}">
-                                <i class="fas fa-pencil-alt">
-                                </i>
-                                Editar
+                if(data[key]['Estado']==1){
+                    tbody += "<tr>";
+                    tbody += "<td>" + data[key]['FechaEgreso'] + "</td>";
+                    tbody += "<td>" + data[key]['MontoEgreso'] + "</td>";
+                    tbody += "<td>" + data[key]['NombreDestinatario'] + "</td>";
+                    tbody += "<td>" + data[key]['Detalle'] + "</td>";
+                    tbody += "<td>" + "Egresado" + "</td>";
+                    tbody += `<td>
+                                <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#EditarIngreso" value="${data[key]['id']}">
+                                    <i class="fas fa-pencil-alt">
+                                    </i>
+                                    Editar
+                                </a>
+                                <a class="btn btn-danger btn-sm" href="#">
+                                    <i class="fas fa-trash">
+                                    </i>
+                                    Eliminar
                             </a>
-                            <a class="btn btn-danger btn-sm" href="#">
-                                <i class="fas fa-trash">
-                                </i>
-                                Eliminar
-                           </a>
-                            </td>`;
-                tbody += "<tr>";
+                                </td>`;
+                    tbody += "<tr>";
+                }
             }
 
             $("#tbody").html(tbody);

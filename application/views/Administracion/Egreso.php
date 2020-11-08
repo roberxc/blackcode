@@ -100,6 +100,7 @@
                            <th>Monto $</th>
                            <th>Destinatario</th>
                            <th>Detalle</th>
+                           <th>Estado</th>
                            <th></th>
                      </tr>
                   </thead>

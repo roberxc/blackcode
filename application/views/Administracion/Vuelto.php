@@ -24,6 +24,7 @@
                   <!-- SELECT2 EXAMPLE -->
                   <div class="card card-default">
                      <!-- /.card-header -->
+                     <form role="form" id="formvuelto" method="POST">
                      <div class="card-body">
                         <div class="row">
                            <div class="col-md-4">
@@ -31,7 +32,7 @@
                               <div class="form-group">
                                  <label>Destinatario</label>
                                  <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Ingrese">
+                                    <input type="text" class="form-control" placeholder="Ingrese" id="destinatario">
                                  </div>
                               </div>
                               <!-- /.form-group -->
@@ -42,7 +43,7 @@
                               <div class="form-group">
                                  <label>Fecha</label>
                                  <div class="form-group">
-                                    <input type="date" class="form-control" placeholder="Ingrese" data-date-format="dd/mm/yyyy">
+                                    <input type="date" class="form-control" placeholder="Ingrese" data-date-format="dd/mm/yyyy" id="fechavuelto">
                                  </div>
                               </div>
                               <!-- /.form-group -->
@@ -67,6 +68,7 @@
                         </div>
                         <!-- /.row -->
                      </div>
+                     </form>
                   </div>
                </div>
                <!-- /.card -->
@@ -80,6 +82,8 @@
                               <th>Fecha</th>
                               <th>Monto asignado</th>
                               <th>Vuelto</th>
+                              <th>Estado</th>
+                              <th></th>
                            </tr>
                         </thead>
                         <tbody id="tbody">
@@ -124,6 +128,8 @@
                               <label>Vuelto</label>
                               <input type="text" placeholder="Ingrese" class="form-control" id="vuelto"/>
                               <input type="hidden" class="form-control" id="fecha"/>
+                              <input type="hidden" class="form-control" id="monto"/>
+                              <input type="hidden" class="form-control" id="vueltoasignado"/>
                            </td>
                         </tr>
                      </table>

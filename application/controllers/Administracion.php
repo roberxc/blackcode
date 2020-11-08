@@ -134,8 +134,9 @@ class Administracion extends CI_Controller {
 
 	public function obtenerVueltosCajaChica(){
 		if ($this->input->is_ajax_request()) {
-			$posts = $this->CajaChicaModel->obtenerVueltos();
-			echo json_encode($posts);
+			$ajax_data = $this->input->post();
+			$res = $this->CajaChicaModel->obtenerVueltos($ajax_data['fecha_vuelto']);
+			echo json_encode($res);
 		} else {
 			echo "'No direct script access allowed'";
 		}
@@ -176,18 +177,39 @@ class Administracion extends CI_Controller {
 	public function registroVuelto(){
 		if ($this->input->is_ajax_request()) {
 			//Validaciones
-			$this->form_validation->set_rules('vuelto', 'Vuelto', 'required');
+			$this->form_validation->set_rules('vuelto', 'Vuelto', 'required|numeric');
 
 			if ($this->form_validation->run() == FALSE) {
 				$data = array('response' => "error", 'message' => validation_errors());
 			} else {
 				$ajax_data = $this->input->post();
-				
-				if (!$this->CajaChicaModel->actualizarVuelto($ajax_data['vuelto'],$ajax_data['fecha'])) {
+				if($ajax_data['vuelto_asignado']==$ajax_data['monto_asignado']){
 					$data = array('response' => "error", 'message' => "Falló el registro de vuelto");
+
+				}else if($ajax_data['vuelto']<=$ajax_data['monto_asignado'] && $ajax_data['vuelto_asignado']==0){
+					
+					if (!$this->CajaChicaModel->actualizarVuelto($ajax_data['vuelto'],$ajax_data['fecha'],false,0)) {
+						$data = array('response' => "error", 'message' => "Falló el registro de vuelto");
+					}else{
+						$data = array('response' => "success", 'message' => "Vuelto ingresado correctamente!");
+					}
+
+
+				}else if($ajax_data['vuelto_asignado']>0){
+
+					$res = $ajax_data['vuelto_asignado'] + $ajax_data['vuelto'];
+					
+					if (!$this->CajaChicaModel->actualizarVuelto($res,$ajax_data['fecha'],true,$ajax_data['vuelto'])) {
+						$data = array('response' => "error", 'message' => "Falló el registro de vuelto");
+					}else{
+						$data = array('response' => "success", 'message' => "Vuelto ingresado correctamente!");
+					}
+
+
 				}else{
-					$data = array('response' => "success", 'message' => "Vuelto ingresado correctamente!");
+					$data = array('response' => "error", 'message' => "El vuelto ingresado es mayor al monto asignado");
 				}
+
 
 			}
 
