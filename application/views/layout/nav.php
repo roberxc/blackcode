@@ -96,7 +96,7 @@ if (isset($set_data['nombre_completo'])) {
       <li class="user-body">
         <div class="row">
           <div class="col-4 text-center">
-            <a href="#">Perfil</a>
+            <a href="<?php echo base_url()?>Perfil">Perfil</a>
           </div>
           <div class="col-2 text-center">
             <a href="#"></a>

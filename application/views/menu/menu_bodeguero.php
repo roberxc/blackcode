@@ -68,6 +68,26 @@ if (isset($set_data['nombre_completo'])) {
 
           </li>
 
+          <li class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 2)){echo "menu-open"; }?>">
+            <a href="#" class="nav-link <?php if(isset($activomenu) && ($activomenu == 2)){echo "active"; }?>">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Sistema
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+              <a href="<?php echo base_url()?>Perfil" class="nav-link <?php if(isset($activo) && ($activo == 7)){echo "active"; }?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Perfil</p>
+                </a>
+              </li>
+            
+            </ul>
+          </li>
+
 
         </ul>
 
