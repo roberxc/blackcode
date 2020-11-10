@@ -15,11 +15,12 @@ class RegistroEntrada extends CI_Controller
 
     public function index()
     {
-        //$data['include_js'] = array("entrada_producto.js");  #este te indica que js esta usando el modulo* 
 		$data ['activo'] = 1;
 		$data['categorias'] = $this->Bodega->verCategorias();
 		$data['usuarios'] = $this->Bodega->verPersonal();
 		$data['centrocosto'] = $this->Bodega->verCentroCostos();
+        $data ['activo'] = 2;
+        $this->load->view('layout/nav');
         $this->load->view('menu/menu_bodeguero',$data);
 		$this->load->view('Bodega/Entrada', $data);
 		$this->load->view('layout/footer');

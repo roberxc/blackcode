@@ -6,6 +6,7 @@ $(document).ready(function(){
     $('#tabla_personal_mañana').append('<tr id="row'+i+'"><td><input type="text" name="name[]" placeholder="Ingrese" class="form-control name_list" /></td>'+
 	'<td><input type="text" name="cantidad" placeholder="Ingrese" id="'+i+'" class="form-control"/></td>'+
 	'<td><input type="time" id="default-picker" class="form-control"></td>'+
+	'<td><input type="time" id="default-picker" class="form-control"></td>'+
     '<td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_removepersonalmañana">X</button></td></tr>');
 	});
 	

@@ -117,7 +117,7 @@
             <div class="row">
                 <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
                 <div class="col-lg-4">
-                    <h4>Codigo:  </br>Suma Asignada: $20000</h4>
+                    <h4>Codigo:</h4>
                     <form id="contactForm" data-toggle="validator" data-focus="false">
                     <div class="form-group">
                            <label for="cars">Tipo de trabajo</label>
@@ -145,6 +145,11 @@
                             <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group">
+                            <input type="text" class="form-control-input" id="cemail" required>
+                            <label class="label-control" for="cemail">Suma asignada</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
                             <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#detalleTrabajo">Siguiente</a></br> </br>
                             
                         </div>
@@ -167,7 +172,19 @@
                             <label class="label-control" for="cmessage">Detalle de los trabajos realizados</label>
                             <div class="help-block with-errors"></div>
                         </div>
-                        <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#trabajadores">Siguiente</a></br> </br>
+                        <div class="row">
+                            <div class="col-lg-4">
+                            <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#trabajadores">Siguiente</a>
+                            </div>
+
+                            <div class="col-lg-4">
+                            </div>
+
+                            <div class="col-lg-4">
+                            <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#trabajadores">Volver</a></br> </br>
+                            </div>
+                        </div>
+                        
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
         </div> <!-- end of container -->

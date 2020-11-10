@@ -33,9 +33,9 @@
                 
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="ion-android-arrow-dropup-circle"></i>
               </div>
-              <a href="<?php echo base_url()?>ControladorAdmin/CajaIngreso" class="small-box-footer">Más detalle <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?php echo base_url()?>Administracion/CajaIngreso" class="small-box-footer">Más detalle <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
 
@@ -49,9 +49,9 @@
                 <p>Registrar fecha, monto y destinatario de la salida de caja chica</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="ion-android-arrow-dropdown-circle"></i>
               </div>
-              <a href="<?php echo base_url()?>ControladorAdmin/CajaEgreso" class="small-box-footer">Más detalle <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?php echo base_url()?>Administracion/CajaEgreso" class="small-box-footer">Más detalle <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
            <!-- ./col -->
@@ -66,7 +66,7 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="<?php echo base_url()?>ControladorAdmin/vueltocaja" class="small-box-footer">Más detalle <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?php echo base_url()?>Administracion/vueltocaja" class="small-box-footer">Más detalle <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
 
@@ -140,7 +140,7 @@
                             <div class="icon">
                               <i class="ion ion-stats-bars"></i>
                             </div>
-                            <a href="<?php echo base_url()?>ControladorAdmin/CajaIngreso" class="small-box-footer">Administrar <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="<?php echo base_url()?>Administracion/CajaIngreso" class="small-box-footer">Administrar <i class="fas fa-arrow-circle-right"></i></a>
                           </div>
                         </div>
                       </div>

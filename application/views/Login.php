@@ -31,7 +31,7 @@
             <div class="container-login100">
                <div class="wrap-login100">
                   <div class="login100-pic js-tilt" data-tilt>
-                     <img src="assets/login/images/logo.png" alt="IMG">
+                     <img src="assets/imagen/logologin.png" alt="IMG">
                   </div>
                   <form action="<?= base_url('login/validate') ?>" method="POST" id="frm_login">
                      <span class="login100-form-title">
@@ -47,13 +47,11 @@
                         </div>
                      </div>  
                      <div class="wrap-input100 validate-input" data-validate = "Contraseña incorrecta" id="password">
-                        <input class="input100" type="password" name="password" placeholder="Ingrese su contraseña" id="exampleInputPassword1">
+                        <input class="input100" type="password" name="password"  id="exampleInputPassword1">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                         <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
-                        <div class="invalid-feedback">
-                        </div>
                         <div align="right" class> <a href='#' > Restablecer sus credenciales?</a></div>
                      </div>
 

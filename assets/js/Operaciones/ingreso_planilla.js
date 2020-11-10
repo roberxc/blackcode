@@ -6,16 +6,20 @@ $(document).on('click', '#add', function(e) {
                 + currentdate.getMinutes() + ":" 
                 + currentdate.getSeconds();
 
-    var monto = $("#montoingreso").val();
-    var fecha = $("#fechaingreso").val() + ' ' + datetime;
+    var fecha = $("#fechaegreso").val() + ' ' + datetime;
+    var monto = $("#montoegreso").val();
+    var destinatario = $("#destinatario").val();
+    var detalle = $("#detalle").val();
 
     $.ajax({
-        url: "ingresoCajaChica",
+        url: "egresoCajaChica",
         type: "post",
         dataType: "json",
         data: {
-            montoingreso: monto,
-            fechaingreso: fecha,
+            montoegreso: monto,
+            fechaegreso: fecha,
+            destinatario: destinatario,
+            detalle: detalle
         },
         success: function(data) {
             if (data.response == "success") {
@@ -73,31 +77,26 @@ $(document).on('click', '#back', function(e) {
     window.location.href = "MenuCaja";
 });
 
-function fetch() {
-    $.ajax({
-        url: "obtenerIngresosCajaChica",
-        type: "get",
-        dataType: "json",
-        success: function(data) {
-            var i = 1;
-            var tbody = "";
-            for (var key in data) {
-                tbody += "<tr>";
-                tbody += "<td>" + data[key]['FechaIngreso'] + "</td>";
-                tbody += "<td>" + data[key]['MontoIngreso'] + "</td>";
-                tbody += `<td>
-                            <a class="btn btn-info btn-sm" href="<?php echo base_url()?>ControladorAdmin/CajaIngreso" data-toggle="modal" data-target="#EditarIngreso" value="${data[key]['id']}">
-                                <i class="fas fa-pencil-alt">
-                                </i>
-                                Editar
-                            </a>
-                            </td>`;
-                tbody += "<tr>";
-            }
+function generarCodigo(){
+    var codigo = $("#tipo_trabajo").val();
+    document.getElementById("codigo_servicio").value = codigo;
 
-            $("#tbody").html(tbody);
+    $.ajax({
+        url: "obtenerCodigoServicio",
+        type: "post",
+        dataType: "json",
+        data: {
+            codigo: codigo,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                
+            } else {
+               
+                
+            }
         }
     });
 }
 
-fetch();
+
