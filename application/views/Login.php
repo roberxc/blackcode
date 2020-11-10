@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <title>Login</title>
+      <title>Login |</title>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" type="text/css" href="assets/css/particles-login.css">
@@ -35,7 +35,7 @@
                   </div>
                   <form action="<?= base_url('login/validate') ?>" method="POST" id="frm_login">
                      <span class="login100-form-title">
-                     Bienvenido a black code
+                    Bienvenido a BlackCode
                      </span>
                      <div class="wrap-input100 validate-input" data-validate = "Formato invalido: ex@black.xyz" id="email">
                         <input class="input100" type="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su email">
@@ -52,7 +52,7 @@
                         <span class="symbol-input100">
                         <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
-                        <div align="right" class> <a href='#' > Restablecer sus credenciales?</a></div>
+                        <div align="center" class> <a href='#' > Restablecer sus credenciales?</a></div>
                      </div>
 
                      <div class="form-group">
