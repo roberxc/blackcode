@@ -24,19 +24,7 @@ if (isset($set_data['nombre_completo'])) {
           <a href="#" class="d-block"><?php echo $nombre;?></a>
         </div>
       </div>
-      <?php if($dat = $this->session->flashdata('msg')): ?>
-                <div class="alert alert-primary" role="alert">
-                    <?=$dat?>
-                </div>
-                <?php endif; ?>
 
-                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a href="" class="nav-link <?= $this->uri->segment(1) == 'dashboard' ? 'active' : ''; ?>"  data-toggle="pill">Usuarios</a>
-                <a href="<?=base_url("users/create")?>" class="nav-link <?= $this->uri->segment(2) == 'create' || $this->uri->segment(2) == 'store'? 'active' : ''; ?>"  data-toggle="pill">Alta medica</a>
-                </div>
-            </div>
-
-        </nav>
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
