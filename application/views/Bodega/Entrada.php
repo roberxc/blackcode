@@ -1,3 +1,11 @@
+<head>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+</head>
+
 
 <div class="content-wrapper">
     <div class="content-header">
@@ -19,6 +27,9 @@
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#miModal">
               Ingresar Entrada
         </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Mimodal2">
+              Crear Categoria
+        </button>
       <!-- /.container-fluid -->
    </div>
     <section class="content">
@@ -29,11 +40,17 @@
                         <thead>
                             <tr>
                                 <th>ID</th> <!-- 0 -->
-                                <th>Nombre de Item</th> <!-- 1 -->
-                                <th>Tipo Item</th> <!-- 2 -->
-                                <th>Fecha de Ingreso</th>   <!-- 3 -->
-                                <th>Cantidad Ingresada</th>        <!-- 4 --> 
-                                <th>Acción</th>             <!-- 5 -->
+                                <th>Nombre Producto</th> <!-- 1 -->
+                                <th>Categoria</th> <!-- 2 -->
+                                <th>Centro Costo</th> <!-- 3 -->
+                                <th>Fecha de Ingreso</th>   <!-- 4 -->
+                                <th>Cantidad Ingresada</th>        <!-- 5 --> 
+                                <th>Precio de compra anterior</th> <!-- 6 -->
+                                <th>Precio de compra actual</th> <!-- 7 -->
+                                <th>Diferencia de Precio</th> <!-- 8 -->
+                                <th>Bodega</th> <!-- 9 -->
+                                <th>Responsable</th> <!-- 10 -->
+                                <th>Acción</th> <!-- 11 -->
                             </tr>
                             <tr>
                               <td>1</td>
@@ -85,111 +102,141 @@
                 </div>
             </div>
         </div>
-      <!-- MODAL --->
-      <div id="miModal" class="modal fade" role="dialog">
-      <div class="modal-dialog">
+      <!-- MODAL INGRESAR PRODUCTO --->
+      <div id="miModal" class="modal fade bd-example-modal-lg" role="dialog">
+      <div class="modal-dialog modal-lg">
       <div class="table-responsive">
     <!-- Contenido del modal -->
       <div class="modal-content">
         <div class="modal-header bg-blue">
         
         <H3>Ingresar Entrada de Productos</H3>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close-white" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-          <p>Ingrese nombre del item: <input type="text" require></p><br>
-          <p>Ingrese tipo de item: 
-            <select name="tipoitem">
-              <option>Cañerias</option>
-              <option>Herramientas</option>
-              <option>Construccion</option>
-            </select>
-          </p><br>
-          <p>Ingrese fecha de ingreso: <input type="date" require></p><br>
-          <p>Ingrese cantidad ingresada: <input type="number" require></p><br>
+
+          <form action="<?= base_url('RegistroEntrada/registrarproductoentrada') ?>" accept-charset="utf-8" method="POST">
+
+          <div class="form-group">
+            <label for="recipient-tipo" class="col-form-label">Seleccion centro de costos </label>
+              <select name="centrocostos" id="centrocostos" style="width: 100%; height: 60%">
+                <?php
+                    foreach($centrocosto as $i){
+                      echo '<option value="'. $i->ID_CentroCosto .'">'. $i->Nombre .'</option>';
+                    }
+                ?>
+              </select>
+          </div>
+
+          <div class="form-group">
+            <label for="recipient-nombre" class="col-form-label">Ingrese nombre del producto:</label>
+            <input type="text" class="form-control" name="nombreproducto" require>
+          </div>
+
+          <div class="form-group">
+            <label for="recipient-tipo" class="col-form-label">Seleccione tipo de producto: </label>
+              <select name="tipoproducto" id="tipoproducto" style="width: 100%; height: 60%">
+                <?php
+                    foreach($categorias as $i){
+                      echo '<option value="'. $i->ID_TipoMaterial .'">'. $i->Nombre .'</option>';
+                    }
+                ?>
+              </select>
+            
+          </div>
+
+          <div class="form-group">
+            <label for="recipient-fecha" class="col-form-label">Ingrese fecha de ingreso: </label>
+            <input type="date" class="form-control" value="<?php echo date("Y-m-d");?>" max="<?php echo date("Y-m-d");?>" name="fechaentrada" require>
+          </div>
+
+          <div class="form-group">
+            <label for="recipient-cantidad" class="col-form-label">Ingrese cantidad ingresada: </label>
+            <input type="number" min="1" class="form-control" name="cantidadentrada" id="cantidadentrada" require>
+          </div>
+
+          <div class="form-group">
+              <label for="recipient-precio" class="col-for-label">Ingrese precio del producto: </label>
+              <input type="number" min="1" class="form-control" name="precioproducto" id="precioproducto" require>
+          </div>
+
+          <div class="form-group">
+            <label for="recipient-usuario" class="col-form-label">Seleccione quien realizo la compra:</label>
+              <select class="form-control" name="usuario" id="personal" style="width: 100%; height: 60%">
+                <?php
+                    foreach($usuarios as $i){
+                      echo '<option value="'. $i->ID_Personal .'">'. $i->NombreCompleto .'</option>';
+                    }
+                ?>
+              </select>
+            
+          </div>
+
+          <div class="form-group">
+            <label for="recipient-glosa" class="col-form-label">Glosa: </label><br>
+            <input type="text" class="form-control" name="glosa" id="glosa" require>
+          </div>
+
+          
         </div>
         
-        <div class="modal-footer bg-blue">
-        <p>
-          <input type="submit" class="btn btn-success" value="Completar ingreso">
-        </p>
-          <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+        <div class="modal-footer bg-white">
+          
+          <input type="submit" class="btn btn-primary" value="Completar ingreso"  onclick="Success();" >
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          
         </div>
+        </form>
       </div>
       </div>
     </div>
     </div>
+</div>
 
+ <!-- MODAL INGRESAR CATEGORIA --->
 
-
-        <div id="modal"></div>
-        <!-- Modal -->
-<div class="modal fade" id="myModalVerMas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+<div class="modal" tabindex="-1" role="dialog" id="Mimodal2">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-blue">
-        <h4 class="modal-title" id="exampleModalLabel">Detalle Producto</h4>
-        <small>Stock del producto entre bodegas</small>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+        <h3 class="modal-title">Ingreso de nueva categoria</h3>
+        <button type="button" class="close-white" data-dismiss="modal">&times;</button>
         </button>
       </div>
-      <form id="frmHistorialStock" method="POST">
       <div class="modal-body">
-      <div class="box-body">
-      <div class="col-md-12">
-                <div class="panel-group">
-                  <div class="panel panel-primary">
-                    <div class="panel-heading">Mas Información</div>
-                    <div class="panel-body">
-                        <div class="col-md-4">
-                          <div class="form-group">
-                              <label for="txtGlosa">Glosa:</label>
-                              <textarea class="form-control" name="txtGlosa" id="txtGlosa" readonly></textarea>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="form-group">
-                              <label for="txtUsuarioResp">Usuario Responsable:</label>
-                              <input class="form-control" name="txtUsuarioResp" id="txtUsuarioResp" readonly></input>
-                          </div>
-                        </div>
-                  </div>
-                </div>
+        <form action="<?= base_url('RegistroEntrada/registrarCategoria') ?>" accept-charset="utf-8" method="POST">
+              <div class="form-group">
+                <label for="recipient-nombre" class="col-form-label">Ingrese el nombre de la nueva categoria:</label>
+                <input type="text" class="form-control" name="nombrecategoria" required>
               </div>
-            </div>
-            <div class="col-md-12">
-              <div class="panel-group">
-                <div class="panel panel-primary">
-                  <div class="panel-heading">Detalles Almacenamiento</div>
-                  <div class="panel-body">
-                     <div class="detalle-producto table-resposive">
-                      <div class="table-responsive">
-                      <table id="table_vermas_reajustar_stock" name="table_vermas_reajustar_stock" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Nombre del Producto</th> <!-- 0 -->
-                                <th>Bodega</th>              <!-- 1 -->
-                                <th>Cantidad Almacenada</th> <!-- 2 -->  
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>      
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+      <div class="modal-footer bg-white">
+        <input type="submit" class="btn btn-primary" value="Completar ingreso"  onclick="Success();" >
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>
-      </form>
-    </div>
+        </form>
     </div>
   </div>
 </div>
-    </section>
-</div>
+
+<script type="text/javascript">
+      $(document).ready(function(){
+        $('#tipoproducto').select2({
+          theme: "bootstrap"
+        });
+      });
+      $(document).ready(function(){
+        $('#personal').select2({
+          theme: "bootstrap"
+        });
+      });
+      $(document).ready(function(){
+        $('#centrocostos').select2({
+          theme: "bootstrap"
+        });
+      });
+</script>
+
+ <!-- ESTE PARA LAS ALERTAS --->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="<?php echo base_url();?>assets/js/sweetAlert.js"></script>

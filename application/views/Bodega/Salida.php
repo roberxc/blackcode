@@ -18,7 +18,7 @@
          <!-- /.row -->
       </div>
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#miModal">
-              Ingresar Entrada
+              Ingresar Salida
         </button>
       <!-- /.container-fluid -->
    </div>
@@ -30,8 +30,8 @@
                         <thead>
                             <tr>
                                 <th>ID</th> <!-- 0 -->
-                                <th>Nombre de Item</th> <!-- 1 -->
-                                <th>Tipo Item</th> <!-- 2 -->
+                                <th>Nombre Producto</th> <!-- 1 -->
+                                <th>Categoria</th> <!-- 2 -->
                                 <th>Fecha de Salida</th>   <!-- 3 -->
                                 <th>Cantidad Salida</th>        <!-- 4 --> 
                                 <th>Acción</th>             <!-- 5 -->
@@ -83,34 +83,59 @@
         </div>
 
           <!-- MODAL --->
-      <div id="miModal" class="modal fade" role="dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+      <div id="miModal" class="modal fade bd-example-modal-lg" role="dialog">
+      <div class="modal-dialog modal-lg">
       <div class="table-responsive">
     <!-- Contenido del modal -->
       <div class="modal-content">
         <div class="modal-header bg-blue">
         
         <H3>Ingresar Salida de Productos</H3>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close-white" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-          <p>Ingrese nombre del item: <input type="text" require></p><br>
-          <p>Ingrese tipo de item: 
-            <select name="tipoitem">
-              <option>Cañerias</option>
-              <option>Herramientas</option>
-              <option>Construccion</option>
-            </select>
-          </p><br>
-          <p>Ingrese fecha de salida: <input type="date" require></p><br>
-          <p>Ingrese cantidad salida: <input type="number" require></p><br>
+        <form>
+
+          <div class="form-group">
+            <label for="recipient-nombre" class="col-form-label">Ingrese nombre del producto:</label>
+            <input type="text" class="form-control" require>
+          </div>
+
+          <div class="form-group">
+            <label for="recipient-tipo" class="col-form-label">Ingrese tipo de producto: </label>
+              <select name="tipoitem" class="form-control">
+                <option>Cañerias</option>
+                <option>Herramientas</option>
+                <option>Construccion</option>
+              </select>
+          </div>
+
+          <div class="form-group">
+            <label for="recipient-fecha" class="col-form-label">Ingrese fecha de salida: </label>
+            <input type="date" class="form-control" value="<?php echo date("Y-m-d");?>" max="<?php echo date("Y-m-d");?>" require>
+          </div>
+
+          <div class="form-group">
+            <label for="recipient-cantidad" class="col-form-label">Ingrese cantidad salida: </label>
+            <input type="number" min="1" class="form-control" require>
+          </div>
+
+          <div class="form-group">
+            <label for="recipient-glosa" class="col-form-label">Glosa: </label><br>
+            <input type="text" size="50" class="form-control" require>
+          </div>
+
+          </form>
+
         </div>
         
-        <div class="modal-footer bg-blue">
+        <div class="modal-footer bg-white">
         <p>
-          <input type="submit" class="btn btn-success" value="Completar salida">
-        </p>
-          <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+            <input type="submit" class="btn btn-primary" value="Completar ingreso">
+          </p>
+          <p>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </p>
         </div>
       </div>
       </div>

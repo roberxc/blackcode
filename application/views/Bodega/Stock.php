@@ -49,6 +49,21 @@
                   </div>
                   <!-- /.form-group -->
                </div>
+               <div class="col-md-3">
+                  <!-- /.form-group -->
+                  <div class="form-group">
+                     <label>Tipo de producto</label>
+                     <div class="form-group">
+                     <select name="tipoitem" class="form-control">
+                        <option>Todos</option>
+                        <option>Cañerias</option>
+                        <option>Herramientas</option>
+                        <option>Construccion</option>
+                     </select>
+                     </div>
+                  </div>
+                  <!-- /.form-group -->
+               </div>
                <div class="col-md-2">
                   <!-- /.form-group -->
                   <div class="form-group">
@@ -69,9 +84,9 @@
                   <tr>
                      <th>ID</th>
                      <!-- 0 -->
-                     <th>Nombre de Item</th>
+                     <th>Nombre Producto</th>
                      <!-- 1 -->
-                     <th>Tipo Item</th>
+                     <th>Tipo Producto</th>
                      <!-- 2 -->
                      <th>Stock</th>
                      <!-- 3 -->
