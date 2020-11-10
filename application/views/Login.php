@@ -52,7 +52,7 @@
                         <span class="symbol-input100">
                         <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
-                        <div align="center" class> <a href='#' > Restablecer sus credenciales?</a></div>
+                       <!-- <div align="center" class> <a href='#' > Restablecer sus credenciales?</a></div> -->
                      </div>
 
                      <div class="form-group">
