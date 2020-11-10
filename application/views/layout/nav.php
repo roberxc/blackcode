@@ -52,10 +52,12 @@ if (isset($set_data['nombre_completo'])) {
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+          <span class="badge badge-warning navbar-badge">153</span>
+          
         </a>
+        
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
+          <span class="dropdown-item dropdown-header">3 Notifications</span>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
             <i class="fas fa-envelope mr-2"></i> 4 new messages
@@ -78,17 +80,18 @@ if (isset($set_data['nombre_completo'])) {
 
       <li class="nav-item dropdown user user-menu">
     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-      <img src="<?php echo base_url();?>assets/dist/img/user2-160x160.jpg" class="user-image img-circle elevation-2 alt="User Image">
+      <img src="<?php echo base_url();?>assets/dist/img/0012.png" class="user-image img-circle elevation-2 alt="User Image">
       <span class="hidden-xs"><?php echo $nombre;?></span>
     </a>
     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
       <!-- User image -->
       <li class="user-header bg-primary">
-        <img src="<?php echo base_url();?>assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        <img src="<?php echo base_url();?>assets/dist/img/0012.png" class="img-circle elevation-2" alt="User Image">
 
-        <p>
-          <?php echo $nombre;?> - Web Developer
-          <small>Member since Nov. 2012</small>
+        <p>Bienvenid@
+        Usuario
+         <small>(<?php echo $nombre;?> ) </small> 
+          
         </p>
       </li>
       <!-- Menu Body -->
