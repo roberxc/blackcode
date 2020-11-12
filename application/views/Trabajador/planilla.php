@@ -22,6 +22,7 @@
       <meta property="og:type" content="article" />
       <!-- Website Title -->
       <title>Registro de trabajo diario</title>
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
       <!-- Styles -->
       <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,600,700,700i&amp;subset=latin-ext" rel="stylesheet">
       <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -94,7 +95,7 @@
 
                   <div class="card">
                      <div class="card-body">
-                        <div class="card-title">Gasto de Vaticos</div>
+                        <div class="card-title">Gasto de Viaticos</div>
                         <hr class="cell-divide-hr">
                         <div class="price">
                            <span class="currency">$</span><span class="value">5000</span>
@@ -124,7 +125,7 @@
                            </li>
                         </ul>
                         <div class="button-wrapper">
-                           <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#vaticos">Ingresar</a>
+                           <a class="btn-solid-reg popup-with-move-anim" type="submit" id="in-viaticos" href="#vaticos">Ingresar</a>
                         </div>
                      </div>
                   </div>
@@ -135,35 +136,38 @@
                         <div class="row">
                            <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
                            <div class="col-lg-4">
-                              <h4>Ingrese los gasto de Vaticos </h4>
-                              <form id="contactForm" data-toggle="validator" data-focus="false">
+                              <h4>Ingrese los gasto de Viaticos </h4>
+                              <form id="formviatico" role="form" method="POST">
                                  <div class="form-group">
-                                    <input type="number" class="form-control-input" id="cname" required>
+                                    <input type="number" class="form-control-input" id="vdesayuno" required>
                                     <label class="label-control" for="cname">Desayuno</label>
                                     <div class="help-block with-errors"></div>
                                  </div>
                                  <div class="form-group">
-                                    <input type="number" class="form-control-input" id="cemail" required>
+                                    <input type="number" class="form-control-input" id="valmuerzo" required>
                                     <label class="label-control" for="cemail">Almuerzo</label>
                                     <div class="help-block with-errors"></div>
                                  </div>
                                  <div class="form-group">
-                                    <input type="number" class="form-control-input" id="cemail" required>
+                                    <input type="number" class="form-control-input" id="vcena" required>
                                     <label class="label-control" for="cemail">Cena</label>
                                     <div class="help-block with-errors"></div>
                                  </div>
                                  <div class="form-group">
-                                    <input type="number" class="form-control-input" id="cemail" required>
+                                    <input type="number" class="form-control-input" id="vagua" required>
                                     <label class="label-control" for="cemail">Agua</label>
                                     <div class="help-block with-errors"></div>
                                  </div>
                                  <div class="form-group">
-                                    <input type="number" class="form-control-input" id="cemail" required>
+                                    <input type="number" class="form-control-input" id="valojamiento" required>
                                     <label class="label-control" for="cemail">Alojamiento</label>
                                     <div class="help-block with-errors"></div>
                                  </div>
                                  <div class="form-group">
-                                    <a class="btn-solid-reg "  type="submit" href="">Guardar</a></br> </br>
+
+
+                                    <button class="btn-solid-reg" id="addviatico" type="button">Guardar</button>
+
                                  </div>
                                  
                               </form>
@@ -661,6 +665,15 @@
       <!-- end of container -->
       </div> <!-- end of lightbox-basic -->
       <!-- end of details lightbox 1 -->
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 
       <!-- Scripts modal -->
       <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
@@ -677,5 +690,8 @@
       <script src="assets/js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
       <script src="assets/js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
       <script src="assets/js/scripts.js"></script> <!-- Custom scripts -->
+
+
+      <script src="<?php echo base_url()?>assets/js/Operaciones/ingreso_planilla.js"></script>
    </body>
 </html>
