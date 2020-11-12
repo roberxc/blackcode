@@ -15,7 +15,9 @@ class Operacion extends CI_Controller {
 		$detect = new CI_Mobile_Detect();
 
 		$data ['dispositivo'] = 'Mobil';
-				$this->load->view('Trabajador/index');
+		$data ['tipos_trabajos'] = $this->OperacionesModel->ObtenerTipostrabajos();
+		
+		$this->load->view('Trabajador/index',$data);
 
 				/*
 		if ($detect->isMobile()) {
@@ -87,8 +89,31 @@ class Operacion extends CI_Controller {
 	//Metodos con base de datos
 	public function obtenerCodigoServicio(){
 		if ($this->input->is_ajax_request()) {
-			$posts = $this->OperacionesModel->consultarCodigoServicio();
-			echo json_encode($posts);
+			$ajax_data = $this->input->post(); //Datos que vienen por POST
+			$res = $this->OperacionesModel->consultarCodigoServicio($ajax_data['codigo_servicio']);
+
+			if($res){
+				$data = array('response' => "success", 'message' => $res);
+			}else{
+				$data = array('response' => "success", 'message' => "Egreso registrado correctamente!");
+			}
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+	}
+
+	public function ingresarTrabajoDiario(){
+		if ($this->input->is_ajax_request()) {
+			$ajax_data = $this->input->post(); //Datos que vienen por POST
+			$res = $this->OperacionesModel->registrarTrabajoDiario($ajax_data);
+
+			if($res){
+				$data = array('response' => "success", 'message' => "Trabajo ingresado correctamente!");
+			}else{
+				$data = array('response' => "success", 'message' => "Egreso registrado correctamente!");
+			}
+			echo json_encode($data);
 		} else {
 			echo "'No direct script access allowed'";
 		}
