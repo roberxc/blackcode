@@ -1,33 +1,27 @@
-$(document).on('click', '#add', function(e) {
+$(document).on('click', '#addviatico', function(e) {
     e.preventDefault();
+    document.getElementById("vaticos").style.display = "none";
+    var cena = $("#vcena").val();
+    var almuerzo = $("#valmuerzo").val();
+    var desayuno = $("#vdesayuno").val();
+    var agua = $("#vagua").val();
+    var alojamiento = $("#valojamiento").val();
 
-    var currentdate = new Date(); 
-    var datetime = currentdate.getHours() + ":"  
-                + currentdate.getMinutes() + ":" 
-                + currentdate.getSeconds();
-
-    var fecha = $("#fechaegreso").val() + ' ' + datetime;
-    var monto = $("#montoegreso").val();
-    var destinatario = $("#destinatario").val();
-    var detalle = $("#detalle").val();
-
+    console.log(cena + ' ' + almuerzo + ' ' + desayuno + ' ' + agua + ' ' + alojamiento)
     $.ajax({
-        url: "egresoCajaChica",
+        url: "PlantillaOperaciones/registroGastoViaticos",
         type: "post",
         dataType: "json",
         data: {
-            montoegreso: monto,
-            fechaegreso: fecha,
-            destinatario: destinatario,
-            detalle: detalle
+            vcena: cena,
+            valmuerzo: almuerzo,
+            vdesayuno: desayuno,
+            vagua: agua,
+            valojamiento: alojamiento,
         },
         success: function(data) {
             if (data.response == "success") {
-                fetch();
-                $('#exampleModal').modal('hide')
-                $("#form")[0].reset();
                 Command: toastr["success"](data.message)
-
                 toastr.options = {
                     "closeButton": false,
                     "debug": false,
@@ -71,32 +65,11 @@ $(document).on('click', '#add', function(e) {
 
 });
 
-$(document).on('click', '#back', function(e) {
-
+$(document).on('click', '#in-viaticos', function(e) {
     e.preventDefault();
-    window.location.href = "MenuCaja";
+    document.getElementById("vaticos").style.display = "block";
+
 });
 
-function generarCodigo(){
-    var codigo = $("#tipo_trabajo").val();
-    document.getElementById("codigo_servicio").value = codigo;
-
-    $.ajax({
-        url: "obtenerCodigoServicio",
-        type: "post",
-        dataType: "json",
-        data: {
-            codigo: codigo,
-        },
-        success: function(data) {
-            if (data.response == "success") {
-                
-            } else {
-               
-                
-            }
-        }
-    });
-}
 
 

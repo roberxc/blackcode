@@ -13,13 +13,15 @@ class Operacion extends CI_Controller {
 	public function index()
 	{
 		$detect = new CI_Mobile_Detect();
-		if ($detect->isMobile()) {
-			// Detecta si es un móvil
 
-		
-				$data ['dispositivo'] = 'Mobil';
+		$data ['dispositivo'] = 'Mobil';
 				$this->load->view('Trabajador/index');
 
+				/*
+		if ($detect->isMobile()) {
+			// Detecta si es un móvil
+			$data ['dispositivo'] = 'Mobil';
+			$this->load->view('Trabajador/index');
 		}else{
 			$data ['activo'] = 8;
 			$data ['activomenu'] = 1;
@@ -28,8 +30,7 @@ class Operacion extends CI_Controller {
 			$this->load->view('menu/menu_trabajador',$data);
 			$this->load->view('Trabajador/OperacionPC',$data);
 			$this->load->view('layout/footer');
-
-		}
+		}*/
 	}
 
 	public function trabajoDiario()
