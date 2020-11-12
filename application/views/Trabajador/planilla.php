@@ -163,8 +163,9 @@
                                     <div class="help-block with-errors"></div>
                                  </div>
                                  <div class="form-group">
-                                    <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
+                                    <a class="btn-solid-reg "  type="submit" href="">Guardar</a></br> </br>
                                  </div>
+                                 
                               </form>
                            </div>
                            <!-- end of col -->
