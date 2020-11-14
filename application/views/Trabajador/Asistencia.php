@@ -86,31 +86,32 @@
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
-                           <TH>Hora de salida(En Mañana)</TH>
+                        <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la mañana:</TD> 
+                        </TR>
+                        <TR>
+                           <TH >Hora de entrada:</TH>
+                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
+                        </TR>
+                        <TR>
+                           <TH>Hora de salida:</TH>
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
 
                         <TR>
-                        <TD COLSPAN=2>Asistencia en la tarde:</TD> 
+                        <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la tarde:</TD> 
                         </TR>
 
                         <TR>
-                           <TH>Hora de retorno(En Tarde)</TH>
+                           <TH>Hora de entrada:</TH>
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
-                           <TH>Hora de Salida(En Tarde)</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Hora de retorno(En Tarde)</TH>
+                           <TH>Hora de salida:</TH>
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                      </table>
                         <hr class="cell-divide-hr">
-                        <div class="button-wrapper">
-                           <a class="btn-solid-reg page-scroll" href="#request">Guardar</a>
-                        </div>
+                       
                      </div>
                   </div>
 
@@ -125,29 +126,32 @@
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
-                           <TH>Hora de salida(En Mañana)</TH>
+                        <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la mañana:</TD> 
+                        </TR>
+                        <TR>
+                           <TH >Hora de entrada:</TH>
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
-                        <TD COLSPAN=2>Asistencia en la tarde:</TD> 
+                           <TH>Hora de salida:</TH>
+                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
+
                         <TR>
-                           <TH>Hora de retorno(En Tarde)</TH>
+                        <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la tarde:</TD> 
+                        </TR>
+
+                        <TR>
+                           <TH>Hora de entrada:</TH>
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
-                           <TH>Hora de Salida(En Tarde)</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Hora de retorno(En Tarde)</TH>
+                           <TH>Hora de salida:</TH>
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                      </table>
                         <hr class="cell-divide-hr">
-                        <div class="button-wrapper">
-                           <a class="btn-solid-reg page-scroll" href="#request">Guardar</a>
-                        </div>
+                        
                      </div>
                   </div>
 
@@ -162,29 +166,32 @@
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
-                           <TH>Hora de salida(En Mañana)</TH>
+                        <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la mañana:</TD> 
+                        </TR>
+                        <TR>
+                           <TH >Hora de entrada:</TH>
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
-                        <TD COLSPAN=2>Asistencia en la tarde:</TD> 
+                           <TH>Hora de salida:</TH>
+                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
+
                         <TR>
-                           <TH>Hora de retorno(En Tarde)</TH>
+                        <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la tarde:</TD> 
+                        </TR>
+
+                        <TR>
+                           <TH>Hora de entrada:</TH>
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
-                           <TH>Hora de Salida(En Tarde)</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Hora de retorno(En Tarde)</TH>
+                           <TH>Hora de salida:</TH>
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                      </table>
                         <hr class="cell-divide-hr">
-                        <div class="button-wrapper">
-                           <a class="btn-solid-reg page-scroll" href="#request">Guardar</a>
-                        </div>
+                        
                      </div>
                   </div>
 
@@ -199,29 +206,32 @@
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
-                           <TH>Hora de salida(En Mañana)</TH>
+                        <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la mañana:</TD> 
+                        </TR>
+                        <TR>
+                           <TH >Hora de entrada:</TH>
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
-                        <TD COLSPAN=2>Asistencia en la tarde:</TD> 
+                           <TH>Hora de salida:</TH>
+                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
+
                         <TR>
-                           <TH>Hora de retorno(En Tarde)</TH>
+                        <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la tarde:</TD> 
+                        </TR>
+
+                        <TR>
+                           <TH>Hora de entrada:</TH>
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
-                           <TH>Hora de Salida(En Tarde)</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Hora de retorno(En Tarde)</TH>
+                           <TH>Hora de salida:</TH>
                            <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                      </table>
                         <hr class="cell-divide-hr">
-                        <div class="button-wrapper">
-                           <a class="btn-solid-reg page-scroll" href="#request">Guardar</a>
-                        </div>
+                        
                      </div>
                   </div>
                   <!-- end of card -->

@@ -22,6 +22,7 @@
       <meta property="og:type" content="article" />
       <!-- Website Title -->
       <title>Registro de trabajo diario</title>
+
       <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
       <!-- Styles -->
       <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,600,700,700i&amp;subset=latin-ext" rel="stylesheet">
@@ -72,6 +73,9 @@
             <div class="row">
                <div class="col-lg-12">
                   <h2>Completar planilla de Trabajos Diarios</h2>
+                  <div class="col-lg-2">
+                  <input type="number" class="form-control-input" placeholder="MN01" id="codigo" required> <br>
+                  </div>               
                </div>
                <!-- end of col -->
             </div>
