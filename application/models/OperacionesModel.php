@@ -22,38 +22,6 @@ class OperacionesModel extends CI_Model {
 		return $query->result();
 	}
 
-	public function consultarCodigoServicio(string $codigo_servicio){
-		$this->db->select('ID_TipoTrabajo')
-				->from('tipotrabajo')
-				->like('NombreTipoTrabajo', $codigo_servicio)
-				->limit(1);
-		 $query = $this->db->get();
-		 $idtipotrabajo = $query->result();
-
-
-		if($this->siExisteCodigoServicio($codigo_servicio)!=null){
-			$dataegreso = array(
-				'CodigoServicio' => $codigo_servicio,
-				'ID_TipoTrabajo' => $idtipotrabajo[0]['ID_TipoTrabajo'],
-			);
-			$this->db->insert('codigoservicio', $dataegreso);
-		}else{
-			$query = $this->db->select('CodigoServicio')
-			->from('codigoservicio')
-			->get();
-			$row = $query->last_row();
-			if($row){
-				$idPostfix = (int)substr($row->ID,1)+1;
-				$nextId = $codigo_servicio.STR_PAD((string)$idPostfix,5,"0",STR_PAD_LEFT);
-			}else{
-				$nextId = $codigo_servicio.'01';
-			} // For the first time
-			return $nextId;
-
-		}
-        // }
-	}
-
 	public function getIDTrabajoDiario(){
 		//SELECT tr.ID_TrabajoDiario FROM TrabajoDiario tr, TipoTrabajo tb 
 		//WHERE tr.ID_TipoTrabajo = tb.ID_TipoTrabajo AND tb.CodigoServicio = 'MN1' 
@@ -143,15 +111,18 @@ class OperacionesModel extends CI_Model {
 	public function obtenerIDTipoTrabajo(string $abreviacion){
 		$this->db->select('ID_TipoTrabajo')
 		->from('tipotrabajo')
-		->like('Abreviacion',$abreviacion)
+		->like('Abreviacion',$abreviacion, 'before')
 		->limit(1);
 		$query = $this->db->get();
 		return $query->result_array();
 	}
 
 	public function registrarTrabajoDiario($data){
-		var_dump('DATITOS: '. $data['codigo_servicio']);
-		$idtipotrabajo = $this->obtenerIDTipoTrabajo($data['codigo_servicio']);
+		//Cadena de codigo sin el numero
+		
+		$cadena_codigo = preg_replace('/[0-9]+/', '', $data['codigo_servicio']);
+		$idtipotrabajo = $this->obtenerIDTipoTrabajo($cadena_codigo);
+		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['ID_TipoTrabajo']);
 		$datacodigo = array(
 			'CodigoServicio' => $data['codigo_servicio'],
 			'ID_TipoTrabajo' => $idtipotrabajo[0]['ID_TipoTrabajo'],
@@ -167,18 +138,58 @@ class OperacionesModel extends CI_Model {
 		$id_proyecto = $this->db->insert_id();
 
 		$datatrabajodiario = array(
-			'PersonalCargo' => $data['nombre_proyecto'],
-			'Detalle' => $data['nombre_proyecto'],
-			'ValorAsignado' => $data['nombre_proyecto'],
+			'PersonalCargo' => $data['persona_cargo'],
+			'Detalle' => $data['detalle_trabajo'],
+			'ValorAsignado' => $data['suma_asignada'],
 			'ID_Proyecto' => $id_proyecto,
 			'ID_Codigo' => $id_codigo,
 		);
 
-		return $this->db->insert('trabajodiario', $datatrabajodiario);
+		//Registro de trabajo diario
+		$this->db->insert('trabajodiario', $datatrabajodiario);
+		$id_trabajodiario = $this->db->insert_id();
+		
+		//Registro  de personal
+		
+		$lista_rut = $data["lista_rut"];
+		$lista_nombres = $data["lista_nombre"];
+		$query = '';
+		//var_dump($listadopersonal);
 
+		for($count = 0; $count<count($lista_rut); $count++){
+			$rut = $lista_rut[$count];
+			$nombre = $lista_nombres[$count];
 
+			if(!empty($rut) && !empty($nombre)){
+				//$query .= 'INSERT INTO personal (Rut,NombreCompleto,ID_TrabajoDiario) VALUES ("'.$rut.'", "'.$nombre.'", "'.$id_trabajodiario.'");';
+				$insert_data[] = array(
+					'Rut' => $rut,
+					'NombreCompleto'=> $nombre,
+					'ID_TrabajoDiario'=> $id_trabajodiario,
+				  );
+			}
+			
+		}
+		
+
+		return  $this->db->insert_batch('personal',$insert_data);
 	}
 
+	public function consultarCodigoServicio(string $codigo_servicio){
+		$cadena_codigo = preg_replace('/[0-9]+/', '', $codigo_servicio);
+		$query = "SELECT max(c.codigoservicio) AS Codigo FROM codigoservicio c,tipotrabajo tb
+		WHERE c.ID_TipoTrabajo = tb.ID_TipoTrabajo AND tb.Abreviacion LIKE '".$cadena_codigo."'";
+		$data = $this->db->query($query)->row_array();
+		$kode_auto = '';
+		if($data){
+			$max_kode = $data['Codigo'];
+			$max_kode2 = (int)substr($max_kode,2);
+			$kodecount = $max_kode2+1;
+			$kode_auto = $cadena_codigo.sprintf('%03s',$kodecount);	
+		}
+
+		return $kode_auto;
+	}
 
 }
 
