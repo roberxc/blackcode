@@ -215,7 +215,7 @@ if (isset($set_data['nombre_completo'])) {
                   </div>
                   <!-- end of col -->
                   <!-- href="<?php echo base_url()?>PlantillaOperaciones"-->
-                  <a class="btn-solid-reg mfp-close page-scroll reg-trabajo" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Siguiente</a>
+                  <a class="btn-solid-reg mfp-close page-scroll reg-trabajo" href="<?php echo base_url()?>PlantillaOperaciones" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Siguiente</a>
                   
                </div>
                <!-- end of row -->
