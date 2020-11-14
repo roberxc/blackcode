@@ -108,13 +108,12 @@
       </header>
       <!-- end of header -->
       <!-- end of header -->
-      <form id="contactForm" data-toggle="validator" data-focus="false">
          <div id="details-lightbox-1" class="lightbox-basic zoom-anim-dialog mfp-hide">
             <div class="container">
                <div class="row">
                   <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
                   <div class="col-lg-4">
-                     <h4>Codigo: <input type="text" class="form-control-input" id="codigo_servicio"></h4>
+                     <h4>Codigo: <input type="text" name="codigo_servicio" class="form-control-input" id="codigo_servicio"></h4>
                      <div class="form-group">
                         <label for="cars">Tipo de trabajo</label>
                         <select class="form-control-input" id="tipo_trabajo" onchange="generarCodigo()">
@@ -126,22 +125,22 @@
                         </select>
                      </div>
                      <div class="form-group">
-                        <input type="date" class="form-control-input" id="fecha_trabajo" required>
+                        <input type="date" class="form-control-input" id="fecha_trabajo" name="fecha_trabajo" required>
                         <label class="label-control" for="cname">Fecha</label>
                         <div class="help-block with-errors"></div>
                      </div>
                      <div class="form-group">
-                        <input type="text" class="form-control-input" id="personacargo" required>
+                        <input type="text" class="form-control-input" id="personacargo" name="persona_cargo" required>
                         <label class="label-control" for="cemail">Persona a cargo</label>
                         <div class="help-block with-errors"></div>
                      </div>
                      <div class="form-group">
-                        <input type="text" class="form-control-input" id="nombre_proyecto" required>
+                        <input type="text" class="form-control-input" id="nombre_proyecto" name="nombre_proyecto" required>
                         <label class="label-control" for="cemail">Proyecto/Cliente</label>
                         <div class="help-block with-errors"></div>
                      </div>
                      <div class="form-group">
-                        <input type="text" class="form-control-input" id="suma_asignada" required>
+                        <input type="text" class="form-control-input" id="suma_asignada" name="suma_asignada" required>
                         <label class="label-control" for="cemail">Suma asignada</label>
                         <div class="help-block with-errors"></div>
                      </div>
@@ -164,13 +163,13 @@
                      <h3>Trabajos realizados</h3>
                      <hr>
                      <div class="form-group">
-                        <textarea class="form-control-textarea" id="detalle_trabajo" required></textarea>
+                        <textarea class="form-control-textarea" id="detalle_trabajo" name="detalle_trabajo" required></textarea>
                         <label class="label-control" for="cmessage">Detalle de los trabajos realizados</label>
                         <div class="help-block with-errors"></div>
                      </div>
                      <div class="row">
                         <div class="col-lg-4">
-                           <a class="btn-solid-reg popup-with-move-anim reg-trabajo" href="#trabajadores">Siguiente</a>
+                           <a class="btn-solid-reg popup-with-move-anim" href="#trabajadores">Siguiente</a>
                         </div>
                         <div class="col-lg-4">
                         </div>
@@ -187,36 +186,35 @@
          </div>
          <!-- end of lightbox-basic -->
          <!-- end of details lightbox 1 -->
-      </form>
-      <div id="trabajadores" class="lightbox-basic zoom-anim-dialog mfp-hide">
-         <div class="container">
-            <div class="row">
-               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-               <div class="col-lg-4" id="dynamic_field">
-                  <h3>Agregar personal</h3>
-                  <hr>
-                  <table class="table table-bordered" >
-                     <TR>
-                        <TH>Rut</TH>
-                        <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                     </TR>
-                     <TR>
-                        <TH>Nombre completo</TH>
-                        <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                     </TR>
-                     <TR>
-                        <TH>Agregar más</TH>
-                        <TD><button type="button" name="add" id="agregarTrabajador" class="btn btn-success">+</button></TD>
-                     </TR>
-                  </table>
+         <div id="trabajadores" class="lightbox-basic zoom-anim-dialog mfp-hide">
+            <div class="container">
+               <div class="row">
+                  <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
+                  <div class="col-lg-4" id="dynamic_field">
+                     <h3>Agregar personal</h3>
+                     <hr>
+                     <table class="table table-bordered" id="tabla_personal">
+                        <TR>
+                           <TH>Rut</TH>
+                           <TH>Nombre completo</TH>
+                           <TH></TH>
+                        </TR>
+                        <tr>
+                           <TD contenteditable='true' class="item_rut"></TD>
+                           <TD contenteditable='true' class="item_nombre"></TD>
+                           <TD><button type="button" name="add" id="agregarTrabajador" class="btn btn-success">+</button></TD>
+                        </tr>
+                     </table>
+                  </div>
+                  <!-- end of col -->
+                  <!-- href="<?php echo base_url()?>PlantillaOperaciones"-->
+                  <a class="btn-solid-reg mfp-close page-scroll reg-trabajo" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Siguiente</a>
+                  
                </div>
-               <!-- end of col -->
-               <a class="btn-solid-reg mfp-close page-scroll" href="<?php echo base_url()?>PlantillaOperaciones" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Siguiente</a>
+               <!-- end of row -->
             </div>
-            <!-- end of row -->
+            <!-- end of container -->
          </div>
-         <!-- end of container -->
-      </div>
       <!-- end of lightbox-basic -->
       <!-- end of details lightbox 1 -->
       <!-- Scripts modal -->

@@ -104,12 +104,19 @@ class Operacion extends CI_Controller {
 	}
 
 	public function ingresarTrabajoDiario(){
+		/*
+		$fechatrabajo = $this->input->post('fecha_trabajo');
+		$personacargo = $this->input->post('persona_cargo');
+		$nombreproyecto = $this->input->post('nombre_proyecto');
+		$sumaasignada = $this->input->post('suma_asignada');
+		$detalletrabajo = $this->input->post('detalle_trabajo');
+		$codigoservicio = $this->input->post('codigo_servicio');
+		*/
 		if ($this->input->is_ajax_request()) {
 			$ajax_data = $this->input->post(); //Datos que vienen por POST
 			$res = $this->OperacionesModel->registrarTrabajoDiario($ajax_data);
-
 			if($res){
-				$data = array('response' => "success", 'message' => "Trabajo ingresado correctamente!");
+				$data = array('response' => "success", 'message' => $res);
 			}else{
 				$data = array('response' => "success", 'message' => "Egreso registrado correctamente!");
 			}

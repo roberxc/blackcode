@@ -164,12 +164,8 @@
                                     <div class="help-block with-errors"></div>
                                  </div>
                                  <div class="form-group">
-
-
                                     <button class="btn-solid-reg" id="addviatico" type="button">Guardar</button>
-
                                  </div>
-                                 
                               </form>
                            </div>
                            <!-- end of col -->
