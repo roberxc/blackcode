@@ -1,3 +1,4 @@
+var codigoglobal = '';
 function generarCodigo(){
     var codigo = $("#tipo_trabajo").val();
     document.getElementById("codigo_servicio").value = codigo;
@@ -12,6 +13,7 @@ function generarCodigo(){
         success: function(data) {
             if (data.response == "success") {
                 document.getElementById("codigo_servicio").value = data['message'];
+                codigoglobal = data['message'];
             
             }else {
 
@@ -118,6 +120,7 @@ $(".reg-trabajo").on('click', function(event){
     $.ajax({
         url: "Operacion/ingresarTrabajoDiario",
         type: "post",
+        dataType: "json",
         data: {
             codigo_servicio: codigoservicio,
             nombre_proyecto: nombreproyecto,
@@ -129,13 +132,15 @@ $(".reg-trabajo").on('click', function(event){
             lista_nombre: item_nombre,
         },
         success: function(data) {
-            if (data.response == "success") {
-                alert(data);
+            if (data.response === "success") {
+                window.location.href = "PlantillaOperaciones?='"+codigoservicio;
             } else {
-                
+
+
             }
         }
     });
+    
 });
 
 
