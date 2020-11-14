@@ -174,7 +174,7 @@
                         <div class="col-lg-4">
                         </div>
                         <div class="col-lg-4">
-                           <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#trabajadores">Volver</a></br> </br>
+                           <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#details-lightbox-1">Volver</a></br> </br>
                         </div>
                      </div>
                   </div>
@@ -208,11 +208,16 @@
                   </div>
                   <!-- end of col -->
                   <!-- href="<?php echo base_url()?>PlantillaOperaciones"-->
-                  <a class="btn-solid-reg mfp-close page-scroll reg-trabajo" href="<?php echo base_url()?>PlantillaOperaciones" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Siguiente</a>
                   
                </div>
                <!-- end of row -->
             </div>
+            <div class="col-lg-4">
+                  <a class="btn-solid-reg mfp-close page-scroll reg-trabajo" href="<?php echo base_url()?>PlantillaOperaciones" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Siguiente</a>
+                  </div>
+                  <div class="col-lg-4">
+                           <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#detalleTrabajo">Volver</a></br> </br>
+                        </div>
             <!-- end of container -->
          </div>
       <!-- end of lightbox-basic -->
