@@ -642,12 +642,10 @@
                   <div class="card-body" id="dynamic_field" >
                      <div class="card-title">Subir documentos</div>
                      <hr class="cell-divide-hr">
-                     <table class="table table-bordered" >
-                        <TR>
-                        <TD> <input type="file" name="archivossubidos[]" multiple></TD>
-                        </TR>
-                        
-                     </table>
+                     <form id="form_subidas" action="<?php echo base_url(); ?>imagenes/subir" method="POST" class="form-horizontal">
+                     <input type="file" name="archivo[]" multiple>
+					<input type="submit" value="Subir">
+               </from>
                      <hr class="cell-divide-hr">
                      <div class="button-wrapper">
                      </div>
@@ -657,8 +655,9 @@
             </div>
             <!-- end of col -->
             <div class="form-group">
-               <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
+               <a class="btn-solid-reg" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
             </div>
+           
          </div>
          <!-- end of row -->
       </div>
@@ -693,5 +692,10 @@
 
 
       <script src="<?php echo base_url()?>assets/js/Operaciones/ingreso_planilla.js"></script>
+
+      <script src="<?php echo base_url();?>assets/js/jquery-1.11.3.min.js"></script>
+	<script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
+      <script src="<?php echo base_url();?>assets/js/imagenes.js"></script>
+      
    </body>
 </html>
