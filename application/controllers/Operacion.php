@@ -110,7 +110,7 @@ class Operacion extends CI_Controller {
 			if($res){
 				$data = array('response' => "success", 'message' => $res);
 			}else{
-				$data = array('response' => "success", 'message' => "Egreso registrado correctamente!");
+				$data = array('response' => "success", 'message' => "Fallo el egreso!");
 			}
 			echo json_encode($data);
 		} else {

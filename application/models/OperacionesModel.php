@@ -12,6 +12,17 @@ class OperacionesModel extends CI_Model {
 		$query = $this->db->get('tipotrabajo');
     	return $query->result();
 	}
+
+	public function ObtenerListaPersonal($codigo){
+		$query = $this->db
+				->select("p.ID_Personal as ID, p.NombreCompleto AS Nombre,p.Rut AS Rut") # También puedes poner * si quieres seleccionar todo
+				->from("codigoservicio c")
+				->where('c.CodigoServicio', $codigo)
+				->join("trabajodiario t", "c.ID_Codigo = t.ID_Codigo")
+				->join("personal p", "p.ID_TrabajoDiario = t.ID_TrabajoDiario")
+				->get();
+    	return $query->result();
+	}
 	
 	public function siExisteCodigoServicio($codigo_servicio){
 		$this->db->select('CodigoServicio')
@@ -45,66 +56,78 @@ class OperacionesModel extends CI_Model {
 		
 	}
 
+	//Se obtiene el la id del trabajo diario segun el codigo de servicio 
+	public function getIDTrabajoDiarioCS($codigoservicio){
+		$query = $this->db->select("tr.ID_TrabajoDiario") # También puedes poner * si quieres seleccionar todo
+				->from("TrabajoDiario tr")
+				->join("codigoservicio c", "c.ID_Codigo = tr.ID_Codigo")
+				->where('c.CodigoServicio', $codigoservicio);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function obtenerTotalViaticos($codigo){
+
+		$idtipotrabajo = $this->getIDTrabajoDiarioCS($codigo);
+		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['ID_TipoTrabajo']);
+		$idtrabajodiario = $idtipotrabajo[0]['ID_TrabajoDiario'];
+		$this->db->select_sum('Valor');
+		$this->db->where('ID_TrabajoDiario',$idtrabajodiario);
+		$query = $this->db->get('gastos');
+		return $query->result();
+	}
+
 	public function ingresarGastosViaticos($ajax_data){
+
+		//Obtener id de trabajo diario
+		$idtipotrabajo = $this->getIDTrabajoDiarioCS($ajax_data['codigo_servicio']);
+		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['ID_TipoTrabajo']);
+		$idtrabajodiario = $idtipotrabajo[0]['ID_TrabajoDiario'];
+		$idtipogasto = 0;
+
 		if($ajax_data['vagua']>0){
 			$idtipogasto = $this->getTipoGasto('Agua');
-			$dataegreso = array(
-				'Valor' => $ajax_data['vagua'],
-				'ID_TipoGasto' => $idtipogasto[0]['ID_TipoGasto'],
-				'ID_TrabajoDiario' => 1,
-			);
-
-			$this->db->insert('gastos', $dataegreso);
 		}else if($ajax_data['vdesayuno']>0){
 			$idtipogasto = $this->getTipoGasto('Desayuno');
-			$dataegreso = array(
-				'Valor' => $ajax_data['vdesayuno'],
-				'ID_TipoGasto' => $idtipogasto[0]['ID_TipoGasto'],
-				'ID_TrabajoDiario' => 1,
-			);
-			
-		   $this->db->insert('gastos', $dataegreso);
 		}else if($ajax_data['valojamiento']>0){
 			$idtipogasto = $this->getTipoGasto('Alojamiento');
-
-			$idtipoalojamiento = $this->db->get();
-			$dataegreso = array(
-				'Valor' => $ajax_data['valojamiento'],
-				'ID_TipoGasto' => $idtipogasto[0]['ID_TipoGasto'],
-				'ID_TrabajoDiario' => 1,
-			);
-			
-			$this->db->insert('gastos', $dataegreso);
 			
 		}else if($ajax_data['vcena']>0){
 			$idtipogasto = $this->getTipoGasto('Cena');
-			$idtipocena = $this->db->get();
-			$dataegreso = array(
-				'Valor' => $ajax_data['vcena'],
-				'ID_TipoGasto' => $idtipogasto[0]['ID_TipoGasto'],
-				'ID_TrabajoDiario' => 1,
-			);
-			
-			$this->db->insert('gastos', $dataegreso);
 			
 		}else if($ajax_data['valmuerzo']>0){
 			$idtipogasto = $this->getTipoGasto('Almuerzo');
-			$idtipoalmuerzo = $this->db->get();
-			$dataegreso = array(
-				'Valor' => $ajax_data['valmuerzo'],
-				'ID_TipoGasto' => $idtipogasto[0]['ID_TipoGasto'],
-				'ID_TrabajoDiario' => 1,
-			);
-			
-			$this->db->insert('gastos', $dataegreso);
-			
 		}
 
-		$data = array (
-			array( 'nomDat1'=>dato1,
-					  'nomDat2'=>dato2),
-			array('nomDat1'=>dato3,
-					  'nomDat2'=>dato4));
+		$data = array(
+			array(
+			   'Valor' => $ajax_data['valmuerzo'],
+			   'ID_TipoGasto' => $idtipogasto[0]['ID_TipoGasto'],
+			   'ID_TrabajoDiario' => $idtrabajodiario
+			),
+			array(
+				'Valor' => $ajax_data['vcena'],
+				'ID_TipoGasto' => $idtipogasto[0]['ID_TipoGasto'],
+				'ID_TrabajoDiario' => $idtrabajodiario
+			 ),
+			 array(
+				'Valor' => $ajax_data['vagua'],
+				'ID_TipoGasto' => $idtipogasto[0]['ID_TipoGasto'],
+				'ID_TrabajoDiario' => $idtrabajodiario
+			 ),
+			 array(
+				'Valor' => $ajax_data['valojamiento'],
+				'ID_TipoGasto' => $idtipogasto[0]['ID_TipoGasto'],
+				'ID_TrabajoDiario' => $idtrabajodiario
+			 ),
+
+			 array(
+				'Valor' => $ajax_data['vdesayuno'],
+				'ID_TipoGasto' => $idtipogasto[0]['ID_TipoGasto'],
+				'ID_TrabajoDiario' => $idtrabajodiario
+			 )
+		 );
+
 		$this->db->insert_batch('gastos',$data);
 	}
 
@@ -175,6 +198,89 @@ class OperacionesModel extends CI_Model {
 		return  $this->db->insert_batch('personal',$insert_data);
 	}
 
+	public function registrarAsistenciaPersonal($data){
+		//Registro  de asistencia
+		$asistencia_manana_entrada = $data["lista_entradam"];
+		$asistencia_manana_salida = $data["lista_salidam"];
+		$asistencia_tarde_entrada = $data["lista_entradat"];
+		$asistencia_tarde_salida = $data["lista_salidat"];
+		//Rut de personal
+		$asistencia_rut = $data["lista_id"];
+		for($count = 0; $count<count($asistencia_rut); $count++){
+			//Asistencia de mañana
+			$asistencia_mentrada = $asistencia_manana_entrada[$count];
+			$asistencia_msalida = $asistencia_manana_salida[$count];
+			//Asistencia de tarde
+			$asistencia_tentrada = $asistencia_tarde_entrada[$count];
+			$asistencia_tsalida = $asistencia_tarde_salida[$count];
+			//ID Personal
+			$asistencia_idpersonal = $asistencia_rut[$count];
+			if(!empty($asistencia_mentrada) && !empty($asistencia_msalida)
+			 && !empty($asistencia_tentrada) && !empty($asistencia_tsalida)){
+				$horaInicio = new DateTime($asistencia_mentrada);
+				$horaTermino = new DateTime($asistencia_tsalida);
+				$interval = $horaInicio->diff($horaTermino);
+				$asd = $interval->format('%H:%i');
+			
+				$mihora = new DateTime($asd);
+				//Resto de hora colacion mas horas totales
+				$mihora->modify('-10 hours');
+				$horaextras = $mihora->format('H:i');
+				//Si no hay horas extras
+				if(($horaextras == '00:00')){
+					//No hay horas extras
+					$fechaactual = date("d/m/y");
+					$insert_data[] = array(
+						'Fecha_Asistencia' => $fechaactual,
+						'HoraLlegadaM'=> $asistencia_mentrada,
+						'HoraSalidaM'=> $asistencia_msalida,
+						'HoraLlegadaT'=> $asistencia_tentrada,
+						'HoraSalidaT'=> $asistencia_tsalida,
+						'ID_Personal'=> $asistencia_idpersonal,
+						'HorasTrabajadas'=> 9,
+						'HorasExtras'=> 0,
+					);
+				}else{
+					
+					//Si hay diferencias de horas
+					$fechaactual = date("d/m/y");
+					//Horas totales trabajadas
+					$mihora = new DateTime($horaextras);
+					$mihora->modify('+9 hours');
+					$horastotales = $mihora->format('H:i');
+					if(strtotime($horastotales)<strtotime('09:00')) {
+						//No hay horas extras
+						$horaInicio = new DateTime($asistencia_mentrada);
+						$horaTermino = new DateTime($asistencia_tsalida);
+						$insert_data[] = array(
+							'Fecha_Asistencia' => $fechaactual,
+							'HoraLlegadaM'=> $asistencia_mentrada,
+							'HoraSalidaM'=> $asistencia_msalida,
+							'HoraLlegadaT'=> $asistencia_tentrada,
+							'HoraSalidaT'=> $asistencia_tsalida,
+							'ID_Personal'=> $asistencia_idpersonal,
+							'HorasTrabajadas'=> $horastotales,
+							'HorasExtras'=> 0,
+						);
+					}else{
+						//Si hay horas extras	
+						$insert_data[] = array(
+							'Fecha_Asistencia' => $fechaactual,
+							'HoraLlegadaM'=> $asistencia_mentrada,
+							'HoraSalidaM'=> $asistencia_msalida,
+							'HoraLlegadaT'=> $asistencia_tentrada,
+							'HoraSalidaT'=> $asistencia_tsalida,
+							'ID_Personal'=> $asistencia_idpersonal,
+							'HorasTrabajadas'=> $horastotales,
+							'HorasExtras'=> $horaextras,
+						);
+					}
+				}
+			}
+		}
+		return  $this->db->insert_batch('asistencia',$insert_data);
+	}
+
 	public function consultarCodigoServicio(string $codigo_servicio){
 		$cadena_codigo = preg_replace('/[0-9]+/', '', $codigo_servicio);
 		$query = "SELECT max(c.codigoservicio) AS Codigo FROM codigoservicio c,tipotrabajo tb
@@ -189,6 +295,37 @@ class OperacionesModel extends CI_Model {
 		}
 
 		return $kode_auto;
+	}
+
+	//Registro de materiales comprados durante el trabajo
+	public function registrarMaterialesDurante($data){
+		//Registro  de asistencia
+		$asistencia_manana_entrada = $data["lista_entradam"];
+		$asistencia_manana_salida = $data["lista_salidam"];
+		$asistencia_tarde_entrada = $data["lista_entradat"];
+		$asistencia_tarde_salida = $data["lista_salidat"];
+		//Rut de personal
+		$asistencia_rut = $data["lista_id"];
+		for($count = 0; $count<count($asistencia_rut); $count++){
+			//Asistencia de mañana
+			$asistencia_mentrada = $asistencia_manana_entrada[$count];
+			$asistencia_msalida = $asistencia_manana_salida[$count];
+			//Asistencia de tarde
+			$asistencia_tentrada = $asistencia_tarde_entrada[$count];
+			$asistencia_tsalida = $asistencia_tarde_salida[$count];
+			//ID Personal
+			$asistencia_idpersonal = $asistencia_rut[$count];
+			if(!empty($asistencia_mentrada) && !empty($asistencia_msalida)
+			 && !empty($asistencia_tentrada) && !empty($asistencia_tsalida)){
+				$insert_data[] = array(
+					'Fecha_Asistencia' => $fechaactual,
+					'HoraLlegadaM'=> $asistencia_mentrada,
+					'HoraSalidaM'=> $asistencia_msalida,
+					'HoraLlegadaT'=> $asistencia_tentrada,
+				);
+			}
+		}
+		return  $this->db->insert_batch('asistencia',$insert_data);
 	}
 
 }
