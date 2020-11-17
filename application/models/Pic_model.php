@@ -10,7 +10,7 @@ class Pic_model extends CI_Model{
 		$query = $this->db
 				->select("tb.ID_TrabajoDiario AS ID")
 				->from("CodigoServicio c")
-				->join("TrabajoDiario tb", "dt.ID_Codigo = c.ID_Codigo")
+				->join("TrabajoDiario tb", "tb.ID_Codigo = c.ID_Codigo")
 				->where("c.CodigoServicio",$codigoservicio)
 				->get();
 		return $query->result_array();

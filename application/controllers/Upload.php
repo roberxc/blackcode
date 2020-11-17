@@ -27,13 +27,13 @@ class Upload extends CI_Controller{
 		//}else{
 			
 			//get the form values
-			$micodigo = $this->input->post('codigo_servicio2');
+			$micodigo= $this->input->post('codigo1');
 			//$data['pic_desc'] = $this->input->post('pic_desc', TRUE);
 
 			//file upload code 
 			//set file upload settings 
 			$config['upload_path']          = APPPATH. './models/DocumentosSubidos/';
-			$config['allowed_types']        = 'gif|jpg|png';
+			$config['allowed_types']        = 'jpg|png|pdf|docx';
 			$config['max_size']             = 500;
 
 			$this->load->library('upload', $config);
@@ -51,12 +51,12 @@ class Upload extends CI_Controller{
 
 				//get the uploaded file name
 				$data['pic_file'] = $upload_data['file_name'];
-				echo 'Codiguito: '.$micodigo;
+			
 
 				//store pic data to the db
 				$this->pic_model->registro($data,$micodigo);
 
-				redirect('/');
+				redirect('PlantillaOperaciones?codigo='.$micodigo);
 			}
 			
 		//}

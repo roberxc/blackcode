@@ -257,6 +257,7 @@
                <hr class="cell-divide-hr">
                <div class="button-wrapper">
                   <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#documentosubir">Ingresar</a>
+                  <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#archivosubidos">Archivos subidos</a>
                </div>
             </div>
          </div>
@@ -598,16 +599,43 @@
                      
                      <?php echo form_open_multipart('Upload/file_data');?>
                      <div class="form-group">
-                      <input type="text" class="form-control-input" name="codigo_servicio2" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" disabled> <br>
+                        <label for="pic_title">codigo:</label>
+                        <input type="text" class="form-control" name="codigo1" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" id="codigo1">
                      </div>
+                     
                      <div class="form-group">
-                        <label for="pic_file">Select Image*:</label>
+                        <label for="pic_file">Ingresar:</label>
                         <input type="file" name="pic_file" class="form-control"  id="pic_file">
                      </div>
                      <!--<a href="<?=base_url();?>" class="btn btn-warning">Back</a>-->
                      
-                     <button type="submit" class="btn btn-success">Submit</button>
-<br>
+                     <button type="submit" class="btn btn-success">Guardar</button>
+                     <hr class="cell-divide-hr">
+                     <div class="button-wrapper">
+                     </div>
+                  </div>
+               </div>
+               <!-- end of card -->
+            </div>
+            <!-- end of col -->
+            <!--<div class="form-group">
+               <a class="btn-solid-reg" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
+            </div>-->
+           
+         </div>
+         <!-- end of row -->
+      </div>
+
+      <div id="archivosubidos" class="lightbox-basic zoom-anim-dialog mfp-hide">
+         <div class="container">
+            <div class="row">
+               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
+               <div class="col-lg-4">
+                  <div class="card"></div>
+                  <div class="card-body" id="dynamic_field" >
+                     <div class="card-title">Archivo subidos</div>
+                     <hr class="cell-divide-hr">
+                     
                      <hr class="cell-divide-hr">
                      <div class="button-wrapper">
                      </div>
