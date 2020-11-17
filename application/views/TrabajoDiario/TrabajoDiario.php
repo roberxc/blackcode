@@ -96,18 +96,22 @@
                   </tr>
                </thead>
                <tbody>
+               <?php 
+                     if($trabajos_realizados){
+                        foreach($trabajos_realizados as $row){
+                  ?>
                   <tr>
                      <td>
-                        54693
+                        <?php echo $row->CodigoServicio?>
                      </td>
                      <td>
-                        20-10-2020
+                        <?php echo $row->FechaTrabajo?>
                      </td>
                      <td>
-                        Elqui
+                        <?php echo $row->NombreProyecto?>
                      </td>
                      <td>
-                        Usuario1
+                        <?php echo $row->PersonalCargo?>
                      </td>
                      <td class="project-actions text-right">
                         <a class="btn btn-primary btn-sm" href="#" data-toggle="modal"
@@ -127,68 +131,8 @@
                         </a>
                      </td>
                   </tr>
-                  <tr>
-                     <td>
-                        54262
-                     </td>
-                     <td>
-                        10-10-2020
-                     </td>
-                     <td>
-                        Elqui
-                     </td>
-                     <td>
-                        Usuario2
-                     </td>
-                     <td class="project-actions text-right">
-                        <a class="btn btn-primary btn-sm" href="#" data-toggle="modal"
-                           data-target="#modal-detalle">
-                        <i class="far fa-eye">
-                        </i>
-                        </a>
-                        <a class="btn btn-info btn-sm" href="#" data-toggle="modal"
-                           data-target="#modal-archivos">
-                        <i class="fas fa-upload">
-                        </i>
-                        </a>
-                        <a class="btn btn-info btn-sm" href="#" data-toggle="modal"
-                           data-target="#modal-asistencia">
-                        <i class="fas fa-book-open">
-                        </i>
-                        </a>
-                     </td>
-                  </tr>
-                  <tr>
-                     <td>
-                        67552
-                     </td>
-                     <td>
-                        02-10-2020
-                     </td>
-                     <td>
-                        Quilimari
-                     </td>
-                     <td>
-                        Usuario3
-                     </td>
-                     <td class="project-actions text-right">
-                        <a class="btn btn-primary btn-sm" href="#" data-toggle="modal"
-                           data-target="#modal-detalle">
-                        <i class="far fa-eye">
-                        </i>
-                        </a>
-                        <a class="btn btn-info btn-sm" href="#" data-toggle="modal"
-                           data-target="#modal-archivos">
-                        <i class="fas fa-upload">
-                        </i>
-                        </a>
-                        <a class="btn btn-info btn-sm" href="#" data-toggle="modal"
-                           data-target="#modal-asistencia">
-                        <i class="fas fa-book-open">
-                        </i>
-                        </a>
-                     </td>
-                  </tr>
+                  <?php }
+                        }?>
                </tbody>
             </table>
          </div>

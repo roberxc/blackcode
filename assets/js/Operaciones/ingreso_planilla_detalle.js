@@ -331,5 +331,67 @@ $(document).on('click', '#addgastos_varios', function(e) {
     });
 });
 
+//Ingreso de gastos varios
+$(document).on('click', '#addgastos_combustible', function(e) {
+    e.preventDefault();
+    //Obtencion del codigo de servicio
+    var codigoservicio = $("#codigo_servicio").val();
+    var idgasto = $("#id_tipogasto").val();
+    //Materiales comprados durante el trabajo
+    var item_valor = $("#gasto_combustible").val();
+    
+    $.ajax({
+        url: "PlantillaOperaciones/registroGastosCombustible",
+        type: "post",
+        dataType: "json",
+        data: {
+            gasto_combustible: item_valor,
+            codigo_servicio: codigoservicio,
+            id_gasto: idgasto,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                Command: toastr["success"]('Guardado exitosamente!','Correcto')
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            } else {
+                Command: toastr["error"](data.message,'Error')
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            }
+        }
+    });
+});
+
 
 
