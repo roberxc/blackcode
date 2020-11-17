@@ -84,27 +84,14 @@
                         </div>
                         <hr class="cell-divide-hr">
                         <ul class="list-unstyled li-space-lg">
-                           
-                           <li class="media">
-                              <i class="fas fa-check"></i>
-                              <div class="media-body">Desayuno</div>
-                           </li>
-                           <li class="media">
-                              <i class="fas fa-check"></i>
-                              <div class="media-body">Almuerzo</div>
-                           </li>
-                           <li class="media">
-                              <i class="fas fa-check"></i>
-                              <div class="media-body">Cena</div>
-                           </li>
-                           <li class="media">
-                              <i class="fas fa-times"></i>
-                              <div class="media-body">Agua</div>
-                           </li>
-                           <li class="media">
-                              <i class="fas fa-times"></i>
-                              <div class="media-body">Alojamiento</div>
-                           </li>
+                        <?php 
+                              foreach($tipos_viaticos as $row)
+                              { ?>
+                              <li class="media">
+                                 <i class="fas <?php if($row->Valor>0){ echo 'fa-check';}else{ echo 'fa-times';}?>"></i>
+                                 <div class="media-body"><?php echo $row->Nombre;?></div>
+                              </li>
+                              <?php }?>
                         </ul>
                         <div class="button-wrapper">
                            <a class="btn-solid-reg popup-with-move-anim" type="submit" id="in-viaticos" href="#vaticos">Ingresar</a>

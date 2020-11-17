@@ -101,10 +101,10 @@ class OperacionesModel extends CI_Model {
 		//Array con las id de los gastos viaticos
 		$gastosviaticos = array(1,2,3,4,5);
 		$query = $this->db
-		->select("g.Valor AS Valor") # También puedes poner * si quieres seleccionar todo
+		->select("g.Valor AS Valor,t.NombreTipoGasto AS Nombre") # También puedes poner * si quieres seleccionar todo
 		->from("gastos g")
 		->join("tipogasto t", "t.ID_TipoGasto = g.ID_TipoGasto")
-		->where_in('g.ID_TrabajoDiario',$gastosviaticos)
+		->where_in('g.ID_TipoGasto',$gastosviaticos)
 		->get();
 		return $query->result();
 	}
