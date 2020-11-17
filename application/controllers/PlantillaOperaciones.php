@@ -15,6 +15,9 @@ class PlantillaOperaciones extends CI_Controller {
 
 		$data ['codigo'] = $_GET["codigo"];
 		$data ['total_viaticos'] = $this->OperacionesModel->ObtenerTotalViaticos($data['codigo']);
+		$data ['tipos_combustible'] = $this->OperacionesModel->ObtenerTiposCombustibles();
+		$data ['tipos_viaticos'] = $this->OperacionesModel->ObtenerTiposViaticos($data['codigo']);
+		$data ['total_mat1'] = $this->OperacionesModel->ObtenerTiposCombustibles();
 		$this->load->view('Trabajador/planilla',$data);
 		
 	}
@@ -35,9 +38,9 @@ class PlantillaOperaciones extends CI_Controller {
 				$res = $this->OperacionesModel->ingresarGastosViaticos($ajax_data);
 				
 				if ($res) {
-					$data = array('response' => "error", 'message' => "Viatico agregado correctamente!");
+					$data = array('response' => "success", 'message' => "Viaticos agregado correctamente!");
 				}else{
-					$data = array('response' => "success", 'message' => $res);
+					$data = array('response' => "error", 'message' => $res);
 				}
 
 			}
@@ -51,14 +54,14 @@ class PlantillaOperaciones extends CI_Controller {
 
 	//Metodo para el registro de materiales durante el trabajo
 	public function registroMaterialesCompradosDurante(){
+		
 		if ($this->input->is_ajax_request()) {
 			$ajax_data = $this->input->post();
-			$res = $this->OperacionesModel->ingresarGastosViaticos($ajax_data);
-
+			$res = $this->OperacionesModel->registrarMaterialesDurante($ajax_data);
 			if ($res) {
-				$data = array('response' => "error", 'message' => "Guardado exitosamente!");
+				$data = array('response' => "success", 'message' => "Guardado exitosamente!");
 			}else{
-				$data = array('response' => "success", 'message' => $res);
+				$data = array('response' => "error", 'message' => $res);
 			}
 			echo json_encode($data);
 		} else {
@@ -66,6 +69,35 @@ class PlantillaOperaciones extends CI_Controller {
 		}
 	}
 
+	//Registro de gastos varios
+	public function registroGastosVarios(){
+		if ($this->input->is_ajax_request()) {
+			//Validaciones
+			$this->form_validation->set_rules('gasto_peaje', 'Peaje', 'numeric|greater_than[0]');
+			$this->form_validation->set_rules('gasto_estacionamiento', 'Estacionamiento', 'numeric|greater_than[0]');
+			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+
+			if ($this->form_validation->run() == FALSE) {
+				
+				$errores = validation_errors();
+				$data = array('response' => "error", 'message' => $errores);
+			} else {
+				$ajax_data = $this->input->post();	
+				if ($this->OperacionesModel->registrarGastosVarios($ajax_data)) {
+					$data = array('response' => "success", 'message' => 'Gastos varios ingresado correctamente');
+				}else{
+					$data = array('response' => "error", 'message' => 'Error en el registro');
+				}
+
+				
+			}
+
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+	}
 
 }
 

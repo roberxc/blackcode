@@ -5669,11 +5669,15 @@ a.close.disabled {
   pointer-events: none;
 }
 
+.error {
+  color: white;
+}
+
 .toast {
   max-width: 350px;
   overflow: hidden;
   font-size: 0.875rem;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgb(255, 255, 255);
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);

@@ -117,4 +117,31 @@ class Operacion extends CI_Controller {
 			echo "'No direct script access allowed'";
 		}
 	}
+
+
+	//Registro de gastos varios
+	public function validarTrabajoDiario(){
+		if ($this->input->is_ajax_request()) {
+			//Validaciones
+			
+			$this->form_validation->set_rules('fecha_trabajo', '"Fecha trabajo"', 'required');
+			$this->form_validation->set_rules('nombre_proyecto', '"Nombre proyecto"', 'required');
+			$this->form_validation->set_rules('persona_cargo', '"Persona a cargo"', 'required');
+			$this->form_validation->set_rules('suma_asignada', '"Suma asignada"', 'numeric|greater_than[0]|required');
+			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+
+			if ($this->form_validation->run() == FALSE) {
+				$errores = validation_errors();
+				$data = array('response' => "error", 'message' => $errores);
+			} else {
+				$data = array('response' => "success", 'message' => 'Ingreso correcto!');
+				
+			}
+
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+	}
 }

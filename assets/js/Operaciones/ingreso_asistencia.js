@@ -54,7 +54,6 @@ $(".asistencia-registro").on('click', function(event){
         },
         success: function(data) {
             if (data.response === "success") {
-               alert('Todo bien, todo correcto');
                window.location.href = "PlantillaOperaciones?codigo="+codigoservicio;
             } else {
 
@@ -62,6 +61,14 @@ $(".asistencia-registro").on('click', function(event){
             }
         }
     });    
+});
+
+$(".asistencia-cancelar").on('click', function(event){
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    //Codigo servicio
+    var codigoservicio = $("#codigo_servicio").val();
+    window.location.href = "PlantillaOperaciones?codigo="+codigoservicio;
 });
 
 
