@@ -74,7 +74,7 @@
                <div class="col-lg-12">
                   <h2>Completar planilla de Trabajos Diarios</h2>
                   <div class="col-lg-2">
-                  <input type="number" class="form-control-input" placeholder="MN01" id="codigo" required> <br>
+                  <input type="text" class="form-control-input" id="codigo_servicio" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" disabled> <br>
                   </div>               
                </div>
                <!-- end of col -->
@@ -88,7 +88,7 @@
                         <div class="card-title">Marcar Asistencia</div>
                         <hr class="cell-divide-hr">
                         <div class="button-wrapper">
-                        <a class="btn-solid-reg " href="<?php echo base_url()?>AsistenciaTrabajador"  <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>>Ingresar</a>
+                        <a class="btn-solid-reg active asistencia-modal" href="#">Ingresar</a>
                         </div>
                         <hr class="cell-divide-hr">
                      </div>
@@ -102,7 +102,7 @@
                         <div class="card-title">Gasto de Viaticos</div>
                         <hr class="cell-divide-hr">
                         <div class="price">
-                           <span class="currency">$</span><span class="value">5000</span>
+                           <span class="currency">$</span><span class="value"><?php if(isset($total_viaticos)){echo $total_viaticos[0]->Valor;}else{ echo '0';}?></span>
                            <div class="frequency">Total</div>
                         </div>
                         <hr class="cell-divide-hr">
@@ -141,7 +141,6 @@
                            <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
                            <div class="col-lg-4">
                               <h4>Ingrese los gasto de Viaticos </h4>
-                              <form id="formviatico" role="form" method="POST">
                                  <div class="form-group">
                                     <input type="number" class="form-control-input" id="vdesayuno" required>
                                     <label class="label-control" for="cname">Desayuno</label>
@@ -170,7 +169,6 @@
                                  <div class="form-group">
                                     <button class="btn-solid-reg" id="addviatico" type="button">Guardar</button>
                                  </div>
-                              </form>
                            </div>
                            <!-- end of col -->
                         </div>
@@ -260,8 +258,7 @@
                   </div>
                   <!-- end of card -->
                   <!-- end of card -->
-                  <!-- Card-->
-
+   
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Gasto Varios</div>
@@ -519,15 +516,15 @@
                      <table class="table table-bordered" >
                         <TR>
                            <TH>Material</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
+                           <TD><input type="text" id="item_material" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Cantidad</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
+                           <TD><input type="text" id="item_cantidad" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
-                           <TH>Valor/Unidad</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
+                           <TH>Valor total</TH>
+                           <TD><input type="text" name="item_valortotal" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Agregar más</TH>
@@ -543,7 +540,7 @@
             </div>
             <!-- end of col -->
             <div class="form-group">
-               <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
+               <a class="btn-solid-reg" id="addmaterial1" href="#">Guardar</a></br> </br>
             </div>
          </div>
          <!-- end of row -->
@@ -642,10 +639,10 @@
                   <div class="card-body" id="dynamic_field" >
                      <div class="card-title">Subir documentos</div>
                      <hr class="cell-divide-hr">
-                     <form id="form_subidas" action="<?php echo base_url(); ?>imagenes/subir" method="POST" class="form-horizontal">
-                     <input type="file" name="archivo[]" multiple>
-					<input type="submit" value="Subir">
-               </from>
+                        <form id="form_subidas" action="<?php echo base_url(); ?>imagenes/subir" method="POST" class="form-horizontal">
+                        <input type="file" name="archivo[]" multiple>
+                        <input type="submit" value="Subir">
+                        </form>
                      <hr class="cell-divide-hr">
                      <div class="button-wrapper">
                      </div>
@@ -691,11 +688,14 @@
       <script src="assets/js/scripts.js"></script> <!-- Custom scripts -->
 
 
+
       <script src="<?php echo base_url()?>assets/js/Operaciones/ingreso_planilla.js"></script>
 
-      <script src="<?php echo base_url();?>assets/js/jquery-1.11.3.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
+
       <script src="<?php echo base_url();?>assets/js/imagenes.js"></script>
       
+
+      <script src="<?php echo base_url()?>assets/js/Operaciones/ingreso_planilla_detalle.js"></script>
+
    </body>
 </html>

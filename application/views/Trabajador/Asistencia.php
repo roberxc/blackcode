@@ -55,8 +55,8 @@
          <!-- end of mobile menu toggle button -->
          <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-               <a class="nav-link page-scroll" href="<?php echo base_url()?>PlantillaOperaciones" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Cancelar</a>
+               <li class="nav-item">
+                  <a class="nav-link page-scroll" href="<?php echo base_url()?>PlantillaOperaciones" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Cancelar</a>
                </li>
             </ul>
          </div>
@@ -64,209 +64,85 @@
       <!-- end of navbar -->
       <!-- end of navigation -->
       <!-- Pricing -->
-
       <div id="pricing" class="cards-2">
          <div class="container">
             <div class="row">
                <div class="col-lg-12">
                   <h2>Ingresar Asistencia del personal </h2>
+                  <input type="hidden" id="codigo_servicio" value="<?php if(isset($codigo)){echo $codigo;}else{echo error;}?>"/>
                </div>
                <!-- end of col -->
             </div>
             <!-- end of row -->
-   
-                  <div class="card">
-                     <div class="card-body">
-                        <div class="card-title">Paulo Mancilla</div>
-                        <hr class="cell-divide-hr">
-                        </br></br>
-                        <table class="table table-bordered" >
-                        <TR>
-                           <TH>Rut</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                        <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la mañana:</TD> 
-                        </TR>
-                        <TR>
-                           <TH >Hora de entrada:</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Hora de salida:</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-
-                        <TR>
-                        <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la tarde:</TD> 
-                        </TR>
-
-                        <TR>
-                           <TH>Hora de entrada:</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Hora de salida:</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                     </table>
-                        <hr class="cell-divide-hr">
-                       
-                     </div>
-                  </div>
-
-                  <div class="card">
-                     <div class="card-body">
-                        <div class="card-title">Rober Astorga</div>
-                        <hr class="cell-divide-hr">
-                        </br></br>
-                        <table class="table table-bordered" >
-                        <TR>
-                           <TH>Rut</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                        <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la mañana:</TD> 
-                        </TR>
-                        <TR>
-                           <TH >Hora de entrada:</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Hora de salida:</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-
-                        <TR>
-                        <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la tarde:</TD> 
-                        </TR>
-
-                        <TR>
-                           <TH>Hora de entrada:</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Hora de salida:</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                     </table>
-                        <hr class="cell-divide-hr">
-                        
-                     </div>
-                  </div>
-
-                  <div class="card">
-                     <div class="card-body">
-                        <div class="card-title">Daniel Ossandon</div>
-                        <hr class="cell-divide-hr">
-                        </br></br>
-                        <table class="table table-bordered" >
-                        <TR>
-                           <TH>Rut</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                        <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la mañana:</TD> 
-                        </TR>
-                        <TR>
-                           <TH >Hora de entrada:</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Hora de salida:</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-
-                        <TR>
-                        <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la tarde:</TD> 
-                        </TR>
-
-                        <TR>
-                           <TH>Hora de entrada:</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Hora de salida:</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                     </table>
-                        <hr class="cell-divide-hr">
-                        
-                     </div>
-                  </div>
-
-                  <div class="card">
-                     <div class="card-body">
-                        <div class="card-title">Camilo Contreras</div>
-                        <hr class="cell-divide-hr">
-                        </br></br>
-                        <table class="table table-bordered" >
-                        <TR>
-                           <TH>Rut</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                        <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la mañana:</TD> 
-                        </TR>
-                        <TR>
-                           <TH >Hora de entrada:</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Hora de salida:</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-
-                        <TR>
-                        <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la tarde:</TD> 
-                        </TR>
-
-                        <TR>
-                           <TH>Hora de entrada:</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Hora de salida:</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                     </table>
-                        <hr class="cell-divide-hr">
-                        
-                     </div>
-                  </div>
-                  <!-- end of card -->
-                  <!-- end of card -->
+            <?php if (isset($lista_personal)){
+               foreach($lista_personal as $row){
+               ?>
+            <div class="card">
+               <div class="card-body">
+                  <div class="card-title"><?php echo $row->Nombre;?></div>
+                  <hr class="cell-divide-hr">
+                  </br></br>
+                  <table class="table table-bordered" >
+                     <TR>
+                        <TD class=""><input type="hidden" id="item_id" class="form-control" value="<?php echo $row->ID;?>" disabled/></TD>
+                     </TR>
+                     <TR>
+                        <TH>Rut</TH>
+                        <TD class=""><input type="text" id="" class="form-control" value="<?php echo $row->Rut;?>" disabled/></TD>
+                     </TR>
+                     <TR>
+                        <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la mañana:</TD>
+                     </TR>
+                     <TR>
+                        <TH >Hora de entrada:</TH>
+                        <TD><input class="form-control" id="item_entradam" type="time" value="08:30" id="example-time-input"/></TD>
+                     </TR>
+                     <TR>
+                        <TH>Hora de salida:</TH>
+                        <TD><input class="form-control" id="item_salidam" type="time" value="14:00" id="example-time-input"/></TD>
+                     </TR>
+                     <TR>
+                        <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la tarde:</TD>
+                     </TR>
+                     <TR>
+                        <TH>Hora de entrada:</TH>
+                        <TD><input class="form-control" id="item_entradat" type="time" value="15:00" id="example-time-input"/></TD>
+                     </TR>
+                     <TR>
+                        <TH>Hora de salida:</TH>
+                        <TD><input class="form-control" id="item_salidat" type="time" value="18:30" id="example-time-input"/></TD>
+                     </TR>
+                  </table>
+                  <hr class="cell-divide-hr">
                </div>
-               <!-- end of col -->
             </div>
-            <!-- end of row -->
+            <?php }
+               }?>
+            <!-- end of card -->
+            <!-- end of card -->
          </div>
-         <!-- end of container -->
-         </div>
-
-
-         <div id="contact" class="form-2">
-            <div class="container">
-               <div class="row">
-                  <div class="col-lg-12">
-                     <h2>Guardar Asistencia de los trabajadores</h2>
-                     <a class="btn-solid-reg " href="<?php echo base_url()?>PlantillaOperaciones"  <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>>Guardar</a><a class="btn-solid-reg " href="<?php echo base_url()?>PlantillaOperaciones"  <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>>Cancelar</a>
-                     
-                  </div>
+         <!-- end of col -->
+      </div>
+      <!-- end of row -->
+      </div>
+      <!-- end of container -->
+      </div>
+      <div id="contact" class="form-2">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12">
+                  <h2>Guardar Asistencia de los trabajadores</h2>
+                  <a class="btn-solid-reg asistencia-registro">Guardar</a><a class="btn-solid-reg" href="<?php echo base_url()?>PlantillaOperaciones"  <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>>Cancelar</a>
                </div>
-               <!-- end of col -->
             </div>
-            <!-- end of row -->
+            <!-- end of col -->
          </div>
-         <!-- end of container -->
+         <!-- end of row -->
+      </div>
+      <!-- end of container -->
       </div>
       <!-- end of form-2 -->
       <!-- end of contact -->
-      
-     
-      
-      
-     
       <!-- Scripts -->
       <script src="assets/js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
       <script src="assets/js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
@@ -276,5 +152,6 @@
       <script src="assets/js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
       <script src="assets/js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
       <script src="assets/js/scripts.js"></script> <!-- Custom scripts -->
+      <script src="<?php echo base_url()?>assets/js/Operaciones/ingreso_asistencia.js"></script>
    </body>
 </html>

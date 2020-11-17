@@ -33,6 +33,12 @@
       <link rel="icon" href="">
    </head>
    <body data-spy="scroll" data-target=".fixed-top">
+   <?php $set_data = $this->session->all_userdata(); 
+if (isset($set_data['nombre_completo'])) {
+  $nombre = $set_data['nombre_completo'];
+}else{
+  redirect('/Login', 'refresh');
+}?>
       <!-- Preloader -->
       <div class="spinner-wrapper">
          <div class="spinner">
@@ -88,7 +94,7 @@
                <div class="row">
                   <div class="col-lg-6">
                      <div class="text-container">
-                        <h1> Bienvenido </br><span class="turquoise">Juan Rojas</span> </br>¿Que desea hacer? </h1>
+                        <h1> Bienvenido </br><span class="turquoise"><?php echo $nombre;?></span> </br>¿Que desea hacer? </h1>
                         <!-- <p class="p-large">Administra tu trabajo diario </p> -->
                         <a class="btn-solid-reg popup-with-move-anim" href="#details-lightbox-1">Registrar trabajo</a></br> </br>
                         <a class="btn-solid-lg page-scroll" href="#services">Ver trabajos realizados</a>
@@ -117,6 +123,7 @@
                      <div class="form-group">
                         <label for="cars">Tipo de trabajo</label>
                         <select class="form-control-input" id="tipo_trabajo" onchange="generarCodigo()">
+                           <option value="" selected>Seleccione</option>
                            <?php 
                               foreach($tipos_trabajos as $row)
                               { ?>

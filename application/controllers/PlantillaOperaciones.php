@@ -12,8 +12,10 @@ class PlantillaOperaciones extends CI_Controller {
 	public function index()
 	{
 		$data ['activo'] = 2;
-		
-		$this->load->view('Trabajador/planilla');
+
+		$data ['codigo'] = $_GET["codigo"];
+		$data ['total_viaticos'] = $this->OperacionesModel->ObtenerTotalViaticos($data['codigo']);
+		$this->load->view('Trabajador/planilla',$data);
 		
 	}
 
@@ -30,11 +32,12 @@ class PlantillaOperaciones extends CI_Controller {
 				$data = array('response' => "error", 'message' => validation_errors());
 			} else {
 				$ajax_data = $this->input->post();
+				$res = $this->OperacionesModel->ingresarGastosViaticos($ajax_data);
 				
-				if (!$this->OperacionesModel->ingresarGastosViaticos($ajax_data)) {
-					$data = array('response' => "error", 'message' => "Falló el registro");
+				if ($res) {
+					$data = array('response' => "error", 'message' => "Viatico agregado correctamente!");
 				}else{
-					$data = array('response' => "success", 'message' => "Se guardo correctamente el viatico!");
+					$data = array('response' => "success", 'message' => $res);
 				}
 
 			}
@@ -45,6 +48,24 @@ class PlantillaOperaciones extends CI_Controller {
 		}
 
 	}
+
+	//Metodo para el registro de materiales durante el trabajo
+	public function registroMaterialesCompradosDurante(){
+		if ($this->input->is_ajax_request()) {
+			$ajax_data = $this->input->post();
+			$res = $this->OperacionesModel->ingresarGastosViaticos($ajax_data);
+
+			if ($res) {
+				$data = array('response' => "error", 'message' => "Guardado exitosamente!");
+			}else{
+				$data = array('response' => "success", 'message' => $res);
+			}
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+	}
+
 
 }
 

@@ -6,28 +6,28 @@ class Imagenes_model extends CI_Model {
 	function __construct(){
 		parent::__construct();
 	}
-	
-	public function getIDTrabajoDiario(){
+
+	public function getIDTrabajoDiario($codigoservicio){
 		$query = $this->db
-				->select("*")
-				->from("detalletrabajodiario dt")
-				->join("TrabajoDiario tb", "dt.ID_DetalleTrabajo = tb.ID_TrabajoDiario")
+				->select("tb.ID_TrabajoDiario AS ID")
+				->from("CodigoServicio c")
+				->join("TrabajoDiario tb", "dt.ID_Codigo = c.ID_Codigo")
+				->where("c.CodigoServicio",$codigoservicio)
 				->get();
 		return $query->result_array();
 
 	}
 
-	public function registroDetalle(string $datos){
+	public function registroDetalle($datos)
+	{
+		$idtrabajodiario = $this->getIDTrabajoDiario($datos['codigo_servicio']);
 		$data = array(
-			'Imagen' => $datos,
-			'ID_TrabajoDiario' => $insert_id
+			'Imagen' => $datos['name'],
+			'ID_TrabajoDiario' => $idtrabajodiario[0]['ID'],
 		);
 	
-		return $this->db->insert('detalletrabajodiario', $data);
+		return $this->db->insert("detalletrabajodiario", $data);
 
 	}
-	public function guardar($datos)
-	{
-		return $this->db->insert("Imagen", $datos);
-	}
+	
 }

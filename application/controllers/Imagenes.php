@@ -14,10 +14,11 @@ class Imagenes extends CI_Controller {
 		//print_r($_FILES);
 		$this->load->library("upload");
 		$config = array(
-			"upload_path" => "./assets/Imagen",
-			'allowed_types' => "jpg|png"
+			"upload_path" => "./models/DocumentosSubidos",
+			'allowed_types' => "jpg|png|pdf|docx"
 		);
 		$variablefile= $_FILES;
+		var_dump($variablefile);
 		$info = array();
 		$files = count($_FILES['archivo']['name']);
 		for ($i=0; $i < $files; $i++) { 
