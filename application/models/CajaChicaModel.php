@@ -34,7 +34,7 @@ class CajaChicaModel extends CI_Model {
 		$insert_id = $this->db->insert_id();
 
 		$datadestinatario = array(
-			'Nombre' => $destinatario,
+			'NombreDestinatario' => $destinatario,
 		);
 
 		$this->db->insert('destinatario', $datadestinatario);
@@ -74,7 +74,7 @@ class CajaChicaModel extends CI_Model {
 	
 	public function obtenerEgresos(){
 		$query = $this->db
-				->select("ci.FechaEgreso AS FechaEgreso, ci.MontoEgreso AS MontoEgreso, t.Nombre AS NombreDestinatario,ci.Detalle AS Detalle,ci.Estado AS Estado") # También puedes poner * si quieres seleccionar todo
+				->select("ci.FechaEgreso AS FechaEgreso, ci.MontoEgreso AS MontoEgreso, t.NombreDestinatario AS NombreDestinatario,ci.Detalle AS Detalle,ci.Estado AS Estado") # También puedes poner * si quieres seleccionar todo
 				->from("destinatario t")
 				->join("egresocaja ci", "ci.ID_Destinatario = t.ID_Destinatario")
 				->join("cajachica c", "c.ID_CajaChica = ci.ID_CajaChica")
@@ -89,7 +89,7 @@ class CajaChicaModel extends CI_Model {
 	
 	public function obtenerVueltos(string $fecha){
 		$query = $this->db
-				->select("t.Nombre AS NombreDestinatario,ci.FechaEgreso AS Fecha,ci.MontoEgreso AS Asignado,ci.Vuelto AS Vuelto,ci.Estado AS Estado") # También puedes poner * si quieres seleccionar todo
+				->select("t.NombreDestinatario AS NombreDestinatario,ci.FechaEgreso AS Fecha,ci.MontoEgreso AS Asignado,ci.Vuelto AS Vuelto,ci.Estado AS Estado") # También puedes poner * si quieres seleccionar todo
 				->from("destinatario t")
 				->like('ci.FechaEgreso', $fecha)
 				->join("egresocaja ci", "ci.ID_Destinatario = t.ID_Destinatario")

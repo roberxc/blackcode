@@ -62,10 +62,44 @@ if (isset($set_data['nombre_completo'])) {
             <a href="<?php echo base_url()?>Stock" class="nav-link <?php if(isset($activo) && ($activo == 4)){echo "active"; }?>">
               <i class="nav-icon fas fa-table"></i>
               <p>
-                Stock
+              Bodega
               </p>
             </a>
-
+            <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 5)){echo "menu-open"; }?>">
+            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 5)){echo "active"; }?>">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Mantención Garage
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Registrar Vehiculo</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Garage Vehiculo</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Combustible</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Mantenciones</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           </li>
 
           <li class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 2)){echo "menu-open"; }?>">
@@ -81,7 +115,7 @@ if (isset($set_data['nombre_completo'])) {
               <li class="nav-item">
               <a href="<?php echo base_url()?>Perfil" class="nav-link <?php if(isset($activo) && ($activo == 7)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Perfil</p>
+                  <p>Modificar mi perfil</p>
                 </a>
               </li>
             
