@@ -593,18 +593,19 @@
                   <div class="card-body" id="dynamic_field" >
                      <div class="card-title">Subir documentos</div>
                      <hr class="cell-divide-hr">
-
-                        <form id="form_subidas" action="<?php echo base_url(); ?>imagenes/subir" method="POST" class="form-horizontal">
-                        <input type="file" name="archivo[]" multiple>
-                        <input type="submit" value="Subir">
-                        </form>
-
-                     <table class="table table-bordered" >
-                        <TR>
-                           <TD> <input type="file" name="archivossubidos[]" multiple></TD>
-                        </TR>
-                     </table>
-
+                     
+                     <?php echo form_open_multipart('Upload/file_data');?>
+                     <div class="form-group">
+                      <input type="text" class="form-control-input" name="codigo_servicio2" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" disabled> <br>
+                     </div>
+                     <div class="form-group">
+                        <label for="pic_file">Select Image*:</label>
+                        <input type="file" name="pic_file" class="form-control"  id="pic_file">
+                     </div>
+                     <!--<a href="<?=base_url();?>" class="btn btn-warning">Back</a>-->
+                     
+                     <button type="submit" class="btn btn-success">Submit</button>
+<br>
                      <hr class="cell-divide-hr">
                      <div class="button-wrapper">
                      </div>
@@ -613,9 +614,9 @@
                <!-- end of card -->
             </div>
             <!-- end of col -->
-            <div class="form-group">
+            <!--<div class="form-group">
                <a class="btn-solid-reg" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
-            </div>
+            </div>-->
            
          </div>
          <!-- end of row -->
@@ -651,7 +652,7 @@
       <script src="<?php echo base_url()?>assets/js/Operaciones/ingreso_planilla.js"></script>
 
 
-      <script src="<?php echo base_url();?>assets/js/imagenes.js"></script>
+      <!--<script src="<?php echo base_url();?>assets/js/imagenes.js"></script>-->
       
       <script src="<?php echo base_url()?>assets/js/Operaciones/ingreso_planilla_detalle.js"></script>
 
