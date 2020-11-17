@@ -5,6 +5,6 @@ function Success(){
         text: 'Se ha ingresado correctamente al sistema',
         confirmButtonText: `Continuar`,
       }).then(function() {
-        window.location = "/TIC2020/RegistroEntrada";
+        //window.location = "/TIC2020/RegistroEntrada";
     });
 }
