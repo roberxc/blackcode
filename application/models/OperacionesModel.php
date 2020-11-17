@@ -14,9 +14,9 @@ class OperacionesModel extends CI_Model {
 	}
 
 	public function ObtenerTiposCombustibles(){
-		$names = array(36, 37);
+		$names = array('Bencina', 'Petroleo');
 		$this->db->select('NombreTipoGasto');
-		$this->db->where_in('ID_TipoGasto',$names);
+		$this->db->where_in('NombreTipoGasto',$names);
 		$query = $this->db->get('tipogasto');
 		return $query->result();
 	}

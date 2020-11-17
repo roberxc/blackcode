@@ -149,7 +149,8 @@
                         <div class="card-title">Materiales comprados durante el trabajo</div>
                         <hr class="cell-divide-hr">
                         <div class="price">
-                           <span class="currency">$</span><span class="value">10000</span>
+                           <!-- VALOR TOTAL -->
+                           <span class="currency">$</span><span class="value"></span>
                            <div class="frequency">Total</div>
                         </div>
                         <hr class="cell-divide-hr">
