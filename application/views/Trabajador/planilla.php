@@ -3,36 +3,16 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <!-- SEO Meta Tags -->
-      <meta name="description" content="Create a stylish landing page for your business startup and get leads for the offered services with this HTML landing page template.">
-      <meta name="author" content="Inovatik">
-      <!-- OG Meta Tags to improve the way the post looks when you share the page on LinkedIn, Facebook, Google+ -->
-      <meta property="og:site_name" content="" />
-      <!-- website name -->
-      <meta property="og:site" content="" />
-      <!-- website link -->
-      <meta property="og:title" content=""/>
-      <!-- title shown in the actual shared post -->
-      <meta property="og:description" content="" />
-      <!-- description shown in the actual shared post -->
-      <meta property="og:image" content="" />
-      <!-- image link, make sure it's jpg -->
-      <meta property="og:url" content="" />
-      <!-- where do you want your post to link to -->
-      <meta property="og:type" content="article" />
       <!-- Website Title -->
       <title>Registro de trabajo diario</title>
-
-      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
       <!-- Styles -->
       <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,600,700,700i&amp;subset=latin-ext" rel="stylesheet">
-      <link href="assets/css/bootstrap.css" rel="stylesheet">
-      <link href="assets/css/fontawesome-all.css" rel="stylesheet">
-      <link href="assets/css/swiper.css" rel="stylesheet">
-      <link href="assets/css/magnific-popup.css" rel="stylesheet">
-      <link href="assets/css/styles.css" rel="stylesheet">
-      <!-- Favicon  -->
-      <link rel="icon" href="">
+      <link href="<?php echo base_url();?>assets/css/bootstrap.css" rel="stylesheet">
+      <link href="<?php echo base_url();?>assets/css/fontawesome-all.css" rel="stylesheet">
+      <link href="<?php echo base_url();?>assets/css/swiper.css" rel="stylesheet">
+      <link href="<?php echo base_url();?>assets/css/magnific-popup.css" rel="stylesheet">
+      <link href="<?php echo base_url();?>assets/css/styles.css" rel="stylesheet">
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
    </head>
    <body data-spy="scroll" data-target=".fixed-top">
       <!-- Preloader -->
@@ -58,24 +38,22 @@
          <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav ml-auto">
                <li class="nav-item">
-               <a class="nav-link page-scroll" href="<?php echo base_url()?>login" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Cancelar</a>
+                  <a class="nav-link page-scroll" href="<?php echo base_url()?>login" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Cancelar</a>
                </li>
-               
             </ul>
          </div>
       </nav>
       <!-- end of navbar -->
       <!-- end of navigation -->
       <!-- Pricing -->
-
       <div id="pricing" class="cards-2">
          <div class="container">
             <div class="row">
                <div class="col-lg-12">
                   <h2>Completar planilla de Trabajos Diarios</h2>
                   <div class="col-lg-2">
-                  <input type="text" class="form-control-input" id="codigo_servicio" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" disabled> <br>
-                  </div>               
+                     <input type="text" class="form-control-input" id="codigo_servicio" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" disabled> <br>
+                  </div>
                </div>
                <!-- end of col -->
             </div>
@@ -88,7 +66,7 @@
                         <div class="card-title">Marcar Asistencia</div>
                         <hr class="cell-divide-hr">
                         <div class="button-wrapper">
-                        <a class="btn-solid-reg active asistencia-modal" href="#">Ingresar</a>
+                           <a class="btn-solid-reg active asistencia-modal" href="#">Ingresar</a>
                         </div>
                         <hr class="cell-divide-hr">
                      </div>
@@ -96,17 +74,17 @@
                   <!-- end of card -->
                   <!-- end of card -->
                   <!-- Card-->
-
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Gasto de Viaticos</div>
                         <hr class="cell-divide-hr">
                         <div class="price">
-                           <span class="currency">$</span><span class="value"><?php if(isset($total_viaticos)){echo $total_viaticos[0]->Valor;}else{ echo '0';}?></span>
+                           <span class="currency">$</span><span class="value"><?php if(isset($total_viaticos)){if($total_viaticos[0]->Valor>0){echo $total_viaticos[0]->Valor;}else{ echo '0';}}else{ echo '0';}?></span>
                            <div class="frequency">Total</div>
                         </div>
                         <hr class="cell-divide-hr">
                         <ul class="list-unstyled li-space-lg">
+                           
                            <li class="media">
                               <i class="fas fa-check"></i>
                               <div class="media-body">Desayuno</div>
@@ -116,7 +94,7 @@
                               <div class="media-body">Almuerzo</div>
                            </li>
                            <li class="media">
-                              <i class="fas fa-times"></i>
+                              <i class="fas fa-check"></i>
                               <div class="media-body">Cena</div>
                            </li>
                            <li class="media">
@@ -141,34 +119,35 @@
                            <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
                            <div class="col-lg-4">
                               <h4>Ingrese los gasto de Viaticos </h4>
-                                 <div class="form-group">
-                                    <input type="number" class="form-control-input" id="vdesayuno" required>
-                                    <label class="label-control" for="cname">Desayuno</label>
-                                    <div class="help-block with-errors"></div>
-                                 </div>
-                                 <div class="form-group">
-                                    <input type="number" class="form-control-input" id="valmuerzo" required>
-                                    <label class="label-control" for="cemail">Almuerzo</label>
-                                    <div class="help-block with-errors"></div>
-                                 </div>
-                                 <div class="form-group">
-                                    <input type="number" class="form-control-input" id="vcena" required>
-                                    <label class="label-control" for="cemail">Cena</label>
-                                    <div class="help-block with-errors"></div>
-                                 </div>
-                                 <div class="form-group">
-                                    <input type="number" class="form-control-input" id="vagua" required>
-                                    <label class="label-control" for="cemail">Agua</label>
-                                    <div class="help-block with-errors"></div>
-                                 </div>
-                                 <div class="form-group">
-                                    <input type="number" class="form-control-input" id="valojamiento" required>
-                                    <label class="label-control" for="cemail">Alojamiento</label>
-                                    <div class="help-block with-errors"></div>
-                                 </div>
-                                 <div class="form-group">
-                                    <button class="btn-solid-reg" id="addviatico" type="button">Guardar</button>
-                                 </div>
+                              <div class="form-group">
+                                 <input type="number" class="form-control-input" id="vdesayuno" required>
+                                 <label class="label-control" for="cname">Desayuno</label>
+                                 <div class="help-block with-errors"></div>
+                              </div>
+                              <div class="form-group">
+                                 <input type="number" class="form-control-input" id="valmuerzo" required>
+                                 <label class="label-control" for="cemail">Almuerzo</label>
+                                 <div class="help-block with-errors"></div>
+                              </div>
+                              <div class="form-group">
+                                 <input type="number" class="form-control-input" id="vcena" required>
+                                 <label class="label-control" for="cemail">Cena</label>
+                                 <div class="help-block with-errors"></div>
+                              </div>
+                              <div class="form-group">
+                                 <input type="number" class="form-control-input" id="vagua" required>
+                                 <label class="label-control" for="cemail">Agua</label>
+                                 <div class="help-block with-errors"></div>
+                              </div>
+                              <div class="form-group">
+                                 <input type="number" class="form-control-input" id="valojamiento" required>
+                                 <label class="label-control" for="cemail">Alojamiento</label>
+                                 <div class="help-block with-errors"></div>
+                              </div>
+
+                              <div class="form-group">
+                                 <button class="btn-solid-reg" id="addviatico" type="button">Guardar</button>
+                              </div>
                            </div>
                            <!-- end of col -->
                         </div>
@@ -178,7 +157,6 @@
                   </div>
                   <!-- end of lightbox-basic -->
                   <!-- Card-->
-
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Materiales comprados durante el trabajo</div>
@@ -189,14 +167,13 @@
                         </div>
                         <hr class="cell-divide-hr">
                         <div class="button-wrapper">
-                           <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#duranteTrab">Ingresar</a>
+                           <a class="btn-solid-reg popup-with-move-anim" href="#duranteTrab" id="in-mat1">Ingresar</a>
                         </div>
                      </div>
                   </div>
                   <!-- end of card -->
                   <!-- end of card -->
                   <!-- Card-->
-
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Materiales comprados antes de los trabajos</div>
@@ -214,7 +191,6 @@
                   <!-- end of card -->
                   <!-- end of card -->
                   <!-- Card-->
-
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Materiales de bodega</div>
@@ -230,24 +206,25 @@
                   <!-- end of card -->
                   <!-- end of card -->
                   <!-- Card-->
-
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Combustible</div>
                         <hr class="cell-divide-hr">
                         </br>
                         <div class="form-group">
-                           <label for="cars">Ingrese tipo de combustible:</label>
+                           <label for="cars">Seleccione el tipo de combustible:</label>
                            <select class="form-control-input" name="cars" id="cars">
-                              <option value="volvo">Combustible 1</option>
-                              <option value="saab">Combustible 2</option>
-                              <option value="mercedes">Combustible 3</option>
-                              <option value="audi">Combustible 4</option>
+                              <option value="" selected>Seleccione</option>
+                              <?php 
+                              foreach($tipos_combustible as $row)
+                              { ?>
+                              <option value=""><?php echo $row->NombreTipoGasto?></option>
+                              <?php }?>
                            </select>
                         </div>
                         <div class="form-group">
                            <input type="text" class="form-control-input" id="cemail" required>
-                           <label class="label-control" for="cemail">Ingresar Gato $</label>
+                           <label class="label-control" for="cemail">Ingresar Gasto $</label>
                            <div class="help-block with-errors"></div>
                         </div>
                         <hr class="cell-divide-hr">
@@ -258,25 +235,24 @@
                   </div>
                   <!-- end of card -->
                   <!-- end of card -->
-   
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Gasto Varios</div>
                         <hr class="cell-divide-hr">
                         </br></br>
                         <div class="form-group">
-                           <input type="text" class="form-control-input" id="cemail" required>
+                           <input type="text" class="form-control-input" id="gasto_peaje" required>
                            <label class="label-control" for="cemail">Peaje $</label>
                            <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group">
-                           <input type="text" class="form-control-input" id="cemail" required>
+                           <input type="text" class="form-control-input" id="gasto_estacionamiento" required>
                            <label class="label-control" for="cemail">Estacionamiento $</label>
                            <div class="help-block with-errors"></div>
                         </div>
                         <hr class="cell-divide-hr">
                         <div class="button-wrapper">
-                           <a class="btn-solid-reg page-scroll" href="#request">Guardar</a>
+                           <a class="btn-solid-reg page-scroll" id="addgastos_varios" href="#request">Guardar</a>
                         </div>
                      </div>
                   </div>
@@ -288,24 +264,21 @@
             <!-- end of row -->
          </div>
          <!-- end of container -->
-
          <div class="card">
-                     <div class="card-body">
-                        <div class="card-title">Subir Documentos</div>
-                        <hr class="cell-divide-hr">
-                        </br></br>
-                        <div class="card-subtitle">Registrar documentos que verique la compra o el trabajo hecho</div>
-                        <hr class="cell-divide-hr">
-                        <div class="button-wrapper">
-                           <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#documentosubir">Ingresar</a>
-                        </div>
-                     </div>
-                  </div>
-                  <!-- end of card -->
-                  <!-- end of card -->
-                  <!-- Card-->
-
-
+            <div class="card-body">
+               <div class="card-title">Subir Documentos</div>
+               <hr class="cell-divide-hr">
+               </br></br>
+               <div class="card-subtitle">Registrar documentos que verique la compra o el trabajo hecho</div>
+               <hr class="cell-divide-hr">
+               <div class="button-wrapper">
+                  <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#documentosubir">Ingresar</a>
+               </div>
+            </div>
+         </div>
+         <!-- end of card -->
+         <!-- end of card -->
+         <!-- Card-->
          <div id="contact" class="form-2">
             <div class="container">
                <div class="row">
@@ -326,7 +299,6 @@
       </div> <!-- end of cards-2 -->
       <!-- end of pricing -->
       <!-- Contact -->
-
       <div id="asistencia1" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
             <div class="row">
@@ -378,9 +350,9 @@
                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
                <div class="col-lg-4">
                   <h4>Registrar hora de Salida </h4>
-                  <form id="contactForm" data-toggle="validator" data-focus="false">
+                  <form data-toggle="validator" data-focus="false">
                      <div class="form-group">
-                        <input type="time" class="form-control-input" id="cname" required>
+                        <input type="time" class="form-control-input" required>
                         <label class="label-control" for="cname"></label>
                         <div class="help-block with-errors"></div>
                      </div>
@@ -395,10 +367,6 @@
          </div>
          <!-- end of container -->
       </div>
-
-      
-
-
       <!-- end of lightbox-basic -->
       <div id="tarde" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
@@ -438,9 +406,9 @@
                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
                <div class="col-lg-4">
                   <h4>Registrar hora de retorno </h4>
-                  <form id="contactForm" data-toggle="validator" data-focus="false">
+                  <form data-toggle="validator" data-focus="false">
                      <div class="form-group">
-                        <input type="time" class="form-control-input" id="cname" required>
+                        <input type="time" class="form-control-input" required>
                         <label class="label-control" for="cname"></label>
                         <div class="help-block with-errors"></div>
                      </div>
@@ -462,9 +430,9 @@
                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
                <div class="col-lg-4">
                   <h4>Registrar hora de Salida </h4>
-                  <form id="contactForm" data-toggle="validator" data-focus="false">
+                  <form data-toggle="validator" data-focus="false">
                      <div class="form-group">
-                        <input type="time" class="form-control-input" id="cname" required>
+                        <input type="time" class="form-control-input" required>
                         <label class="label-control" for="cname"></label>
                         <div class="help-block with-errors"></div>
                      </div>
@@ -486,9 +454,9 @@
                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
                <div class="col-lg-4">
                   <h4>Registrar hora retorno  </h4>
-                  <form id="contactForm" data-toggle="validator" data-focus="false">
+                  <form data-toggle="validator" data-focus="false">
                      <div class="form-group">
-                        <input type="time" class="form-control-input" id="cname" required>
+                        <input type="time" class="form-control-input" required>
                         <label class="label-control" for="cname"></label>
                         <div class="help-block with-errors"></div>
                      </div>
@@ -523,8 +491,8 @@
                            <TD><input type="text" id="item_cantidad" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
-                           <TH>Valor total</TH>
-                           <TD><input type="text" name="item_valortotal" placeholder="Ingrese" class="form-control" /></TD>
+                           <TH>Total $</TH>
+                           <TD><input type="text" id="item_valortotal" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Agregar más</TH>
@@ -554,25 +522,25 @@
                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
                <div class="col-lg-4">
                   <div class="card"></div>
-                  <div class="card-body" id="dynamic_field" >
+                  <div class="card-body" id="dynamic_field2">
                      <div class="card-title">Ingrese materiales comprados antes el trabajo</div>
                      <hr class="cell-divide-hr">
                      <table class="table table-bordered" >
                         <TR>
                            <TH>Material</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
+                           <TD><input type="text" id="item_material2" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Cantidad</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
+                           <TD><input type="text" id="item_cantidad2" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
-                           <TH>Valor/Unidad</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
+                           <TH>Total $</TH>
+                           <TD><input type="text" id="item_valortotal2" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Agregar más</TH>
-                           <TD><button type="button" name="add" id="antes" class="btn btn-success">+</button></TD>
+                           <TD><button type="button" id="antes" class="btn btn-success">+</button></TD>
                         </TR>
                      </table>
                      <hr class="cell-divide-hr">
@@ -584,13 +552,12 @@
             </div>
             <!-- end of col -->
             <div class="form-group">
-               <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
+               <a class="btn-solid-reg" id="addmaterial2" href="#">Guardar</a></br> </br>
             </div>
          </div>
          <!-- end of row -->
       </div>
       <!-- end of container -->
- 
       <div id="bodega" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
             <div class="row">
@@ -629,7 +596,6 @@
          <!-- end of row -->
       </div>
       <!-- end of container -->
-
       <div id="documentosubir" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
             <div class="row">
@@ -641,9 +607,8 @@
                      <hr class="cell-divide-hr">
                      <table class="table table-bordered" >
                         <TR>
-                        <TD> <input type="file" name="archivossubidos[]" multiple></TD>
+                           <TD> <input type="file" name="archivossubidos[]" multiple></TD>
                         </TR>
-                        
                      </table>
                      <hr class="cell-divide-hr">
                      <div class="button-wrapper">
@@ -660,20 +625,17 @@
          <!-- end of row -->
       </div>
       <!-- end of container -->
-      </div> <!-- end of lightbox-basic -->
+      <div class="error"></div>
       <!-- end of details lightbox 1 -->
       <script src="https://code.jquery.com/jquery-3.5.1.min.js"
-      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-   <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-
-
+         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
       <!-- Scripts modal -->
-      <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
       <script type="text/javascript" src="<?php echo base_url()?>assets/js/MaterialesDurante.js"></script>
       <script type="text/javascript" src="<?php echo base_url()?>assets/js/MaterialesAntes.js"></script>
@@ -687,8 +649,6 @@
       <script src="assets/js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
       <script src="assets/js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
       <script src="assets/js/scripts.js"></script> <!-- Custom scripts -->
-
-
       <script src="<?php echo base_url()?>assets/js/Operaciones/ingreso_planilla_detalle.js"></script>
    </body>
 </html>

@@ -13,6 +13,14 @@ class OperacionesModel extends CI_Model {
     	return $query->result();
 	}
 
+	public function ObtenerTiposCombustibles(){
+		$names = array(36, 37);
+		$this->db->select('NombreTipoGasto');
+		$this->db->where_in('ID_TipoGasto',$names);
+		$query = $this->db->get('tipogasto');
+		return $query->result();
+	}
+
 	public function ObtenerListaPersonal($codigo){
 		$query = $this->db
 				->select("p.ID_Personal as ID, p.NombreCompleto AS Nombre,p.Rut AS Rut") # También puedes poner * si quieres seleccionar todo
@@ -71,9 +79,33 @@ class OperacionesModel extends CI_Model {
 		$idtipotrabajo = $this->getIDTrabajoDiarioCS($codigo);
 		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['ID_TipoTrabajo']);
 		$idtrabajodiario = $idtipotrabajo[0]['ID_TrabajoDiario'];
+
+		//Array con las id de los gastos viaticos
+		$gastosviaticos = array(1,2,3,4,5);
+
 		$this->db->select_sum('Valor');
 		$this->db->where('ID_TrabajoDiario',$idtrabajodiario);
+		$this->db->where_in('ID_TipoGasto',$gastosviaticos);
 		$query = $this->db->get('gastos');
+		
+		return $query->result();
+	}
+
+	//Metodo para obtener los tipos de viaticos ingresados y asi poder mostrar el check en la vista
+	public function ObtenerTiposViaticos($codigo){
+
+		$idtipotrabajo = $this->getIDTrabajoDiarioCS($codigo);
+		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['ID_TipoTrabajo']);
+		$idtrabajodiario = $idtipotrabajo[0]['ID_TrabajoDiario'];
+
+		//Array con las id de los gastos viaticos
+		$gastosviaticos = array(1,2,3,4,5);
+		$query = $this->db
+		->select("g.Valor AS Valor") # También puedes poner * si quieres seleccionar todo
+		->from("gastos g")
+		->join("tipogasto t", "t.ID_TipoGasto = g.ID_TipoGasto")
+		->where_in('g.ID_TrabajoDiario',$gastosviaticos)
+		->get();
 		return $query->result();
 	}
 
@@ -84,51 +116,36 @@ class OperacionesModel extends CI_Model {
 		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['ID_TipoTrabajo']);
 		$idtrabajodiario = $idtipotrabajo[0]['ID_TrabajoDiario'];
 		$idtipogasto = 0;
-
-		if($ajax_data['vagua']>0){
-			$idtipogasto = $this->getTipoGasto('Agua');
-		}else if($ajax_data['vdesayuno']>0){
-			$idtipogasto = $this->getTipoGasto('Desayuno');
-		}else if($ajax_data['valojamiento']>0){
-			$idtipogasto = $this->getTipoGasto('Alojamiento');
-			
-		}else if($ajax_data['vcena']>0){
-			$idtipogasto = $this->getTipoGasto('Cena');
-			
-		}else if($ajax_data['valmuerzo']>0){
-			$idtipogasto = $this->getTipoGasto('Almuerzo');
-		}
-
 		$data = array(
 			array(
 			   'Valor' => $ajax_data['valmuerzo'],
-			   'ID_TipoGasto' => $idtipogasto[0]['ID_TipoGasto'],
+			   'ID_TipoGasto' => $this->getTipoGasto('Almuerzo')[0]['ID_TipoGasto'],
 			   'ID_TrabajoDiario' => $idtrabajodiario
 			),
 			array(
 				'Valor' => $ajax_data['vcena'],
-				'ID_TipoGasto' => $idtipogasto[0]['ID_TipoGasto'],
+				'ID_TipoGasto' => $this->getTipoGasto('Cena')[0]['ID_TipoGasto'],
 				'ID_TrabajoDiario' => $idtrabajodiario
 			 ),
 			 array(
 				'Valor' => $ajax_data['vagua'],
-				'ID_TipoGasto' => $idtipogasto[0]['ID_TipoGasto'],
+				'ID_TipoGasto' => $this->getTipoGasto('Agua')[0]['ID_TipoGasto'],
 				'ID_TrabajoDiario' => $idtrabajodiario
 			 ),
 			 array(
 				'Valor' => $ajax_data['valojamiento'],
-				'ID_TipoGasto' => $idtipogasto[0]['ID_TipoGasto'],
+				'ID_TipoGasto' => $this->getTipoGasto('Alojamiento')[0]['ID_TipoGasto'],
 				'ID_TrabajoDiario' => $idtrabajodiario
 			 ),
 
 			 array(
 				'Valor' => $ajax_data['vdesayuno'],
-				'ID_TipoGasto' => $idtipogasto[0]['ID_TipoGasto'],
+				'ID_TipoGasto' => $this->getTipoGasto('Desayuno')[0]['ID_TipoGasto'],
 				'ID_TrabajoDiario' => $idtrabajodiario
 			 )
 		 );
 
-		$this->db->insert_batch('gastos',$data);
+		return $this->db->insert_batch('gastos',$data);
 	}
 
 	public function obtenerIDTipoTrabajo(string $abreviacion){
@@ -297,37 +314,87 @@ class OperacionesModel extends CI_Model {
 		return $kode_auto;
 	}
 
-	//Registro de materiales comprados durante el trabajo
-	public function registrarMaterialesDurante($data){
-		//Registro  de asistencia
-		$asistencia_manana_entrada = $data["lista_entradam"];
-		$asistencia_manana_salida = $data["lista_salidam"];
-		$asistencia_tarde_entrada = $data["lista_entradat"];
-		$asistencia_tarde_salida = $data["lista_salidat"];
-		//Rut de personal
-		$asistencia_rut = $data["lista_id"];
-		for($count = 0; $count<count($asistencia_rut); $count++){
-			//Asistencia de mañana
-			$asistencia_mentrada = $asistencia_manana_entrada[$count];
-			$asistencia_msalida = $asistencia_manana_salida[$count];
-			//Asistencia de tarde
-			$asistencia_tentrada = $asistencia_tarde_entrada[$count];
-			$asistencia_tsalida = $asistencia_tarde_salida[$count];
-			//ID Personal
-			$asistencia_idpersonal = $asistencia_rut[$count];
-			if(!empty($asistencia_mentrada) && !empty($asistencia_msalida)
-			 && !empty($asistencia_tentrada) && !empty($asistencia_tsalida)){
-				$insert_data[] = array(
-					'Fecha_Asistencia' => $fechaactual,
-					'HoraLlegadaM'=> $asistencia_mentrada,
-					'HoraSalidaM'=> $asistencia_msalida,
-					'HoraLlegadaT'=> $asistencia_tentrada,
+	//Metodo para registrar tipos de gastos
+	public function registroTipoGasto($lista_tipogasto){
+
+		for($count = 0; $count<count($lista_tipogasto); $count++){
+
+			$lista_tipo = $lista_tipogasto[$count];
+
+			if(!empty($lista_tipo)){
+				$insert_tipogastos[] = array(
+					'NombreTipoGasto'=> $lista_tipo,
 				);
 			}
 		}
-		return  $this->db->insert_batch('asistencia',$insert_data);
+		$this->db->insert_batch('tipogasto',$insert_tipogastos);
+		$id_tipogasto = $this->db->insert_id();
+		return $id_tipogasto;
+
 	}
 
+	//Registro de materiales comprados durante el trabajo
+	public function registrarMaterialesDurante($data){
+		
+		//Registro  de materiales
+		$materiales = $data["lista_material"];
+		$cantidades = $data["lista_cantidad"];
+		$valores = $data["lista_valores"];
+		
+		//Registro del tipo de gasto
+		$id_tipogasto = $this->registroTipoGasto($materiales);
+
+		//Obtencion de id trabajo
+		$id_trabajodiario = $this->getIDTrabajoDiarioCS($data['codigo_servicio']);
+		$idtrabajo = $id_trabajodiario[0]['ID_TrabajoDiario'];
+
+		for($count = 0; $count<count($materiales); $count++){
+			//Asistencia de mañana
+			$materiales_limpio = $materiales[$count];
+			$cantidad_limpio = $cantidades[$count];
+			$valores_limpio = $valores[$count];
+
+			if(!empty($materiales_limpio) && !empty($cantidad_limpio)
+			 && !empty($valores_limpio)){
+				$insert_gastos[] = array(
+					'Valor' => $valores_limpio,
+					'Cantidad'=> $cantidad_limpio,
+					'ID_TipoGasto' => $id_tipogasto,
+					'ID_TrabajoDiario' => $idtrabajo,
+				);
+			}
+		}
+		return  $this->db->insert_batch('gastos',$insert_gastos);
+	}
+
+	//Metodo para registrar gastos varios
+	public function registrarGastosVarios($ajax_data){
+		//Obtener id de trabajo diario
+		$idtipotrabajo = $this->getIDTrabajoDiarioCS($ajax_data['codigo_servicio']);
+		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['ID_TipoTrabajo']);
+		$idtrabajodiario = $idtipotrabajo[0]['ID_TrabajoDiario'];
+
+		if($ajax_data['gasto_peaje']>0){
+			$idtipogasto = $this->getTipoGasto('Peaje');
+		}else if($ajax_data['gasto_estacionamiento']>0){
+			$idtipogasto = $this->getTipoGasto('Estacionamiento');
+		}
+
+		$data = array(
+			array(
+			   'Valor' => $ajax_data['gasto_peaje'],
+			   'ID_TipoGasto' => $idtipogasto[0]['ID_TipoGasto'],
+			   'ID_TrabajoDiario' => $idtrabajodiario
+			),
+			array(
+				'Valor' => $ajax_data['gasto_estacionamiento'],
+				'ID_TipoGasto' => $idtipogasto[0]['ID_TipoGasto'],
+				'ID_TrabajoDiario' => $idtrabajodiario
+			 ),
+		 );
+
+		return $this->db->insert_batch('gastos',$data);
+	}
 }
 
 ?>

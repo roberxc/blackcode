@@ -29,8 +29,7 @@
       <link href="assets/css/swiper.css" rel="stylesheet">
       <link href="assets/css/magnific-popup.css" rel="stylesheet">
       <link href="assets/css/styles.css" rel="stylesheet">
-      <!-- Favicon  -->
-      <link rel="icon" href="">
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
    </head>
    <body data-spy="scroll" data-target=".fixed-top">
    <?php $set_data = $this->session->all_userdata(); 
@@ -53,7 +52,7 @@ if (isset($set_data['nombre_completo'])) {
          <!-- Text Logo - Use this if you don't have a graphic logo -->
          <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Evolo</a> -->
          <!-- Image Logo -->
-         <a class="navbar-brand logo-image" href="index.html"><img src="images/logo.svg" alt="alternative"></a>
+         <a class="navbar-brand logo-image" href="index.html"></a>
          <!-- Mobile Menu Toggle Button -->
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-awesome fas fa-bars"></span>
@@ -152,7 +151,7 @@ if (isset($set_data['nombre_completo'])) {
                         <div class="help-block with-errors"></div>
                      </div>
                      <div class="form-group">
-                        <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#detalleTrabajo">Siguiente</a></br> </br>
+                        <a class="btn-solid-reg popup-with-move-anim" id="validar-iniciotrabajo" href="#detalleTrabajo">Siguiente</a></br> </br>
                      </div>
                   </div>
                   <!-- end of col -->
@@ -220,7 +219,7 @@ if (isset($set_data['nombre_completo'])) {
                <!-- end of row -->
             </div>
             <div class="col-lg-4">
-                  <a class="btn-solid-reg mfp-close page-scroll reg-trabajo" href="<?php echo base_url()?>PlantillaOperaciones" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Siguiente</a>
+                  <a class="btn-solid-reg mfp-close page-scroll reg-trabajo">Siguiente</a>
                   </div>
                   <div class="col-lg-4">
                            <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#detalleTrabajo">Volver</a></br> </br>
@@ -229,6 +228,14 @@ if (isset($set_data['nombre_completo'])) {
          </div>
       <!-- end of lightbox-basic -->
       <!-- end of details lightbox 1 -->
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
       <!-- Scripts modal -->
       <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

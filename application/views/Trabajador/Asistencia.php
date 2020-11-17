@@ -95,22 +95,22 @@
                      </TR>
                      <TR>
                         <TH >Hora de entrada:</TH>
-                        <TD><input class="form-control" id="item_entradam" type="time" value="08:30" id="example-time-input"/></TD>
+                        <TD><input class="form-control" id="item_entradam" type="time" value="08:30"/></TD>
                      </TR>
                      <TR>
                         <TH>Hora de salida:</TH>
-                        <TD><input class="form-control" id="item_salidam" type="time" value="14:00" id="example-time-input"/></TD>
+                        <TD><input class="form-control" id="item_salidam" type="time" value="14:00"/></TD>
                      </TR>
                      <TR>
                         <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la tarde:</TD>
                      </TR>
                      <TR>
                         <TH>Hora de entrada:</TH>
-                        <TD><input class="form-control" id="item_entradat" type="time" value="15:00" id="example-time-input"/></TD>
+                        <TD><input class="form-control" id="item_entradat" type="time" value="15:00"/></TD>
                      </TR>
                      <TR>
                         <TH>Hora de salida:</TH>
-                        <TD><input class="form-control" id="item_salidat" type="time" value="18:30" id="example-time-input"/></TD>
+                        <TD><input class="form-control" id="item_salidat" type="time" value="18:30"/></TD>
                      </TR>
                   </table>
                   <hr class="cell-divide-hr">
@@ -132,7 +132,7 @@
             <div class="row">
                <div class="col-lg-12">
                   <h2>Guardar Asistencia de los trabajadores</h2>
-                  <a class="btn-solid-reg asistencia-registro">Guardar</a><a class="btn-solid-reg" href="<?php echo base_url()?>PlantillaOperaciones"  <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>>Cancelar</a>
+                  <button class="btn-solid-reg asistencia-registro">Guardar</button><button class="btn-solid-reg asistencia-cancelar">Cancelar</button>
                </div>
             </div>
             <!-- end of col -->

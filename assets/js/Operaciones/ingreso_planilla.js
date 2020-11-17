@@ -69,5 +69,70 @@ $(".reg-trabajo").on('click', function(event){
     
 });
 
+//Validacion de campos (TrabajoDiario vista Trabajador/index.php)
+$("#validar-iniciotrabajo").on('click', function(event){
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    var fechatrabajo = $("#fecha_trabajo").val();
+    var personacargo = $("#personacargo").val();
+    var nombreproyecto = $("#nombre_proyecto").val();
+    var sumaasignada = $("#suma_asignada").val();
+    $.ajax({
+        url: "Operacion/validarTrabajoDiario",
+        type: "post",
+        dataType: "json",
+        data: {
+            fecha_trabajo: fechatrabajo,
+            nombre_proyecto: nombreproyecto,
+            persona_cargo: personacargo,
+            suma_asignada: sumaasignada,
+        },
+        success: function(data) {
+            if (data.response === "success") {
+                Command: toastr["success"]('Ingreso correcto!','Correcto')
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            } else {
+                Command: toastr["error"]('Faltan campos por completar en la ventana anterior. Presione en "Volver"','Error')
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+
+            }
+        }
+    });
+    
+    
+});
+
 
 
