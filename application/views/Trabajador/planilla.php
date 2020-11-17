@@ -150,8 +150,6 @@
                         <hr class="cell-divide-hr">
                         <div class="price">
                            <!-- VALOR TOTAL -->
-                           <span class="currency">$</span><span class="value"></span>
-                           <div class="frequency">Total</div>
                         </div>
                         <hr class="cell-divide-hr">
                         <div class="button-wrapper">
@@ -167,8 +165,6 @@
                         <div class="card-title">Materiales comprados antes de los trabajos</div>
                         <hr class="cell-divide-hr">
                         <div class="price">
-                           <span class="currency">$</span><span class="value">9000</span>
-                           <div class="frequency">Total</div>
                         </div>
                         <hr class="cell-divide-hr">
                         <div class="button-wrapper">
@@ -184,7 +180,7 @@
                         <div class="card-title">Materiales de bodega</div>
                         <hr class="cell-divide-hr">
                         </br></br>
-                        <div class="card-subtitle">Registrar materiales utilizado de la bodega</div>
+                        <div class="card-subtitle">Registrar materiales utilizados de la bodega</div>
                         <hr class="cell-divide-hr">
                         <div class="button-wrapper">
                            <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#bodega">Ingresar</a>
@@ -201,23 +197,23 @@
                         </br>
                         <div class="form-group">
                            <label for="cars">Seleccione el tipo de combustible:</label>
-                           <select class="form-control-input" name="cars" id="cars">
+                           <select class="form-control-input" id="id_tipogasto">
                               <option value="" selected>Seleccione</option>
                               <?php 
                               foreach($tipos_combustible as $row)
                               { ?>
-                              <option value=""><?php echo $row->NombreTipoGasto?></option>
+                              <option value="<?php echo $row->ID_TipoGasto?>"><?php echo $row->NombreTipoGasto?></option>
                               <?php }?>
                            </select>
                         </div>
                         <div class="form-group">
-                           <input type="text" class="form-control-input" id="cemail" required>
+                           <input type="text" class="form-control-input" id="gasto_combustible" required>
                            <label class="label-control" for="cemail">Ingresar Gasto $</label>
                            <div class="help-block with-errors"></div>
                         </div>
                         <hr class="cell-divide-hr">
                         <div class="button-wrapper">
-                           <a class="btn-solid-reg page-scroll" href="#request">Guardar</a>
+                           <a class="btn-solid-reg page-scroll" id="addgastos_combustible" href="#request">Guardar</a>
                         </div>
                      </div>
                   </div>
@@ -321,7 +317,13 @@
             <div class="row">
                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
                <div class="col-lg-4">
-                  <h4>Gasto total: $17000 </br>Vuelto: $3000</h4>
+                  <h4>Gasto total: <?php
+                     if(isset($gasto_total) && isset($suma_asignada)){
+                        $vuelto = $suma_asignada[0]->ValorAsignado-$gasto_total[0]->Valor;
+                        echo '$'.$gasto_total[0]->Valor;
+                     }
+                  ?>
+                  </br>Vuelto: <?php echo '$'.$vuelto;?></h4>
                   <a class="btn-solid-reg mfp-close page-scroll" href="<?php echo base_url()?>Operacion" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Guardar</a> <a class="btn-outline-reg mfp-close as-button" href="#screenshots">Atras</a>
                </div>
                <!-- end of col -->

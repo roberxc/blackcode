@@ -15,7 +15,7 @@ class OperacionesModel extends CI_Model {
 
 	public function ObtenerTiposCombustibles(){
 		$names = array('Bencina', 'Petroleo');
-		$this->db->select('NombreTipoGasto');
+		$this->db->select('NombreTipoGasto, ID_TipoGasto');
 		$this->db->where_in('NombreTipoGasto',$names);
 		$query = $this->db->get('tipogasto');
 		return $query->result();
@@ -87,6 +87,48 @@ class OperacionesModel extends CI_Model {
 		$this->db->where('ID_TrabajoDiario',$idtrabajodiario);
 		$this->db->where_in('ID_TipoGasto',$gastosviaticos);
 		$query = $this->db->get('gastos');
+		
+		return $query->result();
+	}
+
+	public function obtenerTrabajosRealizados(){
+
+		$query = $this->db
+				->select("p.NombreProyecto AS NombreProyecto, c.CodigoServicio AS CodigoServicio, i.FechaAsignacion AS FechaTrabajo, t.PersonalCargo AS PersonalCargo, t.Detalle AS Detalle, t.ValorAsignado AS ValorAsignado") # También puedes poner * si quieres seleccionar todo
+				->from("trabajodiario t")
+				->join("codigoservicio c", "c.ID_Codigo = t.ID_Codigo")
+				->join("proyecto p", "p.ID_Proyecto = t.ID_Proyecto")
+				->join("ingreso i", "i.ID_TrabajoDiario = t.ID_TrabajoDiario")
+				->get();
+		
+		return $query->result();
+	}
+
+	public function obtenerGastoTotal($codigo){
+
+		$idtipotrabajo = $this->getIDTrabajoDiarioCS($codigo);
+		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['ID_TipoTrabajo']);
+		$idtrabajodiario = $idtipotrabajo[0]['ID_TrabajoDiario'];
+
+		$this->db->select_sum('Valor');
+		$this->db->where('ID_TrabajoDiario',$idtrabajodiario);
+		$this->db->limit(1);
+		$query = $this->db->get('gastos');
+
+		
+		return $query->result();
+	}
+
+	public function obtenerSumaAsignada($codigo){
+
+		$idtipotrabajo = $this->getIDTrabajoDiarioCS($codigo);
+		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['ID_TipoTrabajo']);
+		$idtrabajodiario = $idtipotrabajo[0]['ID_TrabajoDiario'];
+
+		$this->db->select('ValorAsignado');
+		$this->db->where('ID_TrabajoDiario',$idtrabajodiario);
+		$this->db->limit(1);
+		$query = $this->db->get('trabajodiario');
 		
 		return $query->result();
 	}
@@ -188,7 +230,20 @@ class OperacionesModel extends CI_Model {
 		//Registro de trabajo diario
 		$this->db->insert('trabajodiario', $datatrabajodiario);
 		$id_trabajodiario = $this->db->insert_id();
-		
+
+		//Registro de asignacion de trabajo  a un usuario
+		$set_data = $this->session->all_userdata();
+
+
+		$dataingreso = array(
+			'FechaAsignacion' => $data['fecha_trabajo'],
+			'ID_Usuario' => $set_data['ID_Usuario'],
+			'ID_TrabajoDiario' => $id_trabajodiario,
+
+		);
+
+		$this->db->insert('ingreso', $dataingreso);
+
 		//Registro  de personal
 		
 		$lista_rut = $data["lista_rut"];
@@ -394,6 +449,23 @@ class OperacionesModel extends CI_Model {
 		 );
 
 		return $this->db->insert_batch('gastos',$data);
+	}
+
+	//Metodo para registrar gastos combustible
+	public function registrarGastosCombustible($ajax_data){
+		//Obtener id de trabajo diario
+		$idtipotrabajo = $this->getIDTrabajoDiarioCS($ajax_data['codigo_servicio']);
+		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['ID_TipoTrabajo']);
+		$idtrabajodiario = $idtipotrabajo[0]['ID_TrabajoDiario'];
+
+		$datagastocombustible = array(
+			'Valor' => $ajax_data['gasto_combustible'],
+			'Cantidad' => 0,
+			'ID_TipoGasto' => $ajax_data['id_gasto'],
+			'ID_TrabajoDiario' => $idtrabajodiario,
+		);
+
+		return $this->db->insert('gastos',$datagastocombustible);
 	}
 }
 

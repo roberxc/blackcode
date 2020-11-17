@@ -17,9 +17,36 @@ class PlantillaOperaciones extends CI_Controller {
 		$data ['total_viaticos'] = $this->OperacionesModel->ObtenerTotalViaticos($data['codigo']);
 		$data ['tipos_combustible'] = $this->OperacionesModel->ObtenerTiposCombustibles();
 		$data ['tipos_viaticos'] = $this->OperacionesModel->ObtenerTiposViaticos($data['codigo']);
-		$data ['total_mat1'] = $this->OperacionesModel->ObtenerTiposCombustibles();
+		$data ['gasto_total'] = $this->OperacionesModel->ObtenerGastoTotal($data['codigo']);
+		$data ['suma_asignada'] = $this->OperacionesModel->ObtenerSumaAsignada($data['codigo']);
 		$this->load->view('Trabajador/planilla',$data);
 		
+	}
+
+	public function registroGastosCombustible(){
+		if ($this->input->is_ajax_request()) {
+			//Validaciones
+			$this->form_validation->set_rules('gasto_combustible', 'Gasto combustible', 'numeric');
+
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+			} else {
+				$ajax_data = $this->input->post();
+				$res = $this->OperacionesModel->registrarGastosCombustible($ajax_data);
+				
+				if ($res) {
+					$data = array('response' => "success", 'message' => "Combustible agregado correctamente!");
+				}else{
+					$data = array('response' => "error", 'message' => $res);
+				}
+
+			}
+
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
 	}
 
 	public function registroGastoViaticos(){
