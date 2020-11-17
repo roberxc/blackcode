@@ -25,7 +25,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Perfil</h1>
+            <h1>Ajustes de perfil</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -49,11 +49,11 @@
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="<?php echo base_url();?>assets/dist/img/user4-128x128.jpg"
+                       src="<?php echo base_url();?>assets/dist/img/0012.png"
                        alt="User profile picture">
                 </div>
 
-                <h3 class="profile-username text-center">Nina Mcintire</h3>
+                <h3 class="profile-username text-center">Nombre Completo</h3>
 
                 <p class="text-muted text-center">Software Engineer</p>
 
@@ -90,39 +90,39 @@
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Nombre</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputName" placeholder="Name">
+                          <input type="email" class="form-control" id="inputName" placeholder="Nombre Completo">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Correo</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                          <input type="email" class="form-control" id="inputEmail" placeholder="Correo electronico">
                         </div>
                       </div>
                       <hr class="mt-3 mb-3"/>
                       <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label">Contraseña actual</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName2" placeholder="Name">
+                          <input type="text" class="form-control" id="inputName2" placeholder="Su contraseña actual">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label">Contraseña nueva</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName2" placeholder="Name">
+                          <input type="text" class="form-control" id="inputName2" placeholder="Contraseña nueva">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputSkills" class="col-sm-2 col-form-label">Confirmar contraseña</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
+                        <input type="text" class="form-control" id="inputName2" placeholder="Confirme su Contraseña nueva">
                         </div>
                       </div>
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
                           <div class="checkbox">
                             <label>
-                              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+                             
                             </label>
                           </div>
                         </div>

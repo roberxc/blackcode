@@ -81,7 +81,7 @@ if (isset($set_data['nombre_completo'])) {
               <li class="nav-item">
               <a href="<?php echo base_url()?>Perfil" class="nav-link <?php if(isset($activo) && ($activo == 7)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Perfil</p>
+                  <p>Modificar mi perfil</p>
                 </a>
               </li>
             

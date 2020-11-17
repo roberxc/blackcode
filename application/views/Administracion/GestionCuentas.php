@@ -5,7 +5,7 @@
    <div class="container-fluid">
       <div class="row mb-2">
          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Gestion de cuentas</h1>
+            <h1 class="m-0 text-dark">Gestionar cuenta nueva</h1>
          </div>
       </div>
    </div>
@@ -19,7 +19,7 @@
                <div class="col-md-4">
                   <div class="card card-info">
                      <div class="card-header">
-                        <h3 class="card-title">Informacion personal</h3>
+                        <h3 class="card-title">Datos personales</h3>
                      </div>
                      <div class="card-body">
                         <div class="form-group">
@@ -46,7 +46,7 @@
                <div class="col-md-4">
                   <div class="card card-success">
                      <div class="card-header">
-                        <h3 class="card-title">Contacto</h3>
+                        <h3 class="card-title">Datos de Contacto</h3>
                      </div>
                      <div class="card-body">
                         <div class="form-group">
@@ -80,7 +80,7 @@
                <div class="col-md-4">
                   <div class="card card-primary">
                      <div class="card-header">
-                        <h3 class="card-title">Otro</h3>
+                        <h3 class="card-title">Rol & Contraseña </h3>
                      </div>
                      <div class="card-body">
                         <!-- Date -->
