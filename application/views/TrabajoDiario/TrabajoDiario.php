@@ -142,6 +142,7 @@
       <!-- /.container-fluid -->
    </section>
    <!-- Asistencia -->
+   <!-- Asistencia -->
    <div class="modal fade" id="modal-asistencia">
       <div class="modal-dialog modal-lg">
          <div class="modal-content">
@@ -152,200 +153,95 @@
                </button>
             </div>
             <div class="modal-body">
-               <div class="row">
-                  <div class="col-lg-3 col-6">
-                     <!-- small box -->
-                     <div class="small-box bg-info">
-                        <div class="inner">
-                           <p>Mañana</p>
-                        </div>
-                        <div class="icon">
-                           <i class="ion ion-clock"></i>
-                        </div>
-                        <a class="small-box-footer" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                           data-target="#modal-lg7">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
-                     </div>
-                  </div>
-                  <div class="col-lg-3 col-6">
-                     <!-- small box -->
-                     <div class="small-box bg-info">
-                        <div class="inner">
-                           <p>Tarde</p>
-                        </div>
-                        <div class="icon">
-                           <i class="ion ion-clock"></i>
-                        </div>
-                        <a class="small-box-footer" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                           data-target="#modal-lg8">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-   </div>
-   <!-- Asistencia mañana -->
-   <div class="modal fade" id="modal-lg7">
-      <div class="modal-dialog modal-lg">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h4 class="modal-title">Asistencia Personal Mañana</h4>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-               </button>
-            </div>
-            <div class="modal-body">
-               <form role="form" id="form" action="">
-                  <div class="table-responsive">
+               <div class="table-responsive">
                      <table class="table table-bordered" id="tabla_personal_mañana">
                         <tr>
                            <td>
-                              <label>Rut</label>
+                              <label>Fecha Asistencia</label>
                            </td>
                            <td>
                               <label>Nombre Completo</label>
                            </td>
                            <td>
-                              <label>Hora Salida</label>
+                              <label>Hora llegada</label>
+                           </td>
+
+                           <td>
+                              <label>Hora salida</label>
+                           </td>
+
+                           <td>
+                              <label>Horas trabajadas</label>
+                           </td>
+
+                           <td>
+                              <label>Horas extras</label>
                            </td>
                         </tr>
                         <tbody>
                            <tr>
                               <td>
-                                 4-3
+                                 19-11-2020
                               </td>
                               <td>
                                  Trabajador1
                               </td>
                               <td>
-                                 17:40
+                                 07:40
+                              </td>
+                              <td>
+                                 19:30
+                              </td>
+                              <td>
+                                 9
+                              </td>
+                              <td>
+                                 2
                               </td>
                            </tr>
                            <tr>
-                              <td>
-                                 5-3
+                           <td>
+                                 21-11-2020
                               </td>
                               <td>
                                  Trabajador2
                               </td>
                               <td>
-                                 17:40
+                                 08:40
+                              </td>
+                              <td>
+                                 18:30
+                              </td>
+                              <td>
+                                 9
+                              </td>
+                              <td>
+                                 0
                               </td>
                            </tr>
                            <tr>
-                              <td>
-                                 6-3
+                           <td>
+                                 20-11-2020
                               </td>
                               <td>
                                  Trabajador3
                               </td>
                               <td>
-                                 17:40
+                                 08:30
+                              </td>
+                              <td>
+                                 19:30
+                              </td>
+                              <td>
+                                 9
+                              </td>
+                              <td>
+                                 1
                               </td>
                            </tr>
                         </tbody>
                      </table>
                   </div>
-               </form>
-            </div>
-         </div>
-         <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-   </div>
-   <!-- Asistencia de tarde -->
-   <div class="modal fade" id="modal-lg8">
-      <div class="modal-dialog modal-xl">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h4 class="modal-title">Asistencia Personal Tarde</h4>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-               </button>
-            </div>
-            <div class="modal-body">
-               <form role="form" id="form" action="">
-                  <div class="table-responsive">
-                     <table class="table table-bordered" id="tabla_personal_tarde">
-                        <tr>
-                           <td>
-                              <label>Rut</label>
-                           </td>
-                           <td>
-                              <label>Nombre Completo</label>
-                           </td>
-                           <td>
-                              <label>Hora Retorno</label>
-                           </td>
-                           <td>
-                              <label>Hora Salida</label>
-                           </td>
-                           <td>
-                              <label>Hora Retorno</label>
-                           </td>
-                        </tr>
-                        <tbody>
-                           <tr>
-                              <td>
-                                 12-5
-                              </td>
-                              <td>
-                                 Trabajador1
-                              </td>
-                              <td>
-                                 12:40
-                              </td>
-                              <td>
-                                 14:40
-                              </td>
-                              <td>
-                                 17:20
-                              </td>
-                           </tr>
-                           <tr>
-                              <td>
-                                 11-5
-                              </td>
-                              <td>
-                                 Trabajador2
-                              </td>
-                              <td>
-                                 12:40
-                              </td>
-                              <td>
-                                 14:40
-                              </td>
-                              <td>
-                                 17:20
-                              </td>
-                           </tr>
-                           <tr>
-                              <td>
-                                 2-5
-                              </td>
-                              <td>
-                                 Trabajador3
-                              </td>
-                              <td>
-                                 12:40
-                              </td>
-                              <td>
-                                 14:40
-                              </td>
-                              <td>
-                                 17:20
-                              </td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>
-                  <div class="modal-footer justify-content-between">
-                     <button type="button" class="btn btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                        data-target="#modal-l">Guardar</button>
-                  </div>
-               </form>
             </div>
          </div>
          <!-- /.modal-content -->

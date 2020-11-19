@@ -44,7 +44,7 @@ class Operacion extends CI_Controller {
 			$data ['trabajos_realizados'] = $this->OperacionesModel->ObtenerTrabajosRealizados();
 			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_supremo',$data);
-			$this->load->view('TrabajoDiario/TrabajoDiario');
+			$this->load->view('TrabajoDiario/TrabajoDiario',$data);
 			$this->load->view('layout/footer');
 
 		}
