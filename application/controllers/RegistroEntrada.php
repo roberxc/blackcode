@@ -19,20 +19,30 @@ class RegistroEntrada extends CI_Controller
 		$data['usuarios'] = $this->Bodega->verPersonal();
         $data['centrocosto'] = $this->Bodega->verCentroCostos();
         $data['tipobodega'] = $this->Bodega->verBodega();
+        $data['material'] = $this->Bodega->verMateriales();
         $data ['activo'] = 2;
         $this->load->view('layout/nav');
         $this->load->view('menu/menu_bodeguero',$data);
 		$this->load->view('Bodega/Entrada', $data);
 		$this->load->view('layout/footer');
     }
-    //REGISTRAR EN MODEL DE PRODUCTO Y CATEGORIA
+    //REGISTRAR EN MODEL DE PRODUCTO
     
     public function registrarproductoentrada(){
         if($_POST){
-			$this->Bodega->registrarEntradaProducto($_POST);
+            if($this->Bodega->insertarEntradaProducto($_POST))
+            $this->Bodega->insertarMaterial($_POST);   
 		}
-	}
-	
+    }
+    
+    //REGISTRAR EN MODEL AGREGAR STOCK
+    public function agregarstockaproducto(){
+        if($_POST){
+            $this->Bodega->agregarStockProducto($_POST);
+        }
+    }
+    
+    //REGISTRAR EN MODEL CATEGORIA
 	public function registrarCategoria(){
 		if($_POST){
 			$this->Bodega->registrarCateg($_POST);

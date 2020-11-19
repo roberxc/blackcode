@@ -32,8 +32,11 @@
          </div>
          <!-- /.row -->
       </div>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#miModal">
-              Ingresar Entrada
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#miModal">
+              Ingresar Nuevo Producto
+        </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#miModal3">
+              Agregar Stock
         </button>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Mimodal2">
               Crear Categoria
@@ -67,7 +70,7 @@
  </body>  
  </html> 
 
-      <!-- MODAL INGRESAR PRODUCTO --->
+      <!-- MODAL INGRESAR PRODUCTO NUEVOS --->
       <div id="miModal" class="modal fade bd-example-modal-lg" role="dialog">
       <div class="modal-dialog modal-lg">
       <div class="table-responsive">
@@ -110,9 +113,101 @@
             
           </div>
 
+          <!--- ESTO ERA POR SI QUIERE LA MISMA EMPRESA ESCOGER LA FECHA
           <div class="form-group">
             <label for="recipient-fecha" class="col-form-label">Ingrese fecha de ingreso: </label>
             <input type="date" class="form-control" value="<?php echo date("Y-m-d");?>" max="<?php echo date("Y-m-d");?>" name="fechaentrada" id="fechaentrada" require>
+          </div>
+          --->
+          
+          <div class="form-group">
+            <label for="recipient-cantidad" class="col-form-label">Ingrese cantidad ingresada: </label>
+            <input type="number" min="1" class="form-control" name="cantidadentrada" id="cantidadentrada" require>
+          </div>
+
+          <div class="form-group">
+            <label for="recipient-bodega" class="col-form-label">Seleccione Bodega: </label>
+              <select name="tipobodega" id="tipobodega" style="width: 100%; height: 60%">
+                <?php
+                    foreach($tipobodega as $i){
+                      echo '<option value="'. $i->ID_TipoBodega .'">'. $i->NombreTipoBodega .'</option>';
+                    }
+                ?>
+              </select>
+          </div>
+
+
+          <div class="form-group">
+            <label for="recipient-glosa" class="col-form-label">Glosa: </label><br>
+            <input type="text" class="form-control" name="glosa" id="glosa" require>
+          </div>
+
+          
+        </div>
+        
+        <div class="modal-footer bg-white">
+          
+          <input type="submit" class="btn btn-primary" value="Completar ingreso"  onclick="Success();" >
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          
+        </div>
+        </form>
+      </div>
+      </div>
+    </div>
+    </div>
+</div>
+
+
+<!-- MODAL INGRESAR STOCK A PRODUCTOS EXISTENTES --->
+<div id="miModal3" class="modal fade bd-example-modal-lg" role="dialog">
+      <div class="modal-dialog modal-lg">
+      <div class="table-responsive">
+    <!-- Contenido del modal -->
+      <div class="modal-content">
+        <div class="modal-header bg-blue">
+        
+        <H3>Agregar Stock a Producto Existente</H3>
+          <button type="button" class="close-white" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+
+          <form action="<?= base_url('RegistroEntrada/agregarstockaproducto') ?>" accept-charset="utf-8" method="POST">
+
+          <div class="form-group">
+            <label for="recipient-tipo" class="col-form-label">Seleccion centro de costos </label>
+              <select name="centrodecostos2" id="centrodecostos2" style="width: 100%; height: 60%">
+                <?php
+                    foreach($centrocosto as $i){
+                      echo '<option value="'. $i->ID_Proyecto .'">'. $i->NombreProyecto .'</option>';
+                    }
+                ?>
+              </select>
+          </div>
+
+
+          <div class="form-group">
+            <label for="recipient-material class="col-form-label">Seleccion Producto </label>
+              <select name="material" id="material" style="width: 100%; height: 60%">
+                <?php
+                    foreach($material as $i){
+                      echo '<option value="'. $i->ID_Material .'">'. $i->NombreMaterial .'</option>';
+                    }
+                ?>
+              </select>
+          </div>
+
+
+          <div class="form-group">
+            <label for="recipient-tipo" class="col-form-label">Seleccione tipo de producto: </label>
+              <select name="tipoproducto2" id="tipoproducto2" style="width: 100%; height: 60%">
+                <?php
+                    foreach($categorias as $i){
+                      echo '<option value="'. $i->ID_TipoMaterial .'">'. $i->NombreTipoMaterial .'</option>';
+                    }
+                ?>
+              </select>
+            
           </div>
 
           <div class="form-group">
@@ -122,7 +217,7 @@
 
           <div class="form-group">
             <label for="recipient-bodega" class="col-form-label">Seleccione Bodega: </label>
-              <select name="tipobodega" id="tipobodega" style="width: 100%; height: 60%">
+              <select name="tipobodega2" id="tipobodega2" style="width: 100%; height: 60%">
                 <?php
                     foreach($tipobodega as $i){
                       echo '<option value="'. $i->ID_TipoBodega .'">'. $i->NombreTipoBodega .'</option>';
@@ -250,6 +345,30 @@
       //mostrar bodega
       $(document).ready(function(){
         $('#tipobodega').select2({
+          theme: "bootstrap"
+        });
+      });
+      //mostrar material en tabla agregar stock
+      $(document).ready(function(){
+        $('#material').select2({
+          theme: "bootstrap"
+        });
+      });
+      //mostrar tipoproducto en tabla agregar stock
+      $(document).ready(function(){
+        $('#tipoproducto2').select2({
+          theme: "bootstrap"
+        });
+      });
+      //mostrar tipobodega2 en tabla agregar stock
+      $(document).ready(function(){
+        $('#tipobodega2').select2({
+          theme: "bootstrap"
+        });
+      });
+      //mostrar centrodecosto2 en tabla agregar stock
+      $(document).ready(function(){
+        $('#centrodecosto2').select2({
           theme: "bootstrap"
         });
       });
