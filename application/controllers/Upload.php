@@ -56,7 +56,7 @@ class Upload extends CI_Controller{
 				//store pic data to the db
 				$this->pic_model->registro($data,$micodigo);
 
-				redirect('PlantillaOperaciones?codigo='.$micodigo);
+				redirect('DetalleOperaciones/'.$micodigo);
 			}
 			
 		//}

@@ -43,10 +43,6 @@ class PlantillaOperaciones extends CI_Controller {
 		$this->load->view('Trabajador/planilla',$data);
 	}
 
-	public function test(){
-		redirect('/PlantillaOperaciones/test/', 'refresh');
-	}
-
 	public function registroGastosCombustible(){
 		if ($this->input->is_ajax_request()) {
 			//Validaciones
