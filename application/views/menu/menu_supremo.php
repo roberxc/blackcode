@@ -99,7 +99,7 @@ if (isset($set_data['nombre_completo'])) {
               <li class="nav-item">
                 <a href="<?php echo base_url()?>Operacion/stockBodega" class="nav-link <?php if(isset($activo) && ($activo == 9)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Productos</p>
+                  <p>Ver Productos</p>
                 </a>
               </li>
             </ul>
