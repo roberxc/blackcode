@@ -9,11 +9,9 @@ class AsistenciaTrabajador extends CI_Controller {
 		
 	 }
 
-
-	public function index()
-	{
+	public function Inicio($codigo){
 		$data ['activo'] = 2;
-		$data ['codigo'] = $_GET["codigo"];
+		$data ['codigo'] = $codigo;
 		$data ['lista_personal'] = $this->OperacionesModel->ObtenerListaPersonal($data['codigo']);
 		
 		$this->load->view('Trabajador/Asistencia',$data);
@@ -25,7 +23,7 @@ class AsistenciaTrabajador extends CI_Controller {
 			$ajax_data = $this->input->post(); //Datos que vienen por POST
 			$res = $this->OperacionesModel->registrarAsistenciaPersonal($ajax_data);
 			if($res){
-				$data = array('response' => "success", 'message' => $res);
+				$data = array('response' => "success", 'message' => $res, 'estado' => "1");
 			}else{
 				$data = array('response' => "success", 'message' => "Egreso registrado correctamente!");
 			}

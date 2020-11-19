@@ -206,8 +206,8 @@ if (isset($set_data['nombre_completo'])) {
                            <TH></TH>
                         </TR>
                         <tr>
-                           <TD contenteditable='true' class="item_rut"></TD>
-                           <TD contenteditable='true' class="item_nombre"></TD>
+                           <TD><input type="text" id="item_rut" placeholder="Ingrese" class="form-control" /></TD>
+                           <TD><input type="text" id="item_nombre" placeholder="Ingrese" class="form-control" /></TD>
                            <TD><button type="button" name="add" id="agregarTrabajador" class="btn btn-success">+</button></TD>
                         </tr>
                      </table>

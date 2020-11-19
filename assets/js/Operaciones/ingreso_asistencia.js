@@ -35,14 +35,8 @@ $(".asistencia-registro").on('click', function(event){
         item_id.push($(this).val());
     })
 
-    console.log('Asistencia entrada tarde: ' + item_entradat);
-    console.log('Asistencia salida tarde: ' + item_salidat);
-    console.log('Asistencia entrada mañana: ' + item_entradam);
-    console.log('Asistencia salida mañana: ' + item_salidam);
-    console.log('ID: ' + item_id);
-
     $.ajax({
-        url: "AsistenciaTrabajador/ingresarAsistencia",
+        url: base_url+"AsistenciaTrabajador/ingresarAsistencia",
         type: "post",
         dataType: "json",
         data: {
@@ -51,10 +45,11 @@ $(".asistencia-registro").on('click', function(event){
             lista_entradam: item_entradam,
             lista_salidam: item_salidam,
             lista_id: item_id,
+            codigo_servicio: codigoservicio,
         },
         success: function(data) {
             if (data.response === "success") {
-               window.location.href = "PlantillaOperaciones?codigo="+codigoservicio;
+                window.location.href = base_url+"DetalleOperaciones/"+codigoservicio;
             } else {
 
 
@@ -68,7 +63,7 @@ $(".asistencia-cancelar").on('click', function(event){
     event.stopImmediatePropagation();
     //Codigo servicio
     var codigoservicio = $("#codigo_servicio").val();
-    window.location.href = "PlantillaOperaciones?codigo="+codigoservicio;
+    window.location.href = base_url+"DetalleOperaciones/"+codigoservicio;
 });
 
 

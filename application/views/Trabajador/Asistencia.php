@@ -24,11 +24,11 @@
       <title>Registro de trabajo diario</title>
       <!-- Styles -->
       <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,600,700,700i&amp;subset=latin-ext" rel="stylesheet">
-      <link href="assets/css/bootstrap.css" rel="stylesheet">
-      <link href="assets/css/fontawesome-all.css" rel="stylesheet">
-      <link href="assets/css/swiper.css" rel="stylesheet">
-      <link href="assets/css/magnific-popup.css" rel="stylesheet">
-      <link href="assets/css/styles.css" rel="stylesheet">
+      <link href="<?php echo base_url();?>assets/css/bootstrap.css" rel="stylesheet">
+      <link href="<?php echo base_url();?>assets/css/fontawesome-all.css" rel="stylesheet">
+      <link href="<?php echo base_url();?>assets/css/swiper.css" rel="stylesheet">
+      <link href="<?php echo base_url();?>assets/css/magnific-popup.css" rel="stylesheet">
+      <link href="<?php echo base_url();?>assets/css/styles.css" rel="stylesheet">
       <!-- Favicon  -->
       <link rel="icon" href="">
    </head>
@@ -144,14 +144,15 @@
       <!-- end of form-2 -->
       <!-- end of contact -->
       <!-- Scripts -->
-      <script src="assets/js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
-      <script src="assets/js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
-      <script src="assets/js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
-      <script src="assets/js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
-      <script src="assets/js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
-      <script src="assets/js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
-      <script src="assets/js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
-      <script src="assets/js/scripts.js"></script> <!-- Custom scripts -->
+      <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+      <script src="<?php echo base_url();?>assets/js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
+      <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
+      <script src="<?php echo base_url();?>assets/js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+      <script src="<?php echo base_url();?>assets/js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
+      <script src="<?php echo base_url();?>assets/js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
+      <script src="<?php echo base_url();?>assets/js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+      <script src="<?php echo base_url();?>assets/js/scripts.js"></script> <!-- Custom scripts -->
+      <script>var base_url = '<?php echo base_url();?>';</script>
       <script src="<?php echo base_url()?>assets/js/Operaciones/ingreso_asistencia.js"></script>
    </body>
 </html>

@@ -65,8 +65,15 @@
                      <div class="card-body">
                         <div class="card-title">Marcar Asistencia</div>
                         <hr class="cell-divide-hr">
+                        <?php 
+                                 if($asistencia_estado == 0){
+                                    $res = 'Ingresar';
+                                 }else if($asistencia_estado == 1){
+                                    $res = 'Modificar';
+                                 }
+                        ?>
                         <div class="button-wrapper">
-                           <a class="btn-solid-reg active asistencia-modal" href="#">Ingresar</a>
+                           <button class="btn-solid-reg active" id="asistencia-modal"><?php echo $res;?></button>
                         </div>
                         <hr class="cell-divide-hr">
                      </div>
@@ -94,13 +101,19 @@
                               <?php }?>
                         </ul>
                         <div class="button-wrapper">
-                           <a class="btn-solid-reg popup-with-move-anim" type="submit" id="in-viaticos" href="#vaticos">Ingresar</a>
+                           <?php 
+                                 if($gastosviaticos_estado == 0){
+                                    $res = 'Ingresar';
+                                 }else if($gastosviaticos_estado == 1){
+                                    $res = 'Modificar';
+                                 }
+                           ?>
+                           <button class="btn-solid-reg popup-with-move-anim" type="submit" id="in-viaticos" href="#vaticos<?php echo $gastosviaticos_estado;?>"><?php if(isset($res)){ echo $res;}?></button>
                         </div>
                      </div>
                   </div>
-                  <!-- end of card -->
-                  <!-- end of card -->
-                  <div id="vaticos" class="lightbox-basic zoom-anim-dialog mfp-hide">
+                  <!-- Ingreso de viaticos -->
+                  <div id="vaticos0" class="lightbox-basic zoom-anim-dialog mfp-hide">
                      <div class="container">
                         <div class="row">
                            <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
@@ -142,8 +155,37 @@
                      </div>
                      <!-- end of container -->
                   </div>
-                  <!-- end of lightbox-basic -->
-                  <!-- Card-->
+                  <!-- Actualizar viaticos -->
+                  <div id="vaticos1" class="lightbox-basic zoom-anim-dialog mfp-hide">
+                     <div class="container">
+                        <div class="row">
+                           <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
+                           <div class="col-lg-4">
+                              <h4>Modificar gastos de viaticos </h4>
+                              <?php 
+                              if(isset($viaticos_registrados)){
+                              foreach($viaticos_registrados as $row)
+                              { ?>
+                              <div class="form-group">
+                              <input type="hidden" class="form-control-input" id="gastosid_update" value="<?php echo $row->ID?>">
+                                 <input type="number" class="form-control-input" id="gastos_update" value="<?php echo $row->Valor?>">
+                                 <label class="label-control" for="cname"><?php echo $row->Nombre?></label>
+                                 <div class="help-block with-errors"></div>
+                              </div>
+                          
+                           <?php }
+                           }?>
+                              <div class="form-group">
+                                 <button class="btn-solid-reg" id="updateviatico1" type="button">Modificar</button>
+                              </div>
+                           </div>
+                           <!-- end of col -->
+                           </div>
+                        <!-- end of row -->
+                     </div>
+                     <!-- end of container -->
+                  </div>
+                  <!-- Termino de actualizar -->
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Materiales comprados durante el trabajo</div>
@@ -152,8 +194,17 @@
                            <!-- VALOR TOTAL -->
                         </div>
                         <hr class="cell-divide-hr">
+                        <?php 
+                           
+                                 if($materialdurante_estado == 0){
+                                    $res = 'Ingresar';
+                                 }else if($materialdurante_estado == 1){
+                                    $res = 'Modificar';
+                                 }
+                              
+                        ?>
                         <div class="button-wrapper">
-                           <a class="btn-solid-reg popup-with-move-anim" href="#duranteTrab" id="in-mat1">Ingresar</a>
+                           <a class="btn-solid-reg popup-with-move-anim" href="#duranteTrab<?php echo $materialdurante_estado;?>" id="in-mat1"><?php if(isset($res)){ echo $res;}?></a>
                         </div>
                      </div>
                   </div>
@@ -167,14 +218,21 @@
                         <div class="price">
                         </div>
                         <hr class="cell-divide-hr">
+                        <?php 
+         
+                                 if($materialantes_estado == 0){
+                                    $res = 'Ingresar';
+                                 }else if($materialantes_estado == 1){
+                                    $res = 'Modificar';
+                                 }
+                              
+                        ?>
                         <div class="button-wrapper">
-                           <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#antesTrab">Ingresar</a>
+                           <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#antesTrab<?php echo $materialantes_estado;?>"><?php echo $res;?></a>
                         </div>
                      </div>
                   </div>
-                  <!-- end of card -->
-                  <!-- end of card -->
-                  <!-- Card-->
+                  
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Materiales de bodega</div>
@@ -182,14 +240,20 @@
                         </br></br>
                         <div class="card-subtitle">Registrar materiales utilizados de la bodega</div>
                         <hr class="cell-divide-hr">
+                        <?php 
+                              
+                                 if($materialbodega_estado == 0){
+                                    $res = 'Ingresar';
+                                 }else if($materialbodega_estado == 1){
+                                    $res = 'Modificar';
+                                 }
+                              
+                        ?>
                         <div class="button-wrapper">
                            <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#bodega">Ingresar</a>
                         </div>
                      </div>
                   </div>
-                  <!-- end of card -->
-                  <!-- end of card -->
-                  <!-- Card-->
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Combustible</div>
@@ -212,8 +276,17 @@
                            <div class="help-block with-errors"></div>
                         </div>
                         <hr class="cell-divide-hr">
+                        <?php 
+                           
+                                 if($gastocombustible_estado == 0){
+                                    $res = 'Guardar';
+                                 }else if($gastocombustible_estado == 1){
+                                    $res = 'Modificar';
+                                 }
+                              
+                        ?>
                         <div class="button-wrapper">
-                           <a class="btn-solid-reg page-scroll" id="addgastos_combustible" href="#request">Guardar</a>
+                           <button class="btn-solid-reg page-scroll" id="addgastos_combustible<?php echo$gastocombustible_estado;?>"><?php echo $res;?></button>
                         </div>
                      </div>
                   </div>
@@ -221,9 +294,21 @@
                   <!-- end of card -->
                   <div class="card">
                      <div class="card-body">
-                        <div class="card-title">Gasto Varios</div>
+                        <div class="card-title">Gastos Varios</div>
                         <hr class="cell-divide-hr">
                         </br></br>
+                        <?php if(isset($gastosvarios_registrados) && (count($gastosvarios_registrados)>0)){
+                           foreach($gastosvarios_registrados as $row){ ?>
+
+                           <div class="form-group">
+                              <input type="hidden" class="form-control-input" id="item_gastovariosid" value="<?php echo $row->ID;?>">
+                              <input type="text" class="form-control-input" id="item_gastovarios" value="<?php echo $row->Valor;?>" required>
+                              <label class="label-control" for="cemail"><?php echo $row->Nombre;?></label>
+                              <div class="help-block with-errors"></div>
+                           </div>
+
+                        <?php } 
+                     }else{?>
                         <div class="form-group">
                            <input type="text" class="form-control-input" id="gasto_peaje" required>
                            <label class="label-control" for="cemail">Peaje $</label>
@@ -234,9 +319,20 @@
                            <label class="label-control" for="cemail">Estacionamiento $</label>
                            <div class="help-block with-errors"></div>
                         </div>
+
+                     <?php }?>
                         <hr class="cell-divide-hr">
+                        <?php 
+                              
+                                 if($gastosvarios_estado == 0){
+                                    $res = 'Guardar';
+                                 }else if($gastosvarios_estado == 1){
+                                    $res = 'Modificar';
+                                 }
+                              
+                        ?>
                         <div class="button-wrapper">
-                           <a class="btn-solid-reg page-scroll" id="addgastos_varios" href="#request">Guardar</a>
+                           <button class="btn-solid-reg page-scroll" id="addgastos_varios<?php echo $gastosvarios_estado;?>"><?php echo $res;?></button>
                         </div>
                      </div>
                   </div>
@@ -279,40 +375,7 @@
          </div>
          <!-- end of container -->
       </div>
-      <!-- end of form-2 -->
-      <!-- end of contact -->
-      </div> <!-- end of cards-2 -->
-      <!-- end of pricing -->
-      <!-- Contact -->
-      <div id="asistencia1" class="lightbox-basic zoom-anim-dialog mfp-hide">
-         <div class="container">
-            <div class="row">
-               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-               <div class="col-lg-4">
-                  <div class="card"></div>
-                  <div class="card-body">
-                     <div class="card-title">Marcar asistencia</div>
-                     <hr class="cell-divide-hr">
-                     <div class="form-group">
-                        <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#mañana">En la mañana</a>    
-                     </div>
-                     <div class="form-group">
-                        <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#tarde">En la tarde</a>
-                     </div>
-                     <hr class="cell-divide-hr">
-                     <div class="button-wrapper">
-                     </div>
-                  </div>
-               </div>
-               <!-- end of card -->
-            </div>
-            <!-- end of col -->
-         </div>
-         <!-- end of row -->
-      </div>
-      <!-- end of container -->
-      </div> <!-- end of lightbox-basic -->
-      <!-- end of details lightbox 1 -->
+
       <div id="confirmar" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
             <div class="row">
@@ -333,137 +396,8 @@
          </div>
          <!-- end of container -->
       </div>
-      <!-- end of lightbox-basic -->
-      <!-- end of details lightbox 1 -->
-      <div id="mañana" class="lightbox-basic zoom-anim-dialog mfp-hide">
-         <div class="container">
-            <div class="row">
-               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-               <div class="col-lg-4">
-                  <h4>Registrar hora de Salida </h4>
-                  <form data-toggle="validator" data-focus="false">
-                     <div class="form-group">
-                        <input type="time" class="form-control-input" required>
-                        <label class="label-control" for="cname"></label>
-                        <div class="help-block with-errors"></div>
-                     </div>
-                     <div class="form-group">
-                        <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
-                     </div>
-                  </form>
-               </div>
-               <!-- end of col -->
-            </div>
-            <!-- end of row -->
-         </div>
-         <!-- end of container -->
-      </div>
-      <!-- end of lightbox-basic -->
-      <div id="tarde" class="lightbox-basic zoom-anim-dialog mfp-hide">
-         <div class="container">
-            <div class="row">
-               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-               <div class="col-lg-4">
-                  <div class="card"></div>
-                  <div class="card-body">
-                     <div class="card-title">Marcar asistencia</div>
-                     <hr class="cell-divide-hr">
-                     <div class="form-group">
-                        <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#retorno">Hora de retorno</a>
-                     </div>
-                     <div class="form-group">
-                        <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#salida">Hora de salida</a>
-                     </div>
-                     <div class="form-group">
-                        <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#retornoFinal">Hora de retorno finalizado</a>
-                     </div>
-                     <hr class="cell-divide-hr">
-                     <div class="button-wrapper">
-                     </div>
-                  </div>
-               </div>
-               <!-- end of card -->
-            </div>
-            <!-- end of col -->
-         </div>
-         <!-- end of row -->
-      </div>
-      <!-- end of container -->
-      </div> <!-- end of lightbox-basic -->
-      <!-- end of details lightbox 1 -->
-      <div id="retorno" class="lightbox-basic zoom-anim-dialog mfp-hide">
-         <div class="container">
-            <div class="row">
-               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-               <div class="col-lg-4">
-                  <h4>Registrar hora de retorno </h4>
-                  <form data-toggle="validator" data-focus="false">
-                     <div class="form-group">
-                        <input type="time" class="form-control-input" required>
-                        <label class="label-control" for="cname"></label>
-                        <div class="help-block with-errors"></div>
-                     </div>
-                     <div class="form-group">
-                        <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
-                     </div>
-                  </form>
-               </div>
-               <!-- end of col -->
-            </div>
-            <!-- end of row -->
-         </div>
-         <!-- end of container -->
-      </div>
-      <!-- end of lightbox-basic -->
-      <div id="salida" class="lightbox-basic zoom-anim-dialog mfp-hide">
-         <div class="container">
-            <div class="row">
-               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-               <div class="col-lg-4">
-                  <h4>Registrar hora de Salida </h4>
-                  <form data-toggle="validator" data-focus="false">
-                     <div class="form-group">
-                        <input type="time" class="form-control-input" required>
-                        <label class="label-control" for="cname"></label>
-                        <div class="help-block with-errors"></div>
-                     </div>
-                     <div class="form-group">
-                        <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
-                     </div>
-                  </form>
-               </div>
-               <!-- end of col -->
-            </div>
-            <!-- end of row -->
-         </div>
-         <!-- end of container -->
-      </div>
-      <!-- end of lightbox-basic -->
-      <div id="retornoFinal" class="lightbox-basic zoom-anim-dialog mfp-hide">
-         <div class="container">
-            <div class="row">
-               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-               <div class="col-lg-4">
-                  <h4>Registrar hora retorno  </h4>
-                  <form data-toggle="validator" data-focus="false">
-                     <div class="form-group">
-                        <input type="time" class="form-control-input" required>
-                        <label class="label-control" for="cname"></label>
-                        <div class="help-block with-errors"></div>
-                     </div>
-                     <div class="form-group">
-                        <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
-                     </div>
-                  </form>
-               </div>
-               <!-- end of col -->
-            </div>
-            <!-- end of row -->
-         </div>
-         <!-- end of container -->
-      </div>
-      <!-- end of lightbox-basic -->
-      <div id="duranteTrab" class="lightbox-basic zoom-anim-dialog mfp-hide">
+      <!-- Ingreso de materiales comprados durante -->
+      <div id="duranteTrab0" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
             <div class="row">
                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
@@ -499,22 +433,62 @@
             </div>
             <!-- end of col -->
             <div class="form-group">
-               <a class="btn-solid-reg" id="addmaterial1" href="#">Guardar</a></br> </br>
+               <button class="btn-solid-reg" id="addmaterial1">Guardar</button></br> </br>
             </div>
          </div>
          <!-- end of row -->
       </div>
-      <!-- end of container -->
-      </div> <!-- end of lightbox-basic -->
-      <!-- end of details lightbox 1 -->
-      <div id="antesTrab" class="lightbox-basic zoom-anim-dialog mfp-hide">
+      <!-- Actualizar materiales comprados durante -->
+      <div id="duranteTrab1" class="lightbox-basic zoom-anim-dialog mfp-hide">
+         <div class="container">
+            <div class="row">
+               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
+               <div class="col-lg-4">
+                  <div class="card"></div>
+                  <div class="card-body" id="dynamic_field" >
+                     <div class="card-title">Modificar materiales comprados durante el trabajo</div>
+                     <hr class="cell-divide-hr">
+                     <table class="table table-bordered" >
+                        <TR>
+                           <TH>Material</TH>
+                           <TD><input type="text" id="item_material_update" placeholder="Ingrese" class="form-control" /></TD>
+                        </TR>
+                        <TR>
+                           <TH>Cantidad</TH>
+                           <TD><input type="text" id="item_cantidad_update" placeholder="Ingrese" class="form-control" /></TD>
+                        </TR>
+                        <TR>
+                           <TH>Total $</TH>
+                           <TD><input type="text" id="item_valortotal_update" placeholder="Ingrese" class="form-control" /></TD>
+                        </TR>
+                        <TR>
+                           <TH>Agregar más</TH>
+                           <TD><button type="button" name="add" id="durante" class="btn btn-success">+</button></TD>
+                        </TR>
+                     </table>
+                     <hr class="cell-divide-hr">
+                     <div class="button-wrapper">
+                     </div>
+                  </div>
+               </div>
+               <!-- end of card -->
+            </div>
+            <!-- end of col -->
+            <div class="form-group">
+               <a class="btn-solid-reg" id="update_material" href="#">Guardar</a></br> </br>
+            </div>
+         </div>
+         <!-- end of row -->
+      </div>
+      <!-- Ingreso de materiales comprados antes del trabajo -->
+      <div id="antesTrab0" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
             <div class="row">
                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
                <div class="col-lg-4">
                   <div class="card"></div>
                   <div class="card-body" id="dynamic_field2">
-                     <div class="card-title">Ingrese materiales comprados antes el trabajo</div>
+                     <div class="card-title">Ingrese materiales comprados antes del trabajo</div>
                      <hr class="cell-divide-hr">
                      <table class="table table-bordered" >
                         <TR>
@@ -543,11 +517,54 @@
             </div>
             <!-- end of col -->
             <div class="form-group">
-               <a class="btn-solid-reg" id="addmaterial2" href="#">Guardar</a></br> </br>
+               <button class="btn-solid-reg" id="addmaterial2">Guardar</button></br> </br>
             </div>
          </div>
          <!-- end of row -->
       </div>
+      <!-- Actualizar materiales comprados antes del trabajo -->
+      <div id="antesTrab1" class="lightbox-basic zoom-anim-dialog mfp-hide">
+         <div class="container">
+            <div class="row">
+               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
+               <div class="col-lg-4">
+                  <div class="card"></div>
+                  <div class="card-body" id="dynamic_field2">
+                     <div class="card-title">Modificar materiales comprados antes del trabajo</div>
+                     <hr class="cell-divide-hr">
+                     <table class="table table-bordered" >
+                        <TR>
+                           <TH>Material</TH>
+                           <TD><input type="text" id="item_material2_update" placeholder="Ingrese" class="form-control" /></TD>
+                        </TR>
+                        <TR>
+                           <TH>Cantidad</TH>
+                           <TD><input type="text" id="item_cantidad2_update" placeholder="Ingrese" class="form-control" /></TD>
+                        </TR>
+                        <TR>
+                           <TH>Total $</TH>
+                           <TD><input type="text" id="item_valortotal2_update" placeholder="Ingrese" class="form-control" /></TD>
+                        </TR>
+                        <TR>
+                           <TH>Agregar más</TH>
+                           <TD><button type="button" id="antes" class="btn btn-success">+</button></TD>
+                        </TR>
+                     </table>
+                     <hr class="cell-divide-hr">
+                     <div class="button-wrapper">
+                     </div>
+                  </div>
+               </div>
+               <!-- end of card -->
+            </div>
+            <!-- end of col -->
+            <div class="form-group">
+               <a class="btn-solid-reg" id="updatematerial2" href="#">Guardar</a></br> </br>
+            </div>
+         </div>
+         <!-- end of row -->
+      </div>
+
       <!-- end of container -->
       <div id="bodega" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
@@ -621,11 +638,8 @@
             <!--<div class="form-group">
                <a class="btn-solid-reg" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
             </div>-->
-           
          </div>
-         <!-- end of row -->
       </div>
-
       <div id="archivosubidos" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
             <div class="row">
@@ -664,27 +678,24 @@
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
       <!-- Scripts modal -->
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-      <script type="text/javascript" src="<?php echo base_url()?>assets/js/MaterialesDurante.js"></script>
-      <script type="text/javascript" src="<?php echo base_url()?>assets/js/MaterialesAntes.js"></script>
-      <script type="text/javascript" src="<?php echo base_url()?>assets/js/MaterialesBodega.js"></script>
+      <script type="text/javascript" src="<?php echo base_url();?>assets/js/MaterialesDurante.js"></script>
+      <script type="text/javascript" src="<?php echo base_url();?>assets/js/MaterialesAntes.js"></script>
+      <script type="text/javascript" src="<?php echo base_url();?>assets/js/MaterialesBodega.js"></script>
       <!-- Scripts -->
-      <script src="assets/js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
-      <script src="assets/js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
-      <script src="assets/js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
-      <script src="assets/js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
-      <script src="assets/js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
-      <script src="assets/js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
-      <script src="assets/js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
-      <script src="assets/js/scripts.js"></script> <!-- Custom scripts -->
-
-
-
-      <script src="<?php echo base_url()?>assets/js/Operaciones/ingreso_planilla.js"></script>
-
-
+      <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+      <script src="<?php echo base_url();?>assets/js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
+      <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
+      <script src="<?php echo base_url();?>assets/js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+      <script src="<?php echo base_url();?>assets/js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
+      <script src="<?php echo base_url();?>assets/js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
+      <script src="<?php echo base_url();?>assets/js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+      <script src="<?php echo base_url();?>assets/js/scripts.js"></script> <!-- Custom scripts -->
       <!--<script src="<?php echo base_url();?>assets/js/imagenes.js"></script>-->
       
-      <script src="<?php echo base_url()?>assets/js/Operaciones/ingreso_planilla_detalle.js"></script>
+      <script>var base_url = '<?php echo base_url();?>';</script>
+      <script src="<?php echo base_url();?>assets/js/Operaciones/ingreso_planilla_detalle.js"></script>
+      <script src="<?php echo base_url();?>assets/js/Operaciones/actualizar_planilla_detalle.js"></script>
+      
 
    </body>
 </html>

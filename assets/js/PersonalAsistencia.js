@@ -7,8 +7,8 @@ $(document).ready(function(){
 		if(x<=max){
 			count = count + 1;
 			var html_code = "<tr id='row"+count+"'>";
-			html_code += "<td contenteditable='true' class='item_rut'></td>";
-			html_code += "<td contenteditable='true' class='item_nombre'></td>";
+			html_code += "<td><input type='text' id='item_rut' placeholder='Ingrese' class='form-control'/></td>";
+			html_code += "<td><input type='text' id='item_nombre' placeholder='Ingrese' class='form-control'/></td>";
 			html_code += "<td><button type='button' name='remove' data-row='row"+count+"' class='btn btn-danger btn-xs remove'>-</button></td>";   
 			html_code += "</tr>";
 			$('#tabla_personal').append(html_code);
