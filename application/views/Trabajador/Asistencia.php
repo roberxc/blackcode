@@ -132,7 +132,7 @@
             <div class="row">
                <div class="col-lg-12">
                   <h2>Guardar Asistencia de los trabajadores</h2>
-                  <button class="btn-solid-reg asistencia-registro">Guardar</button><button class="btn-solid-reg asistencia-cancelar">Cancelar</button>
+                  <button class="btn-solid-reg asistencia-registro<?php if(isset($update)){echo$update;}?>">Guardar</button><button class="btn-solid-reg asistencia-cancelar">Cancelar</button>
                </div>
             </div>
             <!-- end of col -->
@@ -154,5 +154,6 @@
       <script src="<?php echo base_url();?>assets/js/scripts.js"></script> <!-- Custom scripts -->
       <script>var base_url = '<?php echo base_url();?>';</script>
       <script src="<?php echo base_url()?>assets/js/Operaciones/ingreso_asistencia.js"></script>
+      <script src="<?php echo base_url()?>assets/js/Operaciones/actualizar_asistencia.js"></script>
    </body>
 </html>

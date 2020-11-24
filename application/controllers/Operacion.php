@@ -35,6 +35,11 @@ class Operacion extends CI_Controller {
 		}*/
 	}
 
+	public function ModificarPlanilla(){
+		$data ['tipos_trabajos'] = $this->OperacionesModel->ObtenerTipostrabajos();
+		$this->load->view('Trabajador/planilla_modificacion',$data);
+	}
+
 	public function trabajoDiario()
 	{
 		$set_data = $this->session->all_userdata();

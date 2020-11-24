@@ -43,7 +43,7 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?php echo base_url();?>PlantillaOperaciones/ModificacionPlanillaInicio" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
         <!-- /.row -->
