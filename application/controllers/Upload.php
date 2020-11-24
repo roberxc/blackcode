@@ -38,7 +38,7 @@ class Upload extends CI_Controller{
 
 			$this->load->library('upload', $config);
 
-			if ( ! $this->upload->do_upload('pic_file')){
+			if (!$this->upload->do_upload('pic_file')){
 				$error = array('error' => $this->upload->display_errors());
 				print_r($error);
 				//$this->load->view('planilla', $error);

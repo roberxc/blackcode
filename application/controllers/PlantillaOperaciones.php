@@ -43,6 +43,67 @@ class PlantillaOperaciones extends CI_Controller {
 		$this->load->view('Trabajador/planilla',$data);
 	}
 
+	public function ModificacionPlanilla($codigo){
+		$data ['activo'] = 2;
+		$data ['codigo'] = $codigo;
+		//$data ['detalle_planilla'] = $this->OperacionesModel->ObtenerDetallePlanilla($data['codigo']);
+
+		$data ['total_viaticos'] = $this->OperacionesModel->ObtenerTotalViaticos($codigo);
+		$data ['tipos_combustible'] = $this->OperacionesModel->ObtenerTiposCombustibles();
+		$data ['tipos_viaticos'] = $this->OperacionesModel->ObtenerTiposViaticos($codigo);
+		$data ['gasto_total'] = $this->OperacionesModel->ObtenerGastoTotal($codigo);
+		$data ['suma_asignada'] = $this->OperacionesModel->ObtenerSumaAsignada($codigo);
+
+		//Viaticos registrados
+		$data ['viaticos_registrados'] = $this->OperacionesModel->ObtenerViaticos($codigo);
+		//Gastos varios registrados
+		$data ['gastosvarios_registrados'] = $this->OperacionesModel->ObtenerGastosVarios($codigo);
+
+		//Materiales comprados
+		$data ['materiales_durante'] = $this->OperacionesModel->ObtenerMaterialesDurante($codigo);
+		$data ['materiales_antes'] = $this->OperacionesModel->ObtenerMaterialesAntes($codigo);
+
+		//Archivos subidos
+		$data ['archivos_subidos'] = $this->OperacionesModel->ObtenerArchivosSubidos($codigo);
+
+		$this->load->view('Trabajador/planilla_modificacion',$data);
+	}
+
+	public function ModificacionPlanillaInicio(){
+		$data ['activo'] = 2;
+		$data ['codigo'] = 'MN001';
+
+		$this->load->view('Trabajador/planilla_modificacion_inicio',$data);
+	}
+
+	//Validar codigo de servicio para modificar la planilla
+	public function validarCodigoServicio(){
+		if ($this->input->is_ajax_request()) {
+			//Validaciones
+			$this->form_validation->set_rules('codigo_servicio', 'Codigo servicio', 'required');
+
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+			} else {
+				$ajax_data = $this->input->post();
+				$res = $this->OperacionesModel->validarCodigoServicio($ajax_data['codigo_servicio']);
+				
+				if (count($res)==1) {
+					$data = array('response' => "success", 'message' => "Codigo correcto!");
+				}else{
+					$data = array('response' => "error", 'message' => "Codigo incorrecto!");
+				}
+
+			}
+
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+	}
+
+
 	public function registroGastosCombustible(){
 		if ($this->input->is_ajax_request()) {
 			//Validaciones
@@ -168,7 +229,7 @@ class PlantillaOperaciones extends CI_Controller {
 		
 		if ($this->input->is_ajax_request()) {
 			$ajax_data = $this->input->post();
-			$res = $this->OperacionesModel->registrarGastoMateriales($ajax_data,1);
+			$res = $this->OperacionesModel->registrarGastoMaterialesAntes($ajax_data);
 			if ($res) {
 				$data = array('response' => "success", 'message' => "Guardado exitosamente!");
 			}else{
@@ -185,7 +246,7 @@ class PlantillaOperaciones extends CI_Controller {
 		
 		if ($this->input->is_ajax_request()) {
 			$ajax_data = $this->input->post();
-			$res = $this->OperacionesModel->registrarGastoMateriales($ajax_data,0);
+			$res = $this->OperacionesModel->registrarGastoMaterialesDurante($ajax_data);
 			if ($res) {
 				$data = array('response' => "success", 'message' => "Guardado exitosamente!");
 			}else{
@@ -197,13 +258,29 @@ class PlantillaOperaciones extends CI_Controller {
 		}
 	}
 	//Metodo para actualizar compra de materiales durante y antes el trabajo
-	public function actualizarMaterialesComprados(){
+	public function actualizarMaterialesCompradosDurante(){
 		
 		if ($this->input->is_ajax_request()) {
 			$ajax_data = $this->input->post();
-			$res = $this->OperacionesModel->registrarGastoMateriales($ajax_data,0);
+			$res = $this->OperacionesModel->updateGastoMaterialesDurante($ajax_data);
 			if ($res) {
-				$data = array('response' => "success", 'message' => "Guardado exitosamente!");
+				$data = array('response' => "success", 'message' => "Actualizado exitosamente!");
+			}else{
+				$data = array('response' => "error", 'message' => $res);
+			}
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+	}
+
+	public function actualizarMaterialesCompradosAntes(){
+		
+		if ($this->input->is_ajax_request()) {
+			$ajax_data = $this->input->post();
+			$res = $this->OperacionesModel->updateGastoMaterialesAntes($ajax_data);
+			if ($res) {
+				$data = array('response' => "success", 'message' => "Actualizado exitosamente!");
 			}else{
 				$data = array('response' => "error", 'message' => $res);
 			}
