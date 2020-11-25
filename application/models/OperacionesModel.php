@@ -125,6 +125,21 @@ class OperacionesModel extends CI_Model {
 		return $query->result();
 	}
 
+	//Planillas realizadas por trabajador
+	public function ObtenerPlanillaPorTrabajador($idusuario){
+
+		$query = $this->db
+				->select("p.NombreProyecto AS NombreProyecto, c.CodigoServicio AS CodigoServicio, i.FechaAsignacion AS FechaTrabajo, t.PersonalCargo AS PersonalCargo, t.Detalle AS Detalle, t.ValorAsignado AS ValorAsignado") # También puedes poner * si quieres seleccionar todo
+				->from("trabajodiario t")
+				->join("codigoservicio c", "c.ID_Codigo = t.ID_Codigo")
+				->join("proyecto p", "p.ID_Proyecto = t.ID_Proyecto")
+				->join("ingreso i", "i.ID_TrabajoDiario = t.ID_TrabajoDiario")
+				->where("i.ID_Usuario", $idusuario)
+				->get();
+		
+		return $query->result();
+	}
+
 	public function obtenerGastoTotal($codigo){
 
 		$idtipotrabajo = $this->getIDTrabajoDiarioCS($codigo);
@@ -615,6 +630,44 @@ class OperacionesModel extends CI_Model {
 		return  $this->db->insert_batch('materialesdurante',$insert_gastos);
 	}
 
+	//Registro de materiales de bodega
+	public function registrarMaterialesBodega($data){
+		
+		//Registro  de materiales
+		$materiales = $data["lista_material"];
+		$cantidades = $data["lista_cantidad"];
+
+		//Obtencion de id trabajo
+		$id_trabajodiario = $this->getIDTrabajoDiarioCS($data['codigo_servicio']);
+		$idtrabajo = $id_trabajodiario[0]['ID_TrabajoDiario'];
+
+		for($count = 0; $count<count($materiales); $count++){
+			//Asistencia de mañana
+			$materiales_limpio = $materiales[$count];
+			$cantidad_limpio = $cantidades[$count];
+
+			if(!empty($materiales_limpio) && !empty($cantidad_limpio)){
+				$insert_gastos[] = array(
+					'Nombre' => $materiales_limpio,
+					'Cantidad'=> $cantidad_limpio,
+					'ID_TrabajoDiario' => $idtrabajo,
+				);
+			}
+		}
+
+		//Si es 0 es: Materiales durante el trabajo
+		//SI es 1 es: Materiales antes el trabajo
+		//Actualizar estado de planilla
+		$idcodigoservicio = $this->getIDCodigoServicio($data['codigo_servicio']);
+		$this->db->set('MaterialesBodega','1', FALSE);
+		$this->db->where('ID_Codigo', $idcodigoservicio[0]['ID_Codigo']);
+		$this->db->update('planillaestado');
+		
+
+		
+		return  $this->db->insert_batch('materialesbodega',$insert_gastos);
+	}
+
 	//Metodo para registrar gastos varios
 	public function registrarGastosVarios($ajax_data){
 		//Obtener id de trabajo diario
@@ -847,6 +900,23 @@ class OperacionesModel extends CI_Model {
 		return $query->result();
 	}
 
+	//Metodo para obtener los materiales registrados de bodega
+	public function ObtenerMaterialesBodega($codigo){
+
+		$idtipotrabajo = $this->getIDTrabajoDiarioCS($codigo);
+		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['ID_TipoTrabajo']);
+		$idtrabajodiario = $idtipotrabajo[0]['ID_TrabajoDiario'];
+
+		$query = $this->db
+		->select("mb.ID_MaterialesBodega AS ID, mb.Nombre AS Nombre, mb.Cantidad AS Cantidad") # También puedes poner * si quieres seleccionar todo
+		->from("materialesbodega mb")
+		->join("trabajodiario t", "t.ID_TrabajoDiario = mb.ID_TrabajoDiario")
+		->where('mb.ID_TrabajoDiario',$idtrabajodiario)
+		->get();
+
+		return $query->result();
+	}
+
 	//Actualizacion de  materiales comprados durante
 	public function updateGastoMaterialesDurante($data){
 		
@@ -914,6 +984,35 @@ class OperacionesModel extends CI_Model {
 		return $this->db->update_batch('materialesantes', $insert_data, 'ID_MaterialesAntes');
 	}
 
+	//Actualizacion de  materiales de bodega
+	public function updateGastoMaterialesBodega($data){
+		
+		//Registro  de materiales
+		$materiales = $data["lista_material"];
+		$cantidades = $data["lista_cantidad"];
+		$id = $data["lista_id"];
+		//Obtencion de id trabajo
+		$id_trabajodiario = $this->getIDTrabajoDiarioCS($data['codigo_servicio']);
+		$idtrabajo = $id_trabajodiario[0]['ID_TrabajoDiario'];
+
+		for($count = 0; $count<count($materiales); $count++){
+			//Asistencia de mañana
+			$materiales_limpio = $materiales[$count];
+			$cantidad_limpio = $cantidades[$count];
+			$lista_id = $id[$count];
+
+			if(!empty($materiales_limpio) && !empty($cantidad_limpio)){
+				$insert_data[] = array(
+					'ID_MaterialesBodega' => $lista_id,
+					'Nombre' => $materiales_limpio,
+					'Cantidad'=> $cantidad_limpio,
+				);
+			}
+		}
+		$this->db->where('ID_TrabajoDiario',$idtrabajo);
+		return $this->db->update_batch('materialesbodega', $insert_data, 'ID_MaterialesBodega');
+	}
+
 	//Metodo para obtener los materiales comprados antes el trabajo
 	public function ObtenerArchivosSubidos($codigo){
 
@@ -929,6 +1028,20 @@ class OperacionesModel extends CI_Model {
 		->get();
 
 		return $query->result();
+	}
+
+	//Metodo para borrar un archivo subido
+	public function deleteArchivoSubido($data){
+
+		$idtipotrabajo = $this->getIDTrabajoDiarioCS($data['codigo_servicio']);
+		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['ID_TipoTrabajo']);
+		$idtrabajodiario = $idtipotrabajo[0]['ID_TrabajoDiario'];
+
+		$this->db->where('ID_TrabajoDiario', $idtrabajodiario);
+		$this->db->where('Imagen', $data['nombre_imagen']);
+		
+
+		return $this->db->delete('detalletrabajodiario');
 	}
 }
 

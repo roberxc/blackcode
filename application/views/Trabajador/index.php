@@ -93,10 +93,10 @@ if (isset($set_data['nombre_completo'])) {
                <div class="row">
                   <div class="col-lg-6">
                      <div class="text-container">
-                        <h1> Bienvenido </br><span class="turquoise"><?php echo $nombre;?></span> </br>¿Que desea hacer? </h1>
+                        <h1> Bienvenido </br><span class="turquoise"><?php echo $nombre;?></span> </br>¿Qué desea hacer? </h1>
                         <!-- <p class="p-large">Administra tu trabajo diario </p> -->
-                        <a class="btn-solid-reg popup-with-move-anim" href="#details-lightbox-1">Registrar trabajo</a></br> </br>
-                        <a class="btn-solid-lg page-scroll" href="#services">Ver trabajos realizados</a>
+                        <a class="btn-solid-reg popup-with-move-anim" href="#details-lightbox-1">Registrar planilla</a></br> </br>
+                        <a class="btn-solid-lg page-scroll" href="<?php echo base_url();?>PlantillaOperaciones/ModificacionPlanillaInicio">Editar planilla</a>
                      </div>
                      <!-- end of text-container -->
                   </div>

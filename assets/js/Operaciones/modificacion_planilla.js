@@ -42,44 +42,9 @@ $(document).on('click', '#updateviatico1', function(e) {
         success: function(data) {
             if (data.response == "success") {
                 window.location.href = base_url+"ModificacionPlanilla/"+codigoservicio;
-                Command: toastr["success"](data.message)
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
+                generarAvisoExitoso(data.message);
             } else {
-                Command: toastr["error"](data.message)
-
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
+                generarAvisoError(data.message);
             }
         }
     });
@@ -132,43 +97,9 @@ $(document).on('click', '#update_material1', function(e) {
         success: function(data) {
             if (data.response == "success") {
                 window.location.href = base_url+"ModificacionPlanilla/"+codigoservicio;
-                Command: toastr["success"](data.message)
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
+                generarAvisoExitoso(data.message);
             } else {
-                Command: toastr["error"](data.message)
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
+                generarAvisoError(data.message);
             }
         }
     });
@@ -227,44 +158,9 @@ $(document).on('click', '#updatematerial2', function(e) {
         success: function(data) {
             if (data.response == "success") {
                 window.location.href = base_url+"ModificacionPlanilla/"+codigoservicio;
-                Command: toastr["success"](data.message)
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
+                generarAvisoExitoso(data.message);
             } else {
-                Command: toastr["error"](data.message)
-
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
+                generarAvisoError(data.message);
             }
         }
     });
@@ -323,43 +219,9 @@ $(document).on('click', '#addgastos_varios1', function(e) {
         success: function(data) {
             if (data.response == "success") {
                 window.location.href = base_url+"ModificacionPlanilla/"+codigoservicio;
-                Command: toastr["success"]('Guardado exitosamente!','Correcto')
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
+                generarAvisoExitoso('Guardado exitosamente!');
             } else {
-                Command: toastr["error"](data.message,'Error')
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
+                generarAvisoError(data.message);
             }
         }
     });
@@ -385,47 +247,108 @@ $(document).on('click', '#addgastos_combustible1', function(e) {
         },
         success: function(data) {
             if (data.response == "success") {
-                Command: toastr["success"]('Modificado exitosamente!','Correcto')
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
+                generarAvisoExitoso('Modificado exitosamente!');
             } else {
-                Command: toastr["error"](data.message,'Error')
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
+                generarAvisoError(data.message);
             }
         }
     });
 });
 
+//Borrar arhivos subidos
+$(document).on('click', '.delete_archivo', function(e) {
+    e.preventDefault();
+    //Obtencion del codigo de servicio
+    var codigoservicio = $("#codigo_servicio").val();
+    var archivo = $(this).parents('tr').find(".name-file").val();
+    $.ajax({
+        url: base_url+"PlantillaOperaciones/eliminarArchivoSubido",
+        type: "post",
+        dataType: "json",
+        data: {
+            codigo_servicio: codigoservicio,
+            nombre_imagen: archivo,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                window.location.href = base_url+"ModificacionPlanilla/"+codigoservicio;
+                generarAvisoExitoso('Modificado exitosamente!');
+            } else {
+                generarAvisoError(data.message);
+            }
+        }
+    });
+    
+});
 
+$("#form-subir-archivos").submit(function (event){
+
+    event.preventDefault();
+    var formData = new FormData($("#form-subir-archivos")[0]);
+    $.ajax({
+        url:$("form").attr("action"),
+        type:$("form").attr("method"),
+        data:formData,
+        cache:false,
+        contentType:false,
+        processData:false,
+        
+        success:function(respuesta){
+            if (respuesta==="exito") {
+                //$("#msg-error").hide();
+                $("#form-subir-archivos")[0].reset();
+                generarAvisoExitoso('Archivo subido correctamente!');
+            }
+            else if(respuesta==="error"){
+                generarAvisoError('Error al subir el archivo');
+            }
+            else{
+                //$("#msg-error").show();
+                generarAvisoError(respuesta);
+            }
+        }
+    });
+});
+
+function generarAvisoError($mensaje){
+    Command: toastr["error"]($mensaje,'Error')
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }    
+}
+
+function generarAvisoExitoso($mensaje){
+    Command: toastr["success"]($mensaje,'Correcto')
+        toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+}
 

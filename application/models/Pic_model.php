@@ -34,6 +34,15 @@ class Pic_model extends CI_Model{
 	
 		return $this->db->insert("detalletrabajodiario", $data);
 	}
+
+	function subirArchivoBD($data,$codigoservicio){
+		$idtrabajodiario = $this->getIDTrabajoDiario($codigoservicio);
+		$data = array(
+			"ID_TrabajoDiario" => $idtrabajodiario[0]['ID'],
+			"Imagen" => $data['upload_data']['file_name'],
+		);
+		return $this->db->insert("detalletrabajodiario", $data);
+	}
 	
 	/*function store_pic_data($data){
 		$insert_data['pic_title'] = $data['pic_title'];

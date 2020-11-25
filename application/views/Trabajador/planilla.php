@@ -66,12 +66,12 @@
                         <div class="card-title">Marcar Asistencia</div>
                         <hr class="cell-divide-hr">
                         <?php 
-                                 if($asistencia_estado == 0){
-                                    $res = 'Ingresar';
-                                 }else if($asistencia_estado == 1){
-                                    $res = 'Modificar';
-                                 }
-                        ?>
+                           if($asistencia_estado == 0){
+                              $res = 'Ingresar';
+                           }else if($asistencia_estado == 1){
+                              $res = 'Modificar';
+                           }
+                           ?>
                         <div class="button-wrapper">
                            <button class="btn-solid-reg active" id="asistencia-modal"><?php echo $res;?></button>
                         </div>
@@ -91,23 +91,23 @@
                         </div>
                         <hr class="cell-divide-hr">
                         <ul class="list-unstyled li-space-lg">
-                        <?php 
+                           <?php 
                               foreach($tipos_viaticos as $row)
                               { ?>
-                              <li class="media">
-                                 <i class="fas <?php if($row->Valor>0){ echo 'fa-check';}else{ echo 'fa-times';}?>"></i>
-                                 <div class="media-body"><?php echo $row->Nombre;?></div>
-                              </li>
-                              <?php }?>
+                           <li class="media">
+                              <i class="fas <?php if($row->Valor>0){ echo 'fa-check';}else{ echo 'fa-times';}?>"></i>
+                              <div class="media-body"><?php echo $row->Nombre;?></div>
+                           </li>
+                           <?php }?>
                         </ul>
                         <div class="button-wrapper">
                            <?php 
-                                 if($gastosviaticos_estado == 0){
-                                    $res = 'Ingresar';
-                                 }else if($gastosviaticos_estado == 1){
-                                    $res = 'Modificar';
-                                 }
-                           ?>
+                              if($gastosviaticos_estado == 0){
+                                 $res = 'Ingresar';
+                              }else if($gastosviaticos_estado == 1){
+                                 $res = 'Modificar';
+                              }
+                              ?>
                            <button class="btn-solid-reg popup-with-move-anim" type="submit" id="in-viaticos" href="#vaticos<?php echo $gastosviaticos_estado;?>"><?php if(isset($res)){ echo $res;}?></button>
                         </div>
                      </div>
@@ -144,7 +144,6 @@
                                  <label class="label-control" for="cemail">Alojamiento</label>
                                  <div class="help-block with-errors"></div>
                               </div>
-
                               <div class="form-group">
                                  <button class="btn-solid-reg" id="addviatico" type="button">Guardar</button>
                               </div>
@@ -163,24 +162,23 @@
                            <div class="col-lg-4">
                               <h4>Modificar gastos de viaticos </h4>
                               <?php 
-                              if(isset($viaticos_registrados)){
-                              foreach($viaticos_registrados as $row)
-                              { ?>
+                                 if(isset($viaticos_registrados)){
+                                 foreach($viaticos_registrados as $row)
+                                 { ?>
                               <div class="form-group">
-                              <input type="hidden" class="form-control-input" id="gastosid_update" value="<?php echo $row->ID?>">
+                                 <input type="hidden" class="form-control-input" id="gastosid_update" value="<?php echo $row->ID?>">
                                  <input type="number" class="form-control-input" id="gastos_update" value="<?php echo $row->Valor?>">
                                  <label class="label-control" for="cname"><?php echo $row->Nombre?></label>
                                  <div class="help-block with-errors"></div>
                               </div>
-                          
-                           <?php }
-                           }?>
+                              <?php }
+                                 }?>
                               <div class="form-group">
                                  <button class="btn-solid-reg" id="updateviatico1" type="button">Modificar</button>
                               </div>
                            </div>
                            <!-- end of col -->
-                           </div>
+                        </div>
                         <!-- end of row -->
                      </div>
                      <!-- end of container -->
@@ -195,14 +193,13 @@
                         </div>
                         <hr class="cell-divide-hr">
                         <?php 
+                           if($materialdurante_estado == 0){
+                              $res = 'Ingresar';
+                           }else if($materialdurante_estado == 1){
+                              $res = 'Modificar';
+                           }
                            
-                                 if($materialdurante_estado == 0){
-                                    $res = 'Ingresar';
-                                 }else if($materialdurante_estado == 1){
-                                    $res = 'Modificar';
-                                 }
-                              
-                        ?>
+                           ?>
                         <div class="button-wrapper">
                            <a class="btn-solid-reg popup-with-move-anim" href="#duranteTrab<?php echo $materialdurante_estado;?>" id="in-mat1"><?php if(isset($res)){ echo $res;}?></a>
                         </div>
@@ -219,20 +216,18 @@
                         </div>
                         <hr class="cell-divide-hr">
                         <?php 
-         
-                                 if($materialantes_estado == 0){
-                                    $res = 'Ingresar';
-                                 }else if($materialantes_estado == 1){
-                                    $res = 'Modificar';
-                                 }
-                              
-                        ?>
+                           if($materialantes_estado == 0){
+                              $res = 'Ingresar';
+                           }else if($materialantes_estado == 1){
+                              $res = 'Modificar';
+                           }
+                           
+                           ?>
                         <div class="button-wrapper">
                            <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#antesTrab<?php echo $materialantes_estado;?>"><?php echo $res;?></a>
                         </div>
                      </div>
                   </div>
-                  
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Materiales de bodega</div>
@@ -240,17 +235,17 @@
                         </br></br>
                         <div class="card-subtitle">Registrar materiales utilizados de la bodega</div>
                         <hr class="cell-divide-hr">
+
                         <?php 
-                              
-                                 if($materialbodega_estado == 0){
-                                    $res = 'Ingresar';
-                                 }else if($materialbodega_estado == 1){
-                                    $res = 'Modificar';
-                                 }
-                              
-                        ?>
+                           if($materialbodega_estado == 0){
+                              $res = 'Ingresar';
+                           }else if($materialbodega_estado == 1){
+                              $res = 'Modificar';
+                           }
+                           
+                           ?>
                         <div class="button-wrapper">
-                           <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#bodega">Ingresar</a>
+                           <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#bodega<?php echo $materialantes_estado;?>"><?php echo $res;?></a>
                         </div>
                      </div>
                   </div>
@@ -264,8 +259,8 @@
                            <select class="form-control-input" id="id_tipogasto">
                               <option value="" selected>Seleccione</option>
                               <?php 
-                              foreach($tipos_combustible as $row)
-                              { ?>
+                                 foreach($tipos_combustible as $row)
+                                 { ?>
                               <option value="<?php echo $row->ID_TipoGasto?>"><?php echo $row->NombreTipoGasto?></option>
                               <?php }?>
                            </select>
@@ -277,14 +272,13 @@
                         </div>
                         <hr class="cell-divide-hr">
                         <?php 
+                           if($gastocombustible_estado == 0){
+                              $res = 'Guardar';
+                           }else if($gastocombustible_estado == 1){
+                              $res = 'Modificar';
+                           }
                            
-                                 if($gastocombustible_estado == 0){
-                                    $res = 'Guardar';
-                                 }else if($gastocombustible_estado == 1){
-                                    $res = 'Modificar';
-                                 }
-                              
-                        ?>
+                           ?>
                         <div class="button-wrapper">
                            <button class="btn-solid-reg page-scroll" id="addgastos_combustible<?php echo$gastocombustible_estado;?>"><?php echo $res;?></button>
                         </div>
@@ -299,16 +293,14 @@
                         </br></br>
                         <?php if(isset($gastosvarios_registrados) && (count($gastosvarios_registrados)>0)){
                            foreach($gastosvarios_registrados as $row){ ?>
-
-                           <div class="form-group">
-                              <input type="hidden" class="form-control-input" id="item_gastovariosid" value="<?php echo $row->ID;?>">
-                              <input type="text" class="form-control-input" id="item_gastovarios" value="<?php echo $row->Valor;?>" required>
-                              <label class="label-control" for="cemail"><?php echo $row->Nombre;?></label>
-                              <div class="help-block with-errors"></div>
-                           </div>
-
+                        <div class="form-group">
+                           <input type="hidden" class="form-control-input" id="item_gastovariosid" value="<?php echo $row->ID;?>">
+                           <input type="text" class="form-control-input" id="item_gastovarios" value="<?php echo $row->Valor;?>" required>
+                           <label class="label-control" for="cemail"><?php echo $row->Nombre;?></label>
+                           <div class="help-block with-errors"></div>
+                        </div>
                         <?php } 
-                     }else{?>
+                           }else{?>
                         <div class="form-group">
                            <input type="text" class="form-control-input" id="gasto_peaje" required>
                            <label class="label-control" for="cemail">Peaje $</label>
@@ -319,18 +311,16 @@
                            <label class="label-control" for="cemail">Estacionamiento $</label>
                            <div class="help-block with-errors"></div>
                         </div>
-
-                     <?php }?>
+                        <?php }?>
                         <hr class="cell-divide-hr">
                         <?php 
-                              
-                                 if($gastosvarios_estado == 0){
-                                    $res = 'Guardar';
-                                 }else if($gastosvarios_estado == 1){
-                                    $res = 'Modificar';
-                                 }
-                              
-                        ?>
+                           if($gastosvarios_estado == 0){
+                              $res = 'Guardar';
+                           }else if($gastosvarios_estado == 1){
+                              $res = 'Modificar';
+                           }
+                           
+                           ?>
                         <div class="button-wrapper">
                            <button class="btn-solid-reg page-scroll" id="addgastos_varios<?php echo $gastosvarios_estado;?>"><?php echo $res;?></button>
                         </div>
@@ -375,7 +365,6 @@
          </div>
          <!-- end of container -->
       </div>
-
       <div id="confirmar" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
             <div class="row">
@@ -386,8 +375,9 @@
                         $vuelto = $suma_asignada[0]->ValorAsignado-$gasto_total[0]->Valor;
                         echo '$'.$gasto_total[0]->Valor;
                      }
-                  ?>
-                  </br>Vuelto: <?php echo '$'.$vuelto;?></h4>
+                     ?>
+                     </br>Vuelto: <?php echo '$'.$vuelto;?>
+                  </h4>
                   <a class="btn-solid-reg mfp-close page-scroll" href="<?php echo base_url()?>Operacion" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Guardar</a> <a class="btn-outline-reg mfp-close as-button" href="#screenshots">Atras</a>
                </div>
                <!-- end of col -->
@@ -449,22 +439,25 @@
                      <div class="card-title">Modificar materiales comprados durante el trabajo</div>
                      <hr class="cell-divide-hr">
                      <table class="table table-bordered" >
+                     <?php if(isset($materiales_durante) && (count($materiales_durante)>0)){
+                           foreach($materiales_durante as $row){ ?>
+                        <TR>
+                           <TD><input type="hidden" id="item_material_update_id" value="<?php echo $row->ID;?>" class="form-control" /></TD>
+                        </TR>
                         <TR>
                            <TH>Material</TH>
-                           <TD><input type="text" id="item_material_update" placeholder="Ingrese" class="form-control" /></TD>
+                           <TD><input type="text" id="item_material_update" value="<?php echo $row->Nombre;?>" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Cantidad</TH>
-                           <TD><input type="text" id="item_cantidad_update" placeholder="Ingrese" class="form-control" /></TD>
+                           <TD><input type="text" id="item_cantidad_update" value="<?php echo $row->Cantidad;?>" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Total $</TH>
-                           <TD><input type="text" id="item_valortotal_update" placeholder="Ingrese" class="form-control" /></TD>
+                           <TD><input type="text" id="item_valortotal_update" value="<?php echo $row->Valor;?>" class="form-control" /></TD>
                         </TR>
-                        <TR>
-                           <TH>Agregar más</TH>
-                           <TD><button type="button" name="add" id="durante" class="btn btn-success">+</button></TD>
-                        </TR>
+                           <?php }
+                           }?>
                      </table>
                      <hr class="cell-divide-hr">
                      <div class="button-wrapper">
@@ -475,7 +468,7 @@
             </div>
             <!-- end of col -->
             <div class="form-group">
-               <a class="btn-solid-reg" id="update_material" href="#">Guardar</a></br> </br>
+               <button class="btn-solid-reg" id="update_material1">Guardar</button></br> </br>
             </div>
          </div>
          <!-- end of row -->
@@ -533,22 +526,25 @@
                      <div class="card-title">Modificar materiales comprados antes del trabajo</div>
                      <hr class="cell-divide-hr">
                      <table class="table table-bordered" >
+                     <?php if(isset($materiales_antes) && (count($materiales_antes)>0)){
+                           foreach($materiales_antes as $row){ ?>
+                        <TR>
+                           <TD><input type="hidden" id="item_material2_update_id" value="<?php echo $row->ID;?>" class="form-control" /></TD>
+                        </TR>
                         <TR>
                            <TH>Material</TH>
-                           <TD><input type="text" id="item_material2_update" placeholder="Ingrese" class="form-control" /></TD>
+                           <TD><input type="text" id="item_material2_update" value="<?php echo $row->Nombre;?>" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Cantidad</TH>
-                           <TD><input type="text" id="item_cantidad2_update" placeholder="Ingrese" class="form-control" /></TD>
+                           <TD><input type="text" id="item_cantidad2_update" value="<?php echo $row->Cantidad;?>" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Total $</TH>
-                           <TD><input type="text" id="item_valortotal2_update" placeholder="Ingrese" class="form-control" /></TD>
+                           <TD><input type="text" id="item_valortotal2_update" value="<?php echo $row->Valor;?>" class="form-control" /></TD>
                         </TR>
-                        <TR>
-                           <TH>Agregar más</TH>
-                           <TD><button type="button" id="antes" class="btn btn-success">+</button></TD>
-                        </TR>
+                        <?php }
+                           }?>
                      </table>
                      <hr class="cell-divide-hr">
                      <div class="button-wrapper">
@@ -559,13 +555,12 @@
             </div>
             <!-- end of col -->
             <div class="form-group">
-               <a class="btn-solid-reg" id="updatematerial2" href="#">Guardar</a></br> </br>
+               <button class="btn-solid-reg" id="updatematerial2">Guardar</button></br> </br>
             </div>
          </div>
          <!-- end of row -->
       </div>
-
-      <!-- end of container -->
+      <!-- Ingreso de materiales bodega-->
       <div id="bodega" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
             <div class="row">
@@ -578,11 +573,11 @@
                      <table class="table table-bordered" >
                         <TR>
                            <TH>Material</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
+                           <TD><input type="text" id="item_materialbodega_nombre" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Cantidad</TH>
-                           <TD><input type="text" name="name[]" placeholder="Ingrese" class="form-control" /></TD>
+                           <TD><input type="text" id="item_materialbodega_cantidad" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Agregar más</TH>
@@ -598,7 +593,48 @@
             </div>
             <!-- end of col -->
             <div class="form-group">
-               <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
+               <button class="btn-solid-reg" id="addmaterialbodega">Guardar</button></br> </br>
+            </div>
+         </div>
+         <!-- end of row -->
+      </div>
+      <!-- Ingreso de materiales bodega-->
+      <div id="bodega1" class="lightbox-basic zoom-anim-dialog mfp-hide">
+         <div class="container">
+            <div class="row">
+               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
+               <div class="col-lg-4">
+                  <div class="card"></div>
+                  <div class="card-body" id="dynamic_field" >
+                     <div class="card-title">Modificar materiales de bodega</div>
+                     <hr class="cell-divide-hr">
+                     <table class="table table-bordered">
+                     <?php if(isset($materiales_bodega) && (count($materiales_bodega)>0)){
+                           foreach($materiales_bodega as $row){ ?>
+                        <TR>
+                           <TD><input type="hidden" id="item_materialbodega_update_id" value="<?php echo $row->ID;?>" class="form-control" /></TD>
+                        </TR>
+                        <TR>
+                           <TH>Material</TH>
+                           <TD><input type="text" id="item_materialbodega_nombre_update" value="<?php echo $row->Nombre;?>" class="form-control" /></TD>
+                        </TR>
+                        <TR>
+                           <TH>Cantidad</TH>
+                           <TD><input type="text" id="item_materialbodega_cantidad_update" value="<?php echo $row->Cantidad;?>" class="form-control" /></TD>
+                        </TR>
+                        <?php }
+                           }?>
+                     </table>
+                     <hr class="cell-divide-hr">
+                     <div class="button-wrapper">
+                     </div>
+                  </div>
+               </div>
+               <!-- end of card -->
+            </div>
+            <!-- end of col -->
+            <div class="form-group">
+               <button class="btn-solid-reg" id="updatematerialbodega">Guardar</button></br> </br>
             </div>
          </div>
          <!-- end of row -->
@@ -608,36 +644,29 @@
          <div class="container">
             <div class="row">
                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-               <div class="col-lg-4">
-                  <div class="card"></div>
-                  <div class="card-body" id="dynamic_field" >
-                     <div class="card-title">Subir documentos</div>
-                     <hr class="cell-divide-hr">
-                     
-                     <?php echo form_open_multipart('Upload/file_data');?>
-                     <div class="form-group">
-                        <label for="pic_title">codigo:</label>
-                        <input type="text" class="form-control" name="codigo1" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" id="codigo1">
-                     </div>
-                     
-                     <div class="form-group">
-                        <label for="pic_file">Ingresar:</label>
-                        <input type="file" name="pic_file" class="form-control"  id="pic_file">
-                     </div>
-                     <!--<a href="<?=base_url();?>" class="btn btn-warning">Back</a>-->
-                     
-                     <button type="submit" class="btn btn-success">Guardar</button>
-                     <hr class="cell-divide-hr">
-                     <div class="button-wrapper">
+               <form id="form-subir-archivos" style="padding:0px 15px;" class="form-horizontal" role="form" action="<?php echo base_url();?>Upload/subirArchivo" method="POST" >
+                  <div class="col-lg-4">
+                     <div class="card"></div>
+                     <div class="card-body" id="dynamic_field" >
+                        <div class="card-title">Subir documentos</div>
+                        <hr class="cell-divide-hr">
+                        <div class="form-group">
+                           <label for="pic_title">codigo:</label>
+                           <input type="text" class="form-control" name="codigo1" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" id="codigo1">
+                        </div>
+                        <div class="form-group">
+                           <label for="pic_file">Ingresar:</label>
+                           <input type="file" name="pic_file" class="form-control"  id="pic_file">
+                        </div>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <hr class="cell-divide-hr">
+                        <div class="button-wrapper">
+                        </div>
                      </div>
                   </div>
-               </div>
+               </form>
                <!-- end of card -->
             </div>
-            <!-- end of col -->
-            <!--<div class="form-group">
-               <a class="btn-solid-reg" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
-            </div>-->
          </div>
       </div>
       <div id="archivosubidos" class="lightbox-basic zoom-anim-dialog mfp-hide">
@@ -648,8 +677,22 @@
                   <div class="card"></div>
                   <div class="card-body" id="dynamic_field" >
                      <div class="card-title">Archivo subidos</div>
-                     <hr class="cell-divide-hr">
-                     
+                     <table class="table table-bordered">
+                        <TR>
+                           <td><label>Archivo</label></td>
+                           <td></td>
+                        </TR>
+                        <?php if(isset($archivos_subidos) && (count($archivos_subidos)>0)){
+                           foreach($archivos_subidos as $row){ ?>
+                        <tr>
+                           <TD><input type="text" value="<?php echo$row->Imagen;?>" class="form-control name-file"g/></TD>
+                           <td class="project-actions text-right">
+                              <button class="btn btn-danger delete_archivo"><i class="fas fa-trash"></i></button>
+                           </td>
+                        </tr>
+                        <?php }
+                           } ?>
+                     </table>
                      <hr class="cell-divide-hr">
                      <div class="button-wrapper">
                      </div>
@@ -660,8 +703,7 @@
             <!-- end of col -->
             <!--<div class="form-group">
                <a class="btn-solid-reg" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
-            </div>-->
-           
+               </div>-->
          </div>
          <!-- end of row -->
       </div>
@@ -691,11 +733,8 @@
       <script src="<?php echo base_url();?>assets/js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
       <script src="<?php echo base_url();?>assets/js/scripts.js"></script> <!-- Custom scripts -->
       <!--<script src="<?php echo base_url();?>assets/js/imagenes.js"></script>-->
-      
       <script>var base_url = '<?php echo base_url();?>';</script>
       <script src="<?php echo base_url();?>assets/js/Operaciones/ingreso_planilla_detalle.js"></script>
       <script src="<?php echo base_url();?>assets/js/Operaciones/actualizar_planilla_detalle.js"></script>
-      
-
    </body>
 </html>

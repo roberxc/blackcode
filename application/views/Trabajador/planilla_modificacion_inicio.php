@@ -45,19 +45,69 @@
          <div class="container">
             <div class="row">
                <div class="col-lg-12">
-                  <h2>Modificacion planilla de Trabajos Diarios</h2>
-                     <div class="form-group">
-                        <input type="text" class="form-control-input" id="codigo_servicio" required>
-                        <label class="label-control">Codigo</label>
-                        <div class="help-block with-errors"></div>
-                     </div>
-
-                     <div class="form-group">
-                        <a class="btn-solid-reg popup-with-move-anim" id="validar-planillatrabajo" href="#detalleTrabajo">Validar</a></br> </br>
-                     </div>
+               <br>
+                  <h3>Modificacion planilla de Trabajos Diarios</h3>
+                  <div class="form-group">
+                     <input type="text" class="form-control-input" id="codigo_servicio" required>
+                     <label class="label-control">Codigo</label>
+                     <div class="help-block with-errors"></div>
+                  </div>
+                  <div class="form-group">
+                     <p><a class="btn-solid-reg popup-with-move-anim float-left" id="validar-planillatrabajo" href="#detalleTrabajo">Validar</a></p><p><a class="btn-solid-reg float-right" href="<?php echo base_url();?>Operacion">Volver</a></p>
+                     <br></br>
+                     <br></br>
+                  </div>
                </div>
                <!-- end of col -->
             </div>
+            <div class="content-header">
+               <div class="container-fluid">
+                  <div class="row mb-2">
+                     <div class="col-sm-6">
+                        <h5 class="m-0 text-dark">Trabajos realizados</h5>
+                     </div>
+                  </div>
+                  <!-- /.row -->
+               </div>
+               <!-- /.container-fluid -->
+            </div>
+            <div class="card-body p-0">
+               <table class="table table-striped projects">
+                  <thead>
+                     <tr>
+                        <th style="width: 15%">
+                           Codigo
+                        </th>
+                        <th style="width: 20%">
+                           Fecha
+                        </th>
+                        <th style="width: 20%">
+                           Proyecto/Cliente
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <?php 
+                        if($trabajos_realizados){
+                           foreach($trabajos_realizados as $row){
+                        ?>
+                     <tr>
+                        <td>
+                           <?php echo $row->CodigoServicio?>
+                        </td>
+                        <td>
+                           <?php echo $row->FechaTrabajo?>
+                        </td>
+                        <td>
+                           <?php echo $row->NombreProyecto?>
+                        </td>
+                     </tr>
+                     <?php }
+                        }?>
+                  </tbody>
+               </table>
+            </div>
+            <!-- /.card-body -->
             <!-- end of row -->
          </div>
          <!-- end of container -->
