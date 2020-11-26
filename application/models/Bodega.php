@@ -27,10 +27,7 @@ class Bodega extends CI_Model {
 
                $datosEntrada['ID_Proyecto'] = $post['centrocostos'];
                $datosEntrada['CantidadIngresada'] = $post['cantidadentrada'];
-               $xd == $this->db->insert('entrada', $datosEntrada);
-               $ruta = base_url('RegistroEntrada');
-               echo "<script>window.location = '{$ruta}';
-               </script>";
+               $this->db->insert('entrada', $datosEntrada);
           }
     }
 
@@ -183,8 +180,8 @@ class Bodega extends CI_Model {
            if(isset($_POST["search"]["value"]) && $_POST["search"]["value"] != '')  
            {  
                 $this->db->like("NombreMaterial", $_POST["search"]["value"]);  
-                $this->db->or_like("NombreTipoMaterial", $_POST["search"]["value"]);  
-                $this->db->or_like("CantidadIngresada", $_POST["search"]["value"]);  
+                //$this->db->or_like("NombreTipoMaterial", $_POST["search"]["value"]);  
+                //$this->db->or_like("CantidadIngresada", $_POST["search"]["value"]);  
            }  
            if(isset($_POST["order"]))  
            {  
@@ -255,29 +252,76 @@ class Bodega extends CI_Model {
   
 
 
+    //ESTE ES EL SELECT DE LA TABLA PRINCIPAL DE SALIDA
 
-      //ESTE ES EL SELECT DE LA TABLA PRINCIPAL DE SALIDA
+    var $tablasalida = array("detallesalida","tipomaterial","tipobodega","material","proyecto", "salida");  
+    var $select_columnasalida = array("material.ID_Material", "NombreMaterial", "NombreTipoMaterial", "NombreProyecto", "FechaSalida", "salida.CantidadSalida", "NombreTipoBodega");  
+    var $order_columnasalida = array("ID_Material", "NombreMaterial", "NombreTipoMaterial", "NombreProyecto", "FechaSalida", "salida.CantidadSalida", "NombreTipoBodega");  
+    var $wheresalida = "material.ID_TipoBodega = tipobodega.ID_TipoBodega AND material.ID_TipoMaterial = tipomaterial.ID_TipoMaterial AND material.ID_Material = detallesalida.ID_Material AND detallesalida.ID_Salida = salida.ID_Salida AND salida.ID_Proyecto = proyecto.ID_Proyecto";
+  
+  
+    function make_query_salida()  
+  {  
+       $this->db->select($this->select_columnasalida);  
+       $this->db->from($this->tablasalida);  
+       $this->db->where($this->wheresalida);
+       if(isset($_POST["search"]["value"]) && $_POST["search"]["value"] != '')  
+       {  
+            $this->db->like("NombreMaterial", $_POST["search"]["value"]);  
+            $this->db->or_like("CantidadSalida", $_POST["search"]["value"]);  
+       }  
+       if(isset($_POST["order"]))  
+       {  
+            $this->db->order_by($this->order_columnasalida[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);  
+       }  
+       else  
+       {  
+            $this->db->order_by('ID_Material', 'ASC');    
 
-      var $tabla = array("detallesalida","tipomaterial","tipobodega","material","proyecto", "salida");  
-      var $select_columna = array("material.ID_Material", "NombreMaterial", "NombreTipoMaterial", "NombreProyecto", "FechaSalida", "salida.CantidadSalida", "NombreTipoBodega");  
-      var $order_columna = array("ID_Material", "NombreMaterial", "NombreTipoMaterial", "NombreProyecto", "FechaSalida", "salida.CantidadSalida", "NombreTipoBodega");  
-      var $where = "material.ID_TipoBodega = tipobodega.ID_TipoBodega AND tipomaterial.ID_TipoMaterial = material.ID_TipoMaterial AND salida.ID_Proyecto = proyecto.ID_Proyecto AND entrada.ID_Entrada = detallesalida.ID_Entrada AND material.ID_Material = detallesalida.ID_Material";
-    
-    
-      function make_query_salida()  
+       }  
+  }  
+  function make_datatables_salida(){  
+       $this->make_query_salida();  
+       if ($_POST["length"] != -1) {
+        $this->db->limit($_POST['length'], $_POST['start']);
+    } 
+       $query = $this->db->get();  
+       return $query->result(); 
+        
+  }  
+  function get_filtered_data_salida(){  
+       $this->make_query_salida();  
+       $query = $this->db->get();  
+       return $query->num_rows();  
+  }       
+  function get_all_data_salida()  
+  {  
+       $this->db->select($this->select_columnasalida);  
+       $this->db->from($this->tablasalida);  
+       $this->db->where("material.ID_TipoBodega = tipobodega.ID_TipoBodega AND material.ID_TipoMaterial = tipomaterial.ID_TipoMaterial AND material.ID_Material = detallesalida.ID_Material AND detallesalida.ID_Salida = salida.ID_Salida AND salida.ID_Proyecto = proyecto.ID_Proyecto");
+       return $this->db->count_all_results();  
+  }  
+
+
+    //ESTE ES EL SELECT DE LA TABLA PRINCIPAL DE SALIDA
+
+    var $tablaaa = array("material","tipomaterial","tipobodega");  
+    var $select_columnaaa = array("material.ID_Material", "NombreMaterial", "NombreTipoMaterial","material.Stock", "NombreTipoBodega");  
+    var $order_columnaaa = array("material.ID_Material", "NombreMaterial", "NombreTipoMaterial", "material.Stock", "NombreTipoBodega");  
+    var $whereee = "material.ID_TipoBodega = tipobodega.ID_TipoBodega AND material.ID_TipoMaterial = tipomaterial.ID_TipoMaterial";
+
+    function make_query_stock()  
     {  
-         $this->db->select($this->select_columna);  
-         $this->db->from($this->tabla);  
-         $this->db->where($this->where);
+         $this->db->select($this->select_columnaaa);  
+         $this->db->from($this->tablaaa);  
+         $this->db->where($this->whereee);
          if(isset($_POST["search"]["value"]) && $_POST["search"]["value"] != '')  
          {  
               $this->db->like("NombreMaterial", $_POST["search"]["value"]);  
-              $this->db->or_like("NombreTipoMaterial", $_POST["search"]["value"]);  
-              $this->db->or_like("CantidadIngresada", $_POST["search"]["value"]);  
          }  
          if(isset($_POST["order"]))  
          {  
-              $this->db->order_by($this->order_columna[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);  
+              $this->db->order_by($this->order_columnaaa[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);  
          }  
          else  
          {  
@@ -285,27 +329,29 @@ class Bodega extends CI_Model {
 
          }  
     }  
-    function make_datatables_salida(){  
-         $this->make_query_salida();  
-         if ($_POST["length"] != -1) {
-          $this->db->limit($_POST['length'], $_POST['start']);
-      } 
-         $query = $this->db->get();  
-         return $query->result(); 
-          
-    }  
-    function get_filtered_data_salida(){  
-         $this->make_query_salida();  
-         $query = $this->db->get();  
-         return $query->num_rows();  
-    }       
-    function get_all_data_salida()  
-    {  
-         $this->db->select($this->select_columna);  
-         $this->db->from($this->tabla);  
-         $this->db->where("material.ID_TipoBodega = tipobodega.ID_TipoBodega AND tipomaterial.ID_TipoMaterial = material.ID_TipoMaterial AND salida.ID_Proyecto = proyecto.ID_Proyecto AND entrada.ID_Entrada = detallesalida.ID_Entrada AND material.ID_Material = detallesalida.ID_Material");
-         return $this->db->count_all_results();  
-    }  
+    function make_datatables_stock(){  
+     $this->make_query_stock();  
+     if ($_POST["length"] != -1) {
+      $this->db->limit($_POST['length'], $_POST['start']);
+     } 
+     $query = $this->db->get();  
+     return $query->result(); 
+      
+     }  
+     function get_filtered_data_stock(){  
+     $this->make_query_stock();  
+     $query = $this->db->get();  
+     return $query->num_rows();  
+     }       
+     function get_all_data_stock()
+     {  
+     $this->db->select($this->select_columnaaa);  
+     $this->db->from($this->tablaaa);  
+     $this->db->where("material.ID_TipoBodega = tipobodega.ID_TipoBodega AND material.ID_TipoMaterial = tipomaterial.ID_TipoMaterial");
+     return $this->db->count_all_results();  
+     }  
+  
+
 
 }
 ?>
