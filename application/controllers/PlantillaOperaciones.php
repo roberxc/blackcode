@@ -38,7 +38,15 @@ class PlantillaOperaciones extends CI_Controller {
 		$data ['gastosvarios_registrados'] = $this->OperacionesModel->ObtenerGastosVarios($data['codigo']);
 
 		//Materiales comprados
-		$data ['materiales_registrado'] = $this->OperacionesModel->ObtenerViaticos($data['codigo']);
+		$data ['materiales_durante'] = $this->OperacionesModel->ObtenerMaterialesDurante($codigo);
+		$data ['materiales_antes'] = $this->OperacionesModel->ObtenerMaterialesAntes($codigo);
+		//Materiales bodega
+		$data ['materiales_bodega'] = $this->OperacionesModel->ObtenerMaterialesBodega($codigo);
+
+		//Archivos subidos
+		$data ['archivos_subidos'] = $this->OperacionesModel->ObtenerArchivosSubidos($codigo);
+		//Detalle trabajo
+		$data ['detalle_trabajo'] = $this->OperacionesModel->ObtenerDetalleTrabajo($codigo);
 
 		$this->load->view('Trabajador/planilla',$data);
 	}
@@ -62,6 +70,8 @@ class PlantillaOperaciones extends CI_Controller {
 		//Materiales comprados
 		$data ['materiales_durante'] = $this->OperacionesModel->ObtenerMaterialesDurante($codigo);
 		$data ['materiales_antes'] = $this->OperacionesModel->ObtenerMaterialesAntes($codigo);
+		//Materiales bodega
+		$data ['materiales_bodega'] = $this->OperacionesModel->ObtenerMaterialesBodega($codigo);
 
 		//Archivos subidos
 		$data ['archivos_subidos'] = $this->OperacionesModel->ObtenerArchivosSubidos($codigo);
@@ -72,6 +82,9 @@ class PlantillaOperaciones extends CI_Controller {
 	public function ModificacionPlanillaInicio(){
 		$data ['activo'] = 2;
 		$data ['codigo'] = 'MN001';
+		$set_data = $this->session->all_userdata();
+		
+		$data ['trabajos_realizados'] = $this->OperacionesModel->ObtenerPlanillaPorTrabajador($set_data['ID_Usuario']);
 
 		$this->load->view('Trabajador/planilla_modificacion_inicio',$data);
 	}
@@ -134,26 +147,21 @@ class PlantillaOperaciones extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 			//Validaciones
 			$this->form_validation->set_rules('gasto_combustible', 'Gasto combustible', 'numeric');
-
 			if ($this->form_validation->run() == FALSE) {
 				$data = array('response' => "error", 'message' => validation_errors());
 			} else {
 				$ajax_data = $this->input->post();
 				$res = $this->OperacionesModel->actualizarGastosCombustible($ajax_data);
-				
 				if ($res) {
 					$data = array('response' => "success", 'message' => "Gasto de combustible modificado correctamente!");
 				}else{
 					$data = array('response' => "error", 'message' => $res);
 				}
-
 			}
-
 			echo json_encode($data);
 		} else {
 			echo "'No direct script access allowed'";
 		}
-
 	}
 
 	public function registroGastoViaticos(){
@@ -257,6 +265,22 @@ class PlantillaOperaciones extends CI_Controller {
 			echo "'No direct script access allowed'";
 		}
 	}
+
+	public function registroMaterialesBodega(){
+		
+		if ($this->input->is_ajax_request()) {
+			$ajax_data = $this->input->post();
+			$res = $this->OperacionesModel->registrarMaterialesBodega($ajax_data);
+			if ($res) {
+				$data = array('response' => "success", 'message' => "Guardado exitosamente!");
+			}else{
+				$data = array('response' => "error", 'message' => $res);
+			}
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+	}
 	//Metodo para actualizar compra de materiales durante y antes el trabajo
 	public function actualizarMaterialesCompradosDurante(){
 		
@@ -279,6 +303,21 @@ class PlantillaOperaciones extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 			$ajax_data = $this->input->post();
 			$res = $this->OperacionesModel->updateGastoMaterialesAntes($ajax_data);
+			if ($res) {
+				$data = array('response' => "success", 'message' => "Actualizado exitosamente!");
+			}else{
+				$data = array('response' => "error", 'message' => $res);
+			}
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+	}
+
+	public function actualizarMaterialesBodega(){
+		if ($this->input->is_ajax_request()) {
+			$ajax_data = $this->input->post();
+			$res = $this->OperacionesModel->updateGastoMaterialesBodega($ajax_data);
 			if ($res) {
 				$data = array('response' => "success", 'message' => "Actualizado exitosamente!");
 			}else{
@@ -318,6 +357,22 @@ class PlantillaOperaciones extends CI_Controller {
 			echo "'No direct script access allowed'";
 		}
 
+	}
+
+	public function eliminarArchivoSubido(){
+		
+		if ($this->input->is_ajax_request()) {
+			$ajax_data = $this->input->post();
+			$res = $this->OperacionesModel->deleteArchivoSubido($ajax_data);
+			if ($res) {
+				$data = array('response' => "success", 'message' => "Eliminado exitosamente!");
+			}else{
+				$data = array('response' => "error", 'message' => $res);
+			}
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
 	}
 
 }

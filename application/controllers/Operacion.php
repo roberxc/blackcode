@@ -152,4 +152,209 @@ class Operacion extends CI_Controller {
 		}
 
 	}
+
+	public function obtenerPlanillaRealizada(){
+		$ajax_data = $this->input->post(); //Datos que vienen por POST
+		$databd = $this->OperacionesModel->ObtenerPlanillasRealizadas($ajax_data['codigo_servicio']);
+		
+		//Gastos varios registrados
+		$gastosvarios_registrados = $this->OperacionesModel->ObtenerGastosVarios($ajax_data['codigo_servicio']);
+		$materiales_durante = $this->OperacionesModel->ObtenerMaterialesDurante($ajax_data['codigo_servicio']);
+		$materiales_antes = $this->OperacionesModel->ObtenerMaterialesAntes($ajax_data['codigo_servicio']);
+		$viaticos_registrados = $this->OperacionesModel->ObtenerViaticos($ajax_data['codigo_servicio']);
+
+		$detalle_trabajo = $this->OperacionesModel->ObtenerDetalleTrabajo($ajax_data['codigo_servicio']);
+
+		$response = "<div class='card card-default'>";
+		$response .= "<div class='modal-body'>";
+		$response .= "<div class='form-group'>";
+		$response .= "<label for='exampleInputEmail1'>Detalle del Trabajo realizado</label>";
+		foreach($detalle_trabajo as $row){
+			$response .= "<textarea class='form-control' rows='6' disabled>".$row->Detalle."</textarea>";
+		}
+		$response .= "</div>";
+		$response .= "<div class='form-group'>";
+		$response .= "<label for='exampleInputEmail1'>Suma asignada</label>";
+		foreach($detalle_trabajo as $row){
+			$response .= "<input type='text' class='form-control' value=".$row->ValorAsignado." disabled>";
+		}
+		$response .= "</div>";
+		$response .= "</div>";
+		$response .= "</div>";
+		$response .= "<div class='card card-default'>";
+		$response .= "<div class='table-responsive'>";
+		$response .= "<div class='modal-header'>";
+		$response .= "<h5>Gastos viaticos</h5>";
+		$response .= "</div>";
+		$response .= "<table class='table table-striped'>";
+		$response .= "<thead>";
+		$response .= "<tr>";
+		$response .= "<th>Almuerzo</th>";
+		$response .= "<th>Agua</th>";
+		$response .= "<th>Cena</th>";
+		$response .= "<th>Alojamiento</th>";
+		$response .= "<th>Desayuno</th>";
+		$response .= "</tr>";
+		$response .= "</thead>";
+		$response .= "<tbody>";
+		$response .= "<tr>";
+		foreach($viaticos_registrados as $row){
+			$response .= "<td>".$row->Valor."</td>";
+		}
+		$response .= "</tr>";
+		$response .= "</tbody>";
+		$response .= "</table>";
+		$response .= "</div>";
+		$response .= "</div>";
+		$response .= "<div class='card card-default'>";
+		$response .= "<div class='table-responsive'>";
+		$response .= "<div class='modal-header'>";
+		$response .= "<h5>Materiales comprados durante el trabajo</h5>";
+		$response .= "</div>";
+		$response .= "<table class='table table-striped'>";
+		$response .= "<thead>";
+		$response .= "<tr>";
+		$response .= "<th>Material</th>";
+		$response .= "<th>Cantidad</th>";
+		$response .= "<th>Total $</th>";
+		$response .= "</tr>";
+		$response .= "</thead>";
+		$response .= "<tbody>";
+		foreach($materiales_durante as $row){
+			$response .= "<tr>";
+			$response .= "<th>".$row->Nombre."</th>";
+			$response .= "<td>".$row->Cantidad."</td>";
+			$response .= "<td>".$row->Valor."</td>";
+			$response .= "</tr>";
+		}
+		$response .= "</tbody>";
+		$response .= "</table>";
+		$response .= "</div>";
+		$response .= "</div>";
+		$response .= "<div class='card card-default'>";
+		$response .= "<div class='table-responsive'>";
+		$response .= "<div class='modal-header'>";
+		$response .= "<h5>Materiales comprados antes el trabajo</h5>";
+		$response .= "</div>";
+		$response .= "<table class='table table-striped'>";
+		$response .= "<thead>";
+		$response .= "<tr>";
+		$response .= "<th>Material</th>";
+		$response .= "<th>Cantidad</th>";
+		$response .= "<th>Total $</th>";
+		$response .= "</tr>";
+		$response .= "</thead>";
+		$response .= "<tbody>";
+		foreach($materiales_antes as $row){
+			$response .= "<tr>";
+			$response .= "<th>".$row->Nombre."</th>";
+			$response .= "<td>".$row->Cantidad."</td>";
+			$response .= "<td>".$row->Valor."</td>";
+			$response .= "</tr>";
+		}
+		$response .= "</tbody>";
+		$response .= "</table>";
+		$response .= "</div>";
+		$response .= "</div>";
+		$response .= "<div class='card card-default'>";
+		$response .= "<div class='table-responsive'>";
+		$response .= "<div class='modal-header'>";
+		$response .= "<h5>Materiales bodega</h5>";
+		$response .= "</div>";
+		$response .= "<table class='table table-striped'>";
+		$response .= "<thead>";
+		$response .= "<tr>";
+		$response .= "<th>Material</th>";
+		$response .= "<th>Cantidad</th>";
+		$response .= "</tr>";
+		$response .= "</thead>";
+		$response .= "<tbody>";
+		$response .= "<tr>";
+		$response .= "<th>Material1</th>";
+		$response .= "<td>10</td>";
+		$response .= "</tr>";
+		$response .= "<tr>";
+		$response .= "<th>Material2</th>";
+		$response .= "<td>50</td>";
+		$response .= "</tr>";
+		$response .= "</tbody>";
+		$response .= "</table>";
+		$response .= "</div>";
+		$response .= "</div>";
+		$response .= "<div class='card card-default'>";
+		$response .= "<div class='table-responsive'>";
+		$response .= "<div class='modal-header'>";
+		$response .= "<h5>Combustible</h5>";
+		$response .= "</div>";
+		$response .= "<table class='table table-striped'>";
+		$response .= "<thead>";
+		$response .= "<tr>";
+		$response .= "<th>Tipo</th>";
+		$response .= "<th>Valor Total</th>";
+		$response .= "</tr>";
+		$response .= "</thead>";
+		$response .= "<tbody>";
+
+		$response .= "<tr>";
+		$response .= "<th>Petroleo</th>";
+		$response .= "<td>$1043</td>";
+		$response .= "</tr>";
+		
+		$response .= "</tbody>";
+		$response .= "</table>";
+		$response .= "</div>";
+		$response .= "</div>";
+		$response .= "<div class='card card-default'>";
+		$response .= "<div class='table-responsive'>";
+		$response .= "<div class='modal-header'>";
+		$response .= "<h5>Gastos varios</h5>";
+		$response .= "</div>";
+		$response .= "<table class='table table-striped'>";
+		$response .= "<thead>";
+		$response .= "<tr>";
+		$response .= "<th>Nombre</th>";
+		$response .= "<th>Valor</th>";
+		$response .= "</tr>";
+		$response .= "</thead>";
+		$response .= "<tbody>";
+		foreach($gastosvarios_registrados as $row){ 
+			$response .= "<tr>";
+			$response .= "<th>".$row->Nombre."</th>";
+			$response .= "<td>".$row->Valor."</td>";
+			$response .= "</tr>";
+		}
+
+		$response .= "</tbody>";
+		$response .= "</table>";
+		$response .= "</div>";
+		$response .= "</div>";
+		$response .= "<div class='card card-default'>";
+		$response .= "<div class='modal-header'>";
+		$response .= "<h5>Total</h5>";
+		$response .= "</div>";
+		$response .= "<div class='row'>";
+		$response .= "<div class='col-md-3'>";
+		$response .= "<div class='form-group'>";
+		$response .= "<label>Gasto total</label>";
+		$response .= "<div class='form-group'>";
+		$response .= "<input type='text' class='form-control' disabled>";
+		$response .= "</div>";
+		$response .= "</div>";
+		$response .= "</div>";
+		$response .= "<div class='col-md-3'>";
+		$response .= "<div class='form-group'>";
+		$response .= "<label>Vuelto</label>";
+		$response .= "<div class='form-group'>";
+		$response .= "<input type='text' class='form-control' disabled>";
+		$response .= "</div>";
+		$response .= "</div>";
+		$response .= "</div>";
+		$response .= "</div>";
+		$response .= "</div>";
+
+		$data = array('response' => 'success', 'planilla' => $response);
+
+
+		echo json_encode($data);
+	}
 }

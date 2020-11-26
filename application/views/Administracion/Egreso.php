@@ -24,7 +24,7 @@
                   <form role="form" id="form" method="POST">
                      <div class="card-body">
                         <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                                  <!-- /.form-group -->
                                  <div class="form-group">
                                  <label>Fecha</label>

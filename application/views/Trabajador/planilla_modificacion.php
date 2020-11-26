@@ -396,27 +396,27 @@
          <div class="container">
             <div class="row">
                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-               <div class="col-lg-4">
-                  <div class="card"></div>
-                  <div class="card-body" id="dynamic_field" >
-                     <div class="card-title">Subir documentos</div>
-                     <hr class="cell-divide-hr">
-                     <?php echo form_open_multipart('Upload/file_data');?>
-                     <div class="form-group">
-                        <label for="pic_title">codigo:</label>
-                        <input type="text" class="form-control" name="codigo1" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" id="codigo1">
-                     </div>
-                     <div class="form-group">
-                        <label for="pic_file">Ingresar:</label>
-                        <input type="file" name="pic_file" class="form-control"  id="pic_file">
-                     </div>
-                     <!--<a href="<?=base_url();?>" class="btn btn-warning">Back</a>-->
-                     <button type="submit" class="btn btn-success">Guardar</button>
-                     <hr class="cell-divide-hr">
-                     <div class="button-wrapper">
+               <form id="form-subir-archivos" style="padding:0px 15px;" class="form-horizontal" role="form" action="<?php echo base_url();?>Upload/subirArchivo" method="POST" >
+                  <div class="col-lg-4">
+                     <div class="card"></div>
+                     <div class="card-body" id="dynamic_field" >
+                        <div class="card-title">Subir documentos</div>
+                        <hr class="cell-divide-hr">
+                        <div class="form-group">
+                           <label for="pic_title">codigo:</label>
+                           <input type="text" class="form-control" name="codigo1" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" id="codigo1">
+                        </div>
+                        <div class="form-group">
+                           <label for="pic_file">Ingresar:</label>
+                           <input type="file" name="pic_file" class="form-control"  id="pic_file">
+                        </div>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <hr class="cell-divide-hr">
+                        <div class="button-wrapper">
+                        </div>
                      </div>
                   </div>
-               </div>
+               </form>
                <!-- end of card -->
             </div>
             <!-- end of col -->
@@ -441,16 +441,14 @@
                         <?php if(isset($archivos_subidos) && (count($archivos_subidos)>0)){
                            foreach($archivos_subidos as $row){ ?>
                         <tr>
-                           <TD><input type="text" id="item_material2_update" value="<?php echo$row->Imagen;?>" class="form-control" /></TD>
+                           <TD><input type="text" value="<?php echo$row->Imagen;?>" class="form-control name-file" /></TD>
                            <td class="project-actions text-right">
-                              <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                              <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                              <button class="btn btn-danger delete_archivo"><i class="fas fa-trash"></i></button>
                            </td>
                         </tr>
                         <?php }
                            } ?>
                      </table>
-                     <hr class="cell-divide-hr">
                      <hr class="cell-divide-hr">
                      <div class="button-wrapper">
                      </div>

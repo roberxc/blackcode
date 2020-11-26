@@ -10,7 +10,7 @@ if (isset($set_data['nombre_completo'])) {
     <a href="<?php echo base_url()?>Inicio" class="brand-link">
       <img src="<?php echo base_url();?>assets/dist/img/black.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">BlackCode</span>
+      <span class="brand-text font-weight-light">CDH Ingenieria</span>
     </a>
 
     <!-- Sidebar -->

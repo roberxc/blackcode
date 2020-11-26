@@ -16,7 +16,36 @@ class Upload extends CI_Controller{
 		$this->load->view('planilla');
 		//$this->load->view('footer');
 	}
+
+	public function subirArchivo(){
+		//El metodo is_ajax_request() de la libreria input permite verificar
+		//si se esta accediendo mediante el metodo AJAX 
+		if ($this->input->is_ajax_request()) {
+			$codigoservicio = $this->input->post("codigo1");
+			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+			$config = [
+				"upload_path" => APPPATH. './models/DocumentosSubidos/',
+				'allowed_types' => "jpg|png|pdf|docx|jepg"
+			];
+
+			$this->load->library("upload",$config);
+
+			if ($this->upload->do_upload('pic_file')) {
+				$data = array("upload_data" => $this->upload->data());
+				if($this->pic_model->subirArchivoBD($data,$codigoservicio)==true){
+					echo "exito";
+				}else{
+					echo "error";
+				}
+			}else{
+				echo $this->upload->display_errors();
+			}
+		}else{
+			show_404();
+		}
+	}
 	
+
 	public function file_data(){
 		//validate the form data 
 
