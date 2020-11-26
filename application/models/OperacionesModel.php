@@ -142,7 +142,7 @@ class OperacionesModel extends CI_Model {
 	 
  	}
 
-	public function Descargar(){
+	/*public function Descargar(){
 		if (isset($_GET['file_id'])){
 			$id=$_GET['file_id'];
 			$query = $this->db
@@ -153,11 +153,11 @@ class OperacionesModel extends CI_Model {
 			$filepath='DocumentosSubidos/'.$query	
 		}
 		
-	}
+	}*/
 	public function Descargar2(){
 		$id=$this->uri->segment(3);
 		if(empty($id)){
-			redirect(base_url();)
+			redirect(base_url());
 		}
 		$data=$this->mfiles->getRows($id);
 		$filename=$data['file_name'];
