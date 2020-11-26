@@ -45,6 +45,8 @@ class PlantillaOperaciones extends CI_Controller {
 
 		//Archivos subidos
 		$data ['archivos_subidos'] = $this->OperacionesModel->ObtenerArchivosSubidos($codigo);
+		//Detalle trabajo
+		$data ['detalle_trabajo'] = $this->OperacionesModel->ObtenerDetalleTrabajo($codigo);
 
 		$this->load->view('Trabajador/planilla',$data);
 	}

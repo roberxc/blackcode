@@ -102,7 +102,7 @@
                   ?>
                   <tr>
                      <td>
-                        <?php echo $row->CodigoServicio?>
+                        <input type="text" value="<?php echo $row->CodigoServicio?>" class="form-control name-file" />
                      </td>
                      <td>
                         <?php echo $row->FechaTrabajo?>
@@ -114,21 +114,21 @@
                         <?php echo $row->PersonalCargo?>
                      </td>
                      <td class="project-actions text-right">
-                        <a class="btn btn-primary btn-sm" href="#" data-toggle="modal"
+                        <button class="btn btn-primary btn-sm" id="detalle_trabajo" data-toggle="modal"
                            data-target="#modal-detalle">
                         <i class="far fa-eye">
                         </i>
-                        </a>
-                        <a class="btn btn-info btn-sm" href="#" data-toggle="modal"
+                        </button>
+                        <button class="btn btn-info btn-sm" id="detalle_archivos" data-toggle="modal"
                            data-target="#modal-archivos">
                         <i class="fas fa-upload">
                         </i>
-                        </a>
-                        <a class="btn btn-info btn-sm" href="#" data-toggle="modal"
+                        </button>
+                        <button class="btn btn-info btn-sm" id="detalle_asistencia" data-toggle="modal"
                            data-target="#modal-asistencia">
                         <i class="fas fa-book-open">
                         </i>
-                        </a>
+                        </button>
                      </td>
                   </tr>
                   <?php }
@@ -260,268 +260,8 @@
                <span aria-hidden="true">&times;</span>
                </button>
             </div>
-            <div class="modal-body">
-               <div class="card card-default">
-                  <div class="modal-body">
-                     <div class="form-group">
-                        <label for="exampleInputEmail1">Detalle del Trabajo realizado</label>
-                        <textarea class="form-control" rows="3" placeholder="Ejemplo detalle trabajo" disabled></textarea>
-                     </div>
-                     <div class="form-group">
-                        <label for="exampleInputEmail1">Suma asignada</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="$140.000" disabled>
-                     </div>
-                  </div>
-               </div>
-               <div class="card card-default">
-                  <div class="table-responsive">
-                     <div class="modal-header">
-                        <h5>Gastos viaticos</h5>
-                     </div>
-                     <table class="table table-striped">
-                        <!--Table head-->
-                        <thead>
-                           <tr>
-                              <th>Desayuno</th>
-                              <th>Almuerzo</th>
-                              <th>Cena</th>
-                              <th>Agua</th>
-                              <th>Alojamiento</th>
-                           </tr>
-                        </thead>
-                        <!--Table head-->
-                        <!--Table body-->
-                        <tbody>
-                           <tr>
-                              <th>$4.300</th>
-                              <td>$24.300</td>
-                              <td>$5.300</td>
-                              <td>$8.300</td>
-                              <td>$44.300</td>
-                           </tr>
-                        </tbody>
-                        <!--Table body-->
-                     </table>
-                     <!--Table-->
-                  </div>
-               </div>
-               <!--------------------------->
-               <div class="card card-default">
-                  <div class="table-responsive">
-                     <div class="modal-header">
-                        <h5>Materiales comprados durante el trabajo</h5>
-                     </div>
-                     <table class="table table-striped">
-                        <!--Table head-->
-                        <thead>
-                           <tr>
-                              <th>Material</th>
-                              <th>Cantidad</th>
-                              <th>Valor/Unidad</th>
-                           </tr>
-                        </thead>
-                        <!--Table head-->
-                        <!--Table body-->
-                        <tbody>
-                           <tr>
-                              <th>Material1</th>
-                              <td>10</td>
-                              <td>400</td>
-                           </tr>
-                           <tr>
-                              <th>Material2</th>
-                              <td>50</td>
-                              <td>500</td>
-                           </tr>
-                        </tbody>
-                        <!--Table body-->
-                     </table>
-                     <!--Table-->
-                  </div>
-               </div>
-               <!--------------------------->
-               <div class="card card-default">
-                  <div class="table-responsive">
-                     <div class="modal-header">
-                        <h5>Materiales comprados antes del trabajo</h5>
-                     </div>
-                     <table class="table table-striped">
-                        <!--Table head-->
-                        <thead>
-                           <tr>
-                              <th>Material</th>
-                              <th>Cantidad</th>
-                              <th>Valor/Unidad</th>
-                           </tr>
-                        </thead>
-                        <!--Table head-->
-                        <!--Table body-->
-                        <tbody>
-                           <tr>
-                              <th>Material1</th>
-                              <td>10</td>
-                              <td>400</td>
-                           </tr>
-                           <tr>
-                              <th>Material2</th>
-                              <td>50</td>
-                              <td>500</td>
-                           </tr>
-                        </tbody>
-                        <!--Table body-->
-                     </table>
-                     <!--Table-->
-                  </div>
-               </div>
-               <!--------------------------->
-               <div class="card card-default">
-                  <div class="table-responsive">
-                     <div class="modal-header">
-                        <h5>Materiales de bodega</h5>
-                     </div>
-                     <table class="table table-striped">
-                        <!--Table head-->
-                        <thead>
-                           <tr>
-                              <th>Material</th>
-                              <th>Cantidad</th>
-                           </tr>
-                        </thead>
-                        <!--Table head-->
-                        <!--Table body-->
-                        <tbody>
-                           <tr>
-                              <th>Material1</th>
-                              <td>10</td>
-                           </tr>
-                           <tr>
-                              <th>Material2</th>
-                              <td>50</td>
-                           </tr>
-                        </tbody>
-                        <!--Table body-->
-                     </table>
-                     <!--Table-->
-                  </div>
-               </div>
-               <!--------------------------->
-               <div class="card card-default">
-                  <div class="table-responsive">
-                     <div class="modal-header">
-                        <h5>Combustible</h5>
-                     </div>
-                     <table class="table table-striped">
-                        <!--Table head-->
-                        <thead>
-                           <tr>
-                              <th>Tipo</th>
-                              <th>Valor Total</th>
-                           </tr>
-                        </thead>
-                        <!--Table head-->
-                        <!--Table body-->
-                        <tbody>
-                           <tr>
-                              <th>Petróleo</th>
-                              <th>$56403</th>
-                           </tr>
-                        </tbody>
-                        <!--Table body-->
-                     </table>
-                     <!--Table-->
-                  </div>
-               </div>
-               <!--------------------------->
-               <div class="card card-default">
-                  <div class="table-responsive">
-                     <div class="modal-header">
-                        <h5>Gastos varios</h5>
-                     </div>
-                     <table class="table table-striped">
-                        <!--Table head-->
-                        <thead>
-                           <tr>
-                              <th>Nombre</th>
-                              <th>Valor</th>
-                           </tr>
-                        </thead>
-                        <!--Table head-->
-                        <!--Table body-->
-                        <tbody>
-                           <tr>
-                              <th>Gasto1</th>
-                              <td>$3.000</td>
-                           </tr>
-                        </tbody>
-                        <!--Table body-->
-                     </table>
-                     <!--Table-->
-                  </div>
-               </div>
-               <!--------------------------->
-               <div class="card card-default">
-                  <div class="table-responsive">
-                     <div class="modal-header">
-                        <h5>Materiales comprados durante el trabajo</h5>
-                     </div>
-                     <table class="table table-striped">
-                        <!--Table head-->
-                        <thead>
-                           <tr>
-                              <th>Material</th>
-                              <th>Cantidad</th>
-                              <th>Valor/Unidad</th>
-                           </tr>
-                        </thead>
-                        <!--Table head-->
-                        <!--Table body-->
-                        <tbody>
-                           <tr>
-                              <th>Material1</th>
-                              <td>10</td>
-                              <td>$3.000</td>
-                           </tr>
-                           <tr>
-                              <th>Material2</th>
-                              <td>10</td>
-                              <td>$3.000</td>
-                           </tr>
-                        </tbody>
-                        <!--Table body-->
-                     </table>
-                     <!--Table-->
-                  </div>
-               </div>
-               <!--------------------------->
-               <div class="card card-default">
-                  <div class="modal-header">
-                     <h5>Total</h5>
-                  </div>
-                  <!--Table-->
-                  <div class="row">
-                     <div class="col-md-3">
-                        <!-- /.form-group -->
-                        <div class="form-group">
-                           <label>Gasto total</label>
-                           <div class="form-group">
-                              <input type="text" class="form-control" disabled>
-                           </div>
-                        </div>
-                        <!-- /.form-group -->
-                     </div>
-                     <div class="col-md-3">
-                        <!-- /.form-group -->
-                        <div class="form-group">
-                           <label>Vuelto</label>
-                           <div class="form-group">
-                              <input type="text" class="form-control" disabled>
-                           </div>
-                        </div>
-                        <!-- /.form-group -->
-                     </div>
-                     <!-- /.col -->
-                  </div>
-               </div>
+            <div class="modal-body" id="detalle-trabajo">
+               
                <!--------------------------->
             </div>
          </div>
@@ -530,33 +270,6 @@
       <!-- /.modal-dialog -->
    </div>
    <!-- /.content -->
-   <!-- Modal de detalles descritos -->
-   <div class="modal fade" id="modal-detallesdescritos">
-      <div class="modal-dialog modal-lg">
-         <div class="modal-content">
-            <div class="modal-header">
-               <div align="center"><img src=""></div>
-               </br>
-               <h4 class="modal-title">Detalle de trabajo</h4>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-               </button>
-            </div>
-            <div class="modal-body">
-               <div class="form-group">
-                  <label for="exampleInputEmail1">Detalle de los trabajos realizados</label>
-                  <textarea class="form-control" rows="3" placeholder="Ingrese"></textarea>
-               </div>
-               <div class="form-group">
-                  <label for="exampleInputEmail1">Suma asignada</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1">
-               </div>
-            </div>
-         </div>
-         <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-   </div>
    <!-- Archivos -->
    <div class="modal fade" id="modal-archivos">
       <div class="modal-dialog modal-lg">
@@ -635,5 +348,7 @@
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/adjuntar_archivo.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/material_bodega.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/gastos_varios.js"></script>
+<script>var base_url = '<?php echo base_url();?>';</script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/Administracion/trabajos_realizados.js"></script>
 </body>
 </html>

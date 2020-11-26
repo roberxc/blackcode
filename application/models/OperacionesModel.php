@@ -222,6 +222,7 @@ class OperacionesModel extends CI_Model {
 		->from("gastos g")
 		->join("tipogasto t", "t.ID_TipoGasto = g.ID_TipoGasto")
 		->where_in('g.ID_TipoGasto',$gastosviaticos)
+		->where('g.ID_TrabajoDiario',$idtrabajodiario)
 		->get();
 		return $query->result();
 	}
@@ -1041,6 +1042,31 @@ class OperacionesModel extends CI_Model {
 		
 
 		return $this->db->delete('detalletrabajodiario');
+	}
+
+	//Metodo para obtener detalle de planilla realizada
+	public function ObtenerPlanillasRealizadas($codigoservicio){
+		$query = $this->db
+				->select("p.NombreProyecto AS NombreProyecto, c.CodigoServicio AS CodigoServicio, i.FechaAsignacion AS FechaTrabajo, t.PersonalCargo AS PersonalCargo, t.Detalle AS Detalle, t.ValorAsignado AS ValorAsignado") # También puedes poner * si quieres seleccionar todo
+				->from("trabajodiario t")
+				->join("codigoservicio c", "c.ID_Codigo = t.ID_Codigo")
+				->join("proyecto p", "p.ID_Proyecto = t.ID_Proyecto")
+				->join("ingreso i", "i.ID_TrabajoDiario = t.ID_TrabajoDiario")
+				->where("c.CodigoServicio", $codigoservicio)
+				->get();
+		
+		return $query->result();
+	}
+
+	public function ObtenerDetalleTrabajo($codigoservicio){
+		$query = $this->db
+				->select("t.Detalle AS Detalle, t.ValorAsignado AS ValorAsignado") # También puedes poner * si quieres seleccionar todo
+				->from("trabajodiario t")
+				->join("codigoservicio c", "c.ID_Codigo = t.ID_Codigo")
+				->where("c.CodigoServicio", $codigoservicio)
+				->get();
+		
+		return $query->result();
 	}
 }
 

@@ -560,7 +560,7 @@
          <!-- end of row -->
       </div>
       <!-- Ingreso de materiales bodega-->
-      <div id="bodega" class="lightbox-basic zoom-anim-dialog mfp-hide">
+      <div id="bodega0" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
             <div class="row">
                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
@@ -597,7 +597,7 @@
          </div>
          <!-- end of row -->
       </div>
-      <!-- Ingreso de materiales bodega-->
+      <!-- Modificacion de materiales bodega-->
       <div id="bodega1" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
             <div class="row">
