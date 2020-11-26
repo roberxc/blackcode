@@ -155,8 +155,6 @@ class Operacion extends CI_Controller {
 
 	public function obtenerPlanillaRealizada(){
 		$ajax_data = $this->input->post(); //Datos que vienen por POST
-		$databd = $this->OperacionesModel->ObtenerPlanillasRealizadas($ajax_data['codigo_servicio']);
-		
 		//Gastos varios registrados
 		$gastosvarios_registrados = $this->OperacionesModel->ObtenerGastosVarios($ajax_data['codigo_servicio']);
 		$materiales_durante = $this->OperacionesModel->ObtenerMaterialesDurante($ajax_data['codigo_servicio']);
@@ -164,6 +162,8 @@ class Operacion extends CI_Controller {
 		$viaticos_registrados = $this->OperacionesModel->ObtenerViaticos($ajax_data['codigo_servicio']);
 
 		$detalle_trabajo = $this->OperacionesModel->ObtenerDetalleTrabajo($ajax_data['codigo_servicio']);
+
+		$materiales_bodega = $this->OperacionesModel->ObtenerMaterialesBodega($ajax_data['codigo_servicio']);
 
 		$response = "<div class='card card-default'>";
 		$response .= "<div class='modal-body'>";
@@ -269,14 +269,12 @@ class Operacion extends CI_Controller {
 		$response .= "</tr>";
 		$response .= "</thead>";
 		$response .= "<tbody>";
-		$response .= "<tr>";
-		$response .= "<th>Material1</th>";
-		$response .= "<td>10</td>";
-		$response .= "</tr>";
-		$response .= "<tr>";
-		$response .= "<th>Material2</th>";
-		$response .= "<td>50</td>";
-		$response .= "</tr>";
+		foreach($materiales_bodega as $row){
+			$response .= "<tr>";
+			$response .= "<th>".$row->Nombre."</th>";
+			$response .= "<td>".$row->Cantidad."</td>";
+			$response .= "</tr>";
+		}
 		$response .= "</tbody>";
 		$response .= "</table>";
 		$response .= "</div>";
@@ -350,6 +348,66 @@ class Operacion extends CI_Controller {
 		$response .= "</div>";
 		$response .= "</div>";
 		$response .= "</div>";
+		$response .= "</div>";
+
+		$data = array('response' => 'success', 'planilla' => $response);
+
+
+		echo json_encode($data);
+	}
+
+	public function obtenerAsistenciaPlanilla(){
+		$ajax_data = $this->input->post(); //Datos que vienen por POST
+		
+		$asistencia_planilla = $this->OperacionesModel->ObtenerAsistenciaPlanilla($ajax_data['codigo_servicio']);
+		
+		$response = "<div class='table-responsive'>";
+		$response .= "<table class='table table-bordered'>";
+		$response .= "<tr>";
+		$response .= "<td>";
+		$response .= "<label>Fecha Asistencia</label>";
+		$response .= "</td>";
+		$response .= "<td>";
+		$response .= "<label>Nombre Completo</label>";
+		$response .= "</td>";
+		$response .= "<td>";
+		$response .= "<label>Hora llegada</label>";
+		$response .= "</td>";
+		$response .= "<td>";
+		$response .= "<label>Hora salida</label>";
+		$response .= "</td>";
+		$response .= "<td>";
+		$response .= "<label>Horas trabajadas</label>";
+		$response .= "</td>";
+		$response .= "<td>";
+		$response .= "<label>Horas extras</label>";
+		$response .= "</td>";
+		$response .= "</tr>";
+		$response .= "<tbody>";
+		foreach($asistencia_planilla as $row){ 
+			$response .= "<tr>";
+			$response .= "<td>";
+			$response .= $row->Fecha;
+			$response .= "</td>";
+			$response .= "<td>";
+			$response .= $row->NombreCompleto;
+			$response .= "</td>";
+			$response .= "<td>";
+			$response .= $row->LlegadaM;
+			$response .= "</td>";
+			$response .= "<td>";
+			$response .= $row->SalidaT;
+			$response .= "</td>";
+			$response .= "<td>";
+			$response .= $row->HorasTrabajadas;
+			$response .= "</td>";
+			$response .= "<td>";
+			$response .= $row->HorasExtras;
+			$response .= "</td>";
+			$response .= "</tr>";
+		}
+		$response .= "</tbody>";
+		$response .= "</table>";
 		$response .= "</div>";
 
 		$data = array('response' => 'success', 'planilla' => $response);

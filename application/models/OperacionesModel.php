@@ -1125,6 +1125,19 @@ class OperacionesModel extends CI_Model {
 		
 		return $query->result();
 	}
+
+	public function ObtenerAsistenciaPlanilla($codigoservicio){
+		$query = $this->db
+				->select("a.Fecha_Asistencia AS Fecha, a.HoraLlegadaM AS LlegadaM, a.HoraSalidaM AS SalidaM, a.HoraLlegadaT AS LlegadaT, a.HoraSalidaT AS SalidaT, p.NombreCompleto AS NombreCompleto, a.HorasTrabajadas AS HorasTrabajadas, a.HorasExtras AS HorasExtras") # También puedes poner * si quieres seleccionar todo
+				->from("trabajodiario t")
+				->join("codigoservicio c", "c.ID_Codigo = t.ID_Codigo")
+				->join("personal p", "p.ID_TrabajoDiario = t.ID_TrabajoDiario")
+				->join("asistencia a", "a.ID_Personal = p.ID_Personal")
+				->where("c.CodigoServicio", $codigoservicio)
+				->get();
+		
+		return $query->result();
+	}
 }
 
 ?>

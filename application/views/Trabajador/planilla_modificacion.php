@@ -465,6 +465,7 @@
                <div class="row">
                   <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
                   <div class="col-lg-4">
+                  
                      <div class="form-group">
                         <input type="date" class="form-control-input" id="fecha_trabajo" name="fecha_trabajo" required>
                         <label class="label-control" for="cname">Fecha</label>
