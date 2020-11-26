@@ -28,6 +28,9 @@ class Bodega extends CI_Model {
                $datosEntrada['ID_Proyecto'] = $post['centrocostos'];
                $datosEntrada['CantidadIngresada'] = $post['cantidadentrada'];
                $this->db->insert('entrada', $datosEntrada);
+               $ruta = base_url('RegistroEntrada');
+               echo "<script>window.location = '{$ruta}';
+               </script>";
           }
     }
 
