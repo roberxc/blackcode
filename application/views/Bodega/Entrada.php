@@ -368,7 +368,7 @@
       });
       //mostrar centrodecosto2 en tabla agregar stock
       $(document).ready(function(){
-        $('#centrodecosto2').select2({
+        $('#centrodecostos2').select2({
           theme: "bootstrap"
         });
       });
