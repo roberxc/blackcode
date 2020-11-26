@@ -52,3 +52,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['DetalleOperaciones/(:any)'] = "PlantillaOperaciones/Inicio/$1";
+
+$route['Asistencia/(:any)/(:any)'] = "AsistenciaTrabajador/Inicio/$1/$2";
+
+$route['ModificacionPlanilla/(:any)'] = "PlantillaOperaciones/ModificacionPlanilla/$1";

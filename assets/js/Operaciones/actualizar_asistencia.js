@@ -1,4 +1,4 @@
-$(".asistencia-registro").on('click', function(event){
+$(".asistencia-registro1").on('click', function(event){
     event.stopPropagation();
     event.stopImmediatePropagation();
     //Codigo servicio
@@ -36,7 +36,7 @@ $(".asistencia-registro").on('click', function(event){
     })
 
     $.ajax({
-        url: base_url+"AsistenciaTrabajador/ingresarAsistencia",
+        url: base_url+"AsistenciaTrabajador/actualizarAsistencia",
         type: "post",
         dataType: "json",
         data: {
@@ -49,7 +49,7 @@ $(".asistencia-registro").on('click', function(event){
         },
         success: function(data) {
             if (data.response === "success") {
-                window.location.href = base_url+"DetalleOperaciones/"+codigoservicio;
+                window.location.href = base_url+"ModificacionPlanilla/"+codigoservicio;
             } else {
 
 

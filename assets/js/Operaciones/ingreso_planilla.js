@@ -36,11 +36,12 @@ $(".reg-trabajo").on('click', function(event){
     var item_rut = [];
     var item_nombre = [];
 
-    $('.item_rut').each(function(){
-        item_rut.push($(this).text());
-       });
-    $('.item_nombre').each(function(){
-        item_nombre.push($(this).text());
+    $('input[id="item_rut"]').each(function(){
+        item_rut.push($(this).val());
+    });
+
+    $('input[id="item_nombre"]').each(function(){
+        item_nombre.push($(this).val());
     });
     
     $.ajax({
@@ -59,9 +60,8 @@ $(".reg-trabajo").on('click', function(event){
         },
         success: function(data) {
             if (data.response === "success") {
-                window.location.href = "PlantillaOperaciones?codigo="+codigoservicio;
+                window.location.href = "DetalleOperaciones/"+codigoservicio;
             } else {
-
 
             }
         }

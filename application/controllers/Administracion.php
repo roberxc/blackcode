@@ -11,6 +11,15 @@ class Administracion extends CI_Controller {
 		$this->load->model('Users');
 	}
 
+	public function informeEgresos(){
+		
+		$data ['activo'] = 10;
+		$this->load->view('layout/nav');
+     	$this->load->view('menu/menu_supremo',$data);
+		$this->load->view('Administracion/InformeEgresos');
+		$this->load->view('layout/footer');
+	}
+
 	public function CajaEgreso()
 	{
 		
@@ -220,7 +229,26 @@ class Administracion extends CI_Controller {
 
 	}
 
+	public function obtenerEstadisticasEgresos(){
+		if ($this->input->is_ajax_request()) {
+			//Validaciones
+			$this->form_validation->set_rules('fecha_inicial', 'Fecha', 'required');
+			$this->form_validation->set_rules('fecha_termino', 'Fecha', 'required');
 
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+				echo json_encode($data);
+			} else {
+				$ajax_data = $this->input->post();
+				$fechainicio = $ajax_data['fecha_inicial'];
+				$fechatermino = $ajax_data['fecha_termino'];
+				$this->CajaChicaModel->generarEstadisticasEgresos($fechainicio,$fechatermino);
+			}
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+	}
 
 }
 

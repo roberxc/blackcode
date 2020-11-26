@@ -10,7 +10,7 @@ if (isset($set_data['nombre_completo'])) {
     <a href="<?php echo base_url()?>Inicio" class="brand-link">
       <img src="<?php echo base_url();?>assets/dist/img/black.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">BlackCode</span>
+      <span class="brand-text font-weight-light">CDH Ingenieria</span>
     </a>
 
     <!-- Sidebar -->
@@ -40,7 +40,7 @@ if (isset($set_data['nombre_completo'])) {
           </li>
           <li class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 1)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activomenu) && ($activomenu == 1)){echo "active"; }?>">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-hammer"></i>
               <p>
                 Operaciones
                 <i class="fas fa-angle-left right"></i>
@@ -56,9 +56,9 @@ if (isset($set_data['nombre_completo'])) {
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url()?>Operacion/trabajosRealizados" class="nav-link <?php if(isset($activo) && ($activo == 10)){echo "active"; }?>">
+                <a href="<?php echo base_url();?>PlantillaOperaciones/ModificacionPlanillaInicio" class="nav-link <?php if(isset($activo) && ($activo == 10)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Trabajos realizados</p>
+                  <p>Modificacion planilla</p>
                 </a>
               </li>
             </ul>
@@ -66,7 +66,7 @@ if (isset($set_data['nombre_completo'])) {
 
           <li class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 2)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activomenu) && ($activomenu == 2)){echo "active"; }?>">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-building"></i>
               <p>
                 Bodega
                 <i class="fas fa-angle-left right"></i>
@@ -84,7 +84,7 @@ if (isset($set_data['nombre_completo'])) {
 
           <li class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 2)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activomenu) && ($activomenu == 2)){echo "active"; }?>">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-cog"></i>
               <p>
                 Sistema
                 <i class="fas fa-angle-left right"></i>

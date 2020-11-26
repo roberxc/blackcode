@@ -4,7 +4,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <!-- Website Title -->
-      <title>Registro de trabajo diario</title>
+      <title>Modificacion de trabajo diario</title>
       <!-- Styles -->
       <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,600,700,700i&amp;subset=latin-ext" rel="stylesheet">
       <link href="<?php echo base_url();?>assets/css/bootstrap.css" rel="stylesheet">
@@ -50,9 +50,9 @@
          <div class="container">
             <div class="row">
                <div class="col-lg-12">
-                  <h2>Completar planilla de Trabajos Diarios</h2>
+                  <h2>Modificar planilla de trabajos diarios</h2>
                   <div class="col-lg-2">
-                     <input type="text" class="form-control-input" id="codigo_servicio" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" disabled> <br>
+                     <input type="text" class="form-control-input" id="codigo_servicio" value="<?php echo$codigo;?>" disabled> <br>
                   </div>
                </div>
                <!-- end of col -->
@@ -60,20 +60,24 @@
             <!-- end of row -->
             <div class="row">
                <div class="col-lg-12">
+               
+                  <div class="card">
+                     <div class="card-body">
+                        <div class="card-title">Detalle trabajo</div>
+                        <hr class="cell-divide-hr">
+                        <div class="button-wrapper">
+                           <a class="btn-solid-reg popup-with-move-anim" href="#detalle-trabajo">Modificar</a>
+                        </div>
+                        <hr class="cell-divide-hr">
+                     </div>
+                  </div>
                   <!-- Card-->
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Marcar Asistencia</div>
                         <hr class="cell-divide-hr">
-                        <?php 
-                           if($asistencia_estado == 0){
-                              $res = 'Ingresar';
-                           }else if($asistencia_estado == 1){
-                              $res = 'Modificar';
-                           }
-                           ?>
                         <div class="button-wrapper">
-                           <button class="btn-solid-reg active" id="asistencia-modal"><?php echo $res;?></button>
+                           <button class="btn-solid-reg active" id="asistencia-modal">Modificar</button>
                         </div>
                         <hr class="cell-divide-hr">
                      </div>
@@ -101,61 +105,12 @@
                            <?php }?>
                         </ul>
                         <div class="button-wrapper">
-                           <?php 
-                              if($gastosviaticos_estado == 0){
-                                 $res = 'Ingresar';
-                              }else if($gastosviaticos_estado == 1){
-                                 $res = 'Modificar';
-                              }
-                              ?>
-                           <button class="btn-solid-reg popup-with-move-anim" type="submit" id="in-viaticos" href="#vaticos<?php echo $gastosviaticos_estado;?>"><?php if(isset($res)){ echo $res;}?></button>
+                           <button class="btn-solid-reg popup-with-move-anim" type="submit" id="in-viaticos" href="#vaticos">Modificar</button>
                         </div>
                      </div>
-                  </div>
-                  <!-- Ingreso de viaticos -->
-                  <div id="vaticos0" class="lightbox-basic zoom-anim-dialog mfp-hide">
-                     <div class="container">
-                        <div class="row">
-                           <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-                           <div class="col-lg-4">
-                              <h4>Ingrese los gasto de Viaticos </h4>
-                              <div class="form-group">
-                                 <input type="number" class="form-control-input" id="vdesayuno" required>
-                                 <label class="label-control" for="cname">Desayuno</label>
-                                 <div class="help-block with-errors"></div>
-                              </div>
-                              <div class="form-group">
-                                 <input type="number" class="form-control-input" id="valmuerzo" required>
-                                 <label class="label-control" for="cemail">Almuerzo</label>
-                                 <div class="help-block with-errors"></div>
-                              </div>
-                              <div class="form-group">
-                                 <input type="number" class="form-control-input" id="vcena" required>
-                                 <label class="label-control" for="cemail">Cena</label>
-                                 <div class="help-block with-errors"></div>
-                              </div>
-                              <div class="form-group">
-                                 <input type="number" class="form-control-input" id="vagua" required>
-                                 <label class="label-control" for="cemail">Agua</label>
-                                 <div class="help-block with-errors"></div>
-                              </div>
-                              <div class="form-group">
-                                 <input type="number" class="form-control-input" id="valojamiento" required>
-                                 <label class="label-control" for="cemail">Alojamiento</label>
-                                 <div class="help-block with-errors"></div>
-                              </div>
-                              <div class="form-group">
-                                 <button class="btn-solid-reg" id="addviatico" type="button">Guardar</button>
-                              </div>
-                           </div>
-                           <!-- end of col -->
-                        </div>
-                        <!-- end of row -->
-                     </div>
-                     <!-- end of container -->
                   </div>
                   <!-- Actualizar viaticos -->
-                  <div id="vaticos1" class="lightbox-basic zoom-anim-dialog mfp-hide">
+                  <div id="vaticos" class="lightbox-basic zoom-anim-dialog mfp-hide">
                      <div class="container">
                         <div class="row">
                            <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
@@ -192,16 +147,8 @@
                            <!-- VALOR TOTAL -->
                         </div>
                         <hr class="cell-divide-hr">
-                        <?php 
-                           if($materialdurante_estado == 0){
-                              $res = 'Ingresar';
-                           }else if($materialdurante_estado == 1){
-                              $res = 'Modificar';
-                           }
-                           
-                           ?>
                         <div class="button-wrapper">
-                           <a class="btn-solid-reg popup-with-move-anim" href="#duranteTrab<?php echo $materialdurante_estado;?>" id="in-mat1"><?php if(isset($res)){ echo $res;}?></a>
+                           <a class="btn-solid-reg popup-with-move-anim" href="#duranteTrab" id="in-mat1">Modificar</a>
                         </div>
                      </div>
                   </div>
@@ -215,16 +162,8 @@
                         <div class="price">
                         </div>
                         <hr class="cell-divide-hr">
-                        <?php 
-                           if($materialantes_estado == 0){
-                              $res = 'Ingresar';
-                           }else if($materialantes_estado == 1){
-                              $res = 'Modificar';
-                           }
-                           
-                           ?>
                         <div class="button-wrapper">
-                           <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#antesTrab<?php echo $materialantes_estado;?>"><?php echo $res;?></a>
+                           <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#antesTrab">Modificar</a>
                         </div>
                      </div>
                   </div>
@@ -235,17 +174,8 @@
                         </br></br>
                         <div class="card-subtitle">Registrar materiales utilizados de la bodega</div>
                         <hr class="cell-divide-hr">
-
-                        <?php 
-                           if($materialbodega_estado == 0){
-                              $res = 'Ingresar';
-                           }else if($materialbodega_estado == 1){
-                              $res = 'Modificar';
-                           }
-                           
-                           ?>
                         <div class="button-wrapper">
-                           <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#bodega<?php echo $materialantes_estado;?>"><?php echo $res;?></a>
+                           <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#bodega">Modificar</a>
                         </div>
                      </div>
                   </div>
@@ -271,16 +201,8 @@
                            <div class="help-block with-errors"></div>
                         </div>
                         <hr class="cell-divide-hr">
-                        <?php 
-                           if($gastocombustible_estado == 0){
-                              $res = 'Guardar';
-                           }else if($gastocombustible_estado == 1){
-                              $res = 'Modificar';
-                           }
-                           
-                           ?>
                         <div class="button-wrapper">
-                           <button class="btn-solid-reg page-scroll" id="addgastos_combustible<?php echo$gastocombustible_estado;?>"><?php echo $res;?></button>
+                           <button class="btn-solid-reg page-scroll" id="addgastos_combustible1">Modificar</button>
                         </div>
                      </div>
                   </div>
@@ -313,16 +235,8 @@
                         </div>
                         <?php }?>
                         <hr class="cell-divide-hr">
-                        <?php 
-                           if($gastosvarios_estado == 0){
-                              $res = 'Guardar';
-                           }else if($gastosvarios_estado == 1){
-                              $res = 'Modificar';
-                           }
-                           
-                           ?>
                         <div class="button-wrapper">
-                           <button class="btn-solid-reg page-scroll" id="addgastos_varios<?php echo $gastosvarios_estado;?>"><?php echo $res;?></button>
+                           <button class="btn-solid-reg page-scroll" id="addgastos_varios1">Modificar</button>
                         </div>
                      </div>
                   </div>
@@ -386,119 +300,37 @@
          </div>
          <!-- end of container -->
       </div>
-      <!-- Ingreso de materiales comprados durante -->
-      <div id="duranteTrab0" class="lightbox-basic zoom-anim-dialog mfp-hide">
+      <!-- Actualizar materiales comprados durante -->
+      <div id="duranteTrab" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
             <div class="row">
                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
                <div class="col-lg-4">
                   <div class="card"></div>
                   <div class="card-body" id="dynamic_field" >
-                     <div class="card-title">Ingrese materiales comprados durante el trabajo</div>
-                     <hr class="cell-divide-hr">
-                     <table class="table table-bordered" >
-                        <TR>
-                           <TH>Material</TH>
-                           <TD><input type="text" id="item_material" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Cantidad</TH>
-                           <TD><input type="text" id="item_cantidad" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Total $</TH>
-                           <TD><input type="text" id="item_valortotal" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Agregar más</TH>
-                           <TD><button type="button" name="add" id="durante" class="btn btn-success">+</button></TD>
-                        </TR>
-                     </table>
-                     <hr class="cell-divide-hr">
-                     <div class="button-wrapper">
-                     </div>
-                  </div>
-               </div>
-               <!-- end of card -->
-            </div>
-            <!-- end of col -->
-            <div class="form-group">
-               <button class="btn-solid-reg" id="addmaterial1">Guardar</button></br> </br>
-            </div>
-         </div>
-         <!-- end of row -->
-      </div>
-      <!-- Actualizar materiales comprados durante -->
-      <div id="duranteTrab1" class="lightbox-basic zoom-anim-dialog mfp-hide">
-         <div class="container">
-            <div class="row">
-               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-               <div class="col-lg-4">
-                  <div class="card"></div>
-                  <div class="card-body" id="materialdurante_modificacion" >
                      <div class="card-title">Modificar materiales comprados durante el trabajo</div>
                      <hr class="cell-divide-hr">
                      <table class="table table-bordered" >
                      <?php if(isset($materiales_durante) && (count($materiales_durante)>0)){
                            foreach($materiales_durante as $row){ ?>
                         <TR>
-                           <TD><input type="hidden" id="item_material_update_id" value="<?php echo $row->ID;?>" class="form-control" /></TD>
+                           <TD><input type="hidden" id="item_material_update_id" value="<?php echo $row->ID;?>" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Material</TH>
-                           <TD><input type="text" id="item_material_update" value="<?php echo $row->Nombre;?>" class="form-control" /></TD>
+                           <TD><input type="text" id="item_material_update" value="<?php echo $row->Nombre;?>" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Cantidad</TH>
-                           <TD><input type="text" id="item_cantidad_update" value="<?php echo $row->Cantidad;?>" class="form-control" /></TD>
+                           <TD><input type="text" id="item_cantidad_update" value="<?php echo $row->Cantidad;?>" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Total $</TH>
-                           <TD><input type="text" id="item_valortotal_update" value="<?php echo $row->Valor;?>" class="form-control" /></TD>
+                           <TD><input type="text" id="item_valortotal_update" value="<?php echo $row->Valor;?>" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
+
                            <?php }
-                           }?>
-                     </table>
-                     <hr class="cell-divide-hr">
-                     
-                  </div>
-               </div>
-               <!-- end of card -->
-            </div>
-            <!-- end of col -->
-            <div class="form-group">
-               <button class="btn-solid-reg float-left" id="matdurante_modificacion">Agregar más</button><button class="btn-solid-reg float-right" id="update_material1">Guardar</button>
-            </div>
-         </div>
-         <!-- end of row -->
-      </div>
-      <!-- Ingreso de materiales comprados antes del trabajo -->
-      <div id="antesTrab0" class="lightbox-basic zoom-anim-dialog mfp-hide">
-         <div class="container">
-            <div class="row">
-               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-               <div class="col-lg-4">
-                  <div class="card"></div>
-                  <div class="card-body" id="dynamic_field2">
-                     <div class="card-title">Ingrese materiales comprados antes del trabajo</div>
-                     <hr class="cell-divide-hr">
-                     <table class="table table-bordered" >
-                        <TR>
-                           <TH>Material</TH>
-                           <TD><input type="text" id="item_material2" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Cantidad</TH>
-                           <TD><input type="text" id="item_cantidad2" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Total $</TH>
-                           <TD><input type="text" id="item_valortotal2" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Agregar más</TH>
-                           <TD><button type="button" id="antes" class="btn btn-success">+</button></TD>
-                        </TR>
+                           } ?>
                      </table>
                      <hr class="cell-divide-hr">
                      <div class="button-wrapper">
@@ -509,13 +341,13 @@
             </div>
             <!-- end of col -->
             <div class="form-group">
-               <button class="btn-solid-reg" id="addmaterial2">Guardar</button></br> </br>
+               <button class="btn-solid-reg" id="update_material1">Guardar</button></br> </br>
             </div>
          </div>
          <!-- end of row -->
       </div>
       <!-- Actualizar materiales comprados antes del trabajo -->
-      <div id="antesTrab1" class="lightbox-basic zoom-anim-dialog mfp-hide">
+      <div id="antesTrab" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
             <div class="row">
                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
@@ -524,26 +356,26 @@
                   <div class="card-body" id="dynamic_field2">
                      <div class="card-title">Modificar materiales comprados antes del trabajo</div>
                      <hr class="cell-divide-hr">
-                     <table class="table table-bordered" >
+                     <table class="table table-bordered">
                      <?php if(isset($materiales_antes) && (count($materiales_antes)>0)){
                            foreach($materiales_antes as $row){ ?>
                         <TR>
-                           <TD><input type="hidden" id="item_material2_update_id" value="<?php echo $row->ID;?>" class="form-control" /></TD>
+                           <TD><input type="hidden" id="item_material2_update_id" value="<?php echo $row->ID;?>" placeholder="Ingrese" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Material</TH>
-                           <TD><input type="text" id="item_material2_update" value="<?php echo $row->Nombre;?>" class="form-control" /></TD>
+                           <TD><input type="text" id="item_material2_update" value="<?php echo$row->Nombre;?>" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Cantidad</TH>
-                           <TD><input type="text" id="item_cantidad2_update" value="<?php echo $row->Cantidad;?>" class="form-control" /></TD>
+                           <TD><input type="text" id="item_cantidad2_update" value="<?php echo$row->Cantidad;?>" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Total $</TH>
-                           <TD><input type="text" id="item_valortotal2_update" value="<?php echo $row->Valor;?>" class="form-control" /></TD>
+                           <TD><input type="text" id="item_valortotal2_update" value="<?php echo$row->Valor;?>" class="form-control" /></TD>
                         </TR>
                         <?php }
-                           }?>
+                           } ?>
                      </table>
                      <hr class="cell-divide-hr">
                      <div class="button-wrapper">
@@ -555,85 +387,6 @@
             <!-- end of col -->
             <div class="form-group">
                <button class="btn-solid-reg" id="updatematerial2">Guardar</button></br> </br>
-            </div>
-         </div>
-         <!-- end of row -->
-      </div>
-      <!-- Ingreso de materiales bodega-->
-      <div id="bodega" class="lightbox-basic zoom-anim-dialog mfp-hide">
-         <div class="container">
-            <div class="row">
-               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-               <div class="col-lg-4">
-                  <div class="card"></div>
-                  <div class="card-body" id="dynamic_field" >
-                     <div class="card-title">Ingrese materiales de bodega</div>
-                     <hr class="cell-divide-hr">
-                     <table class="table table-bordered" >
-                        <TR>
-                           <TH>Material</TH>
-                           <TD><input type="text" id="item_materialbodega_nombre" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Cantidad</TH>
-                           <TD><input type="text" id="item_materialbodega_cantidad" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Agregar más</TH>
-                           <TD><button type="button" name="add" id="materialbodega" class="btn btn-success">+</button></TD>
-                        </TR>
-                     </table>
-                     <hr class="cell-divide-hr">
-                     <div class="button-wrapper">
-                     </div>
-                  </div>
-               </div>
-               <!-- end of card -->
-            </div>
-            <!-- end of col -->
-            <div class="form-group">
-               <button class="btn-solid-reg" id="addmaterialbodega">Guardar</button></br> </br>
-            </div>
-         </div>
-         <!-- end of row -->
-      </div>
-      <!-- Ingreso de materiales bodega-->
-      <div id="bodega1" class="lightbox-basic zoom-anim-dialog mfp-hide">
-         <div class="container">
-            <div class="row">
-               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-               <div class="col-lg-4">
-                  <div class="card"></div>
-                  <div class="card-body" id="dynamic_field" >
-                     <div class="card-title">Modificar materiales de bodega</div>
-                     <hr class="cell-divide-hr">
-                     <table class="table table-bordered">
-                     <?php if(isset($materiales_bodega) && (count($materiales_bodega)>0)){
-                           foreach($materiales_bodega as $row){ ?>
-                        <TR>
-                           <TD><input type="hidden" id="item_materialbodega_update_id" value="<?php echo $row->ID;?>" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Material</TH>
-                           <TD><input type="text" id="item_materialbodega_nombre_update" value="<?php echo $row->Nombre;?>" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Cantidad</TH>
-                           <TD><input type="text" id="item_materialbodega_cantidad_update" value="<?php echo $row->Cantidad;?>" class="form-control" /></TD>
-                        </TR>
-                        <?php }
-                           }?>
-                     </table>
-                     <hr class="cell-divide-hr">
-                     <div class="button-wrapper">
-                     </div>
-                  </div>
-               </div>
-               <!-- end of card -->
-            </div>
-            <!-- end of col -->
-            <div class="form-group">
-               <button class="btn-solid-reg" id="updatematerialbodega">Guardar</button></br> </br>
             </div>
          </div>
          <!-- end of row -->
@@ -666,6 +419,10 @@
                </form>
                <!-- end of card -->
             </div>
+            <!-- end of col -->
+            <!--<div class="form-group">
+               <a class="btn-solid-reg" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
+               </div>-->
          </div>
       </div>
       <div id="archivosubidos" class="lightbox-basic zoom-anim-dialog mfp-hide">
@@ -684,7 +441,7 @@
                         <?php if(isset($archivos_subidos) && (count($archivos_subidos)>0)){
                            foreach($archivos_subidos as $row){ ?>
                         <tr>
-                           <TD><input type="text" value="<?php echo$row->Imagen;?>" class="form-control name-file"g/></TD>
+                           <TD><input type="text" value="<?php echo$row->Imagen;?>" class="form-control name-file" /></TD>
                            <td class="project-actions text-right">
                               <button class="btn btn-danger delete_archivo"><i class="fas fa-trash"></i></button>
                            </td>
@@ -699,13 +456,45 @@
                </div>
                <!-- end of card -->
             </div>
-            <!-- end of col -->
-            <!--<div class="form-group">
-               <a class="btn-solid-reg" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
-               </div>-->
          </div>
          <!-- end of row -->
       </div>
+
+      <div id="detalle-trabajo" class="lightbox-basic zoom-anim-dialog mfp-hide">
+            <div class="container">
+               <div class="row">
+                  <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
+                  <div class="col-lg-4">
+                     <div class="form-group">
+                        <input type="date" class="form-control-input" id="fecha_trabajo" name="fecha_trabajo" required>
+                        <label class="label-control" for="cname">Fecha</label>
+                        <div class="help-block with-errors"></div>
+                     </div>
+                     <div class="form-group">
+                        <input type="text" class="form-control-input" id="personacargo" name="persona_cargo" required>
+                        <label class="label-control" for="cemail">Persona a cargo</label>
+                        <div class="help-block with-errors"></div>
+                     </div>
+                     <div class="form-group">
+                        <input type="text" class="form-control-input" id="nombre_proyecto" name="nombre_proyecto" required>
+                        <label class="label-control" for="cemail">Proyecto/Cliente</label>
+                        <div class="help-block with-errors"></div>
+                     </div>
+                     <div class="form-group">
+                        <input type="text" class="form-control-input" id="suma_asignada" name="suma_asignada" required>
+                        <label class="label-control" for="cemail">Suma asignada</label>
+                        <div class="help-block with-errors"></div>
+                     </div>
+                     <div class="form-group">
+                        <a class="btn-solid-reg popup-with-move-anim" id="validar-iniciotrabajo" href="#detalleTrabajo">Siguiente</a></br> </br>
+                     </div>
+                  </div>
+                  <!-- end of col -->
+               </div>
+               <!-- end of row -->
+            </div>
+            <!-- end of container -->
+         </div>
       <!-- end of container -->
       <div class="error"></div>
       <!-- end of details lightbox 1 -->
@@ -719,7 +508,6 @@
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
       <!-- Scripts modal -->
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-      <script type="text/javascript" src="<?php echo base_url();?>assets/js/ModificacionPlanilla/MaterialesDurante_update.js"></script>
       <script type="text/javascript" src="<?php echo base_url();?>assets/js/MaterialesDurante.js"></script>
       <script type="text/javascript" src="<?php echo base_url();?>assets/js/MaterialesAntes.js"></script>
       <script type="text/javascript" src="<?php echo base_url();?>assets/js/MaterialesBodega.js"></script>
@@ -734,7 +522,6 @@
       <script src="<?php echo base_url();?>assets/js/scripts.js"></script> <!-- Custom scripts -->
       <!--<script src="<?php echo base_url();?>assets/js/imagenes.js"></script>-->
       <script>var base_url = '<?php echo base_url();?>';</script>
-      <script src="<?php echo base_url();?>assets/js/Operaciones/ingreso_planilla_detalle.js"></script>
-      <script src="<?php echo base_url();?>assets/js/Operaciones/actualizar_planilla_detalle.js"></script>
+      <script src="<?php echo base_url();?>assets/js/Operaciones/modificacion_planilla.js"></script>
    </body>
 </html>
