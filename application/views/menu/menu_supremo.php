@@ -10,7 +10,7 @@ if (isset($set_data['nombre_completo'])) {
     <a href="<?php echo base_url()?>Inicio" class="brand-link">
       <img src="<?php echo base_url();?>assets/dist/img/black.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">BlackCode</span>
+      <span class="brand-text font-weight-light">CDH Ingenieria</span>
     </a>
 
     <!-- Sidebar -->
@@ -40,7 +40,7 @@ if (isset($set_data['nombre_completo'])) {
           </li>
           <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 3)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 3)){echo "active"; }?>">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-hammer"></i>
               <p>
                 Trabajos Diarios
                 <i class="fas fa-angle-left right"></i>
@@ -56,14 +56,9 @@ if (isset($set_data['nombre_completo'])) {
             </ul>
           </li>
 
-
-          
-
-
-
           <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 5)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 5)){echo "active"; }?>">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-desktop"></i>
               <p>
                 Administracion oficina
                 <i class="fas fa-angle-left right"></i>
@@ -84,12 +79,28 @@ if (isset($set_data['nombre_completo'])) {
               </li>
             </ul>
           </li>
-
+          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 10)){echo "menu-open"; }?>">
+            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 10)){echo "active"; }?>">
+              <i class="nav-icon fas fa-poll"></i>
+              <p>
+                Estadisticas
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url()?>Administracion/informeEgresos" class="nav-link <?php if(isset($activo) && ($activo == 10)){echo "active"; }?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Egresos caja chica</p>
+                </a>
+              </li>
+            </ul>
+          </li>
 
 
           <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 9)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 9)){echo "active"; }?>">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-building"></i>
               <p>
                 Bodega
                 <i class="fas fa-angle-left right"></i>
@@ -105,9 +116,9 @@ if (isset($set_data['nombre_completo'])) {
             </ul>          
           </li>
 
-          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 5)){echo "menu-open"; }?>">
-            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 5)){echo "active"; }?>">
-              <i class="nav-icon fas fa-table"></i>
+          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 55)){echo "menu-open"; }?>">
+            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 55)){echo "active"; }?>">
+              <i class="nav-icon fas fa-truck-pickup"></i>
               <p>
                Modulo Vehicular
                 <i class="fas fa-angle-left right"></i>
@@ -144,7 +155,7 @@ if (isset($set_data['nombre_completo'])) {
 
           <li class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 2)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activomenu) && ($activomenu == 2)){echo "active"; }?>">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-cog"></i>
               <p>
                 Sistema
                 <i class="fas fa-angle-left right"></i>

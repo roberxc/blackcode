@@ -1,12 +1,10 @@
-<<<<<<< HEAD
-    <!-- FOOTER -->
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-=======
-<!-- FOOTER -->
-<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 
->>>>>>> f157cd747eb7d5aca51d8272c8c7a0c6a82ce9fa
-<script src="<?php echo base_url();?>assets/plugins/jquery/jquery.min.js"></script>
+<!-- FOOTER 
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+-->
+<?php if(isset($activo) && ($activo != 10)){?>
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+<?php }?>
 <!-- jQuery UI 1.11.4 -->
 <script src="<?php echo base_url();?>assets/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->

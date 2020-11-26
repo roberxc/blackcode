@@ -53,62 +53,49 @@
                      <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
-                     <p><a class="btn-solid-reg popup-with-move-anim float-left" id="validar-planillatrabajo" href="#detalleTrabajo">Validar</a></p><p><a class="btn-solid-reg float-right" href="<?php echo base_url();?>Operacion">Volver</a></p>
+                     <p><a class="btn-solid-reg popup-with-move-anim float-left" id="validar-planillatrabajo" href="#detalleTrabajo">Validar</a></p><p><a class="btn-solid-reg float-right" href="<?php echo base_url();?>Inicio">Salir</a></p>
                      <br></br>
                      <br></br>
                   </div>
                </div>
                <!-- end of col -->
             </div>
-            <div class="content-header">
-               <div class="container-fluid">
-                  <div class="row mb-2">
-                     <div class="col-sm-6">
-                        <h5 class="m-0 text-dark">Trabajos realizados</h5>
+            <div class="row">
+               <div class="col-12">
+                  <div class="card">
+                     <div class="card-header">
+                        <h6 class="card-title">Trabajos realizados</h6>
+                     </div>
+                     <!-- /.card-header -->
+                     <div class="card-body table-responsive p-0" style="height: 300px;">
+                        <table class="table table-head-fixed text-nowrap">
+                           <thead>
+                           <tr>
+                              <th>Codigo</th>
+                              <th>Fecha</th>
+                              <th>Proyecto/Cliente</th>
+                           </tr>
+                           </thead>
+                           <tbody>
+                           <?php 
+                                 if($trabajos_realizados){
+                                    foreach($trabajos_realizados as $row){
+                                 ?>
+                           <tr>
+                              <td><?php echo $row->CodigoServicio?></td>
+                              <td><?php echo $row->FechaTrabajo?></td>
+                              <td><?php echo $row->NombreProyecto?></td>
+                           </tr>
+                           </tr>
+                              <?php }
+                                 }?>
+                           </tbody>
+                        </table>
                      </div>
                   </div>
-                  <!-- /.row -->
+                  <!-- /.card -->
                </div>
-               <!-- /.container-fluid -->
             </div>
-            <div class="card-body p-0">
-               <table class="table table-striped projects">
-                  <thead>
-                     <tr>
-                        <th style="width: 15%">
-                           Codigo
-                        </th>
-                        <th style="width: 20%">
-                           Fecha
-                        </th>
-                        <th style="width: 20%">
-                           Proyecto/Cliente
-                        </th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     <?php 
-                        if($trabajos_realizados){
-                           foreach($trabajos_realizados as $row){
-                        ?>
-                     <tr>
-                        <td>
-                           <?php echo $row->CodigoServicio?>
-                        </td>
-                        <td>
-                           <?php echo $row->FechaTrabajo?>
-                        </td>
-                        <td>
-                           <?php echo $row->NombreProyecto?>
-                        </td>
-                     </tr>
-                     <?php }
-                        }?>
-                  </tbody>
-               </table>
-            </div>
-            <!-- /.card-body -->
-            <!-- end of row -->
          </div>
          <!-- end of container -->
       </div>

@@ -435,7 +435,7 @@
                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
                <div class="col-lg-4">
                   <div class="card"></div>
-                  <div class="card-body" id="dynamic_field" >
+                  <div class="card-body" id="materialdurante_modificacion" >
                      <div class="card-title">Modificar materiales comprados durante el trabajo</div>
                      <hr class="cell-divide-hr">
                      <table class="table table-bordered" >
@@ -460,15 +460,14 @@
                            }?>
                      </table>
                      <hr class="cell-divide-hr">
-                     <div class="button-wrapper">
-                     </div>
+                     
                   </div>
                </div>
                <!-- end of card -->
             </div>
             <!-- end of col -->
             <div class="form-group">
-               <button class="btn-solid-reg" id="update_material1">Guardar</button></br> </br>
+               <button class="btn-solid-reg float-left" id="matdurante_modificacion">Agregar más</button><button class="btn-solid-reg float-right" id="update_material1">Guardar</button>
             </div>
          </div>
          <!-- end of row -->
@@ -720,6 +719,7 @@
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
       <!-- Scripts modal -->
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+      <script type="text/javascript" src="<?php echo base_url();?>assets/js/ModificacionPlanilla/MaterialesDurante_update.js"></script>
       <script type="text/javascript" src="<?php echo base_url();?>assets/js/MaterialesDurante.js"></script>
       <script type="text/javascript" src="<?php echo base_url();?>assets/js/MaterialesAntes.js"></script>
       <script type="text/javascript" src="<?php echo base_url();?>assets/js/MaterialesBodega.js"></script>

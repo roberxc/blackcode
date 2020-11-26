@@ -127,7 +127,6 @@ class OperacionesModel extends CI_Model {
 
 	//Planillas realizadas por trabajador
 	public function ObtenerPlanillaPorTrabajador($idusuario){
-
 		$query = $this->db
 				->select("p.NombreProyecto AS NombreProyecto, c.CodigoServicio AS CodigoServicio, i.FechaAsignacion AS FechaTrabajo, t.PersonalCargo AS PersonalCargo, t.Detalle AS Detalle, t.ValorAsignado AS ValorAsignado") # También puedes poner * si quieres seleccionar todo
 				->from("trabajodiario t")
