@@ -124,6 +124,27 @@ class OperacionesModel extends CI_Model {
 		
 		return $query->result();
 	}
+	/*Mostrar documentos y descargarlo  */
+
+	public function downloads($name){
+        
+		$data = file_get_contents($this->DocumentosSubidos.$name);
+		force_download($name,$data);
+	 
+ 	}
+
+	public function Descargar2(){
+		$id=$this->uri->segment(3);
+		if(empty($id)){
+			redirect(base_url());
+		}
+		$data=$this->mfiles->getRows($id);
+		$filename=$data['file_name'];
+		$fileContents=file_get_contents(base_url('DocumentosSubidos/',$data['file_name']));
+		force_download($filename,$fileContents);
+		
+	}
+	/*Fin de Mostrar documentos y descargarlo  */
 
 	//Planillas realizadas por trabajador
 	public function ObtenerPlanillaPorTrabajador($idusuario){
@@ -1101,7 +1122,29 @@ class OperacionesModel extends CI_Model {
 		return $query->result();
 	}
 
-	
+	function getRows($params = array()){
+        $this->db->select('Imagen');
+        $this->db->from('detalletrabajodiario');
+        if(!empty($params['id'])){
+            $this->db->where('ID_DetalleTrabajo',$params['id']);
+            //get records
+            $query = $this->db->get();
+            $result = ($query->num_rows() > 0)?$query->row_array():FALSE;
+        }else{
+            //set start and limit
+            if(array_key_exists("start",$params) && array_key_exists("limit",$params)){
+                $this->db->limit($params['limit'],$params['start']);
+            }elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){
+                $this->db->limit($params['limit']);
+            }
+            //get records
+            $query = $this->db->get();
+            $result = ($query->num_rows() > 0)?$query->result_array():FALSE;
+        }
+        //return fetched data
+        return $result;
+    }
+
 }
 
 ?>
