@@ -125,16 +125,7 @@ class OperacionesModel extends CI_Model {
 		return $query->result();
 	}
 	/*Mostrar documentos y descargarlo  */
-	public function mostrarDocumentos(){
-		$idtrabajodiario = $idtipotrabajo[0]['ID_TrabajoDiario'];
-		$query = $this->db
-				->select("Imagen") # También puedes poner * si quieres seleccionar todo
-				->from("detalletrabajodiario")
-				->where('g.ID_TrabajoDiario',$idtrabajodiario)
-				->get();
-		
-		return $query->result();
-	}
+
 	public function downloads($name){
         
 		$data = file_get_contents($this->DocumentosSubidos.$name);
@@ -142,18 +133,6 @@ class OperacionesModel extends CI_Model {
 	 
  	}
 
-	/*public function Descargar(){
-		if (isset($_GET['file_id'])){
-			$id=$_GET['file_id'];
-			$query = $this->db
-				->select("Imagen") # También puedes poner * si quieres seleccionar todo
-				->from("detalletrabajodiario")
-				->where('g.ID_TrabajoDiario',$id)
-				->get();
-			$filepath='DocumentosSubidos/'.$query	
-		}
-		
-	}*/
 	public function Descargar2(){
 		$id=$this->uri->segment(3);
 		if(empty($id)){
@@ -165,21 +144,6 @@ class OperacionesModel extends CI_Model {
 		force_download($filename,$fileContents);
 		
 	}
-	public function download($id){
-        if(!empty($id)){
-            //load download helper
-            $this->load->helper('download');
-            
-            //get file info from database
-            $fileInfo = $this->file->getRows(array('id' => $id));
-            
-            //file path
-            $file = 'DocumentosSubidos/'.$fileInfo['file_name'];
-            
-            //download file from directory
-            force_download($file, NULL);
-        }
-    }
 	/*Fin de Mostrar documentos y descargarlo  */
 
 	//Planillas realizadas por trabajador
@@ -1138,6 +1102,29 @@ class OperacionesModel extends CI_Model {
 		
 		return $query->result();
 	}
+
+	function getRows($params = array()){
+        $this->db->select('Imagen');
+        $this->db->from('detalletrabajodiario');
+        if(!empty($params['id'])){
+            $this->db->where('ID_DetalleTrabajo',$params['id']);
+            //get records
+            $query = $this->db->get();
+            $result = ($query->num_rows() > 0)?$query->row_array():FALSE;
+        }else{
+            //set start and limit
+            if(array_key_exists("start",$params) && array_key_exists("limit",$params)){
+                $this->db->limit($params['limit'],$params['start']);
+            }elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){
+                $this->db->limit($params['limit']);
+            }
+            //get records
+            $query = $this->db->get();
+            $result = ($query->num_rows() > 0)?$query->result_array():FALSE;
+        }
+        //return fetched data
+        return $result;
+    }
 }
 
 ?>

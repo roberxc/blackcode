@@ -24,7 +24,7 @@ class Upload extends CI_Controller{
 			$codigoservicio = $this->input->post("codigo1");
 			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 			$config = [
-				"upload_path" => APPPATH. './models/DocumentosSubidos/',
+				"upload_path" => APPPATH. '../ArchivosSubidos/',
 				'allowed_types' => "jpg|png|pdf|docx|jepg"
 			];
 
@@ -45,49 +45,4 @@ class Upload extends CI_Controller{
 		}
 	}
 	
-
-	public function file_data(){
-		//validate the form data 
-
-		//$this->form_validation->set_rules('pic_title', 'Picture Title', 'required');
-
-       // if ($this->form_validation->run() == FALSE){
-		//	$this->load->view('upload_form');
-		//}else{
-			
-			//get the form values
-			$micodigo= $this->input->post('codigo1');
-			//$data['pic_desc'] = $this->input->post('pic_desc', TRUE);
-
-			//file upload code 
-			//set file upload settings 
-			$config['upload_path']          = APPPATH. './models/DocumentosSubidos/';
-			$config['allowed_types']        = 'jpg|png|pdf|docx';
-			$config['max_size']             = 500;
-
-			$this->load->library('upload', $config);
-
-			if (!$this->upload->do_upload('pic_file')){
-				$error = array('error' => $this->upload->display_errors());
-				print_r($error);
-				//$this->load->view('planilla', $error);
-			}else{
-
-				//file is uploaded successfully
-				//now get the file uploaded data 
-				$upload_data = $this->upload->data();
-				
-
-				//get the uploaded file name
-				$data['pic_file'] = $upload_data['file_name'];
-			
-
-				//store pic data to the db
-				$this->pic_model->registro($data,$micodigo);
-
-				redirect('DetalleOperaciones/'.$micodigo);
-			}
-			
-		//}
-	}
 }
