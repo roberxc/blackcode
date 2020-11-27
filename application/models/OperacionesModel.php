@@ -1047,12 +1047,12 @@ class OperacionesModel extends CI_Model {
 	//Metodo para obtener detalle de planilla realizada
 	public function ObtenerPlanillasRealizadas($codigoservicio){
 		$query = $this->db
-				->select("p.NombreProyecto AS NombreProyecto, c.CodigoServicio AS CodigoServicio, i.FechaAsignacion AS FechaTrabajo, t.PersonalCargo AS PersonalCargo, t.Detalle AS Detalle, t.ValorAsignado AS ValorAsignado") # También puedes poner * si quieres seleccionar todo
+				->select("c.CodigoServicio AS CodigoServicio, i.FechaAsignacion AS FechaTrabajo, p.NombreProyecto AS Proyecto, t.PersonalCargo AS PersonalCargo") # También puedes poner * si quieres seleccionar todo
 				->from("trabajodiario t")
 				->join("codigoservicio c", "c.ID_Codigo = t.ID_Codigo")
 				->join("proyecto p", "p.ID_Proyecto = t.ID_Proyecto")
 				->join("ingreso i", "i.ID_TrabajoDiario = t.ID_TrabajoDiario")
-				->where("c.CodigoServicio", $codigoservicio)
+				->like("c.CodigoServicio", $codigoservicio,"both")
 				->get();
 		
 		return $query->result();
@@ -1081,6 +1081,27 @@ class OperacionesModel extends CI_Model {
 		
 		return $query->result();
 	}
+
+	public function ObtenerGastosCombustibles($codigo){
+
+		$idtipotrabajo = $this->getIDTrabajoDiarioCS($codigo);
+		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['ID_TipoTrabajo']);
+		$idtrabajodiario = $idtipotrabajo[0]['ID_TrabajoDiario'];
+
+		//Array con las id de los gastos viaticos
+		$gastosvarios = array('Bencina','Petroleo');
+		$query = $this->db
+		->select("g.ID_Gasto AS ID, g.Valor AS Valor,t.NombreTipoGasto AS Nombre") # También puedes poner * si quieres seleccionar todo
+		->from("gastos g")
+		->join("tipogasto t", "t.ID_TipoGasto = g.ID_TipoGasto")
+		->where_in('t.NombreTipoGasto',$gastosvarios)
+		->where('g.ID_TrabajoDiario',$idtrabajodiario)
+		->get();
+
+		return $query->result();
+	}
+
+	
 }
 
 ?>

@@ -24,9 +24,37 @@ $(document).on('click', '#detalle_trabajo', function(e) {
 $(document).on('click', '#detalle_archivos', function(e) {
     e.preventDefault();
 
+
     alert('asdasdads');
 
 });
+
+$('#codigoservicio_filtro').keyup(function(){
+    $('#tabla_trabajosrealizados tbody').html('');
+    var text = $('#codigoservicio_filtro').val();
+
+    $.post(base_url + "Administracion/obtenerTrabajosRealizadosPorCodigo",
+        {texto : text},
+        function(data){
+            var obj = JSON.parse(data);
+            var output = '';
+            $.each(obj, function(i, item){
+                output +=
+                '<tr>' +
+                '   <td><input type="text" value="'+item.CodigoServicio+'" class="form-control name-file" disabled/></td>' +
+                '   <td>'+ item.FechaTrabajo+'</td>' +
+                '   <td>'+ item.Proyecto+'</td>' +
+                '   <td>'+ item.PersonalCargo+'</td>' +
+                '   <td><button class="btn btn-primary btn-sm" id="detalle_trabajo" data-toggle="modal" data-target="#modal-detalle"><i class="far fa-eye"></i></button>'+
+                '       <button class="btn btn-info btn-sm" id="detalle_archivos" data-toggle="modal" data-target="#modal-archivos"><i class="fas fa-upload"></i></button>'+
+                '       <button class="btn btn-info btn-sm" id="detalle_asistencia" data-toggle="modal"data-target="#modal-asistencia"><i class="fas fa-book-open"></i></button></td>' +
+                '</tr>';
+            });
+            $('#tabla_trabajosrealizados tbody').append(output);
+        });
+
+});
+
 
 $(document).on('click', '#detalle_asistencia', function(e) {
     e.preventDefault();
@@ -49,6 +77,16 @@ $(document).on('click', '#detalle_asistencia', function(e) {
             }
         }
     });
+
+});
+
+$(document).on('click', '#listar_trabajosrealizados', function(e) {
+    e.preventDefault();
+    var codigoservicio_filtro = $("#codigoservicio_filtro").val();
+    var fecha = $("#fecha_filtro").val();
+    alert('asdasdads');
+    alert(fecha);
+    alert(codigoservicio_filtro);
 
 });
 

@@ -7,6 +7,7 @@ class Administracion extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('CajaChicaModel');
+		$this->load->model('OperacionesModel');
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('Users');
 	}
@@ -250,6 +251,12 @@ class Administracion extends CI_Controller {
 
 	}
 
+
+	public function obtenerTrabajosRealizadosPorCodigo(){
+		$texto = $this->input->post('texto');
+		$resultado = $this->OperacionesModel->ObtenerPlanillasRealizadas($texto);
+		echo json_encode($resultado);
+	}
 }
 
 ?>

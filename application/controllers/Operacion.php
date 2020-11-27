@@ -164,6 +164,10 @@ class Operacion extends CI_Controller {
 
 		$materiales_bodega = $this->OperacionesModel->ObtenerMaterialesBodega($ajax_data['codigo_servicio']);
 
+		$gastos_combustible = $this->OperacionesModel->ObtenerGastosCombustibles($ajax_data['codigo_servicio']);
+
+		$gasto_total = $this->OperacionesModel->obtenerGastoTotal($ajax_data['codigo_servicio']);
+
 		$response = "<div class='card card-default'>";
 		$response .= "<div class='modal-body'>";
 		$response .= "<div class='form-group'>";
@@ -291,12 +295,12 @@ class Operacion extends CI_Controller {
 		$response .= "</tr>";
 		$response .= "</thead>";
 		$response .= "<tbody>";
-
-		$response .= "<tr>";
-		$response .= "<th>Petroleo</th>";
-		$response .= "<td>$1043</td>";
-		$response .= "</tr>";
-		
+		foreach($gastos_combustible as $row){
+			$response .= "<tr>";
+			$response .= "<th>".$row->Nombre."</th>";
+			$response .= "<td>".$row->Valor."</td>";
+			$response .= "</tr>";
+		}
 		$response .= "</tbody>";
 		$response .= "</table>";
 		$response .= "</div>";
@@ -317,7 +321,7 @@ class Operacion extends CI_Controller {
 		foreach($gastosvarios_registrados as $row){ 
 			$response .= "<tr>";
 			$response .= "<th>".$row->Nombre."</th>";
-			$response .= "<td>".$row->Valor."</td>";
+			$response .= "<td> $".$row->Valor."</td>";
 			$response .= "</tr>";
 		}
 
@@ -334,7 +338,9 @@ class Operacion extends CI_Controller {
 		$response .= "<div class='form-group'>";
 		$response .= "<label>Gasto total</label>";
 		$response .= "<div class='form-group'>";
-		$response .= "<input type='text' class='form-control' disabled>";
+		foreach($gasto_total as $row){ 
+			$response .= "<input type='text' class='form-control' value='$".$row->Valor."' disabled>";
+		}
 		$response .= "</div>";
 		$response .= "</div>";
 		$response .= "</div>";
@@ -357,9 +363,8 @@ class Operacion extends CI_Controller {
 
 	public function obtenerAsistenciaPlanilla(){
 		$ajax_data = $this->input->post(); //Datos que vienen por POST
-		
 		$asistencia_planilla = $this->OperacionesModel->ObtenerAsistenciaPlanilla($ajax_data['codigo_servicio']);
-		
+
 		$response = "<div class='table-responsive'>";
 		$response .= "<table class='table table-bordered'>";
 		$response .= "<tr>";
