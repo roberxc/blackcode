@@ -66,7 +66,6 @@
             <div class="modal-content">
                <div class="modal-header bg-blue">
                   <h4 class="modal-title" id="exampleModalLabel">Detalle Producto</h4>
-                  <small>Stock del producto entre bodegas</small>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </button>
@@ -83,12 +82,6 @@
                                        <div class="form-group">
                                           <label for="txtGlosa">Glosa:</label>
                                           <textarea class="form-control" name="txtGlosa" id="txtGlosa" readonly></textarea>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                       <div class="form-group">
-                                          <label for="txtUsuarioResp">Usuario Responsable:</label>
-                                          <input class="form-control" name="txtUsuarioResp" id="txtUsuarioResp" readonly></input>
                                        </div>
                                     </div>
                                  </div>

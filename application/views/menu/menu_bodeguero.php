@@ -32,7 +32,7 @@ if (isset($set_data['nombre_completo'])) {
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 1)){echo "menu-open"; }?>">
             <a href="<?php echo base_url()?>Inicio" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fa fa-home"></i>
               <p>
                 Inicio
               </p>
@@ -40,7 +40,7 @@ if (isset($set_data['nombre_completo'])) {
           </li>
           <li class="nav-item has-treeview">
             <a href="<?php echo base_url()?>RegistroEntrada" class="nav-link <?php if(isset($activo) && ($activo == 2)){echo "active"; }?>">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fa fa-cart-plus"></i>
               <p>
                 Registro entrada
               </p>
@@ -50,7 +50,7 @@ if (isset($set_data['nombre_completo'])) {
 
           <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 3)){echo "menu-open"; }?>">
             <a href="<?php echo base_url()?>RegistroSalida" class="nav-link <?php if(isset($activo) && ($activo == 3)){echo "active"; }?>">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fa fa-cart-arrow-down"></i>
               <p>
                 Registro salida
               </p>
@@ -60,7 +60,7 @@ if (isset($set_data['nombre_completo'])) {
 
           <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 4)){echo "menu-open"; }?>">
             <a href="<?php echo base_url()?>Stock" class="nav-link <?php if(isset($activo) && ($activo == 4)){echo "active"; }?>">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fa fa-shopping-basket"></i>
               <p>
               Bodega
               </p>
@@ -69,7 +69,7 @@ if (isset($set_data['nombre_completo'])) {
 
           <li class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 2)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activomenu) && ($activomenu == 2)){echo "active"; }?>">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fa fa-server"></i>
               <p>
                 Sistema
                 <i class="fas fa-angle-left right"></i>
@@ -79,7 +79,7 @@ if (isset($set_data['nombre_completo'])) {
             <ul class="nav nav-treeview">
               <li class="nav-item">
               <a href="<?php echo base_url()?>Perfil" class="nav-link <?php if(isset($activo) && ($activo == 7)){echo "active"; }?>">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="nav-icon fa fa-user-circle"></i>
                   <p>Modificar mi perfil</p>
                 </a>
               </li>

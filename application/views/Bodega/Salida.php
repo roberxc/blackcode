@@ -42,14 +42,15 @@
                       <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">  
                         <thead>  
                           <tr>  
-                               <th>ID</th>  <!-- 0 ---> 
+                               <th>ID Salida</th>  <!-- 0 ---> 
                                <th>Nombre Producto</th>  <!-- 1 --->
-                               <th>Categoria</th>  <!-- 2 --->
-                               <th>Centro Costo</th>  <!-- 3 --->
-                               <th>Fecha de Ingreso</th>  <!-- 4 --->
-                               <th>Cantidad Ingresada</th> <!-- 5 --->
-                               <th>Bodega</th> <!-- 6 --->
-                               <th>Accion</th> <!-- 7 --->
+                               <th>Codigo del Producto</th>  <!-- 3 --->
+                               <th>Categoria</th>  <!-- 4 --->
+                               <th>Centro Costo</th>  <!-- 5 --->
+                               <th>Fecha de Egreso</th>  <!-- 6 --->
+                               <th>Cantidad Retirada</th> <!-- 7 --->
+                               <th>Bodega</th> <!-- 8 --->
+                               <th>Accion</th> <!-- 9 --->
                           </tr>  
                         </thead>  
                       </table>   
@@ -101,46 +102,13 @@
                     }
                 ?>
               </select>
-            
-          </div>
-
-          <div class="form-group">
-            <label for="recipient-tipo" class="col-form-label">Seleccione tipo de producto: </label>
-              <select name="tipoproducto" id="tipoproducto" style="width: 100%; height: 60%">
-                <?php
-                    foreach($categorias as $i){
-                      echo '<option value="'. $i->ID_TipoMaterial .'">'. $i->NombreTipoMaterial .'</option>';
-                    }
-                ?>
-              </select>
-            
-          </div>
-
-          <div class="form-group">
-            <label for="recipient-fecha" class="col-form-label">Ingrese fecha de ingreso: </label>
-            <input type="date" class="form-control" value="<?php echo date("Y-m-d");?>" max="<?php echo date("Y-m-d");?>" name="fechaentrada" id="fechaentrada" require>
-          </div>
-
-          <div class="form-group">
-            <label for="recipient-cantidad" class="col-form-label">Ingrese cantidad ingresada: </label>
-            <input type="number" min="1" class="form-control" name="cantidadentrada" id="cantidadentrada" require>
-          </div>
-
-          <div class="form-group">
-            <label for="recipient-bodega" class="col-form-label">Seleccione Bodega: </label>
-              <select name="tipobodega" id="tipobodega" style="width: 100%; height: 60%">
-                <?php
-                    foreach($tipobodega as $i){
-                      echo '<option value="'. $i->ID_TipoBodega .'">'. $i->NombreTipoBodega .'</option>';
-                    }
-                ?>
-              </select>
           </div>
 
 
+
           <div class="form-group">
-            <label for="recipient-glosa" class="col-form-label">Glosa: </label><br>
-            <input type="text" class="form-control" name="glosa" id="glosa" require>
+            <label for="recipient-cantidad" class="col-form-label">Ingrese cantidad a retirar: </label>
+            <input type="number" min="1" class="form-control" name="cantidadsalida" id="cantidadsalida" require>
           </div>
 
           
@@ -202,7 +170,7 @@
         },
           "columnDefs":[
             {
-                "targets": [1,2,3,4,5,6,7],
+                "targets": [1,2,3,4,5,6,7,8],
             }
           ]
         });

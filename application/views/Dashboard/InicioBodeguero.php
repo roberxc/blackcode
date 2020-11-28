@@ -23,39 +23,39 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-dark">
               <div class="inner">
                 <p>Registro entrada</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="ion ion-stats-bars text-red"></i>
               </div>
-              <a href="#" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?php echo base_url()?>RegistroEntrada" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
 
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-dark">
               <div class="inner">
                 <p>Registro salida</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="ion ion-stats-bars text-red"></i>
               </div>
-              <a href="#" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?php echo base_url()?>RegistroSalida" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-dark">
               <div class="inner">
                 <p>Stock</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="ion ion-stats-bars text-red"></i>
               </div>
-              <a href="#" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?php echo base_url()?>Stock" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
         <!-- /.row -->

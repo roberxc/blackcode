@@ -34,11 +34,73 @@ class Bodega extends CI_Model {
           }
     }
 
+    function actualizarStockProducto($post){
+     //TABLA MATERIAL
 
-    //AGREGAR STOCK A UN PRODUCTO EN CONCRETO
-    public function insertarMaterial($post){
+     $datosdetalleentrada = Array();
+     $datosdetalleentrada['ID_Material'] = $post['material'];
+     //$datosdetalleentrada['FechaEntrada'] = Date("Y-m-d");
+     $verificacion = $this->db->insert('detalleentrada', $datosdetalleentrada);
      
-    }
+    
+     //TABLA ENTRADA
+     if($verificacion == TRUE){
+          $datosdetalleentrada = Array();
+          $datosEntrada = Array();
+          $datosEntrada['ID_Proyecto'] = $post['centrodecostos2'];
+          $datosEntrada['CantidadIngresada'] = $post['cantidadentradaagregar'];
+          $this->db->insert('entrada', $datosEntrada);
+
+          $cantidadporactualizar = $post['cantidadentradaagregar'];
+          $this->db->set('Stock', 'Stock + '. (int) $cantidadporactualizar,FALSE);
+          $this->db->set('Detalle', $post['glosaactualizar']);
+          $this->db->where('ID_Material', $post['material']);
+          $this->db->update('material');
+          
+          $ruta = base_url('RegistroEntrada');
+          echo "<script>window.location = '{$ruta}';
+          </script>";
+     }
+}
+
+
+    //INICIO DE SACAR UN MATERIAL ---- SALIDA
+    function insertarSalidaProducto($post){
+          $cantidadporsalir = $post['cantidadsalida'];
+          $this->db->set('Stock', 'Stock - '. (int) $cantidadporsalir,FALSE);
+          $this->db->where('ID_Material', $post['material']);
+          $verificacion = $this->db->update('material');
+          $datosdetallesalida = Array();
+          $datosdetallesalida['ID_Material'] = $post['material'];
+          $datosdetallesalida['FechaSalida'] = Date("Y-m-d");
+          $this->db->insert('detallesalida', $datosdetallesalida);
+          
+            //TABLA SALIDA
+          if($verificacion == TRUE){
+               $datosSalida = Array();
+               $datosSalida['ID_Proyecto'] = $post['centrocostos'];
+               $datosSalida['CantidadSalida'] = $post['cantidadsalida'];
+               $this->db->insert('salida', $datosSalida);
+               $ruta = base_url('RegistroSalida');
+               echo "<script>window.location = '{$ruta}';
+               </script>";
+               }
+     }
+
+
+
+
+
+
+         //REGISTRAR CATEGORIAS -> TIPOMATERIAL
+    public function registrarCateg($post){
+     $datosCategoria = Array();
+     $datosCategoria['NombreTipoMaterial'] = $post['nombrecategoria'];
+     $this->db->insert('tipomaterial', $datosCategoria);
+     $ruta = base_url('RegistroEntrada');
+     echo "<script>window.location = '{$ruta}';
+     </script>";
+     }   
 
 
     //MOSTRAR CATEGORIAS EN SELECT
@@ -52,61 +114,6 @@ class Bodega extends CI_Model {
      }
  }
 
-
-    
-
-
-    
-    public function verStock($idproducto){
-          $this->db->SELECT('Stock');
-          $this->db->from('material');
-          $this->db->where('ID_Material =',$idproducto);
-          $this->db->order_by('Stock');
-          $query = $this->db->get();
-          if($query->num_rows()>0){
-               return $query->result();
-          }
-    }
-
-    //REGISTRAR CATEGORIAS -> TIPOMATERIAL
-    public function registrarCateg($post){
-        $datosCategoria = Array();
-        $datosCategoria['NombreTipoMaterial'] = $post['nombrecategoria'];
-        $this->db->insert('tipomaterial', $datosCategoria);
-        $ruta = base_url('RegistroEntrada');
-        echo "<script>window.location = '{$ruta}';
-        </script>";
-        }   
-
-
-
-        //INICIO DE REGISTRO
-     function registrarSalidaProducto($post){
-          $datosEntradaProductoBodega = Array();
-  
-          //TABLA BODEGA
-          $datosEntradaProductoBodega['ID_TipoBodega'] = $post['bodega'];
-          $datosEntradaProductoBodega['ID_Material'] = $post['tipoproducto'];
-          $datosEntradaProductoBodega['Detalle'] = $post['glosa'];
-          $datosEntradaProductoBodega['Stock'] = $post['cantidadentrada'];
-  
-          $this->db->insert('bodega', $datosEntradaProducto);
-  
-          //TABLA ENTRADA
-  
-          $datosEntrada['ID_Proyecto'] = $post['centrocostos'];
-          $datosEntrada['FechaEntrada'] = $post['fechaentrada'];
-          $datosEntrada['CantidadIngresada'] = $post['cantidadentrada'];
-          $datosEntrada['ID_Proyecto'] = $post['centrocostos'];
-  
-          $this->db->insert('entrada', $datosEntrada);
-  
-          $ruta = base_url('RegistroEntrada');
-          echo "<script>window.location = '{$ruta}';
-          </script>";
-      }
-    
-    //FIN REGISTRO
 
     
     //MOSTRAR CATEGORIAS EN SELECT
@@ -170,8 +177,8 @@ class Bodega extends CI_Model {
         //ESTE ES EL SELECT DE LA TABLA PRINCIPAL DE ENTRADA
 
         var $table = array("tipomaterial","tipobodega","material","proyecto", "entrada", "detalleentrada");  
-        var $select_column = array("material.ID_Material", "NombreMaterial", "NombreTipoMaterial", "NombreProyecto", "FechaEntrada", "entrada.CantidadIngresada", "NombreTipoBodega");  
-        var $order_column = array("ID_Material", "NombreMaterial", "NombreTipoMaterial", "NombreProyecto", "FechaEntrada", "CantidadIngresada", "NombreTipoBodega");  
+        var $select_column = array("entrada.ID_Entrada", "NombreMaterial","material.ID_Material", "NombreTipoMaterial", "NombreProyecto", "FechaEntrada", "entrada.CantidadIngresada", "NombreTipoBodega");  
+        var $order_column = array("entrada.ID_Entrada", "NombreMaterial","material.ID_Material", "NombreTipoMaterial", "NombreProyecto", "FechaEntrada", "entrada.CantidadIngresada", "NombreTipoBodega");  
         var $wheree = "material.ID_TipoBodega = tipobodega.ID_TipoBodega AND tipomaterial.ID_TipoMaterial = material.ID_TipoMaterial AND entrada.ID_Proyecto = proyecto.ID_Proyecto AND entrada.ID_Entrada = detalleentrada.ID_Entrada AND material.ID_Material = detalleentrada.ID_Material";
       
       
@@ -258,8 +265,8 @@ class Bodega extends CI_Model {
     //ESTE ES EL SELECT DE LA TABLA PRINCIPAL DE SALIDA
 
     var $tablasalida = array("detallesalida","tipomaterial","tipobodega","material","proyecto", "salida");  
-    var $select_columnasalida = array("material.ID_Material", "NombreMaterial", "NombreTipoMaterial", "NombreProyecto", "FechaSalida", "salida.CantidadSalida", "NombreTipoBodega");  
-    var $order_columnasalida = array("ID_Material", "NombreMaterial", "NombreTipoMaterial", "NombreProyecto", "FechaSalida", "salida.CantidadSalida", "NombreTipoBodega");  
+    var $select_columnasalida = array("salida.ID_Salida", "NombreMaterial", "material.ID_Material", "NombreTipoMaterial", "NombreProyecto", "FechaSalida", "salida.CantidadSalida", "NombreTipoBodega");  
+    var $order_columnasalida = array("salida.ID_Salida", "NombreMaterial", "material.ID_Material", "NombreTipoMaterial", "NombreProyecto", "FechaSalida", "salida.CantidadSalida", "NombreTipoBodega");  
     var $wheresalida = "material.ID_TipoBodega = tipobodega.ID_TipoBodega AND material.ID_TipoMaterial = tipomaterial.ID_TipoMaterial AND material.ID_Material = detallesalida.ID_Material AND detallesalida.ID_Salida = salida.ID_Salida AND salida.ID_Proyecto = proyecto.ID_Proyecto";
   
   
@@ -271,7 +278,7 @@ class Bodega extends CI_Model {
        if(isset($_POST["search"]["value"]) && $_POST["search"]["value"] != '')  
        {  
             $this->db->like("NombreMaterial", $_POST["search"]["value"]);  
-            $this->db->or_like("CantidadSalida", $_POST["search"]["value"]);  
+            //$this->db->or_like("CantidadSalida", $_POST["search"]["value"]);  
        }  
        if(isset($_POST["order"]))  
        {  
