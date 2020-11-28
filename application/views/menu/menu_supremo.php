@@ -116,6 +116,10 @@ if (isset($set_data['nombre_completo'])) {
             </ul>          
           </li>
 
+
+
+
+
           <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 55)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 55)){echo "active"; }?>">
               <i class="nav-icon fas fa-truck-pickup"></i>
@@ -126,7 +130,7 @@ if (isset($set_data['nombre_completo'])) {
             </a>
             <ul class="nav nav-treeview">
             <li class="nav-item">
-                <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
+                <a href="<?php echo base_url()?>CRvehiculo" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Registrar Vehiculo</p>
                 </a>

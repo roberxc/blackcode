@@ -47,6 +47,7 @@ class Operacion extends CI_Controller {
 			$data ['activo'] = 3;
 			//Lista de trabajos realizados
 			$data ['trabajos_realizados'] = $this->OperacionesModel->ObtenerTrabajosRealizados();
+			
 			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('TrabajoDiario/TrabajoDiario',$data);
@@ -163,6 +164,10 @@ class Operacion extends CI_Controller {
 		$detalle_trabajo = $this->OperacionesModel->ObtenerDetalleTrabajo($ajax_data['codigo_servicio']);
 
 		$materiales_bodega = $this->OperacionesModel->ObtenerMaterialesBodega($ajax_data['codigo_servicio']);
+
+		$gastos_combustible = $this->OperacionesModel->ObtenerGastosCombustibles($ajax_data['codigo_servicio']);
+
+		$gasto_total = $this->OperacionesModel->obtenerGastoTotal($ajax_data['codigo_servicio']);
 
 		$response = "<div class='card card-default'>";
 		$response .= "<div class='modal-body'>";
@@ -291,12 +296,12 @@ class Operacion extends CI_Controller {
 		$response .= "</tr>";
 		$response .= "</thead>";
 		$response .= "<tbody>";
-
-		$response .= "<tr>";
-		$response .= "<th>Petroleo</th>";
-		$response .= "<td>$1043</td>";
-		$response .= "</tr>";
-		
+		foreach($gastos_combustible as $row){
+			$response .= "<tr>";
+			$response .= "<th>".$row->Nombre."</th>";
+			$response .= "<td>".$row->Valor."</td>";
+			$response .= "</tr>";
+		}
 		$response .= "</tbody>";
 		$response .= "</table>";
 		$response .= "</div>";
@@ -317,7 +322,7 @@ class Operacion extends CI_Controller {
 		foreach($gastosvarios_registrados as $row){ 
 			$response .= "<tr>";
 			$response .= "<th>".$row->Nombre."</th>";
-			$response .= "<td>".$row->Valor."</td>";
+			$response .= "<td> $".$row->Valor."</td>";
 			$response .= "</tr>";
 		}
 
@@ -334,7 +339,9 @@ class Operacion extends CI_Controller {
 		$response .= "<div class='form-group'>";
 		$response .= "<label>Gasto total</label>";
 		$response .= "<div class='form-group'>";
-		$response .= "<input type='text' class='form-control' disabled>";
+		foreach($gasto_total as $row){ 
+			$response .= "<input type='text' class='form-control' value='$".$row->Valor."' disabled>";
+		}
 		$response .= "</div>";
 		$response .= "</div>";
 		$response .= "</div>";
@@ -357,9 +364,8 @@ class Operacion extends CI_Controller {
 
 	public function obtenerAsistenciaPlanilla(){
 		$ajax_data = $this->input->post(); //Datos que vienen por POST
-		
 		$asistencia_planilla = $this->OperacionesModel->ObtenerAsistenciaPlanilla($ajax_data['codigo_servicio']);
-		
+
 		$response = "<div class='table-responsive'>";
 		$response .= "<table class='table table-bordered'>";
 		$response .= "<tr>";
@@ -402,6 +408,62 @@ class Operacion extends CI_Controller {
 			$response .= "</td>";
 			$response .= "<td>";
 			$response .= $row->HorasExtras;
+			$response .= "</td>";
+			$response .= "</tr>";
+		}
+		$response .= "</tbody>";
+		$response .= "</table>";
+		$response .= "</div>";
+
+		$data = array('response' => 'success', 'planilla' => $response);
+
+
+		echo json_encode($data);
+	}
+
+	public function download($id){
+        if(!empty($id)){
+            //load download helper
+            $this->load->helper('download');
+            
+            //get file info from database
+			$fileInfo = $this->OperacionesModel->getRows(array('id' => $id));
+            
+            //file path
+			$file ='ArchivosSubidos/'.$fileInfo['Imagen'];
+		
+            
+            //download file from directory
+            force_download($file, NULL);
+        }
+    }
+
+	public function DescargarArchivos(){
+		$ajax_data = $this->input->post(); //Datos que vienen por POST
+		
+		$archivos_subidos = $this->OperacionesModel->ObtenerArchivosSubidos($ajax_data['codigo_servicio']);
+		
+		$response = "<div class='table-responsive'>";
+		$response .= "<table class='table table-bordered'>";
+		$response .= "<tr>";
+		$response .= "<td>";
+		$response .= "<label>Archivos</label>";
+		$response .= "</td>";
+		$response .= "<td>";
+		$response .= "<label>Descarga</label>";
+		$response .= "</td>";	
+		$response .= "</tr>";
+		$response .= "<tbody>";
+		foreach($archivos_subidos as $row){ 
+			$response .= "<tr>";
+			$response .= "<td>";
+			
+			$response .= "<input type='text' value='$row->Imagen' class='form-control nombreArchivo' />";
+			$response .= "</td>";
+			$response .= "<td>";
+			$response .= "<div class='btn-group btn-group-sm' >";
+			$response .= "<a class='btn btn-info' href=".base_url().'Operacion/download/'.$row->ID."?><i class='fas fa-eye'></i></a>";
+			$response .= "</div>";
 			$response .= "</td>";
 			$response .= "</tr>";
 		}

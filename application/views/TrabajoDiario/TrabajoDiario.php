@@ -39,7 +39,7 @@
                   <div class="form-group">
                      <label>Codigo servicio</label>
                      <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Ingrese">
+                        <input type="text" class="form-control" placeholder="Ingrese" id="codigoservicio_filtro" format="y-m-d">
                      </div>
                   </div>
                   <!-- /.form-group -->
@@ -48,12 +48,8 @@
                   <!-- /.form-group -->
                   <div class="form-group">
                      <label>Fecha</label>
-                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
-                        <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                           <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
-                     </div>
+                        <input type="date" class="form-control datetimepicker-input" data-target="#reservationdate" id="fecha_filtro"/>
+                     
                   </div>
                   <!-- /.form-group -->
                </div>
@@ -61,7 +57,7 @@
                   <!-- /.form-group -->
                   <div class="form-group">
                      <label class="invisible">Listar</label>
-                     <button type="button" class="btn btn-block btn-primary">Listar</button>
+                     <button type="button" class="btn btn-block btn-primary" id="listar_trabajosrealizados">Listar</button>
                   </div>
                   <!-- /.form-group -->
                </div>
@@ -75,7 +71,7 @@
    <section class="content">
       <div class="card">
          <div class="card-body p-0">
-            <table class="table table-striped projects">
+            <table class="table table-striped projects" id="tabla_trabajosrealizados">
                <thead>
                   <tr>
                      <th style="width: 15%">
@@ -102,7 +98,7 @@
                   ?>
                   <tr>
                      <td>
-                        <input type="text" value="<?php echo $row->CodigoServicio?>" class="form-control name-file" />
+                        <input type="text" value="<?php echo $row->CodigoServicio?>" class="form-control name-file" disabled/>
                      </td>
                      <td>
                         <?php echo $row->FechaTrabajo?>
@@ -114,18 +110,15 @@
                         <?php echo $row->PersonalCargo?>
                      </td>
                      <td class="project-actions text-right">
-                        <button class="btn btn-primary btn-sm" id="detalle_trabajo" data-toggle="modal"
-                           data-target="#modal-detalle">
+                        <button class="btn btn-primary btn-sm" id="detalle_trabajo" data-toggle="modal" data-target="#modal-detalle">
                         <i class="far fa-eye">
                         </i>
                         </button>
-                        <button class="btn btn-info btn-sm" id="detalle_archivos" data-toggle="modal"
-                           data-target="#modal-archivos">
+                        <button class="btn btn-info btn-sm" id="detalle_archivos" data-toggle="modal" data-target="#modal-archivos">
                         <i class="fas fa-upload">
                         </i>
                         </button>
-                        <button class="btn btn-info btn-sm" id="detalle_asistencia" data-toggle="modal"
-                           data-target="#modal-asistencia">
+                        <button class="btn btn-info btn-sm" id="detalle_asistencia" data-toggle="modal"data-target="#modal-asistencia">
                         <i class="fas fa-book-open">
                         </i>
                         </button>
@@ -196,52 +189,9 @@
             </div>
             <div class="card card-info">
                <div class="card-body p-0">
-                  <table class="table">
-                     <thead>
-                        <tr>
-                           <th>Archivo</th>
-                           <th></th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <td>Functional-requirements.docx</td>
-                           <td class="text-right py-0 align-middle">
-                              <div class="btn-group btn-group-sm">
-                                 <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                 <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                              </div>
-                           </td>
-                        <tr>
-                           <td>UAT.pdf</td>
-                           <td class="text-right py-0 align-middle">
-                              <div class="btn-group btn-group-sm">
-                                 <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                              </div>
-                           </td>
-                        <tr>
-                           <td>Email-from-flatbal.mln</td>
-                           <td class="text-right py-0 align-middle">
-                              <div class="btn-group btn-group-sm">
-                                 <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                              </div>
-                           </td>
-                        <tr>
-                           <td>Logo.png</td>
-                           <td class="text-right py-0 align-middle">
-                              <div class="btn-group btn-group-sm">
-                                 <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                              </div>
-                           </td>
-                        <tr>
-                           <td>Contract-10_12_2014.docx</td>
-                           <td class="text-right py-0 align-middle">
-                              <div class="btn-group btn-group-sm">
-                                 <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                              </div>
-                           </td>
-                     </tbody>
-                  </table>
+
+               <div class="modal-body" id="descargar-documento">
+               
                </div>
                <!-- /.card-body -->
             </div>
