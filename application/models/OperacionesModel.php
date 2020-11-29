@@ -13,6 +13,29 @@ class OperacionesModel extends CI_Model {
     	return $query->result();
 	}
 
+	public function getPersonal($rut, $name){
+		$query = $this->db
+				->select('Rut, NombreCompleto')
+				->from ('personal')
+				->where("Rut LIKE ' $rut '%")
+				->get();
+		return $query->result_array();
+	}
+
+	function fetch_data($query){
+		$this->db->like('Rut', $query);
+		$query = $this->db->get('personal');
+		if($query->num_rows() > 0){
+			foreach($query->result_array() as $row){
+				$output[] = array(
+					'name'  => $row["NombreCompleto"],
+					'rut'  => $row["Rut"]
+				);
+			}
+			echo json_encode($output);
+		}
+	}
+
 	public function ObtenerTiposCombustibles(){
 		$names = array('Bencina', 'Petroleo');
 		$this->db->select('NombreTipoGasto, ID_TipoGasto');
@@ -429,6 +452,8 @@ class OperacionesModel extends CI_Model {
 			$nombre = $lista_nombres[$count];
 
 			if(!empty($rut) && !empty($nombre)){
+
+
 				//$query .= 'INSERT INTO personal (Rut,NombreCompleto,ID_TrabajoDiario) VALUES ("'.$rut.'", "'.$nombre.'", "'.$id_trabajodiario.'");';
 				$insert_data[] = array(
 					'Rut' => $rut,
@@ -441,6 +466,17 @@ class OperacionesModel extends CI_Model {
 		
 
 		return  $this->db->insert_batch('personal',$insert_data);
+	}
+
+	public function siExistePersonal($rut){
+		$this->db->where('Rut',$key);
+		$query = $this->db->get('personal');
+		if ($query->num_rows() > 0){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	public function registrarAsistenciaPersonal($data){
@@ -509,6 +545,8 @@ class OperacionesModel extends CI_Model {
 						);
 					}else{
 						//Si hay horas extras	
+						$timestamp = strtotime($horaextras);
+						$mihoraextra = date('h', $timestamp);
 						$insert_data[] = array(
 							'Fecha_Asistencia' => $fechaactual,
 							'HoraLlegadaM'=> $asistencia_mentrada,
@@ -517,7 +555,7 @@ class OperacionesModel extends CI_Model {
 							'HoraSalidaT'=> $asistencia_tsalida,
 							'ID_Personal'=> $asistencia_idpersonal,
 							'HorasTrabajadas'=> $horastotales,
-							'HorasExtras'=> $horaextras,
+							'HorasExtras'=> $mihoraextra,
 						);
 					}
 				}
@@ -1092,7 +1130,7 @@ class OperacionesModel extends CI_Model {
 
 	public function ObtenerAsistenciaPlanilla($codigoservicio){
 		$query = $this->db
-				->select("a.Fecha_Asistencia AS Fecha, a.HoraLlegadaM AS LlegadaM, a.HoraSalidaM AS SalidaM, a.HoraLlegadaT AS LlegadaT, a.HoraSalidaT AS SalidaT, p.NombreCompleto AS NombreCompleto, a.HorasTrabajadas AS HorasTrabajadas, a.HorasExtras AS HorasExtras") # También puedes poner * si quieres seleccionar todo
+				->select("p.Rut AS Rut,a.Fecha_Asistencia AS Fecha, a.HoraLlegadaM AS LlegadaM, a.HoraSalidaM AS SalidaM, a.HoraLlegadaT AS LlegadaT, a.HoraSalidaT AS SalidaT, p.NombreCompleto AS NombreCompleto, a.HorasTrabajadas AS HorasTrabajadas, a.HorasExtras AS HorasExtras") # También puedes poner * si quieres seleccionar todo
 				->from("trabajodiario t")
 				->join("codigoservicio c", "c.ID_Codigo = t.ID_Codigo")
 				->join("personal p", "p.ID_TrabajoDiario = t.ID_TrabajoDiario")
@@ -1143,7 +1181,65 @@ class OperacionesModel extends CI_Model {
         }
         //return fetched data
         return $result;
-    }
+	}
+	
+	public function ObtenerHorasExtrass($rutpersonal,$fechainicio,$fechafin){
+		$query = $this->db
+				->select("p.Rut AS Rut, p.NombreCompleto AS Nombre, a.HorasExtras AS HorasExtras") # También puedes poner * si quieres seleccionar todo
+				->from("asistencia a")
+				->join("personal p", "a.ID_Personal = p.ID_Personal")
+				->where("p.Rut", $rutpersonal)
+				->get();
+		
+		return $query->result();
+	}
+
+	public function ObtenerHorasExtrasSegunFecha($rutpersonal,$fecha){
+		$query = $this->db
+				->select("SUM(a.HorasExtras) AS TotalHoras,p.Rut AS Rut, p.NombreCompleto AS Nombre") # También puedes poner * si quieres seleccionar todo
+				->from("asistencia a")
+				->join("personal p", "a.ID_Personal = p.ID_Personal")
+				->where('DATE(a.Fecha_Asistencia) IN ('.$fecha.')')
+				->where("p.Rut", $rutpersonal)
+				->get();
+
+		return $query->result();
+	}
+
+	public function ObtenerHorasExtras($rutpersonal,$fechainicial,$fechatermino){
+		// Declare an empty array 
+		$arraydias = array(); 
+		$pos = strpos($fechainicial, $fechatermino);
+		if($pos === false){
+			// Variable that store the date interval 
+			// of period 1 day 
+			$interval = new DateInterval('P1D'); 
+		
+			$realEnd = new DateTime($fechatermino); 
+			$realEnd->add($interval); 
+		
+			$period = new DatePeriod(new DateTime($fechainicial), $interval, $realEnd); 
+			
+			// Use loop to store date into array 
+			$format = 'y-m-d';
+			foreach($period as $date) {                  
+				$fecha = $date->format($format);
+				$arraydias [] = $fecha;
+			} 
+   
+			$week_array_ = $arraydias; 
+			//$week_array_ = ["2020-07-06","2020-07-07"]
+			$string = "'" . implode("','", $arraydias) . "'";
+			//string = "'2020-07-01','2020-07-02','2020-07-03','2020-07-04'"...
+			
+		}else{
+			$string = "";
+		}
+		
+		$data  = $this->ObtenerHorasExtrasSegunFecha($rutpersonal,$string);
+		return $data;
+	}
+	
 
 }
 

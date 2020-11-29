@@ -64,8 +64,8 @@ if (isset($set_data['nombre_completo'])) {
             </ul>
           </li>
 
-          <li class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 2)){echo "menu-open"; }?>">
-            <a href="#" class="nav-link <?php if(isset($activomenu) && ($activomenu == 2)){echo "active"; }?>">
+          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 9)){echo "menu-open"; }?>">
+            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 9)){echo "active"; }?>">
               <i class="nav-icon fas fa-building"></i>
               <p>
                 Bodega
@@ -74,7 +74,7 @@ if (isset($set_data['nombre_completo'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url()?>Operacion/stockBodega" class="nav-link <?php if(isset($activo) && ($activo == 9)){echo "active"; }?>">
+                <a href="<?php echo base_url()?>Stock/stockTrabajador" class="nav-link <?php if(isset($activo) && ($activo == 9)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Productos</p>
                 </a>

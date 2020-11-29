@@ -22,7 +22,9 @@
       <meta property="og:type" content="article" />
       <!-- Website Title -->
       <title>Bienvenido</title>
-      <!-- Styles -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.min.css" integrity="sha512-9h7XRlUeUwcHUf9bNiWSTO9ovOWFELxTlViP801e5BbwNJ5ir9ua6L20tEroWZdm+HFBAWBLx2qH4l4QHHlRyg==" crossorigin="anonymous" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" />
+	<!-- CSS file -->
       <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,600,700,700i&amp;subset=latin-ext" rel="stylesheet">
       <link href="assets/css/bootstrap.css" rel="stylesheet">
       <link href="assets/css/fontawesome-all.css" rel="stylesheet">
@@ -30,6 +32,7 @@
       <link href="assets/css/magnific-popup.css" rel="stylesheet">
       <link href="assets/css/styles.css" rel="stylesheet">
       <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
    </head>
    <body data-spy="scroll" data-target=".fixed-top">
    <?php $set_data = $this->session->all_userdata(); 
@@ -206,8 +209,8 @@ if (isset($set_data['nombre_completo'])) {
                            <TH></TH>
                         </TR>
                         <tr>
-                           <TD><input type="text" id="item_rut" placeholder="Ingrese" class="form-control" /></TD>
-                           <TD><input type="text" id="item_nombre" placeholder="Ingrese" class="form-control" /></TD>
+                           <TD><input type="text" data-field-name="rut" id="item_rut" class="form-control autocomplete_txt" autocomplete="off"/></TD>
+                           <TD><input type="text" data-field-name="nombre" id="item_nombre" class="form-control autocomplete_txt" autocomplete="off"/></TD>
                            <TD><button type="button" name="add" id="agregarTrabajador" class="btn btn-success">+</button></TD>
                         </tr>
                      </table>
@@ -241,14 +244,51 @@ if (isset($set_data['nombre_completo'])) {
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
       <script type="text/javascript" src="<?php echo base_url()?>assets/js/PersonalAsistencia.js"></script>
       <!-- Scripts -->
-      <script src="assets/js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
-      <script src="assets/js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
-      <script src="assets/js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
-      <script src="assets/js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
-      <script src="assets/js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
-      <script src="assets/js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
-      <script src="assets/js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
-      <script src="assets/js/scripts.js"></script> <!-- Custom scripts -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+      <script src="<?php echo base_url()?>assets/js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
+      <script src="<?php echo base_url()?>assets/js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+      <script src="<?php echo base_url()?>assets/js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
+      <script src="<?php echo base_url()?>assets/js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
+      <script src="<?php echo base_url()?>assets/js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+      <script src="<?php echo base_url()?>assets/js/scripts.js"></script> <!-- Custom scripts -->
       <script src="<?php echo base_url()?>assets/js/Operaciones/ingreso_planilla.js"></script>
+
+      <script>var base_url = '<?php echo base_url();?>';</script>
+
+      <!-- JS file -->
+      <script type='text/javascript'>
+         $(document).ready(function(){
+         
+            $( "#item_rutt" ).autocomplete({
+               source: function( request, response ) {
+               // Fetch data
+               $.ajax({
+                  url: "<?=base_url()?>Operacion/getPersonal",
+                  type: 'post',
+                  dataType: "json",
+                  data: {
+                     rut: request.term
+                  },
+                  success: function( data ) {
+                     response( data );
+                  },
+                  error: function(data){
+                     console.log('error');
+                  },
+                  });
+                  },
+                  select: function (event, ui) {
+                     // Set selection
+
+                     $('#item_rut').val(ui.item.label); // display the selected text
+                     $('#item_nombre').val(ui.item.value); // save selected id to input
+
+                  return false;
+               }
+            });
+
+         });
+      </script>
    </body>
 </html>

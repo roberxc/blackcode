@@ -245,7 +245,7 @@
                            
                            ?>
                         <div class="button-wrapper">
-                           <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#bodega<?php echo $materialantes_estado;?>"><?php echo $res;?></a>
+                           <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#bodega<?php echo $materialbodega_estado;?>"><?php echo $res;?></a>
                         </div>
                      </div>
                   </div>

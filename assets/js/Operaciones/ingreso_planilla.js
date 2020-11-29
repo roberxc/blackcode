@@ -134,5 +134,67 @@ $("#validar-iniciotrabajo").on('click', function(event){
     
 });
 
+/*
+$(document).ready(function(){
+
+    function registerEvents(){
+        alert('asd');
+        $(document).on('focus','.autocomplete_txt',handleAutocomplete);
+    }
+
+    registerEvents();
+
+    var fieldName , currentEle;
+    currentEle = $(this);
+
+    fieldName = currentEle.data('field-name');
+    if(typeof fieldName === 'undefined'){
+        return false;
+    }
+    currentEle.autocomplete({
+
+        source: function(data, cb){
+
+            $.ajax({
+                url: base_url+"Operacion/getPersonal",
+                method: 'GET',
+                dataType: "json",
+                data: {
+                    name: data.term,
+                    fieldName: fieldName
+                },
+                success: function(res) {
+                    var result;
+                    result = [
+                        {
+                            label: 'No hay datos para ' + data.item,
+                            value: ''
+                        }
+                    ];
+                    console.log("before formart", res);
+                    if(res.length){
+                        result = $.map(res, function(obj){
+
+                            return {
+                                label: obj[fieldName],
+                                value: obj[fieldName],
+                                data : obj
+                            };
+                        });
+                        console.log('After formart', result);
+                        cb(result);
+                    }
+
+                }
+
+            });
+
+        }
+
+    });
+
+});
+*/
+
 
 

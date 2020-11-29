@@ -17,6 +17,7 @@ class Operacion extends CI_Controller {
 		$data ['dispositivo'] = 'Mobil';
 		$data ['tipos_trabajos'] = $this->OperacionesModel->ObtenerTipostrabajos();
 		
+		
 		$this->load->view('Trabajador/index',$data);
 
 				/*
@@ -35,6 +36,16 @@ class Operacion extends CI_Controller {
 		}*/
 	}
 
+	public function getPersonal(){
+
+		$name = $this->input->get('name');
+		$fieldName = $this->input->get('fieldName');
+		$personal = $this->OperacionesModel->getPersonal($name,$fieldName);
+
+		echo json_encode($personal);exit;
+
+	}
+
 	public function ModificarPlanilla(){
 		$data ['tipos_trabajos'] = $this->OperacionesModel->ObtenerTipostrabajos();
 		$this->load->view('Trabajador/planilla_modificacion',$data);
@@ -44,7 +55,7 @@ class Operacion extends CI_Controller {
 	{
 		$set_data = $this->session->all_userdata();
 		if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
-			$data ['activo'] = 3;
+			$data ['activo'] = 30;
 			//Lista de trabajos realizados
 			$data ['trabajos_realizados'] = $this->OperacionesModel->ObtenerTrabajosRealizados();
 			
@@ -370,6 +381,9 @@ class Operacion extends CI_Controller {
 		$response .= "<table class='table table-bordered'>";
 		$response .= "<tr>";
 		$response .= "<td>";
+		$response .= "<label></label>";
+		$response .= "</td>";
+		$response .= "<td>";
 		$response .= "<label>Fecha Asistencia</label>";
 		$response .= "</td>";
 		$response .= "<td>";
@@ -387,10 +401,16 @@ class Operacion extends CI_Controller {
 		$response .= "<td>";
 		$response .= "<label>Horas extras</label>";
 		$response .= "</td>";
+		$response .= "<td>";
+		$response .= "<label></label>";
+		$response .= "</td>";
 		$response .= "</tr>";
 		$response .= "<tbody>";
 		foreach($asistencia_planilla as $row){ 
 			$response .= "<tr>";
+			$response .= "<td>";
+			$response .= "<input type='hidden' value='$row->Rut' class='form-control rutPersonal' disabled/>";
+			$response .= "</td>";
 			$response .= "<td>";
 			$response .= $row->Fecha;
 			$response .= "</td>";
@@ -408,6 +428,12 @@ class Operacion extends CI_Controller {
 			$response .= "</td>";
 			$response .= "<td>";
 			$response .= $row->HorasExtras;
+			$response .= "</td>";
+			$response .= "<td>";
+			$response .= "<button class='btn btn-info btn-sm' id='boton-horasextras' data-toggle='modal' data-target='#modal-horasextras'>";
+			$response .= "<i class='fas fa-exclamation-circle'>";
+			$response .= "</i>";
+			$response .= "</button>";
 			$response .= "</td>";
 			$response .= "</tr>";
 		}
@@ -458,7 +484,7 @@ class Operacion extends CI_Controller {
 			$response .= "<tr>";
 			$response .= "<td>";
 			
-			$response .= "<input type='text' value='$row->Imagen' class='form-control nombreArchivo' />";
+			$response .= "<input type='text' value='$row->Imagen' class='form-control nombreArchivo' disabled/>";
 			$response .= "</td>";
 			$response .= "<td>";
 			$response .= "<div class='btn-group btn-group-sm' >";
@@ -472,6 +498,48 @@ class Operacion extends CI_Controller {
 		$response .= "</div>";
 
 		$data = array('response' => 'success', 'planilla' => $response);
+
+
+		echo json_encode($data);
+	}
+
+	public function obtenerHoraExtrasPersonal(){
+		$ajax_data = $this->input->post(); //Datos que vienen por POST
+		
+		$horas_extras = $this->OperacionesModel->ObtenerHorasExtras($ajax_data['rut_personal'],$ajax_data['fecha_inicio'],$ajax_data['fecha_fin']);
+		
+		$response = "<div class='table-responsive'>";
+		$response .= "<table class='table table-bordered'>";
+		$response .= "<tr>";
+		$response .= "<td>";
+		$response .= "<label>Rut</label>";
+		$response .= "</td>";
+		$response .= "<td>";
+		$response .= "<label>Nombre</label>";
+		$response .= "</td>";
+		$response .= "<td>";
+		$response .= "<label>Total horas extras</label>";
+		$response .= "</td>";	
+		$response .= "</tr>";
+		$response .= "<tbody>";
+		foreach($horas_extras as $row){ 
+			$response .= "<tr>";
+			$response .= "<td>";
+			$response .= $row->Rut;
+			$response .= "</td>";
+			$response .= "<td>";
+			$response .= $row->Nombre;
+			$response .= "</td>";
+			$response .= "<td>";
+			$response .= "<input type='text' value='$row->TotalHoras' class='form-control nombreArchivo' disabled/>";
+			$response .= "</td>";
+			$response .= "</tr>";
+		}
+		$response .= "</tbody>";
+		$response .= "</table>";
+		$response .= "</div>";
+
+		$data = array('response' => 'success', 'horas' => $response);
 
 
 		echo json_encode($data);

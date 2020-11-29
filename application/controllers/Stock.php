@@ -17,6 +17,24 @@ class Stock extends CI_Controller
 		$this->load->view('layout/footer');
     }
 
+    public function stockAdministracion()
+    {
+        $data ['activo'] = 9;
+		$this->load->view('layout/nav');
+		$this->load->view('menu/menu_supremo',$data);
+		$this->load->view('Bodega/Stock');
+		$this->load->view('layout/footer');
+    }
+
+    public function stockTrabajador()
+    {
+        $data ['activo'] = 9;
+        $this->load->view('layout/nav');
+		$this->load->view('menu/menu_trabajador',$data);
+		$this->load->view('Bodega/Stock');
+		$this->load->view('layout/footer');
+    }
+
     
     //MOSTRAR TODOS LOS DATOS PRINCIPAL
 

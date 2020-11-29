@@ -44,7 +44,7 @@ $(document).on('click', '#detalle_archivos', function(e) {
     });
 
 });
-
+//Boton de descargar archivos
 $(document).on('click', '#descargar', function(e) {
     e.preventDefault();
     var name = $(this).parents('tr').find(".nombreArchivo").val();
@@ -68,6 +68,42 @@ $(document).on('click', '#descargar', function(e) {
         }
     });
 
+});
+
+//Boton de horas extras
+$(document).on('click', '#boton-horasextras', function(e) {
+    e.preventDefault();
+    var rutpersonal = $(this).parents('tr').find(".rutPersonal").val();
+    document.getElementById("rut_filtro").value = rutpersonal;
+    
+});
+
+//Filtrar por horas extras
+$(document).on('click', '#boton-filtrohorasextras', function(e) {
+    e.preventDefault();
+    var rutfiltro = $("#rut_filtro").val();
+    var startDate = $('#date_range').data('daterangepicker').startDate.format('DD-MM-YYYY');
+    var endDate = $('#date_range').data('daterangepicker').endDate.format('DD-MM-YYYY');
+    $.ajax({
+        url: base_url+"Operacion/obtenerHoraExtrasPersonal",
+        type: "post",
+        dataType: "json",
+        data: {
+            rut_personal: rutfiltro,
+            fecha_inicio: startDate,
+            fecha_fin: endDate
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                // Add response in Modal body
+                $('#horas-extras').html(data.horas);
+                // Display Modal
+                 //$('#detalle-trabajo').modal('show');
+            } else {
+                
+            }
+        }
+    });
 });
 
 $('#codigoservicio_filtro').keyup(function(){

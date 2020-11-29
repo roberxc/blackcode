@@ -222,10 +222,6 @@ $(document).on('click', '#updatematerialbodega', function(e) {
         item_materialid.push($(this).val());
     });
 
-    console.log('ID: '+item_materialid);
-    console.log('Material: '.item_material);
-    console.log('Cantidad: '.item_cantidad);
-
     $.ajax({
         url: base_url+"PlantillaOperaciones/actualizarMaterialesBodega",
         type: "post",
@@ -394,7 +390,6 @@ $(document).on('click', '#addgastos_varios0', function(e) {
 //Ingreso de gastos varios
 $(document).on('click', '#addgastos_combustible0', function(e) {
     e.preventDefault();
-    alert('Combustible');
     //Obtencion del codigo de servicio
     var codigoservicio = $("#codigo_servicio").val();
     var idgasto = $("#id_tipogasto").val();
