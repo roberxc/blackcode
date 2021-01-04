@@ -22,8 +22,7 @@
       <meta property="og:type" content="article" />
       <!-- Website Title -->
       <title>Bienvenido</title>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.min.css" integrity="sha512-9h7XRlUeUwcHUf9bNiWSTO9ovOWFELxTlViP801e5BbwNJ5ir9ua6L20tEroWZdm+HFBAWBLx2qH4l4QHHlRyg==" crossorigin="anonymous" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" />
+      <link rel="stylesheet" href="<?php echo base_url();?>assets/js/test/css/jquery-ui.css"/>
 	<!-- CSS file -->
       <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,600,700,700i&amp;subset=latin-ext" rel="stylesheet">
       <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -209,8 +208,8 @@ if (isset($set_data['nombre_completo'])) {
                            <TH></TH>
                         </TR>
                         <tr>
-                           <TD><input type="text" data-field-name="rut" id="item_rut" class="form-control autocomplete_txt" autocomplete="off"/></TD>
-                           <TD><input type="text" data-field-name="nombre" id="item_nombre" class="form-control autocomplete_txt" autocomplete="off"/></TD>
+                           <TD><input type="text" name="rut" id="item_rut" class="form-control"/></TD>
+                           <TD><input type="text" name="nombre" id="item_nombre" class="form-control"/></TD>
                            <TD><button type="button" name="add" id="agregarTrabajador" class="btn btn-success">+</button></TD>
                         </tr>
                      </table>
@@ -245,7 +244,6 @@ if (isset($set_data['nombre_completo'])) {
       <script type="text/javascript" src="<?php echo base_url()?>assets/js/PersonalAsistencia.js"></script>
       <!-- Scripts -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
       <script src="<?php echo base_url()?>assets/js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
       <script src="<?php echo base_url()?>assets/js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
       <script src="<?php echo base_url()?>assets/js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
@@ -254,41 +252,25 @@ if (isset($set_data['nombre_completo'])) {
       <script src="<?php echo base_url()?>assets/js/scripts.js"></script> <!-- Custom scripts -->
       <script src="<?php echo base_url()?>assets/js/Operaciones/ingreso_planilla.js"></script>
 
+
+      <script src="<?php echo base_url()?>assets/js/test/js/jquery-ui.js"></script>
+
       <script>var base_url = '<?php echo base_url();?>';</script>
 
       <!-- JS file -->
-      <script type='text/javascript'>
-         $(document).ready(function(){
-         
-            $( "#item_rutt" ).autocomplete({
-               source: function( request, response ) {
-               // Fetch data
-               $.ajax({
-                  url: "<?=base_url()?>Operacion/getPersonal",
-                  type: 'post',
-                  dataType: "json",
-                  data: {
-                     rut: request.term
-                  },
-                  success: function( data ) {
-                     response( data );
-                  },
-                  error: function(data){
-                     console.log('error');
-                  },
-                  });
-                  },
-                  select: function (event, ui) {
-                     // Set selection
+      <script>
+         $(document).ready(function()
+         {
+            $("#item_rut").autocomplete({
+               source : "<?php echo site_url('Operacion/getPersonal') ?>",
 
-                     $('#item_rut').val(ui.item.label); // display the selected text
-                     $('#item_nombre').val(ui.item.value); // save selected id to input
+               select: function(event, ui){
+               $('[name="rut"]').val(ui.item.label);
+               $('[name="nombre"]').val(ui.item.nama_mahasiswa);
 
-                  return false;
                }
             });
-
          });
-      </script>
+   </script>
    </body>
 </html>

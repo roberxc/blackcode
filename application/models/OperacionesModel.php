@@ -13,13 +13,9 @@ class OperacionesModel extends CI_Model {
     	return $query->result();
 	}
 
-	public function getPersonal($rut, $name){
-		$query = $this->db
-				->select('Rut, NombreCompleto')
-				->from ('personal')
-				->where("Rut LIKE ' $rut '%")
-				->get();
-		return $query->result_array();
+	public function getPersonal($rut){
+		$this->db->like('Rut', $rut, 'BOTH');
+		return $this->db->get('personal')->result();
 	}
 
 	function fetch_data($query){

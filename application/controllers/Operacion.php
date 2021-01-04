@@ -38,11 +38,17 @@ class Operacion extends CI_Controller {
 
 	public function getPersonal(){
 
-		$name = $this->input->get('name');
-		$fieldName = $this->input->get('fieldName');
-		$personal = $this->OperacionesModel->getPersonal($name,$fieldName);
-
-		echo json_encode($personal);exit;
+		if (isset($_GET['term'])) {
+			$result = $this->OperacionesModel->getPersonal($_GET['term']);
+			if (count($result) > 0) {
+			  foreach ($result as $row)
+			  $result_array[] = array(
+				  'label'=>$row->Rut,
+				  'nama_mahasiswa'=>strtoupper($row->NombreCompleto)
+				);
+			  echo json_encode($result_array);
+			}
+		}
 
 	}
 
