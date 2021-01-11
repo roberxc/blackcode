@@ -13,7 +13,7 @@ class Inicio extends CI_Controller {
 			$this->load->view('Dashboard/Inicio');
 			$this->load->view('layout/footer');
 		}else if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 3) {
-			$data ['activo'] = 1;
+			$data ['activo'] = 3;
 			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_bodeguero',$data);
 			$this->load->view('Dashboard/InicioBodeguero');
@@ -27,10 +27,15 @@ class Inicio extends CI_Controller {
 		}else if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 4) {
 			$data ['activo'] = 2;
 			$this->load->view('layout/nav');
+			$this->load->view('menu/menu_admin_personal',$data);
+			$this->load->view('Dashboard/InicioAdminPersonal');
+			$this->load->view('layout/footer');
+
+		}else if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 5) {
+			$data ['activo'] = 2;
+			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_proyecto',$data);
 			$this->load->view('Dashboard/InicioProyecto');
 			$this->load->view('layout/footer');
-			
-		}
 	}
 }

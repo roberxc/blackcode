@@ -38,8 +38,8 @@ if (isset($set_data['nombre_completo'])) {
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 3)){echo "menu-open"; }?>">
-            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 3)){echo "active"; }?>">
+          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 30)){echo "menu-open"; }?>">
+            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 30)){echo "active"; }?>">
               <i class="nav-icon fas fa-hammer"></i>
               <p>
                 Trabajos Diarios
@@ -48,7 +48,7 @@ if (isset($set_data['nombre_completo'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url()?>Operacion/trabajoDiario" class="nav-link <?php if(isset($activo) && ($activo == 3)){echo "active"; }?>">
+                <a href="<?php echo base_url()?>Operacion/trabajoDiario" class="nav-link <?php if(isset($activo) && ($activo == 30)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Trabajos realizados</p>
                 </a>
@@ -75,6 +75,30 @@ if (isset($set_data['nombre_completo'])) {
                 <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Costos fijos</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 11)){echo "menu-open"; }?>">
+            <a href="#" class="nav-link <?php if(isset($activomenu) && ($activomenu == 11)){echo "active"; }?>">
+              <i class="nav-icon fas fa-book-open"></i>
+              <p>
+                Documentacion
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url()?>Documentacion/Permamente" class="nav-link <?php if(isset($activo) && ($activo == 8)){echo "active"; }?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Permamente</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url()?>Documentacion/Actualizable" class="nav-link <?php if(isset($activo) && ($activo == 12)){echo "active"; }?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Actualizable</p>
                 </a>
               </li>
             </ul>
@@ -172,14 +196,6 @@ if (isset($set_data['nombre_completo'])) {
                   <p>Registrar Usuario</p>
                 </a>
               </li>
-            
-
-              
-
-
-
-
-
             </ul>
 
             <ul class="nav nav-treeview">
