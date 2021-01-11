@@ -313,7 +313,7 @@ class Bodega extends CI_Model {
   }  
 
 
-    //ESTE ES EL SELECT DE LA TABLA PRINCIPAL DE SALIDA
+    //ESTE ES EL SELECT DE LA TABLA PRINCIPAL DE Stock
 
     var $tablaaa = array("material","tipomaterial","tipobodega");  
     var $select_columnaaa = array("material.ID_Material", "NombreMaterial", "NombreTipoMaterial","material.Stock", "NombreTipoBodega");  

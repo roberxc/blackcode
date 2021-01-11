@@ -272,10 +272,10 @@
                     <th>Proyecto</th>
                     <th>Fecha Inicio</th>
                     <th>Fecha Termino</th>
-                    <th>Estado</th>
+                  
                     <th>Detalle</th>
-                    <th>Editar</th>
-                    <th>Descargar</th>
+                    <!--<th>Editar</th>
+                    <th>Descargar</th>-->
 
                   </tr>
                   </thead>
@@ -285,71 +285,70 @@
                     <td>03/10/2020
                     </td>
                     <td>04/10/2020</td>
-                    <td>Terminado</td>
+                   
                     <td>
 
-                      <a class="btn btn-block btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                      data-target="#modal-lg">Ver detalle</a>
-
+                      <a class="btn btn-block btn-primary" href="<?php echo base_url();?>Proyecto/Planilla_Proyecto"  >Ver detalle</a>
+                      <!--<a class="btn btn-block btn-primary"  href="<?php echo base_url();?>Proyecto/Planilla_Proyecto"  >Ver detalle</a>-->
                     </td>
                     <td>
 
-                      <a class="btn btn-block btn-primary" href="<?php echo base_url()?>RegistroMateriales" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>"
-                      >Editar</a>
+                    <a class="btn btn-block btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                               data-target="#document">Documentación</a>
 
-                    </td>
+                    </td><!--
                     <td>
 
                       <a class="btn btn-block btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
                       data-target="#modal-lg4">Descargar</a>
 
-                    </td>
+                    </td>-->
 
                   </tr>
                   <tr>
                     <td>Proyecto 2</td>
                     <td>04/10/2020
                     </td>
-                    <td></td>
-                    <td>En proceso</td>
-                    <td>  <a class="btn btn-block btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                      data-target="#modal-lg">Ver detalle</a></td>
+                    <td>01/10/2021</td>
+              
+                    <td>  <a class="btn btn-block btn-primary" href="<?php echo base_url();?>Proyecto/Planilla_Proyecto" >Ver detalle</a></td>
+                  
                       <td>
 
-                        <a class="btn btn-block btn-primary" href="<?php echo base_url()?>RegistroMateriales" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>"
-                        >Editar</a>
+                      <a class="btn btn-block btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                               data-target="#document">Documentación</a>
 
-                      </td>
+                      </td><!--
                       <td>
 
                         <a class="btn btn-block btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
                         data-target="#modal-lg4">Descargar</a>
 
                       </td>
-
+-->
                   </tr>
                   <tr>
                     <td>Proyecto 3</td>
                     <td>06/10/2020
                     </td>
-                    <td></td>
-                    <td>En proceso</td>
+                    <td>02/10/2021</td>
+                  
                     <td>
-                      <a class="btn btn-block btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                      data-target="#modal-lg">Ver detalle</a></td>
+                      <a class="btn btn-block btn-primary" href="<?php echo base_url();?>Proyecto/Planilla_Proyecto" >Ver detalle</a></td>
+                    
                       <td>
 
-                        <a class="btn btn-block btn-primary" href="<?php echo base_url()?>RegistroMateriales" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>"
-                        >Editar</a>
+                        <a class="btn btn-block btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                               data-target="#document">Documentación</a>
 
-                      </td>
+                      </td><!--
                       <td>
 
                         <a class="btn btn-block btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
                         data-target="#modal-lg4">Descargar</a>
 
                       </td>
-
+-->
                   </tr>
                   </tbody>
 
@@ -376,6 +375,29 @@
 </div>
 <!-- ./wrapper -->
 
+ <!-- /.modal -->
+ <div class="modal fade" id="document">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Subir/Descargar documentos</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                <button type="button" class="btn btn-primary">Subir</button>
+                <button type="button" class="btn btn-primary">Ver documentacion</button>
+                </div>
+                <div class="modal-footer justify-content-between">
+                  <button type="button" class="btn btn-primary">Aceptar</button>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+<!-- Fin dialog -->
 
 <!-- Bootstrap 4 -->
 <script src="<?php echo base_url()?>assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
