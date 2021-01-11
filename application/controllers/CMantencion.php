@@ -12,8 +12,8 @@ class CMantencion extends CI_Controller {
 	{
 		$set_data = $this->session->all_userdata();
 		if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
-			$data ['activomenu'] = 2;
-			$data ['activo'] = 7;
+			$data ['activomenu'] = 20;
+			$data ['activo'] = 14;
 		$this->load->view('layout/nav');
 		$this->load->view('Administracion/VMantencion');
 		$this->load->view('menu/menu_supremo',$data);
