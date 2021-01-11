@@ -32,7 +32,7 @@ class Proyecto extends CI_Controller
 		$this->load->view('layout/footer');
     }
     
-    //MOostrar estado de todos los proyectos en ejecución a la vista de todos los usuarios
+    //Mostrar estado de todos los proyectos en ejecución a la vista de todos los usuarios
 
    public function fetch_data()
    {
@@ -43,11 +43,11 @@ class Proyecto extends CI_Controller
        foreach ($fetch_data as $value) {
 
            $sub_array      = array();
-           $sub_array[]    = $value->ID_Material;
-           $sub_array[]    = $value->NombreMaterial;
-           $sub_array[]    = $value->NombreTipoMaterial;
-           $sub_array[]    = $value->Stock;
-           $sub_array[]	   = $value->NombreTipoBodega;
+           $sub_array[]    = $value->id_proyectos;
+           $sub_array[]    = $value->Nombre;
+           $sub_array[]    = $value->Administrador;
+           $sub_array[]    = $value->Fecha_inicio;
+           $sub_array[]	   = $value->Fecha_termino;
            $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" >';
            $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" >';
           
@@ -55,8 +55,8 @@ class Proyecto extends CI_Controller
        }
        $output = array(
            "draw"                =>     intval($_POST["draw"]),
-           "recordsTotal"        =>     $this->proyecto_estado->get_all_data_estado(),
-           "recordsFiltered"     =>     $this->proyecto_estado->get_filtered_data_estado(),
+         //"recordsTotal"        =>     $this->proyecto_estado->get_all_data_estado(),
+          // "recordsFiltered"     =>     $this->proyecto_estado->get_filtered_data_estado(),
            "data"                =>     $data
        );
        echo json_encode($output);  

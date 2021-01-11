@@ -50,13 +50,13 @@ class Proyecto_Estado extends CI_Model {
      $query = $this->db->get();  
      return $query->num_rows();  
      }       
-     /*function get_all_data_estado()
+     function get_all_data_estado()
      {  
      $this->db->select($this->select_columnaaa);  
      $this->db->from($this->tablaaa);  
-     $this->db->where("material.ID_TipoBodega = tipobodega.ID_TipoBodega AND material.ID_TipoMaterial = tipomaterial.ID_TipoMaterial");
+    // $this->db->where("material.ID_TipoBodega = tipobodega.ID_TipoBodega AND material.ID_TipoMaterial = tipomaterial.ID_TipoMaterial");
      return $this->db->count_all_results();  
-     }  */
+     }  
   
 
 
