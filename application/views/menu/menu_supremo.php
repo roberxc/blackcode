@@ -80,6 +80,7 @@ if (isset($set_data['nombre_completo'])) {
             </ul>
           </li>
 
+
           <li class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 11)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activomenu) && ($activomenu == 11)){echo "active"; }?>">
               <i class="nav-icon fas fa-book-open"></i>
@@ -103,6 +104,7 @@ if (isset($set_data['nombre_completo'])) {
               </li>
             </ul>
           </li>
+
           <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 10)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 10)){echo "active"; }?>">
               <i class="nav-icon fas fa-poll"></i>
@@ -172,7 +174,10 @@ if (isset($set_data['nombre_completo'])) {
                 </a>
               </li>
               <li class="nav-item">
+
                 <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
+                <a href="<?php echo base_url()?>CMantencion" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
+
                   <i class="far fa-circle nav-icon"></i>
                   <p>Mantenciones</p>
                 </a>
@@ -196,6 +201,7 @@ if (isset($set_data['nombre_completo'])) {
                   <p>Registrar Usuario</p>
                 </a>
               </li>
+
             </ul>
 
             <ul class="nav nav-treeview">

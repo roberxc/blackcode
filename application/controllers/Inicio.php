@@ -24,6 +24,7 @@ class Inicio extends CI_Controller {
 			$this->load->view('menu/menu_trabajador',$data);
 			$this->load->view('Dashboard/InicioTrabajador');
 			$this->load->view('layout/footer');
+
 		}else if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 4) {
 			$data ['activo'] = 2;
 			$this->load->view('layout/nav');
@@ -37,5 +38,6 @@ class Inicio extends CI_Controller {
 			$this->load->view('menu/menu_proyecto',$data);
 			$this->load->view('Dashboard/InicioProyecto');
 			$this->load->view('layout/footer');
+		}
 	}
 }
