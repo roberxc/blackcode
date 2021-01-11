@@ -37,5 +37,6 @@ class Inicio extends CI_Controller {
 			$this->load->view('menu/menu_proyecto',$data);
 			$this->load->view('Dashboard/InicioProyecto');
 			$this->load->view('layout/footer');
+		}
 	}
 }
