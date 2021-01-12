@@ -15,7 +15,7 @@ class Bodega extends CI_Model {
           $datosMaterial['ID_TipoBodega'] = $post['tipobodega'];
           $datosMaterial['ID_TipoMaterial'] = $post['tipoproducto'];
           $datosMaterial['NombreMaterial'] = $post['nombreproducto'];
-          $datosMaterial['Stock'] = 0;
+          $datosMaterial['Stock'] = $post['cantidadentrada'];
           $datosMaterial['Detalle'] = $post['glosa'];
           
           $verificacion = $this->db->insert('material', $datosMaterial);
@@ -72,7 +72,7 @@ class Bodega extends CI_Model {
           $verificacion = $this->db->update('material');
           $datosdetallesalida = Array();
           $datosdetallesalida['ID_Material'] = $post['material'];
-          $datosdetallesalida['FechaSalida'] = Date("Y-m-d");
+          //$datosdetallesalida['FechaSalida'] = Date("Y-m-d");
           $this->db->insert('detallesalida', $datosdetallesalida);
           
             //TABLA SALIDA
