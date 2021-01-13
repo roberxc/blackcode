@@ -104,7 +104,7 @@ if (isset($set_data['nombre_completo'])) {
               </li>
             </ul>
           </li>
-
+          
           <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 10)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 10)){echo "active"; }?>">
               <i class="nav-icon fas fa-poll"></i>
@@ -123,6 +123,23 @@ if (isset($set_data['nombre_completo'])) {
             </ul>
           </li>
 
+          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 15)){echo "menu-open"; }?>">
+            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 15)){echo "active"; }?>">
+              <i class="nav-icon fas fa-receipt"></i>
+              <p>
+                Compras
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url()?>Administracion/OrdenesCompra" class="nav-link <?php if(isset($activo) && ($activo == 15)){echo "active"; }?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ordenes de compra</p>
+                </a>
+              </li>
+            </ul>
+          </li>
 
           <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 9)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 9)){echo "active"; }?>">

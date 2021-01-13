@@ -39,7 +39,7 @@ class Login extends CI_Controller {
 
 			}
 			$data = array(
-				'ID_Usuario' => $res->ID_Usuario,
+				'ID_Usuario' => $res->id_usuario,
 				'id_tipousuario' => $res->id_tipousuario,
 				'correo' => $res->correo,
 				'nombre_completo' => $res->nombre_completo,
