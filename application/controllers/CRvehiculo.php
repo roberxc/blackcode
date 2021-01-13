@@ -15,8 +15,8 @@ class CRvehiculo extends CI_Controller {
 			$data ['activomenu'] = 20;
 			$data ['activo'] = 13;
 			$this->load->view('layout/nav');
-			$this->load->view('Administracion/VRvehiculo');
 			$this->load->view('menu/menu_supremo',$data);
+			$this->load->view('Administracion/VRvehiculo');
 			$this->load->view('layout/footer');
 		}
 	}

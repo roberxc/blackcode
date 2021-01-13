@@ -25,8 +25,6 @@ class Proyecto extends CI_Controller
     public function Planilla_Proyecto()
     {
         $data ['activo'] = 4;
-     
-        $this->load->view('layout/nav');
         $this->load->view('menu/menu_proyecto',$data);
 		$this->load->view('Proyecto/PlanillasPro');
 		$this->load->view('layout/footer');
