@@ -58,17 +58,11 @@
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <b>Followers</b> <a class="float-right">1,322</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Following</b> <a class="float-right">543</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Friends</b> <a class="float-right">13,287</a>
+                    <b>Total</b> <a class="float-right">303</a>
                   </li>
                 </ul>
 
-                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                <button type="reset" class="btn btn-dark btn-block">Actualizar</button>
               </div>
               <!-- /.card-body -->
             </div>
@@ -140,7 +134,7 @@
                       </div>
                       <div class="form-group row">
                       <div class="col-md-3 text-center">
-                          <button type="submit" class="btn btn-success">Registrar</button>
+                          <button type="submit" class="btn btn-dark">Registrar</button>
                         </div>
                       </div>
                     </form>

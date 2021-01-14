@@ -133,7 +133,7 @@
                               </div>
                            </div>
                            <div class="form-check">
-                              <label class="form-check-label" for="exampleCheck1">Formatos admitidos: pdf,docx,jpg,pptx,xlsx.</label>
+                              <label class="form-check-label" for="exampleCheck1">Formatos admitidos: pdf, docx, jpg, pptx, xlsx.</label>
                            </div>
                         </div>
                      </form>
