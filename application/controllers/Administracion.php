@@ -22,11 +22,29 @@ class Administracion extends CI_Controller {
 	}
 
 	public function OrdenesCompra(){
-		
+		$data ['activomenu'] = 15;
 		$data ['activo'] = 15;
 		$this->load->view('layout/nav');
      	$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/Ordenes');
+		$this->load->view('layout/footer');
+	}
+
+	public function Proveedores(){
+		$data ['activomenu'] = 15;
+		$data ['activo'] = 16;
+		$this->load->view('layout/nav');
+     	$this->load->view('menu/menu_supremo',$data);
+		$this->load->view('Administracion/Proveedores');
+		$this->load->view('layout/footer');
+	}
+
+	public function CostosFijos(){
+		$data ['activomenu'] = 5;
+		$data ['activo'] = 6;
+		$this->load->view('layout/nav');
+     	$this->load->view('menu/menu_supremo',$data);
+		$this->load->view('Administracion/CostosFijos');
 		$this->load->view('layout/footer');
 	}
 
