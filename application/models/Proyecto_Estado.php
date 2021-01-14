@@ -13,8 +13,8 @@ class Proyecto_Estado extends CI_Model {
     //ESTE ES EL SELECT DE LA TABLA ESTADO PROYECTO
 
     var $tablaaa = array("proyectos");  
-    var $select_columnaaa = array("id_proyectos", "Nombre", "Administrador", "Fecha_inicio", "Fecha_termino");  
-    var $order_columnaaa = array("id_proyectos", "Nombre", "Administrador", "Fecha_inicio", "Fecha_termino");  
+    var $select_columnaaa = array("id_proyectos", "nombre", "administrador", "fecha_inicio", "fecha_termino");  
+    var $order_columnaaa = array("id_proyectos", "nombre", "administrador", "fecha_inicio", "fecha_termino");  
     //var $whereee = "material.ID_TipoBodega = tipobodega.ID_TipoBodega AND material.ID_TipoMaterial = tipomaterial.ID_TipoMaterial";
 
     function make_query_estado()  
