@@ -11,7 +11,7 @@
             <div class="container-fluid">
                <div class="row mb-2">
                   <div class="col-sm-6">
-                     <h1>Subir documentos</h1>
+                     <h1>Combustible</h1>
                   </div>
                </div>
             </div>
@@ -30,9 +30,7 @@
                   <div class="row">
                      <div class="col-md-3">
                         <!-- /.form-group -->
-                        <div class="form-group">
-                           <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal-nuevo-documento">Nuevo</button>
-                        </div>
+                        
                         <!-- /.form-group -->
                      </div>
                   </div>
@@ -57,6 +55,9 @@
                      </div>
                      <div class="col-md-2">
                         <!-- /.form-group -->
+                        <div class="form-group">
+                           <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal-nuevo-documento">Nuevo</button>
+                       
                         <div class="form-group">
                            <label class="invisible">Listar</label>
                            <button type="button" class="btn btn-block btn-primary">Listar</button>
@@ -108,7 +109,7 @@
       <div class="modal-dialog modal-lg">
          <div class="modal-content">
             <div class="modal-header">
-               <h4 class="modal-title">Documentación permamente </h4>
+               <h4 class="modal-title">Boleta o Factura</h4>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
                </button>
