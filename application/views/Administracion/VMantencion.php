@@ -64,7 +64,7 @@
                 
                 </ul>
 
-                <button type="reset" class="btn btn-dark btn-block">Actualifzar</button>
+                <button type="reset" class="btn btn-dark btn-block">Actualizar</button>
               </div>
               <!-- /.card-body -->
             </div>
