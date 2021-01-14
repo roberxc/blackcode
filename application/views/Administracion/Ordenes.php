@@ -137,8 +137,8 @@
    </div>
    <!-- Modal -->
    <!-- MODAL INGRESAR PRODUCTO NUEVOS --->
-   <div id="modal-nueva-orden" class="modal fade bd-example-modal-lg" role="dialog">
-      <div class="modal-dialog modal-lg">
+   <div id="modal-nueva-orden" class="modal fade bd-example-modal-xl" role="dialog">
+      <div class="modal-dialog modal-xl">
          <div class="table-responsive">
             <!-- Contenido del modal -->
             <div class="modal-content">
@@ -173,7 +173,6 @@
                               </select>
                            </div>
                         </div>
-
                         <div class="col-md-4">
                            <div class="form-group">
                               <label for="recipient-bodega" class="col-form-label">Estado </label>
@@ -187,7 +186,6 @@
                            </div>
                         </div>
                      </div>
-
                      <div class="row">
                         <div class="col-md-4">
                            <div class="form-group">
@@ -202,39 +200,83 @@
                            </div>
                         </div>
                      </div>
-                     
-                     <section class="content">
-                        <div class="box box-info ">
-                           <div class="box-body">
-                              <div class="table-responsive">
-                                 <table id="productos_orden" name="productos_orden" class="table table-bordered table-striped" style="width: 100%;">
-                                    <thead>
-                                       <tr>
-                                          <th>ID</th>
-                                          <!-- 0 ---> 
-                                          <th>Nombre Producto</th>
-                                          <!-- 1 --->
-                                          <th>Categoria</th>
-                                          <!-- 2 --->
-                                          <th>Stock Total Producto</th>
-                                          <!-- 3 --->
-                                          <th>Bodega</th>
-                                          <!-- 4 --->
-                                          <th>Accion</th>
-                                          <!-- 5 --->
-                                       </tr>
-                                    </thead>
-                                 </table>
+                     <hr class="cell-divide-hr">
+                     <div class="card-body" id="dynamic_field" >
+                        <table class="table table-bordered" >
+                           <tr>
+                              <!-- 0 ---> 
+                              <th><label for="recipient-bodega" class="col-form-label">Producto </label></th>
+                              <!-- 1 --->
+                              <th><label for="recipient-bodega" class="col-form-label">Añadir </label></th>
+                              <!-- 5 --->
+                           </tr>
+                           <TR>
+                              <TD>
+                                 <div class="form-group">
+                                    <select name="tipobodega" id="producto" style="width: 100%; height: 60%">
+                                    <?php
+                                       foreach($tipobodega as $i){
+                                          echo '<option value="'. $i->ID_TipoBodega .'">'. $i->NombreTipoBodega .'</option>';
+                                          }
+                                          ?>
+                                    </select>
+                                 </div>
+                              </TD>
+                              <TD>
+                                 <div class="form-group">
+                                    <button type="button" name="add" id="durante" class="btn btn-success">+</button>
+                                 </div>
+                              </TD>
+                           </TR>
+                        </table>
+                        <hr class="cell-divide-hr">
+                        <div class="button-wrapper">
+                        </div>
+                     </div>
+                     <hr class="cell-divide-hr">
+                     <div class="card-body" id="dynamic_field" >
+                        <section class="content">
+                           <div class="box box-info ">
+                              <div class="box-body">
+                                 <div class="table-responsive">
+                                    <table id="productos_orden" name="productos_orden" class="table table-bordered table-striped" style="width: 100%;">
+                                       <thead>
+                                          <tr>
+                                             <th>Codigo</th>
+                                             <!-- 0 ---> 
+                                             <th>Producto</th>
+                                             <!-- 1 --->
+                                             <th>Cantidad</th>
+                                             <!-- 2 --->
+                                             <th>Costo</th>
+                                             <th>IVA</th>
+                                             <th>Importe</th>
+                                             <!-- 4 --->
+                                             <th>Accion</th>
+                                             <!-- 5 --->
+                                          </tr>
+                                       </thead>
+                                    </table>
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                     </section>  
+                        </section>
 
+                        <hr class="cell-divide-hr">
+                        <div class="row">
+      
+      <div class="col">
+          <div class="float-right">Subtotal: 55555</div>
+          <br>
+          <div class="float-right">IVA: 0%</div>
+          <br>
+          <div class="float-right">Total: 32234</div>
+      </div>
+</div>
 
-
-
+                     </div>
                      <div class="modal-footer bg-white">
-                        <input type="submit" class="btn btn-primary" value="Completar ingreso"  onclick="Success();" >
+                        <input type="submit" class="btn btn-primary" value="Guardar"  onclick="Success();" >
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                      </div>
                   </form>
@@ -262,7 +304,7 @@
          }
        ]
      });
-
+   
      $('#productos_orden').DataTable({
        "language": {
          "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
@@ -274,7 +316,7 @@
      },
        "columnDefs":[
          {
-             "targets": [1,2,3,4,5],
+             "targets": [1,2,3,4],
          }
        ]
      });
@@ -313,7 +355,7 @@
    });
    //mostrar tipoproducto en tabla agregar stock
    $(document).ready(function(){
-     $('#tipoproducto2').select2({
+     $('#producto').select2({
        theme: "bootstrap"
      });
    });
@@ -329,12 +371,6 @@
        theme: "bootstrap"
      });
    });
-   
-   
-   //mostrar tabla ver mas
-   
-   
-   
 </script> 
 <!-- ESTE PARA LAS ALERTAS --->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
