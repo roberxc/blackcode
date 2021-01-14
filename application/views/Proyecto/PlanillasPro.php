@@ -49,7 +49,7 @@ if (isset($set_data['nombre_completo'])) {
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?php echo base_url()?>Inicio" class="nav-link">Inicio</a>
+        <a href="<?php echo base_url()?>Inicio" class="nav-link">Inicio0000</a>
       </li>
     </ul>
 
