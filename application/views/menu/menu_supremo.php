@@ -174,7 +174,7 @@ if (isset($set_data['nombre_completo'])) {
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
+                <a href="<?php echo base_url()?>CGarage" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Garage Vehiculo</p>
                 </a>
