@@ -12,11 +12,11 @@ class Bodega extends CI_Model {
      function insertarEntradaProducto($post){
           //TABLA MATERIAL
           $datosMaterial = Array();
-          $datosMaterial['ID_TipoBodega'] = $post['tipobodega'];
-          $datosMaterial['ID_TipoMaterial'] = $post['tipoproducto'];
-          $datosMaterial['NombreMaterial'] = $post['nombreproducto'];
-          $datosMaterial['Stock'] = $post['cantidadentrada'];
-          $datosMaterial['Detalle'] = $post['glosa'];
+          $datosMaterial['id_tipobodega'] = $post['tipobodega'];
+          $datosMaterial['id_tipomaterial'] = $post['tipoproducto'];
+          $datosMaterial['nombrematerial'] = $post['nombreproducto'];
+          $datosMaterial['stock'] = $post['cantidadentrada'];
+          $datosMaterial['detalle'] = $post['glosa'];
           
           $verificacion = $this->db->insert('material', $datosMaterial);
          
@@ -25,8 +25,8 @@ class Bodega extends CI_Model {
           if($verificacion == TRUE){
                $datosEntrada = Array();
 
-               $datosEntrada['ID_Proyecto'] = $post['centrocostos'];
-               $datosEntrada['CantidadIngresada'] = $post['cantidadentrada'];
+               $datosEntrada['id_proyecto'] = $post['centrocostos'];
+               $datosEntrada['cantidadingresada'] = $post['cantidadentrada'];
                $this->db->insert('entrada', $datosEntrada);
                $ruta = base_url('RegistroEntrada');
                echo "<script>window.location = '{$ruta}';
@@ -38,7 +38,7 @@ class Bodega extends CI_Model {
      //TABLA MATERIAL
 
      $datosdetalleentrada = Array();
-     $datosdetalleentrada['ID_Material'] = $post['material'];
+     $datosdetalleentrada['id_material'] = $post['material'];
      //$datosdetalleentrada['FechaEntrada'] = Date("Y-m-d");
      $verificacion = $this->db->insert('detalleentrada', $datosdetalleentrada);
      
@@ -47,14 +47,14 @@ class Bodega extends CI_Model {
      if($verificacion == TRUE){
           $datosdetalleentrada = Array();
           $datosEntrada = Array();
-          $datosEntrada['ID_Proyecto'] = $post['centrodecostos2'];
-          $datosEntrada['CantidadIngresada'] = $post['cantidadentradaagregar'];
+          $datosEntrada['id_proyecto'] = $post['centrodecostos2'];
+          $datosEntrada['cantidadingresada'] = $post['cantidadentradaagregar'];
           $this->db->insert('entrada', $datosEntrada);
 
           $cantidadporactualizar = $post['cantidadentradaagregar'];
-          $this->db->set('Stock', 'Stock + '. (int) $cantidadporactualizar,FALSE);
-          $this->db->set('Detalle', $post['glosaactualizar']);
-          $this->db->where('ID_Material', $post['material']);
+          $this->db->set('stock', 'stock + '. (int) $cantidadporactualizar,FALSE);
+          $this->db->set('detalle', $post['glosaactualizar']);
+          $this->db->where('id_material', $post['material']);
           $this->db->update('material');
           
           $ruta = base_url('RegistroEntrada');
@@ -67,19 +67,19 @@ class Bodega extends CI_Model {
     //INICIO DE SACAR UN MATERIAL ---- SALIDA
     function insertarSalidaProducto($post){
           $cantidadporsalir = $post['cantidadsalida'];
-          $this->db->set('Stock', 'Stock - '. (int) $cantidadporsalir,FALSE);
-          $this->db->where('ID_Material', $post['material']);
+          $this->db->set('stock', 'stock - '. (int) $cantidadporsalir,FALSE);
+          $this->db->where('id_material', $post['material']);
           $verificacion = $this->db->update('material');
           $datosdetallesalida = Array();
-          $datosdetallesalida['ID_Material'] = $post['material'];
+          $datosdetallesalida['id_material'] = $post['material'];
           //$datosdetallesalida['FechaSalida'] = Date("Y-m-d");
           $this->db->insert('detallesalida', $datosdetallesalida);
           
             //TABLA SALIDA
           if($verificacion == TRUE){
                $datosSalida = Array();
-               $datosSalida['ID_Proyecto'] = $post['centrocostos'];
-               $datosSalida['CantidadSalida'] = $post['cantidadsalida'];
+               $datosSalida['id_proyecto'] = $post['centrocostos'];
+               $datosSalida['cantidadsalida'] = $post['cantidadsalida'];
                $this->db->insert('salida', $datosSalida);
                $ruta = base_url('RegistroSalida');
                echo "<script>window.location = '{$ruta}';
@@ -95,7 +95,7 @@ class Bodega extends CI_Model {
          //REGISTRAR CATEGORIAS -> TIPOMATERIAL
     public function registrarCateg($post){
      $datosCategoria = Array();
-     $datosCategoria['NombreTipoMaterial'] = $post['nombrecategoria'];
+     $datosCategoria['nombretipomaterial'] = $post['nombrecategoria'];
      $this->db->insert('tipomaterial', $datosCategoria);
      $ruta = base_url('RegistroEntrada');
      echo "<script>window.location = '{$ruta}';
@@ -105,9 +105,9 @@ class Bodega extends CI_Model {
 
     //MOSTRAR CATEGORIAS EN SELECT
     public function verMateriales(){
-     $this->db->SELECT('ID_Material, NombreMaterial');
+     $this->db->SELECT('id_material, nombrematerial');
      $this->db->from('material');
-     $this->db->order_by('NombreMaterial', 'ASC');
+     $this->db->order_by('nombrematerial', 'ASC');
      $query = $this->db->get();
      if($query->num_rows()>0){
          return $query->result();
@@ -120,7 +120,7 @@ class Bodega extends CI_Model {
     public function verCategorias(){
         $this->db->SELECT('*');
         $this->db->from('tipomaterial');
-        $this->db->order_by('NombreTipoMaterial', 'ASC');
+        $this->db->order_by('nombretipomaterial', 'ASC');
         $query = $this->db->get();
         if($query->num_rows()>0){
             return $query->result();
@@ -129,9 +129,9 @@ class Bodega extends CI_Model {
 
     //MOSTRAR PERSONAL EN SELECT
     public function verPersonal(){
-        $this->db->SELECT('ID_Personal, NombreCompleto');
+        $this->db->SELECT('id_personal, nombrecompleto');
         $this->db->from('personal');
-        $this->db->order_by('NombreCompleto', 'ASC');
+        $this->db->order_by('nombrecompleto', 'ASC');
         $query = $this->db->get();
         if($query->num_rows()>0){
             return $query->result();
@@ -142,7 +142,7 @@ class Bodega extends CI_Model {
     public function verCentroCostos(){
         $this->db->SELECT('*');
         $this->db->from('proyecto');
-        $this->db->order_by('NombreProyecto', 'ASC');
+        $this->db->order_by('nombreproyecto', 'ASC');
         $query = $this->db->get();
         if($query->num_rows()>0){
             return $query->result();
@@ -151,9 +151,9 @@ class Bodega extends CI_Model {
 
     //MOSTRAR BODEGAS EN SELECT
     public function verBodega(){
-     $this->db->SELECT('ID_TipoBodega, NombreTipoBodega');
+     $this->db->SELECT('id_tipobodega, nombretipobodega');
      $this->db->from('tipobodega');
-     $this->db->order_by('NombreTipoBodega', 'ASC');
+     $this->db->order_by('nombretipobodega', 'ASC');
      $query = $this->db->get();
      if($query->num_rows()>0){
          return $query->result();
@@ -162,10 +162,10 @@ class Bodega extends CI_Model {
 
          //MOSTRAR MATERIALES PARA SALIDA EN SELECT
     public function verMaterialesDisponiblesBodega(){
-     $this->db->SELECT('material.ID_Material, NombreMaterial');
+     $this->db->SELECT('material.id_material, nombrematerial');
      $this->db->from('material');
-     $this->db->where('material.ID_Material = material.ID_Material AND material.stock > 0');
-     $this->db->order_by('NombreMaterial', 'ASC');
+     $this->db->where('material.id_material = material.id_material AND material.stock > 0');
+     $this->db->order_by('nombrematerial', 'ASC');
      $query = $this->db->get();
      if($query->num_rows()>0){
          return $query->result();
@@ -177,9 +177,9 @@ class Bodega extends CI_Model {
         //ESTE ES EL SELECT DE LA TABLA PRINCIPAL DE ENTRADA
 
         var $table = array("tipomaterial","tipobodega","material","proyecto", "entrada", "detalleentrada");  
-        var $select_column = array("entrada.ID_Entrada", "NombreMaterial","material.ID_Material", "NombreTipoMaterial", "NombreProyecto", "FechaEntrada", "entrada.CantidadIngresada", "NombreTipoBodega");  
-        var $order_column = array("entrada.ID_Entrada", "NombreMaterial","material.ID_Material", "NombreTipoMaterial", "NombreProyecto", "FechaEntrada", "entrada.CantidadIngresada", "NombreTipoBodega");  
-        var $wheree = "material.ID_TipoBodega = tipobodega.ID_TipoBodega AND tipomaterial.ID_TipoMaterial = material.ID_TipoMaterial AND entrada.ID_Proyecto = proyecto.ID_Proyecto AND entrada.ID_Entrada = detalleentrada.ID_Entrada AND material.ID_Material = detalleentrada.ID_Material";
+        var $select_column = array("entrada.id_entrada", "nombrematerial","material.id_material", "nombretipomaterial", "nombreproyecto", "fechaentrada", "entrada.cantidadingresada", "nombretipobodega");  
+        var $order_column = array("entrada.id_entrada", "nombrematerial","material.id_material", "nombretipomaterial", "nombreproyecto", "fechaentrada", "entrada.cantidadingresada", "nombretipobodega");  
+        var $wheree = "material.id_tipobodega = tipobodega.id_tipobodega AND tipomaterial.id_tipomaterial = material.id_tipomaterial AND entrada.id_proyecto = proyecto.id_proyecto AND entrada.id_entrada = detalleentrada.id_entrada AND material.id_material = detalleentrada.id_material";
       
       
         function make_query_entrada()  
@@ -189,7 +189,7 @@ class Bodega extends CI_Model {
            $this->db->where($this->wheree);
            if(isset($_POST["search"]["value"]) && $_POST["search"]["value"] != '')  
            {  
-                $this->db->like("NombreMaterial", $_POST["search"]["value"]);  
+                $this->db->like("nombrematerial", $_POST["search"]["value"]);  
                 //$this->db->or_like("NombreTipoMaterial", $_POST["search"]["value"]);  
                 //$this->db->or_like("CantidadIngresada", $_POST["search"]["value"]);  
            }  
@@ -199,7 +199,7 @@ class Bodega extends CI_Model {
            }  
            else  
            {  
-                $this->db->order_by('ID_Material', 'ASC');    
+                $this->db->order_by('id_material', 'ASC');    
  
            }  
       }  
@@ -221,7 +221,7 @@ class Bodega extends CI_Model {
       {  
            $this->db->select($this->select_column);  
            $this->db->from($this->table);  
-           $this->db->where("material.ID_TipoBodega = tipobodega.ID_TipoBodega AND tipomaterial.ID_TipoMaterial = material.ID_TipoMaterial AND entrada.ID_Proyecto = proyecto.ID_Proyecto AND entrada.ID_Entrada = detalleentrada.ID_Entrada AND material.ID_Material = detalleentrada.ID_Material");
+           $this->db->where("material.id_tipobodega = tipobodega.id_tipobodega AND tipomaterial.id_tipomaterial = material.id_tipomaterial AND entrada.id_proyecto = proyecto.id_proyecto AND entrada.id_entrada = detalleentrada.id_entrada AND material.id_material = detalleentrada.id_material");
            return $this->db->count_all_results();  
       }  
 
@@ -232,9 +232,9 @@ class Bodega extends CI_Model {
       function make_query_vermas($IDENTRADA = '0')
       {
         $table = array("tipobodega","material");  
-        $select_column = array("NombreTipoBodega","Detalle");  
-        $order_column = array("NombreTipoBodega","Detalle");  
-        $wheree = array("material.ID_TipoBodega = tipobodega.ID_TipoBodega AND material.ID_Material=",$IDENTRADA);
+        $select_column = array("nombretipobodega","detalle");  
+        $order_column = array("nombretipobodega","detalle");  
+        $wheree = array("material.id_tipobodega = tipobodega.id_tipobodega AND material.id_material=",$IDENTRADA);
         $this->db->SELECT($select_column);
         $this->db->from($table);
         $this->db->where($wheree);
@@ -254,9 +254,9 @@ class Bodega extends CI_Model {
       }
       function get_all_data_vermas()
       {
-          $this->db->SELECT('NombreTipoBodega, Detalle');
+          $this->db->SELECT('nombretipobodega, detalle');
           $this->db->from('tipobodega, material');
-          $this->db->where('material.ID_TipoBodega = tipobodega.ID_TipoBodega');
+          $this->db->where('material.id_tipoBodega = tipobodega.id_tipobodega');
           return $this->db->count_all_results();
       }
   
@@ -265,9 +265,9 @@ class Bodega extends CI_Model {
     //ESTE ES EL SELECT DE LA TABLA PRINCIPAL DE SALIDA
 
     var $tablasalida = array("detallesalida","tipomaterial","tipobodega","material","proyecto", "salida");  
-    var $select_columnasalida = array("salida.ID_Salida", "NombreMaterial", "material.ID_Material", "NombreTipoMaterial", "NombreProyecto", "FechaSalida", "salida.CantidadSalida", "NombreTipoBodega");  
-    var $order_columnasalida = array("salida.ID_Salida", "NombreMaterial", "material.ID_Material", "NombreTipoMaterial", "NombreProyecto", "FechaSalida", "salida.CantidadSalida", "NombreTipoBodega");  
-    var $wheresalida = "material.ID_TipoBodega = tipobodega.ID_TipoBodega AND material.ID_TipoMaterial = tipomaterial.ID_TipoMaterial AND material.ID_Material = detallesalida.ID_Material AND detallesalida.ID_Salida = salida.ID_Salida AND salida.ID_Proyecto = proyecto.ID_Proyecto";
+    var $select_columnasalida = array("salida.id_salida", "nombrematerial", "material.id_material", "nombretipomaterial", "nombreproyecto", "fechasalida", "salida.cantidadsalida", "nombretipobodega");  
+    var $order_columnasalida = array("salida.id_salida", "nombrematerial", "material.id_material", "nombretipomaterial", "nombreproyecto", "fechasalida", "salida.cantidadsalida", "nombretipobodega");  
+    var $wheresalida = "material.id_tipobodega = tipobodega.id_tipobodega AND material.id_tipomaterial = tipomaterial.id_tipomaterial AND material.id_material = detallesalida.id_material AND detallesalida.id_salida = salida.id_salida AND salida.id_proyecto = proyecto.id_proyecto";
   
   
     function make_query_salida()  
@@ -277,7 +277,7 @@ class Bodega extends CI_Model {
        $this->db->where($this->wheresalida);
        if(isset($_POST["search"]["value"]) && $_POST["search"]["value"] != '')  
        {  
-            $this->db->like("NombreMaterial", $_POST["search"]["value"]);  
+            $this->db->like("nombrematerial", $_POST["search"]["value"]);  
             //$this->db->or_like("CantidadSalida", $_POST["search"]["value"]);  
        }  
        if(isset($_POST["order"]))  
@@ -286,7 +286,7 @@ class Bodega extends CI_Model {
        }  
        else  
        {  
-            $this->db->order_by('ID_Material', 'ASC');    
+            $this->db->order_by('id_material', 'ASC');    
 
        }  
   }  
@@ -308,7 +308,7 @@ class Bodega extends CI_Model {
   {  
        $this->db->select($this->select_columnasalida);  
        $this->db->from($this->tablasalida);  
-       $this->db->where("material.ID_TipoBodega = tipobodega.ID_TipoBodega AND material.ID_TipoMaterial = tipomaterial.ID_TipoMaterial AND material.ID_Material = detallesalida.ID_Material AND detallesalida.ID_Salida = salida.ID_Salida AND salida.ID_Proyecto = proyecto.ID_Proyecto");
+       $this->db->where("material.id_tipobodega = tipobodega.id_tipobodega AND material.id_tipomaterial = tipomaterial.id_tipomaterial AND material.id_material = detallesalida.id_material AND detallesalida.id_salida = salida.id_salida AND salida.id_Proyecto = proyecto.id_proyecto");
        return $this->db->count_all_results();  
   }  
 
@@ -316,9 +316,9 @@ class Bodega extends CI_Model {
     //ESTE ES EL SELECT DE LA TABLA PRINCIPAL DE Stock
 
     var $tablaaa = array("material","tipomaterial","tipobodega");  
-    var $select_columnaaa = array("material.ID_Material", "NombreMaterial", "NombreTipoMaterial","material.Stock", "NombreTipoBodega");  
-    var $order_columnaaa = array("material.ID_Material", "NombreMaterial", "NombreTipoMaterial", "material.Stock", "NombreTipoBodega");  
-    var $whereee = "material.ID_TipoBodega = tipobodega.ID_TipoBodega AND material.ID_TipoMaterial = tipomaterial.ID_TipoMaterial";
+    var $select_columnaaa = array("material.id_material", "nombrematerial", "nombretipomaterial","material.stock", "nombretipobodega");  
+    var $order_columnaaa = array("material.id_material", "nombrematerial", "nombretipomaterial", "material.stock", "nombretipobodega");  
+    var $whereee = "material.id_tipobodega = tipobodega.id_tipobodega AND material.id_tipomaterial = tipomaterial.id_tipomaterial";
 
     function make_query_stock()  
     {  
@@ -335,7 +335,7 @@ class Bodega extends CI_Model {
          }  
          else  
          {  
-              $this->db->order_by('ID_Material', 'ASC');    
+              $this->db->order_by('id_material', 'ASC');    
 
          }  
     }  
@@ -357,7 +357,7 @@ class Bodega extends CI_Model {
      {  
      $this->db->select($this->select_columnaaa);  
      $this->db->from($this->tablaaa);  
-     $this->db->where("material.ID_TipoBodega = tipobodega.ID_TipoBodega AND material.ID_TipoMaterial = tipomaterial.ID_TipoMaterial");
+     $this->db->where("material.id_tipobodega = tipobodega.id_tipobodega AND material.id_tipomaterial = tipomaterial.id_tipomaterial");
      return $this->db->count_all_results();  
      }  
   
