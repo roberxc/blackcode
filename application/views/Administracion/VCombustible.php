@@ -36,14 +36,7 @@
                   </div>
                   <div class="row">
                      <div class="col-md-3">
-                        <!-- /.form-group -->
-                        <div class="form-group">
-                           <label>Documento</label>
-                           <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Ingrese" id="codigoservicio_filtro">
-                           </div>
-                        </div>
-                        <!-- /.form-group -->
+                        
                      </div>
                      <div class="col-md-3">
                         <!-- /.form-group -->
@@ -55,14 +48,11 @@
                      </div>
                      <div class="col-md-2">
                         <!-- /.form-group -->
+                        <hr class="mt-3 mb-3"/>
                         <div class="form-group">
-                           <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal-nuevo-documento">Nuevo</button>
+                           <button type="button" class="btn btn-block btn-dark" data-toggle="modal" data-target="#modal-nuevo-documento">Adjuntar</button>
                        
-                        <div class="form-group">
-                        
-                           <label class="invisible">Listar</label>
-                           <button type="button" class="btn btn-block btn-primary">Listar</button>
-                        </div>
+                       
                         <!-- /.form-group -->
                      </div>
                      <!-- /.col -->
@@ -77,9 +67,9 @@
                   <table id="example1" class="table table-bordered table-striped">
                      <thead>
                         <tr>
-                           <th>Documento</th>
+                           <th>N° Documento</th>
                            <th>Fecha</th>
-                           <th>Opciones</th>
+                           <th>Total</th>
                         </tr>
                      </thead>
                      <tbody id="tbody">
@@ -121,8 +111,12 @@
                      <!-- form start -->
                      <form role="form">
                         <div class="card-body">
+                        <div class="form-group">
+                              <label for="exampleInputEmail1">Conductor o designado</label>
+                              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Ingrese">
+                           </div>
                            <div class="form-group">
-                              <label for="exampleInputEmail1">Nombre del documento</label>
+                              <label for="exampleInputEmail1">Estación de servicios</label>
                               <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Ingrese">
                            </div>
                            <div class="form-group">
@@ -142,7 +136,7 @@
                   </div>
                   <div class="modal-footer justify-content-between">
                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                     <button type="button" class="btn btn-primary">Guardar</button>
+                     <button type="button" class="btn btn-dark">Guardar</button>
                   </div>
             </div>
          </div>
