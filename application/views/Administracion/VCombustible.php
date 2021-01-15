@@ -11,7 +11,7 @@
             <div class="container-fluid">
                <div class="row mb-2">
                   <div class="col-sm-6">
-                     <h1>Combustiblee</h1>
+                     <h1>Combustible</h1>
                   </div>
                </div>
             </div>
@@ -59,6 +59,7 @@
                            <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal-nuevo-documento">Nuevo</button>
                        
                         <div class="form-group">
+                        
                            <label class="invisible">Listar</label>
                            <button type="button" class="btn btn-block btn-primary">Listar</button>
                         </div>
