@@ -76,7 +76,7 @@
                         <tr>
                            <th>N° Documento</th>
                            <th>Fecha</th>
-                           <th>Costo</th>
+                           <th>Valor Total</th>
                         </tr>
                      </thead>
                      <tbody id="tbody">
