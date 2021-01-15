@@ -24,7 +24,14 @@
                   <div class="card-tools">
                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                   </div>
+
+                  <div class="col-md-3 text">
+                          <button type="submit" class="btn btn-info">Listar</button>
+                        
+                          <button type="submit" class="btn btn-dark">Guardar</button>
+                        </div>
                </div>
+               
                <!-- /.card-header -->
                <div class="card-body">
                   <div class="row">
@@ -41,7 +48,7 @@
                      <div class="col-md-3">
                         <!-- /.form-group -->
                         <div class="form-group">
-                           <label>Fecha</label>
+                           <label>Seleccione fecha</label>
                            <input type="date" class="form-control datetimepicker-input" data-target="#reservationdate" id="fecha_filtro" format="d/m/y"/>
                         </div>
                         <!-- /.form-group -->
@@ -69,13 +76,14 @@
                         <tr>
                            <th>N° Documento</th>
                            <th>Fecha</th>
-                           <th>Total</th>
+                           <th>Costo</th>
                         </tr>
                      </thead>
                      <tbody id="tbody">
                      </tbody>
                   </table>
                </div>
+               
                <!-- /.card-body -->
             </div>
             <!-- /.card -->
@@ -100,7 +108,7 @@
       <div class="modal-dialog modal-lg">
          <div class="modal-content">
             <div class="modal-header">
-               <h4 class="modal-title">Boleta o Factura</h4>
+               <h4 class="modal-title">Documento Evidencial</h4>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
                </button>
@@ -112,6 +120,10 @@
                      <form role="form">
                         <div class="card-body">
                         <div class="form-group">
+                              <label for="exampleInputEmail1">Patente de Vehiculo</label>
+                              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Ingrese">
+                           </div>
+                        <div class="form-group">
                               <label for="exampleInputEmail1">Conductor o designado</label>
                               <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Ingrese">
                            </div>
@@ -120,7 +132,16 @@
                               <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Ingrese">
                            </div>
                            <div class="form-group">
-                              <label for="exampleInputFile">Archivo</label>
+                              <label for="exampleInputEmail1">Litros</label>
+                              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Ingrese">
+                           </div>
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">Valor Total</label>
+                              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Ingrese">
+                           </div>
+                          
+                           <div class="form-group">
+                              <label for="exampleInputFile">Documento adjuntar</label>
                               <div class="input-group">
                                  <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="exampleInputFile">
@@ -140,6 +161,7 @@
                   </div>
             </div>
          </div>
+       
          <!-- /.modal-content -->
       </div>
       <!-- /.modal-dialog -->
