@@ -14,7 +14,7 @@ class RegistroEntrada extends CI_Controller
 
     public function index()
     {
-		$data ['activo'] = 1;
+		//$data ['activo'] = 1;
 		$data['categorias'] = $this->Bodega->verCategorias();
 		$data['usuarios'] = $this->Bodega->verPersonal();
         $data['centrocosto'] = $this->Bodega->verCentroCostos();
@@ -60,15 +60,15 @@ class RegistroEntrada extends CI_Controller
         foreach ($fetch_data as $value) {
 
             $sub_array      = array();
-            $sub_array[]    = $value->ID_Entrada;
-            $sub_array[]    = $value->NombreMaterial;
-            $sub_array[]    = $value->ID_Material;
-            $sub_array[]    = $value->NombreTipoMaterial;
-            $sub_array[]    = $value->NombreProyecto;
-            $sub_array[]    = $value->FechaEntrada;
-			$sub_array[]    = $value->CantidadIngresada;
-			$sub_array[]	= $value->NombreTipoBodega;
-			$sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" onclick="vermas('.$value->ID_Material.');" ></a>';
+            $sub_array[]    = $value->id_entrada;
+            $sub_array[]    = $value->nombrematerial;
+            $sub_array[]    = $value->id_material;
+            $sub_array[]    = $value->nombretipomaterial;
+            $sub_array[]    = $value->nombreproyecto;
+            $sub_array[]    = $value->fechaentrada;
+			$sub_array[]    = $value->cantidadingresada;
+			$sub_array[]	= $value->nombretipobodega;
+			$sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" onclick="vermas('.$value->id_material.');" ></a>';
            // <a href="#" class="fas fa-edit" style="font-size: 20px;"></a> EN CASO DE QUERER EDITAR LOS REGISTROS
             $data[]         = $sub_array;
         }

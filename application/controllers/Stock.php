@@ -47,11 +47,11 @@ class Stock extends CI_Controller
        foreach ($fetch_data as $value) {
 
            $sub_array      = array();
-           $sub_array[]    = $value->ID_Material;
-           $sub_array[]    = $value->NombreMaterial;
-           $sub_array[]    = $value->NombreTipoMaterial;
-           $sub_array[]    = $value->Stock;
-           $sub_array[]	   = $value->NombreTipoBodega;
+           $sub_array[]    = $value->id_material;
+           $sub_array[]    = $value->nombrematerial;
+           $sub_array[]    = $value->nombretipomaterial;
+           $sub_array[]    = $value->stock;
+           $sub_array[]	   = $value->nombretipobodega;
            $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" >';
           
            $data[]         = $sub_array;

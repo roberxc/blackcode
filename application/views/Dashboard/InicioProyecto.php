@@ -80,6 +80,18 @@
                               </div>
                  </div>
                  <div class="form-group">
+                          <label>Fecha de inicio</label>
+                              <div class="form-group">
+                                <input type="date" class="form-control" placeholder="Ingrese">
+                              </div>
+                 </div>
+                 <div class="form-group">
+                          <label>Fecha termino </label>
+                              <div class="form-group">
+                                <input type="date" class="form-control" placeholder="Ingrese">
+                              </div>
+                 </div>
+                 <div class="form-group">
                           <label>Monto total del proyecto</label>
                               <div class="form-group">
                                 <input type="number" class="form-control" placeholder="Ingrese">
@@ -99,7 +111,7 @@
                    
                 </div>
                 <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-primary">Aceptar</button>
+                  <button type="button" class="btn btn-primary">Guardar</button>
                 </div>
               </div>
               <!-- /.modal-content -->

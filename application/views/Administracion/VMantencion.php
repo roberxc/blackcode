@@ -173,18 +173,23 @@
                       <hr class="mt-3 mb-3"/>
 
                       <div class="form-group">
-                              <label for="exampleInputFile">Documento Asociado</label>
-                              <div class="input-group">
-                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="exampleInputFile">
-                                    <label class="custom-file-label" for="exampleInputFile">Adjuntar formato: pdf, docx, jpg, pptx, xlsx.</label>
-                                 </div>
+                              <label for="exampleInputFile">Adjuntar Documento Asociado</label>
+                              <div class="input-group center">
+                                 
                               </div>
                            </div>
                            <hr class="mt-3 mb-3"/>
                       <div class="form-group row">
                       
-                      
+                       
+                              <div class="form-group">
+                                 <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                              </div>
+                           </div>
+                           <hr class="mt-3 mb-3"/>
+                           <hr class="mt-3 mb-3"/>
+                           <div class="form-check">
+                              
                       
                       <div class="col-md-3 text-center">
                           <button type="submit" class="btn btn-dark">Registrar</button>

@@ -91,7 +91,7 @@
               <select name="centrocostos" id="centrocostos" style="width: 100%; height: 60%">
                 <?php
                     foreach($centrocosto as $i){
-                      echo '<option value="'. $i->ID_Proyecto .'">'. $i->NombreProyecto .'</option>';
+                      echo '<option value="'. $i->id_proyecto .'">'. $i->nombreproyecto .'</option>';
                     }
                 ?>
               </select>
@@ -107,7 +107,7 @@
               <select name="tipoproducto" id="tipoproducto" style="width: 100%; height: 60%">
                 <?php
                     foreach($categorias as $i){
-                      echo '<option value="'. $i->ID_TipoMaterial .'">'. $i->NombreTipoMaterial .'</option>';
+                      echo '<option value="'. $i->id_tipomaterial .'">'. $i->nombretipomaterial .'</option>';
                     }
                 ?>
               </select>
@@ -131,7 +131,7 @@
               <select name="tipobodega" id="tipobodega" style="width: 100%; height: 60%">
                 <?php
                     foreach($tipobodega as $i){
-                      echo '<option value="'. $i->ID_TipoBodega .'">'. $i->NombreTipoBodega .'</option>';
+                      echo '<option value="'. $i->id_tipobodega .'">'. $i->nombretipobodega .'</option>';
                     }
                 ?>
               </select>
@@ -180,7 +180,7 @@
               <select name="centrodecostos2" id="centrodecostos2" style="width: 100%; height: 60%">
                 <?php
                     foreach($centrocosto as $i){
-                      echo '<option value="'. $i->ID_Proyecto .'">'. $i->NombreProyecto .'</option>';
+                      echo '<option value="'. $i->id_proyecto .'">'. $i->nombreproyecto .'</option>';
                     }
                 ?>
               </select>
@@ -192,7 +192,7 @@
               <select name="material" id="material" style="width: 100%; height: 60%">
                 <?php
                     foreach($material as $i){
-                      echo '<option value="'. $i->ID_Material .'">'. $i->NombreMaterial .'</option>';
+                      echo '<option value="'. $i->id_material .'">'. $i->nombrematerial .'</option>';
                     }
                 ?>
               </select>

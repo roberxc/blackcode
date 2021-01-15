@@ -87,7 +87,7 @@
               <select name="centrocostos" id="centrocostos" style="width: 100%; height: 60%">
                 <?php
                     foreach($centrocosto as $i){
-                      echo '<option value="'. $i->ID_Proyecto .'">'. $i->NombreProyecto .'</option>';
+                      echo '<option value="'. $i->id_proyecto .'">'. $i->nombreproyecto .'</option>';
                     }
                 ?>
               </select>
@@ -98,7 +98,7 @@
               <select name="material" id="material" style="width: 100%; height: 60%">
                 <?php
                     foreach($material as $i){
-                      echo '<option value="'. $i->ID_Material .'">'. $i->NombreMaterial .'</option>';
+                      echo '<option value="'. $i->id_material .'">'. $i->nombrematerial .'</option>';
                     }
                 ?>
               </select>
