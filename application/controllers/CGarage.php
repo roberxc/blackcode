@@ -11,7 +11,7 @@ class CGarage extends CI_Controller {
 		$set_data = $this->session->all_userdata();
 		if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
 			$data ['activomenu'] = 20;
-			$data ['activo'] = 14;
+			$data ['activo'] = 99;
 			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('Administracion/VGarage');
