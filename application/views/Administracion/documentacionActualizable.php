@@ -129,11 +129,8 @@
                            </div>
                            <div class="form-group">
                               <label for="exampleInputFile">Archivo</label>
-                              <div class="input-group">
-                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="exampleInputFile">
-                                    <label class="custom-file-label" for="exampleInputFile">Buscar archivo</label>
-                                 </div>
+                              <div class="form-group">
+                                 <input type="file" class="form-control-file" id="exampleFormControlFile1">
                               </div>
                            </div>
                            <div class="form-check">

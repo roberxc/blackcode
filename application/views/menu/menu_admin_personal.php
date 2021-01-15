@@ -54,7 +54,7 @@ if (isset($set_data['nombre_completo'])) {
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url();?>Asistencia" class="nav-link <?php if(isset($activo) && ($activo == 5)){echo "active"; }?>">
+                <a href="<?php echo base_url();?>Asistencia/AsistenciaEspera" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Asistencia en espera</p>
                 </a>

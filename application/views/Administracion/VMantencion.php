@@ -25,7 +25,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Registro mantenciónn</h1>
+            <h1>Registro mantención</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -59,17 +59,12 @@
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <b>Followers</b> <a class="float-right">1,322</a>
+                    <b>Totales</b> <a class="float-right">142</a>
                   </li>
-                  <li class="list-group-item">
-                    <b>Following</b> <a class="float-right">543</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Friends</b> <a class="float-right">13,287</a>
-                  </li>
+                
                 </ul>
 
-                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                <button type="reset" class="btn btn-dark btn-block">Actualizar</button>
               </div>
               <!-- /.card-body -->
             </div>
@@ -157,6 +152,7 @@
               <h5>Costo Servicios</h5>
               </div>
               <hr class="mt-3 mb-3"/>
+      
               <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Total</label>
                         <div class="col-sm-10">
@@ -172,9 +168,31 @@
                           </div>
                         </div>
                       </div>
+                     
+
+                      <hr class="mt-3 mb-3"/>
+
+                      <div class="form-group">
+                              <label for="exampleInputFile">Adjuntar Documento Asociado</label>
+                              <div class="input-group center">
+                                 
+                              </div>
+                           </div>
+                           <hr class="mt-3 mb-3"/>
                       <div class="form-group row">
+                      
+                       
+                              <div class="form-group">
+                                 <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                              </div>
+                           </div>
+                           <hr class="mt-3 mb-3"/>
+                           <hr class="mt-3 mb-3"/>
+                           <div class="form-check">
+                              
+                      
                       <div class="col-md-3 text-center">
-                          <button type="submit" class="btn btn-success">Registrar</button>
+                          <button type="submit" class="btn btn-dark">Registrar</button>
                         </div>
                       </div>
                     </form>

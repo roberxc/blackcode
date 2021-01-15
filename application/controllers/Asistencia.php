@@ -18,4 +18,13 @@ class Asistencia extends CI_Controller {
 		$this->load->view('layout/footer');
 	}
 
+	public function AsistenciaEspera()
+	{
+		$data ['activomenu'] = 4;
+		$data ['activo'] = 6;
+		$this->load->view('layout/nav');
+		$this->load->view('menu/menu_admin_personal',$data);
+		$this->load->view('Asistencia/AsistenciaEspera');
+		$this->load->view('layout/footer');
+	}
 }
