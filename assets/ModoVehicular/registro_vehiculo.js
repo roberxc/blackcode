@@ -3,11 +3,6 @@ $(document).on('click', '#addvehiculo', function(e) {
 
     var patente = $("#patente").val();
     var modelo = $("#modelo").val();
-
-    alert(patente);
-    alert(modelo);
-
-
     
         $.ajax({
             url: base_url + "Administracion/registroVehiculo",
