@@ -8,10 +8,11 @@ class Administracion extends CI_Controller {
 		parent::__construct();
 		$this->load->model('CajaChicaModel');
 		$this->load->model('Vehiculo');
+		$this->load->model('Mantencion');
 		$this->load->model('OperacionesModel');
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('Users');
-		$this->load->model('Mantencion');
+		
 	}
 
 	public function informeEgresos(){
@@ -211,7 +212,7 @@ class Administracion extends CI_Controller {
 			echo "'No direct script access allowed'";
 		}	
 	}
-		public function registroMantenciones(){
+		public function registroMantencion(){
 			if ($this->input->is_ajax_request()) {
 				//Validaciones
 				$this->form_validation->set_rules('fecha', 'fecha', 'required');

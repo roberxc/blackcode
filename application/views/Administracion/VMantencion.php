@@ -84,7 +84,7 @@
               <div class="card-body">
                 <div class="tab-content">
                   <div class="active tab-pane" id="settings">
-                    <form class="form-horizontal">
+                  <form id="formmantencion" style="padding:0px 15px;" class="form-horizontal" role="form">
                     
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Fecha Servicio</label>
@@ -192,7 +192,7 @@
                               
                       
                       <div class="col-md-3 text-center">
-                          <button type="submit" class="btn btn-dark">Registrar</button>
+                          <button type="submit" id="addmantencion" class="btn btn-dark">Registrar</button>
                         </div>
                       </div>
                     </form>
@@ -217,6 +217,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>var base_url = '<?php echo base_url();?>';</script>
-<script src="<?php echo base_url()?>assets/js/ModoVehicular/registro_vehiculo.js"></script>
+<script src="<?php echo base_url()?>assets/js/ModoMantencion/registro_mantencion.js"></script>
 </body>
 </html>
