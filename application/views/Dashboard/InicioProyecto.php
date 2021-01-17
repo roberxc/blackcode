@@ -61,6 +61,20 @@
               <a href="<?php echo base_url();?>Proyecto/Proyecto_ejecucion" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
+           <!-- ./col ------------------------------------------------------->
+           <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <p>Crear proyectos</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="<?php echo base_url();?>Proyecto/Evaluacion_proyecto" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+            <!-- ./col ------------------------------------------------------->
 
             <!-- /.modal -->
           <div class="modal fade" id="modal-lg">
