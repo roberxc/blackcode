@@ -82,8 +82,7 @@
 								<div class="card-body">
 									<div class="tab-content">
 										<div class="active tab-pane" id="settings">
-											<form class="form-horizontal">
-
+										<form id="formvehiculo" style="padding:0px 15px;" class="form-horizontal" role="form">
 												<div class="form-group row">
 													<label for="inputName" class="col-sm-2 col-form-label">Patente</label>
 													<div class="col-sm-10">
@@ -154,20 +153,21 @@
 												</div>
 												<div class="form-group row">
 													<div class="col-md-3 text-center">
-														<button type="submit" class="btn btn-block btn-dark">Registrar</button>
+														<button type="submit" id="addvehiculo" class="btn btn-block btn-dark">Registrar</button>
 													</div>
 												</div>
-											</form>
+										
 										</div>
-                
+										</form>
 
 	<!-- jQuery -->
-	<script src="../../plugins/jquery/jquery.min.js"></script>
-	<!-- Bootstrap 4 -->
-	<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- AdminLTE App -->
-	<script src="../../dist/js/adminlte.min.js"></script>
-	<!-- AdminLTE for demo purposes -->
-
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+   integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script>var base_url = '<?php echo base_url();?>';</script>
+<script src="<?php echo base_url()?>assets/ModoVehicular/registro_vehiculo.js"></script>
 </body>
 </html>

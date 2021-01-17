@@ -2,14 +2,15 @@ $(document).on('click', '#addvehiculo', function(e) {
     e.preventDefault();
 
     var patente = $("#patente").val();
-
+    var modelo = $("#modelo").val();
 
     alert(patente);
+    alert(modelo);
 
 
-    /*
+    
         $.ajax({
-            url: base_url + "Administracion/registroVehiculos",
+            url: base_url + "Administracion/registroVehiculo",
             type: "post",
             dataType: "json",
             data: {
@@ -19,8 +20,8 @@ $(document).on('click', '#addvehiculo', function(e) {
             },
             success: function(data) {
                 if (data.response == "success") {
-                    $('#exampleModal').modal('hide')
-                    $("#form")[0].reset();
+                
+                    $("#formvehiculo")[0].reset();
                     Command: toastr["success"](data.message)
 
                     toastr.options = {
@@ -62,7 +63,7 @@ $(document).on('click', '#addvehiculo', function(e) {
                     }
                 }
             }
-        });*/
+        });
 
 
 });

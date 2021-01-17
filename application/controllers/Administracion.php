@@ -7,6 +7,7 @@ class Administracion extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('CajaChicaModel');
+		$this->load->model('Vehiculo');
 		$this->load->model('OperacionesModel');
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('Users');
@@ -221,7 +222,7 @@ class Administracion extends CI_Controller {
 			} else {
 				$ajax_data = $this->input->post();
 				
-				if (!$this->Users->create($ajax_data)) {
+				if (!$this->Vehiculo->create($ajax_data)) {
 					$data = array('response' => "error", 'message' => "Falló el registro");
 				}else{
 					$data = array('response' => "success", 'message' => "Vehiculo Registrado");
