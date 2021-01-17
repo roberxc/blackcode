@@ -8,7 +8,7 @@ $(document).on('click', '#add', function(e) {
     var tipo = $("#tipo").val();
     var password = $("#password").val();
     var password_confirm = $("#password_confirm").val();
-
+    alert(name);
     $.ajax({
         url: "registroCuentas",
         type: "post",
@@ -48,7 +48,7 @@ $(document).on('click', '#add', function(e) {
             } else {
                 Command: toastr["error"](data.message)
 
-                toastr.options = {
+                    toastr.options = {
                     "closeButton": false,
                     "debug": false,
                     "newestOnTop": false,
