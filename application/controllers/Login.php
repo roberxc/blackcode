@@ -33,7 +33,7 @@ class Login extends CI_Controller {
 			$usr= $this->input->post('email');
 			$pass= $this->input->post('password');
 			if(!$res = $this->Auth->login($usr, $pass)){
-				echo json_encode(array('msg' => 'Verifique sus credenciales '));
+				echo json_encode(array('msg' => 'Error verifique sus credenciales '));
 				$this->output->set_status_header(401);
 				exit;
 

@@ -209,7 +209,34 @@ class Administracion extends CI_Controller {
 			echo "'No direct script access allowed'";
 		}
 
+	}public function registroVehiculo(){
+		if ($this->input->is_ajax_request()) {
+			//Validaciones
+			$this->form_validation->set_rules('patente', 'patente', 'required');
+			$this->form_validation->set_rules('modelo', 'modelo', 'required');
+			
+
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+			} else {
+				$ajax_data = $this->input->post();
+				
+				if (!$this->Users->create($ajax_data)) {
+					$data = array('response' => "error", 'message' => "Falló el registro");
+				}else{
+					$data = array('response' => "success", 'message' => "Vehiculo Registrado");
+				}
+
+			}
+
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
 	}
+
+
 
 	public function registroVuelto(){
 		if ($this->input->is_ajax_request()) {
