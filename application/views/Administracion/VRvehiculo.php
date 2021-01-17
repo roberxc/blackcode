@@ -86,7 +86,7 @@
 												<div class="form-group row">
 													<label for="inputName2" class="col-sm-2 col-form-label">Marca</label>
 													<div class="col-sm-10">
-														<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="MARCA" placeholder="Especifique marca vehiculo">
+														<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="marca" placeholder="Especifique marca vehiculo">
 
 
 													</div>
@@ -95,7 +95,7 @@
 												<div class="form-group row">
 													<label for="inputName2" class="col-sm-2 col-form-label">Color</label>
 													<div class="col-sm-10">
-														<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="COLOR" placeholder="Color de vehiculo">
+														<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="color" placeholder="Color de vehiculo">
 
 
 													</div>
@@ -104,7 +104,7 @@
 												<div class="form-group row">
 													<label for="inputName2" class="col-sm-2 col-form-label">Año</label>
 													<div class="col-sm-10">
-														<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="ANO" placeholder="Año de vehiculo">
+														<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="ano" placeholder="Año de vehiculo">
 
 
 													</div>
@@ -112,7 +112,7 @@
 												<div class="form-group row">
 													<label for="inputSkills" class="col-sm-2 col-form-label">Tipo de motor</label>
 													<div class="col-sm-10">
-														<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="TIPOMOTOR" placeholder="Tipo de motor">
+														<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="tipomotor" placeholder="Tipo de motor">
 
 
 													</div>
@@ -120,7 +120,7 @@
 												<div class="form-group row">
 													<label for="inputSkills" class="col-sm-2 col-form-label">GPS</label>
 													<div class="col-sm-10">
-														<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="GPS" placeholder="GPS">
+														<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="gps" placeholder="GPS">
 
 
 													</div>

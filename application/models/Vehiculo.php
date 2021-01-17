@@ -9,6 +9,12 @@ class Vehiculo extends CI_Model{
             
             'patente' => $datos['patente'],
             'modelo' => $datos['modelo'],
+            'marca' => $datos['marca'],
+            'color' => $datos['color'],
+            'ano' => $datos['ano'],
+            'tipomotor' => $datos['tipomotor'],
+            'gps' => $datos['gps'],
+            
           
         );
         if(!$this->db->insert('a', $datos)){

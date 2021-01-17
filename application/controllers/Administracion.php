@@ -11,6 +11,7 @@ class Administracion extends CI_Controller {
 		$this->load->model('OperacionesModel');
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('Users');
+		$this->load->model('Mantencion');
 	}
 
 	public function informeEgresos(){
@@ -208,13 +209,43 @@ class Administracion extends CI_Controller {
 			echo json_encode($data);
 		} else {
 			echo "'No direct script access allowed'";
-		}
+		}	
+	}
+		public function registroMantenciones(){
+			if ($this->input->is_ajax_request()) {
+				//Validaciones
+				$this->form_validation->set_rules('fecha', 'fecha', 'required');
+	
+				if ($this->form_validation->run() == FALSE) {
+					$data = array('response' => "error", 'message' => validation_errors());
+				} else {
+					$ajax_data = $this->input->post();
+					
+					if (!$this->Mantencion->create($ajax_data)) {
+						$data = array('response' => "error", 'message' => "Falló el registro de mantencion");
+					}else{
+						$data = array('response' => "success", 'message' => "Mantencion registrada correctamente!");
+					}
+	
+				}
+	
+				echo json_encode($data);
+			} else {
+				echo "'No direct script access allowed'";
+			}
+
 
 	}public function registroVehiculo(){
 		if ($this->input->is_ajax_request()) {
 			//Validaciones
 			$this->form_validation->set_rules('patente', 'patente', 'required');
 			$this->form_validation->set_rules('modelo', 'modelo', 'required');
+			$this->form_validation->set_rules('marca', 'marca', 'required');
+			$this->form_validation->set_rules('color', 'color', 'required');
+			$this->form_validation->set_rules('ano', 'ano', 'required');
+			$this->form_validation->set_rules('tipomotor', 'tipomotor', 'required');
+			$this->form_validation->set_rules('gps', 'gps', 'required');
+			
 			
 
 			if ($this->form_validation->run() == FALSE) {
