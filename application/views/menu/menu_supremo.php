@@ -183,13 +183,13 @@ if (isset($set_data['nombre_completo'])) {
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo base_url()?>CGarage" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
+                <a href="<?php echo base_url()?>CGarage" class="nav-link <?php if(isset($activo) && ($activo == 98)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Garage Vehiculo</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
+                <a href="<?php echo base_url()?>CCombustible" class="nav-link <?php if(isset($activo) && ($activo == 99)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Combustible</p>
                 </a>

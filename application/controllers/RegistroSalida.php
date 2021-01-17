@@ -47,15 +47,15 @@ class RegistroSalida extends CI_Controller
        foreach ($fetch_data as $value) {
 
            $sub_array      = array();
-           $sub_array[]    = $value->ID_Salida;
-           $sub_array[]    = $value->NombreMaterial;
-           $sub_array[]    = $value->ID_Material;
-           $sub_array[]    = $value->NombreTipoMaterial;
-           $sub_array[]    = $value->NombreProyecto;
-           $sub_array[]    = $value->FechaSalida;
-           $sub_array[]    = $value->CantidadSalida;
-           $sub_array[]	=   $value->NombreTipoBodega;
-           $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" onclick="vermas('.$value->ID_Material.');" ></a>';
+           $sub_array[]    = $value->id_salida;
+           $sub_array[]    = $value->nombrematerial;
+           $sub_array[]    = $value->id_material;
+           $sub_array[]    = $value->nombretipomaterial;
+           $sub_array[]    = $value->nombreproyecto;
+           $sub_array[]    = $value->fechasalida;
+           $sub_array[]    = $value->cantidadsalida;
+           $sub_array[]	=   $value->nombretipobodega;
+           $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" onclick="vermas('.$value->id_material.');" ></a>';
             //<a href="#" class="fas fa-edit" style="font-size: 20px;"></a> EN CASO DE QUERER EDITAR
            $data[]         = $sub_array;
        }
