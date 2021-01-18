@@ -58,7 +58,8 @@
                                <th>Fecha de Ingreso</th>  <!-- 4 --->
                                <th>Cantidad Ingresada</th> <!-- 5 --->
                                <th>Bodega</th> <!-- 6 --->
-                               <th>Accion</th> <!-- 7 --->
+                               <th>Glosa</th> <!-- 7 --->
+                               <!-- <th>Accion</th>   --->
                           </tr>  
                         </thead>  
                       </table>   
@@ -279,9 +280,9 @@
                       <table id="example2" name="example2" class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Bodega</th> <!-- 0 -->
-                                <th>Glosa</th>              <!-- 1 -->
-                                <th>Responsable</th> <!-- 2 -->  
+                                <th>Nombre Producto</th> <!-- 0 -->
+                                <th>Bodega</th> <!-- 1 -->
+                                <th>Glosa</th>  <!-- 2 -->
                             </tr>
                         </thead>
                         <tbody>
@@ -369,8 +370,25 @@
           ]
         });
       });
-
+      /*
       //mostrar tabla ver mas
+      $(document).ready(function(){
+        $('#example2').DataTable({
+          "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+            },
+          "processing": true,
+          "serverSide": true, 
+          "ajax":{url:"<?php echo base_url('RegistroEntrada/fetch_vermas'); ?>",
+          type: "POST"
+        },
+          "columnDefs":[
+            {
+                "targets": [1,2,3],
+            }
+          ]
+        }); 
+      }); */
 
 
 

@@ -50,7 +50,7 @@
                                <th>Fecha de Egreso</th>  <!-- 6 --->
                                <th>Cantidad Retirada</th> <!-- 7 --->
                                <th>Bodega</th> <!-- 8 --->
-                               <th>Accion</th> <!-- 9 --->
+                               <!--<th>Accion</th>  9 --->
                           </tr>  
                         </thead>  
                       </table>   
@@ -170,7 +170,7 @@
         },
           "columnDefs":[
             {
-                "targets": [1,2,3,4,5,6,7,8],
+                "targets": [1,2,3,4,5,6,7],
             }
           ]
         });

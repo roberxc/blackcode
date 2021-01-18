@@ -67,8 +67,9 @@ class RegistroEntrada extends CI_Controller
             $sub_array[]    = $value->nombreproyecto;
             $sub_array[]    = $value->fechaentrada;
 			$sub_array[]    = $value->cantidadingresada;
-			$sub_array[]	= $value->nombretipobodega;
-			$sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" onclick="vermas('.$value->id_material.');" ></a>';
+            $sub_array[]	= $value->nombretipobodega;
+            $sub_array[]	= $value->detalle;
+			//$sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" onclick="vermas('.$value['id_material'].');" ></a>';
            // <a href="#" class="fas fa-edit" style="font-size: 20px;"></a> EN CASO DE QUERER EDITAR LOS REGISTROS
             $data[]         = $sub_array;
         }
@@ -82,7 +83,7 @@ class RegistroEntrada extends CI_Controller
 		
     }
     
-
+    /*
     public function fetch_vermas()
     {
         $this->load->model('Bodega', 'bodega');
@@ -90,5 +91,5 @@ class RegistroEntrada extends CI_Controller
         $fetch_data = $this->bodega->make_model_vermas($this->input->get('id'))[0];
         echo json_encode($fetch_data);
     }
-	
+	*/
 }

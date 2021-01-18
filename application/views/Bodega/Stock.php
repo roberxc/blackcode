@@ -46,8 +46,8 @@
                         <!-- 3 --->
                         <th>Bodega</th>
                         <!-- 4 --->
-                        <th>Accion</th>
-                        <!-- 5 --->
+                        <!--<th>Accion</th>
+                         5 --->
                      </tr>
                   </thead>
                </table>
@@ -140,7 +140,7 @@
      },
        "columnDefs":[
          {
-             "targets": [1,2,3,4,5],
+             "targets": [1,2,3,4],
          }
        ]
      });

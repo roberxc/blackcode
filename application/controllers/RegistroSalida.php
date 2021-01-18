@@ -55,7 +55,7 @@ class RegistroSalida extends CI_Controller
            $sub_array[]    = $value->fechasalida;
            $sub_array[]    = $value->cantidadsalida;
            $sub_array[]	=   $value->nombretipobodega;
-           $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" onclick="vermas('.$value->id_material.');" ></a>';
+           //$sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" onclick="vermas('.$value->id_material.');" ></a>';
             //<a href="#" class="fas fa-edit" style="font-size: 20px;"></a> EN CASO DE QUERER EDITAR
            $data[]         = $sub_array;
        }

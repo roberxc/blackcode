@@ -177,7 +177,7 @@ class Bodega extends CI_Model {
         //ESTE ES EL SELECT DE LA TABLA PRINCIPAL DE ENTRADA
 
         var $table = array("tipomaterial","tipobodega","material","proyecto", "entrada", "detalleentrada");  
-        var $select_column = array("entrada.id_entrada", "nombrematerial","material.id_material", "nombretipomaterial", "nombreproyecto", "fechaentrada", "entrada.cantidadingresada", "nombretipobodega");  
+        var $select_column = array("entrada.id_entrada", "nombrematerial","material.id_material", "nombretipomaterial", "nombreproyecto", "fechaentrada", "entrada.cantidadingresada", "nombretipobodega", "detalle");  
         var $order_column = array("entrada.id_entrada", "nombrematerial","material.id_material", "nombretipomaterial", "nombreproyecto", "fechaentrada", "entrada.cantidadingresada", "nombretipobodega");  
         var $wheree = "material.id_tipobodega = tipobodega.id_tipobodega AND tipomaterial.id_tipomaterial = material.id_tipomaterial AND entrada.id_proyecto = proyecto.id_proyecto AND entrada.id_entrada = detalleentrada.id_entrada AND material.id_material = detalleentrada.id_material";
       
@@ -231,13 +231,13 @@ class Bodega extends CI_Model {
 
       function make_query_vermas($IDENTRADA = '0')
       {
-        $table = array("tipobodega","material");  
-        $select_column = array("nombretipobodega","detalle");  
-        $order_column = array("nombretipobodega","detalle");  
-        $wheree = array("material.id_tipobodega = tipobodega.id_tipobodega AND material.id_material=",$IDENTRADA);
-        $this->db->SELECT($select_column);
-        $this->db->from($table);
-        $this->db->where($wheree);
+        $tableeee = array("material", "tipobodega");  
+        $select_columnn = array("material.nombrematerial","tipobodega.nombretipobodega", "material.detalle");  
+        //$order_column = array("nombrematerial","nombretipobodega","detalle");  
+        $whereeeee = array("material.id_tipobodega = tipobodega.id_tipobodega AND material.id_material=",$IDENTRADA);
+        $this->db->SELECT($select_columnn);
+        $this->db->from($tableeee);
+        $this->db->where($whereeeee);
       }
   
       function make_model_vermas($IDENTRADA = '0')
@@ -254,7 +254,7 @@ class Bodega extends CI_Model {
       }
       function get_all_data_vermas()
       {
-          $this->db->SELECT('nombretipobodega, detalle');
+          $this->db->SELECT('nombrematerial, nombretipobodega, detalle');
           $this->db->from('tipobodega, material');
           $this->db->where('material.id_tipoBodega = tipobodega.id_tipobodega');
           return $this->db->count_all_results();
