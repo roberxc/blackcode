@@ -58,7 +58,7 @@
                 
                 </ul>
 
-                <button type="reset" class="btn btn-dark btn-block">Actualizar</button>
+                <button type="reset" class="btn btn-outline-dark btn-block">Actualizar</button>
               </div>
               <!-- /.card-body -->
             </div>
@@ -119,7 +119,7 @@
                       <hr class="mt-3 mb-3"/>
                       <hr class="mt-3 mb-3"/>
                       <div class="col-md-3 text-center">
-              <h5>Mecánico Asignado</h5>
+              <h5>Datos Mecánico</h5>
               </div>
               <hr class="mt-3 mb-3"/>
               <div class="form-group row">
@@ -186,7 +186,7 @@
                               
                       
                       <div class="col-md-3 text-center">
-                          <button type="submit" id="addmantencion" class="btn btn-block btn-dark">Registrar</button>
+                          <button type="submit" id="addmantencion" class="btn btn-outline-dark btn-block">Registrar</button>
                         </div>
                       </div>
                     </form>
