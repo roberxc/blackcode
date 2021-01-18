@@ -94,6 +94,7 @@
 												</div>
 											</div>
 
+
 											<div class="form-group row">
 												<label for="inputName2" class="col-sm-2 col-form-label">Marca</label>
 												<div class="col-sm-10">
@@ -123,22 +124,41 @@
 											<div class="form-group row">
 												<label for="inputSkills" class="col-sm-2 col-form-label">Tipo de motor</label>
 												<div class="col-sm-10">
-													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="tipomotor" placeholder="Tipo de motor">
+													<select id="tipomotor" class="form-control">
+													<option selected>Seleccione</option>
+        											<option>Bencinero</option>
+													<option>Diesel</option>
+													<option>Electrico</option>
+													<option>Otro</option>
+													
+      											</select>
 
 
 												</div>
 											</div>
 											
 
-
+											<hr class="mt-3 mb-3" />   
 											<div class="form-group row">
-												<label for="inputSkills" class="col-sm-2 col-form-label">GPS</label>
+												<label for="inputSkills" class="col-sm-2 col-form-label">Tiene GPS?</label>
 												<div class="col-sm-10">
-													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="gps" placeholder="GPS">
-
+												<hr class="mt-3 mb-3" /> 
+												<div id="parent"> 
+											
+											<input type="radio" name="group1" value="1" data-parent="#parent" data-toggle="collapse" data-target="#div1"  />	
+											<label>Si</label>
+											
+											
+											<div class="panel-collapse collapse in" id="div1"><input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="gps" placeholder="Ingrese el numero aqui"></div>
+											<div class="panel-collapse collapse in" id="div2"></div>
+											
+											</div>
 
 												</div>
-											</div>
+											</div> 
+
+										
+
 											<hr class="mt-3 mb-3" />
 											<hr class="mt-3 mb-3" />
 											<div class="form-group row">
