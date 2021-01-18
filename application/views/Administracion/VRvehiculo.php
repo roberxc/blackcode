@@ -116,8 +116,8 @@
 											<div class="form-group row">
 												<label for="inputName2" class="col-sm-2 col-form-label">Año</label>
 												<div class="col-sm-10">
-													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="ano" placeholder="Año de vehiculo">
-
+													
+                           <input type="date" class="form-control datetimepicker-input" data-target="#reservationdate" id="ano" format="y"/>
 
 												</div>
 											</div>
@@ -128,7 +128,7 @@
 													<option selected>Seleccione</option>
         											<option>Bencinero</option>
 													<option>Diesel</option>
-													<option>Electrico</option>
+													<option>Eléctrico</option>
 													<option>Otro</option>
 													
       											</select>
@@ -140,13 +140,15 @@
 
 											<hr class="mt-3 mb-3" />   
 											<div class="form-group row">
-												<label for="inputSkills" class="col-sm-2 col-form-label">Tiene GPS?</label>
+												<label for="inputSkills" class="col-sm-2 col-form-label">Gps</label>
 												<div class="col-sm-10">
 												<hr class="mt-3 mb-3" /> 
+												
 												<div id="parent"> 
 											
 											<input type="radio" name="group1" value="1" data-parent="#parent" data-toggle="collapse" data-target="#div1"  />	
 											<label>Si</label>
+											
 											
 											
 											<div class="panel-collapse collapse in" id="div1"><input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="gps" placeholder="Ingrese el numero aqui"></div>
