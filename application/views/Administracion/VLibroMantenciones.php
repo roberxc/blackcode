@@ -31,19 +31,19 @@
                <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                   <thead>
                      <tr>
-                        <th>Codigo</th>
+                        <th>N° Registro</th>
                         <!-- 0 ---> 
-                        <th>Patente</th>
+                        <th>Fecha Servicio</th>
                         <!-- 1 --->
-                        <th>Marca</th>
+                        <th>Encargado</th>
                         <!-- 2 --->
-                        <th>Año</th>
+                        <th>Taller</th>
                         <!-- 3 --->
-                        <th>Tipo Motor</th>
+                        <th>Mecanico</th>
                         <!-- 4 --->
-                        <th>Color</th>
+                        <th>Costo</th>
                         <!-- 5 --->
-                        <th>Gps</th>
+                        <th>Detalle</th>
                         <!-- 6 --->
                      </tr>
                   </thead>
@@ -124,6 +124,7 @@
 </section>
 </div>
 <script>
+/*
    //Mostrar tabla principal
    $(document).ready(function(){
      $('#example1').DataTable({
@@ -142,6 +143,7 @@
        ]
      });
    });
+   */
 </script>
 <!-- ESTE PARA LAS ALERTAS --->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

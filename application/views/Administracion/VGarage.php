@@ -35,16 +35,18 @@
                         <!-- 0 ---> 
                         <th>Patente</th>
                         <!-- 1 --->
-                        <th>Marca</th>
+                        <th>Tipo</th>
                         <!-- 2 --->
-                        <th>Año</th>
+                        <th>Marca</th>
                         <!-- 3 --->
-                        <th>Tipo Motor</th>
+                        <th>Año</th>
                         <!-- 4 --->
-                        <th>Color</th>
+                        <th>Tipo Motor</th>
                         <!-- 5 --->
-                        <th>Gps</th>
+                        <th>Color</th>
                         <!-- 6 --->
+                        <th>Gps</th>
+                        <!-- 7 --->
                      </tr>
                   </thead>
                </table>
@@ -124,7 +126,7 @@
 </section>
 </div>
 <script>
-   //Mostrar tabla principal
+   /*//Mostrar tabla principal
    $(document).ready(function(){
      $('#example1').DataTable({
        "language": {
@@ -143,6 +145,7 @@
      });
    });
 </script>
+*/
 <!-- ESTE PARA LAS ALERTAS --->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="<?php echo base_url();?>assets/js/sweetAlert.js"></script>
