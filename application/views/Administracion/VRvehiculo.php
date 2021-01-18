@@ -75,6 +75,16 @@
 
 													</div>
 												</div>
+
+												<div class="form-group row">
+													<label for="inputName" class="col-sm-2 col-form-label">Tipo Vehiculo</label>
+													<div class="col-sm-10">
+														<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="tipo" placeholder="Tipo de Vehiculo">
+
+													</div>
+												</div>
+
+
 												<div class="form-group row">
 													<label for="inputEmail" class="col-sm-2 col-form-label">Modelo</label>
 													<div class="col-sm-10">

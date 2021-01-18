@@ -240,6 +240,7 @@ class Administracion extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 			//Validaciones
 			$this->form_validation->set_rules('patente', 'patente', 'required');
+			$this->form_validation->set_rules('tipo', 'tipo', 'required');
 			$this->form_validation->set_rules('modelo', 'modelo', 'required');
 			$this->form_validation->set_rules('marca', 'marca', 'required');
 			$this->form_validation->set_rules('color', 'color', 'required');

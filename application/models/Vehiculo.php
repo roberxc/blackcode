@@ -7,7 +7,9 @@ class Vehiculo extends CI_Model{
     public function create($datos){
         $datos = array(
             
+            
             'patente' => $datos['patente'],
+            'tipo' => $datos['tipo'],
             'modelo' => $datos['modelo'],
             'marca' => $datos['marca'],
             'color' => $datos['color'],

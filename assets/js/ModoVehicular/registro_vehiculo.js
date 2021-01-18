@@ -2,6 +2,7 @@ $(document).on('click', '#addvehiculo', function(e) {
     e.preventDefault();
 
     var patente = $("#patente").val();
+    var tipo = $("#tipo").val();
     var modelo = $("#modelo").val();
     var marca = $("#marca").val();
     var color = $("#color").val();
@@ -16,6 +17,7 @@ $(document).on('click', '#addvehiculo', function(e) {
         dataType: "json",
         data: {
             patente: patente,
+            tipo: tipo,
             modelo: modelo,
             marca: marca,
             color: color,
