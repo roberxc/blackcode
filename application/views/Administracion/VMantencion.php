@@ -96,14 +96,14 @@
                       <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label">Patente</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName2" placeholder="Placa patente unica">
+                          <input type="text" class="form-control" id="patente" placeholder="Placa patente unica">
                         </div>
                       </div>
 
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Kilometraje</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputEmail" placeholder="Kilometraje entrante">
+                          <input type="text" class="form-control" id="kilometraje" placeholder="Kilometraje entrante">
                         </div>
                       </div>
                     
@@ -112,14 +112,14 @@
                       <div class="form-group row">
                         <label for="inputSkills" class="col-sm-2 col-form-label">Servicio</label>
                         <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputName2" placeholder="Trabajo realizado">
+                        <input type="text" class="form-control" id="servicio" placeholder="Trabajo realizado">
                         </div>
                       </div>
 
                       <div class="form-group row">
                         <label for="inputSkills" class="col-sm-2 col-form-label">Encargado</label>
                         <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputName2" placeholder="Encargado de la mantención">
+                        <input type="text" class="form-control" id="encargado" placeholder="Encargado de la mantención">
                         </div>
                       </div>
                       <hr class="mt-3 mb-3"/>
@@ -131,19 +131,19 @@
               <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Nombre</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputEmail" placeholder="Nombre del mecánico">
+                          <input type="text" class="form-control" id="nombremecanico" placeholder="Nombre del mecánico">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Taller</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputEmail" placeholder="Taller o planta de mantención">
+                          <input type="text" class="form-control" id="taller" placeholder="Taller o planta de mantención">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Notas</label>
                         <div class="col-sm-10">
-                        <textarea class="form-control"id="inputEmail" rows="3" placeholder="Detalles del servicio o mantención..."></textarea>
+                        <textarea class="form-control"id="detalle" rows="3" placeholder="Detalles del servicio o mantención..."></textarea>
                         </div>
                       </div>
                       <hr class="mt-3 mb-3"/>
@@ -156,7 +156,7 @@
               <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Total</label>
                         <div class="col-sm-10">
-                          <input type="number" class="form-control" id="inputEmail" placeholder="$ Costo Total">
+                          <input type="number" class="form-control" id="totalmantencion" placeholder="$ Costo Total">
                         </div>
                       </div>
                       <div class="form-group row">
@@ -183,7 +183,7 @@
                       
                        
                               <div class="form-group">
-                                 <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                 <input type="file" class="form-control-file" id="documentoasociadomantencion">
                               </div>
                            </div>
                            <hr class="mt-3 mb-3"/>
@@ -192,7 +192,7 @@
                               
                       
                       <div class="col-md-3 text-center">
-                          <button type="submit" id="addmantencion" class="btn btn-dark">Registrar</button>
+                          <button type="submit" id="addmantencion" class="btn btn-block btn-dark">Registrar</button>
                         </div>
                       </div>
                     </form>
