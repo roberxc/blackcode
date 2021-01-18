@@ -26,9 +26,9 @@
                   </div>
 
                   <div class="col-md-3 text">
-                          <button type="submit" class="btn btn-info">Listar</button>
+                          <button type="submit" class="btn btn-outline-info">Listar</button>
                         
-                          <button type="submit" class="btn btn-dark">Guardar</button>
+                          <button type="submit" class="btn btn-outline-dark">Guardar</button>
                         </div>
                </div>
                
@@ -57,7 +57,7 @@
                         <!-- /.form-group -->
                         <hr class="mt-3 mb-3"/>
                         <div class="form-group">
-                           <button type="button" class="btn btn-block btn-dark" data-toggle="modal" data-target="#modal-nuevo-documento">Adjuntar</button>
+                           <button type="button" class="btn btn-block btn-outline-dark" data-toggle="modal" data-target="#modal-nuevo-documento">Adjuntar</button>
                        
                        
                         <!-- /.form-group -->
@@ -156,8 +156,8 @@
                      </form>
                   </div>
                   <div class="modal-footer justify-content-between">
-                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                     <button type="button" class="btn btn-dark">Guardar</button>
+                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                     <button type="button" class="btn btn-outline-success">Guardar</button>
                   </div>
             </div>
          </div>
