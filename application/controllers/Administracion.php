@@ -246,7 +246,7 @@ class Administracion extends CI_Controller {
 			$this->form_validation->set_rules('color', 'color', 'required');
 			$this->form_validation->set_rules('ano', 'ano', 'required');
 			$this->form_validation->set_rules('tipomotor', 'tipomotor', 'required');
-			$this->form_validation->set_rules('gps', 'gps', 'required');
+			
 			
 			
 

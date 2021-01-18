@@ -36,7 +36,7 @@
 
 								<ul class="list-group list-group-unbordered mb-3">
 									<li class="list-group-item">
-										<b>Total</b> <a class="float-right">303</a>
+										<b>Existencia total</b> <a class="float-right">303</a>
 									</li>
 								</ul>
 
