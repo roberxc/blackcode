@@ -80,13 +80,13 @@ if (isset($set_data['nombre_completo'])) {
 
       <li class="nav-item dropdown user user-menu">
     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-      <img src="<?php echo base_url();?>assets/dist/img/0012.png" class="user-image img-circle elevation-2 alt="User Image">
+      <img src="<?php echo base_url();?>assets/dist/img/0016.png" class="user-image img-circle elevation-2 alt="User Image">
       <span class="hidden-xs"><?php echo $nombre;?></span>
     </a>
     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
       <!-- User image -->
       <li class="user-header bg-primary">
-        <img src="<?php echo base_url();?>assets/dist/img/0012.png" class="img-circle elevation-2" alt="User Image">
+        <img src="<?php echo base_url();?>assets/dist/img/0016.png" class="img-circle elevation-2" alt="User Image">
 
         <p>Bienvenid@
         Usuario
