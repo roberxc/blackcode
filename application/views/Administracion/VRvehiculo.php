@@ -158,17 +158,13 @@
 
 												</div>
 											</div> 
-
-										
-
 											<hr class="mt-3 mb-3" />
 											<hr class="mt-3 mb-3" />
 											<div class="form-group row">
 												<div class="offset-sm-2 col-sm-10">
 													<div class="checkbox">
 														<label>
-                             
-                            </label>
+														</label>
 													</div>
 												</div>
 											</div>

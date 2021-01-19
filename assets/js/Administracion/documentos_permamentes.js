@@ -38,8 +38,9 @@ $("#form-subir-archivos-permamente").submit(function(event) {
         success: function(respuesta) {
             if (respuesta === "exito") {
                 //$("#msg-error").hide();
-                window.location.href = base_url + "Documentacion/Permamente";
                 generarAvisoExitoso('Archivo subido correctamente!');
+                window.location.href = base_url + "Documentacion/Permamente";
+                
             } else if (respuesta === "error") {
                 generarAvisoError('Error al subir el archivo');
             } else {

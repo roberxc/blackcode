@@ -61,6 +61,41 @@ class DocumentacionModel extends CI_Model {
 		return $query->result();
 	}
 
+	public function FiltroDocumentacionActualizable($nombre,$fecha){
+		if(empty($nombre)){
+			
+			$query = $this->db
+				->select("d.id_documentos as iddocumentacion, d.nombre as nombre, d.fecha as fechasubida, d.ubicacion as ubicacion,d.fechalimite as fechalimite") # También puedes poner * si quieres seleccionar todo
+				->from("documentacion_empresa d")
+				->where('d.tipo', 1)
+				->like("d.fecha",$fecha,"both")
+				->get();
+
+		}else if(empty($fecha)){
+			
+			$query = $this->db
+				->select("d.id_documentos as iddocumentacion, d.nombre as nombre, d.fecha as fechasubida, d.ubicacion as ubicacion,d.fechalimite as fechalimite") # También puedes poner * si quieres seleccionar todo
+				->from("documentacion_empresa d")
+				->where('d.tipo', 1)
+				->like("d.nombre", $nombre,"both")
+				->get();
+		}else{
+			
+			$query = $this->db
+				->select("d.id_documentos as iddocumentacion, d.nombre as nombre, d.fecha as fechasubida, d.ubicacion as ubicacion,d.fechalimite as fechalimite") # También puedes poner * si quieres seleccionar todo
+				->from("documentacion_empresa d")
+				->where('d.tipo', 1)
+				->group_start()
+				->like("d.nombre", $nombre,"both")
+				->or_like("d.fecha",$fecha,"both")
+				->group_end()
+				->get();
+		}
+		
+		
+		return $query->result();
+	}
+
 }
 
 ?>

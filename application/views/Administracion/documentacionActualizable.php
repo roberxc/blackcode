@@ -42,7 +42,7 @@
                         <div class="form-group">
                            <label>Documento</label>
                            <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Ingrese" id="codigoservicio_filtro" format="y-m-d">
+                              <input type="text" class="form-control" placeholder="Ingrese" id="nombre_filtro">
                            </div>
                         </div>
                         <!-- /.form-group -->
@@ -59,7 +59,7 @@
                         <!-- /.form-group -->
                         <div class="form-group">
                            <label class="invisible">Listar</label>
-                           <button type="button" class="btn btn-block btn-primary">Listar</button>
+                           <button type="button" id="listar" class="btn btn-block btn-primary">Listar</button>
                         </div>
                         <!-- /.form-group -->
                      </div>
@@ -72,7 +72,7 @@
             <div class="card">
                <!-- /.card-header -->
                <div class="card-body">
-                  <table id="example1" class="table table-bordered table-striped">
+                  <table id="tabla_documentacion_actualizable" class="table table-bordered table-striped">
                      <thead>
                         <tr>
                            <th>Documento</th>

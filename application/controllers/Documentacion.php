@@ -42,4 +42,12 @@ class Documentacion extends CI_Controller {
 		$resultado = $this->DocumentacionModel->FiltroDocumentacionPermamente($nombre,$fecha);
 		echo json_encode($resultado);
 	}
+
+	public function filtrarDocumentacionActualizable(){
+		$nombre = $this->input->post('nombre');
+		$fecha = $this->input->post('fechalimite');
+
+		$resultado = $this->DocumentacionModel->FiltroDocumentacionActualizable($nombre,$fecha);
+		echo json_encode($resultado);
+	}
 }
