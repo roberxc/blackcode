@@ -43,6 +43,28 @@ class Pic_model extends CI_Model{
 		);
 		return $this->db->insert("detalletrabajodiario", $data);
 	}
+
+	function subirDocumentacionPermamente($data,$namedocumento){
+		$data = array(
+			"nombre" => $namedocumento,
+			"fecha" => date("d/m/Y"),
+			"ubicacion" => $data['upload_data']['file_name'],
+			"fechalimite" => 'No aplica',
+			"tipo" => 0,
+		);
+		return $this->db->insert("documentacion_empresa", $data);
+	}
+
+	function subirDocumentacionActualizable($data,$namedocumento,$fechalimite){
+		$data = array(
+			"nombre" => $namedocumento,
+			"fecha" => date("d/m/Y"),
+			"ubicacion" => $data['upload_data']['file_name'],
+			"fechalimite" => $fechalimite,
+			"tipo" => 1,
+		);
+		return $this->db->insert("documentacion_empresa", $data);
+	}
 	
 	/*function store_pic_data($data){
 		$insert_data['pic_title'] = $data['pic_title'];

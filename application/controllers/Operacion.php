@@ -415,7 +415,7 @@ class Operacion extends CI_Controller {
 		foreach($asistencia_planilla as $row){ 
 			$response .= "<tr>";
 			$response .= "<td>";
-			$response .= "<input type='hidden' value='$row->Rut' class='form-control rutPersonal' disabled/>";
+			$response .= "<input type='hidden' value='$row->rut' class='form-control rutPersonal' disabled/>";
 			$response .= "</td>";
 			$response .= "<td>";
 			$response .= $row->Fecha;
@@ -537,7 +537,7 @@ class Operacion extends CI_Controller {
 			$response .= $row->Nombre;
 			$response .= "</td>";
 			$response .= "<td>";
-			$response .= "<input type='text' value='$row->TotalHoras' class='form-control nombreArchivo' disabled/>";
+			$response .= $row->TotalHoras;
 			$response .= "</td>";
 			$response .= "</tr>";
 		}

@@ -42,7 +42,7 @@
                         <div class="form-group">
                            <label>Documento</label>
                            <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Ingrese" id="codigoservicio_filtro">
+                              <input type="text" class="form-control" placeholder="Ingrese" id="nombre_filtro">
                            </div>
                         </div>
                         <!-- /.form-group -->
@@ -59,7 +59,7 @@
                         <!-- /.form-group -->
                         <div class="form-group">
                            <label class="invisible">Listar</label>
-                           <button type="button" class="btn btn-block btn-primary">Listar</button>
+                           <button type="button" id="listar" class="btn btn-block btn-primary">Listar</button>
                         </div>
                         <!-- /.form-group -->
                      </div>
@@ -72,7 +72,7 @@
             <div class="card">
                <!-- /.card-header -->
                <div class="card-body">
-                  <table id="example1" class="table table-bordered table-striped">
+                  <table id="tabla_documentacion_permamente" class="table table-bordered table-striped">
                      <thead>
                         <tr>
                            <th>Documento</th>
@@ -80,7 +80,34 @@
                            <th>Opciones</th>
                         </tr>
                      </thead>
-                     <tbody id="tbody">
+                     <tbody>
+                        <?php 
+                           if($documentos_permamentes){
+                              foreach($documentos_permamentes as $row){
+                           ?>
+                        <tr>
+                           <td style="display:none;">
+                              <input type="hidden" value="<?php echo $row->iddocumentacion?>" class="form-control name-file" disabled/>
+                           </td>
+                           <td>
+                              <?php echo $row->nombre?>
+                           </td>
+                           <td>
+                              <?php echo $row->fechasubida?>
+                           </td>
+                           <td class="project-actions">
+                              <button class="btn btn-primary btn-sm" id="detalle_trabajo" data-toggle="modal" data-target="#modal-detalle">
+                              <i class="far fa-eye">
+                              </i>
+                              </button>
+                              <button class="btn btn-info btn-sm" id="detalle_archivos" data-toggle="modal" data-target="#modal-archivos">
+                              <i class="fas fa-upload">
+                              </i>
+                              </button>
+                           </td>
+                        </tr>
+                        <?php }
+                           }?>
                      </tbody>
                   </table>
                </div>
@@ -117,28 +144,29 @@
                   <div class="card card-primary">
                      <!-- /.card-header -->
                      <!-- form start -->
-                     <form role="form">
+                     <form id="form-subir-archivos-permamente" style="padding:0px 15px;" class="form-horizontal" role="form" action="<?php echo base_url();?>Upload/subirDocumentacionPermamente" method="POST">
                         <div class="card-body">
                            <div class="form-group">
                               <label for="exampleInputEmail1">Nombre del documento</label>
-                              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Ingrese">
+                              <input type="text" class="form-control" id="nombre-documento" name="nombre-documento" placeholder="Ingrese">
                            </div>
                            <div class="form-group">
-                              <label for="exampleInputFile">Archivo</label>
+                              <label for="pic_file">Archivo</label>
                               <div class="form-group">
-                                 <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                 <input type="file" name="pic_file" class="form-control-file" id="pic_file">
                               </div>
                            </div>
                            <div class="form-check">
                               <label class="form-check-label" for="exampleCheck1">Formatos admitidos: pdf, docx, jpg, pptx, xlsx.</label>
                            </div>
                         </div>
-                     </form>
+                     
                   </div>
                   <div class="modal-footer justify-content-between">
                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                     <button type="button" class="btn btn-primary">Guardar</button>
+                     <button type="submit" class="btn btn-primary">Guardar</button>
                   </div>
+                  </form>
             </div>
          </div>
          <!-- /.modal-content -->
@@ -152,7 +180,10 @@
       integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-   <script src="<?php echo base_url()?>assets/js/CajaChica/vuelto_cajachica.js"></script>
+
+
+   <script>var base_url = '<?php echo base_url();?>';</script>
+      <script src="<?php echo base_url();?>assets/js/Administracion/documentos_permamentes.js"></script>
    <!-- page script -->
 </body>
 </html>

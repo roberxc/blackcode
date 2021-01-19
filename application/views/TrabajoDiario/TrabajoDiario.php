@@ -97,7 +97,7 @@
                   ?>
                <tr>
                   <td>
-                     <input type="text" value="<?php echo $row->CodigoServicio?>" class="form-control name-file" disabled/>
+                     <input type="text" value="<?php echo $row->codigoservicio?>" class="form-control name-file" disabled/>
                   </td>
                   <td>
                      <?php echo $row->FechaTrabajo?>
@@ -252,10 +252,17 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.js" integrity="sha512-W76C8qrNYavcaycIH9EijxRuswoS+LCqA1+hq+ECrmjzAbe/SHhTgrwA1uc84husS/Gz50mxOEHPzrcd3sxBqQ==" crossorigin="anonymous"></script>
 <script type="text/javascript">
+   var today = new Date();
+   var dd = String(today.getDate()).padStart(2, '0');
+   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+   var yyyy = today.getFullYear();
+   var date = dd+mm+yyyy;
+
+
    $(function () {
    $('#date_range').daterangepicker({
      "locale": {
-         "format": "YYYY-MM-DD",
+         "format": "DD-MM-YYYY",
          "separator": " - ",
          "applyLabel": "Guardar",
          "cancelLabel": "Cancelar",
@@ -287,8 +294,7 @@
          ],
          "firstDay": 1
      },
-     "startDate": "2020-11-01",
-     "endDate": "2020-11-30",
+     "startDate": date,
      "opens": "center"
    });
    });

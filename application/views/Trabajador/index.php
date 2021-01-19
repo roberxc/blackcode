@@ -128,7 +128,7 @@ if (isset($set_data['nombre_completo'])) {
                            <?php 
                               foreach($tipos_trabajos as $row)
                               { ?>
-                           <option value="<?php echo $row->Abreviacion?>"><?php echo $row->NombreTipoTrabajo?></option>
+                           <option value="<?php echo $row->abreviacion?>"><?php echo $row->nombretipotrabajo?></option>
                            <?php }?>
                         </select>
                      </div>

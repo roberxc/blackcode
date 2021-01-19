@@ -79,7 +79,7 @@
                ?>
             <div class="card">
                <div class="card-body">
-                  <div class="card-title"><?php echo $row->Nombre;?></div>
+                  <div class="card-title"><?php echo $row->nombre;?></div>
                   <hr class="cell-divide-hr">
                   </br></br>
                   <table class="table table-bordered" >
@@ -88,7 +88,7 @@
                      </TR>
                      <TR>
                         <TH>Rut</TH>
-                        <TD class=""><input type="text" id="" class="form-control" value="<?php echo $row->Rut;?>" disabled/></TD>
+                        <TD class=""><input type="text" id="" class="form-control" value="<?php echo $row->rut;?>" disabled/></TD>
                      </TR>
                      <TR>
                         <TD COLSPAN=2  BGCOLOR="6ADDF7">Asistencia en la mañana:</TD>

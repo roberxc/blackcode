@@ -15,14 +15,14 @@ class PlantillaOperaciones extends CI_Controller {
 		//print_r($data['accion']);
 		if(isset($estadoplanilla)){
 			foreach($estadoplanilla as $row){
-				$data ['asistencia_estado'] = $row->Asistencia;
-				$data ['materialdurante_estado'] = $row->MaterialesDurante;	
-				$data ['materialantes_estado'] = $row->MaterialesAntes;	
-				$data ['materialbodega_estado'] = $row->MaterialesBodega;	
-				$data ['gastocombustible_estado'] = $row->Combustible;	
-				$data ['gastosvarios_estado'] = $row->GastosVarios;
-				$data ['gastosviaticos_estado'] = $row->GastosViaticos;
-				$data ['archivos_estado'] = $row->SubirArchivos;	
+				$data ['asistencia_estado'] = $row->asistencia;
+				$data ['materialdurante_estado'] = $row->materialesdurante;	
+				$data ['materialantes_estado'] = $row->materialesantes;	
+				$data ['materialbodega_estado'] = $row->materialesbodega;	
+				$data ['gastocombustible_estado'] = $row->combustible;	
+				$data ['gastosvarios_estado'] = $row->gastosvarios;
+				$data ['gastosviaticos_estado'] = $row->gastosviaticos;
+				$data ['archivos_estado'] = $row->subirarchivos;	
 			}
 		}
 		
