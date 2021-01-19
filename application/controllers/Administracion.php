@@ -216,6 +216,14 @@ class Administracion extends CI_Controller {
 			if ($this->input->is_ajax_request()) {
 				//Validaciones
 				$this->form_validation->set_rules('fecha', 'fecha', 'required');
+				$this->form_validation->set_rules('patente', 'patente', 'required');
+				$this->form_validation->set_rules('kilometraje', 'kilometraje', 'required');
+				$this->form_validation->set_rules('servicio', 'servicio', 'required');
+				$this->form_validation->set_rules('encargado', 'encargado', 'required');
+				$this->form_validation->set_rules('nombremecanico', 'nombremecanico', 'required');
+				$this->form_validation->set_rules('taller', 'taller', 'required');
+				$this->form_validation->set_rules('detalle', 'detalle', 'required');
+				$this->form_validation->set_rules('totalmantencion', 'totalmantencion', 'required');
 	
 				if ($this->form_validation->run() == FALSE) {
 					$data = array('response' => "error", 'message' => validation_errors());
