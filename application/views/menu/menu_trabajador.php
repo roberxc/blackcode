@@ -10,7 +10,7 @@ if (isset($set_data['nombre_completo'])) {
     <a href="<?php echo base_url()?>Inicio" class="brand-link">
       <img src="<?php echo base_url();?>assets/dist/img/black.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">CDH Ingenieria</span>
+      <span class="brand-text font-weight-light">BlackCode</span>
     </a>
 
     <!-- Sidebar -->
@@ -18,7 +18,7 @@ if (isset($set_data['nombre_completo'])) {
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="<?php echo base_url();?>assets/dist/img/0012.png" class="img-circle elevation-2" alt="User Image">
+          <img src="<?php echo base_url();?>assets/dist/img/0016.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block"><?php echo $nombre;?></a>

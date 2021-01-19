@@ -5,6 +5,7 @@ $(document).on('click', '#addmantencion', function(e) {
 
 
 
+
     $.ajax({
         url: base_url + "Administracion/registroMantencion",
         type: "post",

@@ -32,7 +32,7 @@ class Proyecto extends CI_Controller
     public function Evaluacion_proyecto()
     {
         $data ['activo'] = 4;
-        $this->load->view('layout/nav');
+        //$this->load->view('layout/nav');
         $this->load->view('menu/menu_proyecto',$data);
 		$this->load->view('Proyecto/Evaluacion');
         $this->load->view('layout/footer');

@@ -38,7 +38,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <p>Registrar proyecto</p>
+                <p>Cotización</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>

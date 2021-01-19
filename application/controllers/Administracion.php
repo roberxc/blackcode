@@ -216,6 +216,7 @@ class Administracion extends CI_Controller {
 			if ($this->input->is_ajax_request()) {
 				//Validaciones
 				$this->form_validation->set_rules('fecha', 'fecha', 'required');
+			
 	
 				if ($this->form_validation->run() == FALSE) {
 					$data = array('response' => "error", 'message' => validation_errors());
