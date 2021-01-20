@@ -225,7 +225,7 @@ class Administracion extends CI_Controller {
 			} else {
 				$ajax_data = $this->input->post();
 				
-				if (!$this->Users->create($ajax_data)) {
+				if (!$this->Combustible->create($ajax_data)) {
 					$data = array('response' => "error", 'message' => "Falló el registro");
 				}else{
 					$data = array('response' => "success", 'message' => "Cuenta creada correctamente!");
