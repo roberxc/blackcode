@@ -113,7 +113,7 @@
                       <div class="form-group row">
                         <label for="inputSkills" class="col-sm-2 col-form-label">Encargado</label>
                         <div class="col-sm-10">
-                        <input type="text" class="form-control" id="encargado" placeholder="Encargado de la mantención">
+                        <input type="text" class="form-control" id="nencargado" placeholder="Encargado de la mantención">
                         </div>
                       </div>
                       <hr class="mt-3 mb-3"/>
@@ -125,7 +125,7 @@
               <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Nombre</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nombremecanico" placeholder="Nombre del mecánico">
+                          <input type="text" class="form-control" id="nmecanico" placeholder="Nombre del mecánico">
                         </div>
                       </div>
                       <div class="form-group row">
@@ -150,7 +150,7 @@
               <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Total</label>
                         <div class="col-sm-10">
-                          <input type="number" class="form-control" id="totalmantencion" placeholder="$ Costo Total">
+                          <input type="number" class="form-control" id="total_m" placeholder="$ Costo Total">
                         </div>
                       </div>
                       <div class="form-group row">
@@ -177,7 +177,7 @@
                       
                        
                               <div class="form-group">
-                                 <input type="file" class="form-control-file" id="documentoasociadomantencion">
+                                 <input type="file" class="form-control-file" id="doc_adj">
                               </div>
                            </div>
                            <hr class="mt-3 mb-3"/>
