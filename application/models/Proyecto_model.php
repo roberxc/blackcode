@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-class Proyecto_Estado extends CI_Model {
+class Proyecto_model extends CI_Model {
 
 	function __construct(){
 		parent::__construct();
@@ -12,9 +12,9 @@ class Proyecto_Estado extends CI_Model {
 
     //ESTE ES EL SELECT DE LA TABLA ESTADO PROYECTO
 
-    var $tablaaa = array("proyectos");  
-    var $select_columnaaa = array("id_proyectos", "nombre", "administrador", "fecha_inicio", "fecha_termino");  
-    var $order_columnaaa = array("id_proyectos", "nombre", "administrador", "fecha_inicio", "fecha_termino");  
+    var $tablaaa = array("proyecto");  
+    var $select_columnaaa = array("id_proyecto", "nombreproyecto", "montototal", "fecha_inicio", "fecha_termino");  
+    var $order_columnaaa = array("id_proyecto", "nombreproyecto", "montototal", "fecha_inicio", "fecha_termino");  
     //var $whereee = "material.ID_TipoBodega = tipobodega.ID_TipoBodega AND material.ID_TipoMaterial = tipomaterial.ID_TipoMaterial";
 
     function make_query_estado()  
@@ -24,7 +24,7 @@ class Proyecto_Estado extends CI_Model {
          //$this->db->where($this->whereee);
          if(isset($_POST["search"]["value"]) && $_POST["search"]["value"] != '')  
          {  
-              $this->db->like("Nombre", $_POST["search"]["value"]);  
+              $this->db->like("nombreproyecto", $_POST["search"]["value"]);  
          }  
          if(isset($_POST["order"]))  
          {  
@@ -32,7 +32,7 @@ class Proyecto_Estado extends CI_Model {
          }  
          else  
          {  
-              $this->db->order_by('id_proyectos', 'ASC');    
+              $this->db->order_by('id_proyecto', 'ASC');    
 
          }  
     }  

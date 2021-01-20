@@ -42,16 +42,16 @@ class Proyecto extends CI_Controller
 
    public function fetch_data()
    {
-       $this->load->model('Proyecto_Estado', 'proyecto_estado');
+       $this->load->model('Proyecto_model', 'proyecto_modal');
 
-       $fetch_data = $this->proyecto_estado->make_datatables_estado();
+       $fetch_data = $this->proyecto_modal->make_datatables_estado();
        $data = array();
        foreach ($fetch_data as $value) {
 
            $sub_array      = array();
-           $sub_array[]    = $value->id_proyectos;
-           $sub_array[]    = $value->Nombre;
-           $sub_array[]    = $value->Administrador;
+           $sub_array[]    = $value->id_proyecto;
+           $sub_array[]    = $value->nombreproyecto;
+           $sub_array[]    = $value->montototal;
            $sub_array[]    = $value->Fecha_inicio;
            $sub_array[]	   = $value->Fecha_termino;
            $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" >';

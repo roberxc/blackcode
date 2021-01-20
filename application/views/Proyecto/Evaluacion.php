@@ -108,22 +108,22 @@
                   <form>
                      <label>Nombre Proyecto</label>
                      <div class="form-group">
-                        <input type="text" class="form-control" required="required"  />
+                        <input type="text" class="form-control" id="nombreProyecto" required="required"  />
                      </div>
                      <label>Fecha de inicio</label>
                      <div class="form-group">
-                        <input type="date" class="form-control" required="required"  />
+                        <input type="date" class="form-control" id="fechaInicio" required="required"  />
                      </div>
                      <label>Fecha de termino</label>
                      <div class="form-group">
-                        <input type="date" class="form-control" required="required"  />
+                        <input type="date" class="form-control" id="fechaTermino" required="required"  />
                      </div>
                      <label>Monto total del proyecto</label>
                      <div class="form-group">
-                        <input type="number" class="form-control" required="required" />
+                        <input type="number" class="form-control" id="monto" required="required" />
                      </div>
                      <div class="form-group">
-                        <a href="#hire-sec" class="btn custom-btn-one ">Guardar</a>
+                        <button type="button" id="addGuardar" class="btn custom-btn-one">Guardar</button>
                      </div>
                   </form>
                </div>
@@ -614,6 +614,10 @@
             <div class="modal-body">
                <div class="row">
                   <div class="col-lg-10" id="divFletes">
+                  <label>Imprevistos %</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" required="required"  />
+                      </div>
                   <label>Gastos generales %</label>
                       <div class="form-group">
                         <input type="text" class="form-control" required="required"  />
