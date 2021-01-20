@@ -5,12 +5,12 @@ $(document).on('click', '#addmantencion', function(e) {
     var patente = $("#patente").val();
     var kilometraje = $("#kilometraje").val();
     var servicio = $("#servicio").val();
-    var encargado = $("#encargado").val();
-    var nombremecanico = $("#nombremecanico").val();
+    var nencargado = $("#nencargado").val();
+    var nmecanico = $("#nmecanico").val();
     var taller = $("#taller").val();
     var detalle = $("#detalle").val();
-    var documentoasociadomantencion = $("#documentoasociadomantencion").val();
-    var totalmantencion = $("#totalmantencion").val();
+    var doc_adj = $("#doc_adj").val();
+    var total_m = $("#total_m").val();
 
 
 
@@ -25,12 +25,12 @@ $(document).on('click', '#addmantencion', function(e) {
             patente: patente,
             kilometraje: kilometraje,
             servicio: servicio,
-            encargado: encargado,
-            nombremecanico: nombremecanico,
+            nencargado: nencargado,
+            nmecanico: nmecanico,
             taller: taller,
             detalle: detalle,
-            documentoasociadomantencion: documentoasociadomantencion,
-            totalmantencion: totalmantencion,
+            doc_adj: doc_adj,
+            total_m: total_m,
 
 
         },
