@@ -33,15 +33,6 @@ class Administracion extends CI_Controller {
 		$this->load->view('layout/footer');
 	}
 
-	public function Proveedores(){
-		$data ['activomenu'] = 15;
-		$data ['activo'] = 16;
-		$this->load->view('layout/nav');
-     	$this->load->view('menu/menu_supremo',$data);
-		$this->load->view('Administracion/Proveedores');
-		$this->load->view('layout/footer');
-	}
-
 	public function CostosFijos(){
 		$data ['activomenu'] = 5;
 		$data ['activo'] = 6;

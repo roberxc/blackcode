@@ -14,13 +14,13 @@
       <div class="container-fluid">
          <div class="row mb-2">
             <div class="col-sm-6">
-               <h1 class="m-0 text-dark">Ordenes de compra</h1>
+               <h1 class="m-0 text-dark">Facturas</h1>
             </div>
             <div class="col-sm-6">
                <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a href="#">Inicio</a></li>
                   <li class="breadcrumb-item active">Compras</li>
-                  <li class="breadcrumb-item active">Ordenes de compra</li>
+                  <li class="breadcrumb-item active">Facturas</li>
                </ol>
             </div>
             <!-- /.col -->
@@ -127,12 +127,10 @@
                            <th>Proveedor</th>
                            <!-- 1 --->
                            <th>Fecha</th>
-                           
-                           <th>Numero cotizacion</th>
                            <!-- 2 --->
-                           <th>Estado</th>
+                           <th>Numero cotizacion</th>
                            <!-- 4 --->
-                           <th>Accion</th>
+                           <th>Numero de orden</th>
                            <!-- 5 --->
                         </tr>
                      </thead>
