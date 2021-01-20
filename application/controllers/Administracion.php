@@ -8,6 +8,7 @@ class Administracion extends CI_Controller {
 		parent::__construct();
 		$this->load->model('CajaChicaModel');
 		$this->load->model('Vehiculo');
+		$this->load->model('Combustible');
 		$this->load->model('Mantencion');
 		$this->load->model('OperacionesModel');
 		$this->load->helper(array('form', 'url'));
@@ -191,6 +192,31 @@ class Administracion extends CI_Controller {
 				$ajax_data = $this->input->post();
 				
 				if (!$this->Users->create($ajax_data)) {
+					$data = array('response' => "error", 'message' => "Falló el registro");
+				}else{
+					$data = array('response' => "success", 'message' => "Cuenta creada correctamente!");
+				}
+
+			}
+
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}	
+	}
+
+	public function registroCombustible(){
+		if ($this->input->is_ajax_request()) {
+			//Validaciones
+			$this->form_validation->set_rules('fecha', 'fecha', 'required');
+			
+
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+			} else {
+				$ajax_data = $this->input->post();
+				
+				if (!$this->Combustible->create($ajax_data)) {
 					$data = array('response' => "error", 'message' => "Falló el registro");
 				}else{
 					$data = array('response' => "success", 'message' => "Cuenta creada correctamente!");

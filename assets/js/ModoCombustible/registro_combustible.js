@@ -1,43 +1,23 @@
-$(document).on('click', '#addmantencion', function(e) {
+$(document).on('click', '#addcombustible', function(e) {
     e.preventDefault();
 
     var fecha = $("#fecha").val();
-    var patente = $("#patente").val();
-    var kilometraje = $("#kilometraje").val();
-    var servicio = $("#servicio").val();
-    var nencargado = $("#nencargado").val();
-    var nmecanico = $("#nmecanico").val();
-    var taller = $("#taller").val();
-    var detalle = $("#detalle").val();
-    var doc_adj = $("#doc_adj").val();
-    var total_m = $("#total_m").val();
-
-
 
 
 
     $.ajax({
-        url: base_url + "Administracion/registroMantencion",
+        url: base_url + "Administracion/registroCombustible",
         type: "post",
         dataType: "json",
         data: {
             fecha: fecha,
-            patente: patente,
-            kilometraje: kilometraje,
-            servicio: servicio,
-            nencargado: nencargado,
-            nmecanico: nmecanico,
-            taller: taller,
-            detalle: detalle,
-            doc_adj: doc_adj,
-            total_m: total_m,
 
 
         },
         success: function(data) {
             if (data.response == "success") {
 
-                $("#formmantencion")[0].reset();
+                $("#formcombustible")[0].reset();
                 Command: toastr["success"](data.message)
 
                 toastr.options = {
