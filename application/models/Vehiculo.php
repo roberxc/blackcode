@@ -5,21 +5,35 @@ class Vehiculo extends CI_Model{
     }
 
     public function create($datos){
-        $datos = array(
+
+        $datos_detalle = array(
             
             
-            'patente' => $datos['patente'],
+          
             'tipo' => $datos['tipo'],
             'modelo' => $datos['modelo'],
             'marca' => $datos['marca'],
             'color' => $datos['color'],
-            'ano' => $datos['ano'],
             'tipomotor' => $datos['tipomotor'],
+            
+          
+        );
+
+        $this->db->insert('detalle_vehiculo', $datos_detalle);
+		$id_detalle = $this->db->insert_id();
+
+        $datos = array(
+            
+            
+            'patente' => $datos['patente'],
+            'ano' => $datos['ano'],
+            'id_detalle_vehiculo' => $id_detalle,
+           
             'gps' => $datos['gps'],
             
           
         );
-        if(!$this->db->insert('a', $datos)){
+        if(!$this->db->insert('vehiculo', $datos)){
             return false;
         }
         return true;

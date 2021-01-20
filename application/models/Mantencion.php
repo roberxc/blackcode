@@ -8,8 +8,15 @@ class Mantencion extends CI_Model{
         $datos = array(
             
             'fecha' => $datos['fecha'],
-            
-            
+            'patente' => $datos['patente'],
+            'kilometraje' => $datos['kilometraje'],
+            'servicio' => $datos['servicio'],
+            'encargado' => $datos['encargado'],
+            'nombremecanico' => $datos['nombremecanico'],
+            'taller' => $datos['taller'],
+            'detalle' => $datos['detalle'],
+            'documentoasociadomantencion' => $datos['documentoasociadomantencion'],
+            'totalmantencion' => $datos['totalmantencion'],
           
         );
         if(!$this->db->insert('b', $datos)){
