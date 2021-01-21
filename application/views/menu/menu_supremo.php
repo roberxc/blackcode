@@ -236,6 +236,21 @@ if (isset($set_data['nombre_completo'])) {
                                  <p>Registrar Vehiculo</p>
                              </a>
                          </li>
+                         <li class="nav-item">
+                             <a href="<?php echo base_url()?>CCombustible"
+                                 class="nav-link <?php if(isset($activo) && ($activo == 99)){echo "active"; }?>">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Registrar Combustible</p>
+                             </a>
+                         </li>
+
+                         <li class="nav-item">
+                             <a href="<?php echo base_url()?>CMantencion"
+                                 class="nav-link <?php if(isset($activo) && ($activo == 14)){echo "active"; }?>">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Registrar Mantenciones</p>
+                             </a>
+                         </li>
 
                          <li class="nav-item">
                              <a href="<?php echo base_url()?>CGarage"
@@ -245,20 +260,8 @@ if (isset($set_data['nombre_completo'])) {
                              </a>
                          </li>
 
-                         <li class="nav-item">
-                             <a href="<?php echo base_url()?>CCombustible"
-                                 class="nav-link <?php if(isset($activo) && ($activo == 99)){echo "active"; }?>">
-                                 <i class="far fa-circle nav-icon"></i>
-                                 <p>Combustible</p>
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a href="<?php echo base_url()?>CMantencion"
-                                 class="nav-link <?php if(isset($activo) && ($activo == 14)){echo "active"; }?>">
-                                 <i class="far fa-circle nav-icon"></i>
-                                 <p>Registrar Mantenciones</p>
-                             </a>
-                         </li>
+                        
+                      
 
                          <li class="nav-item">
                              <a href="<?php echo base_url()?>CLibroMantenciones"

@@ -8,6 +8,12 @@ class Combustible extends CI_Model{
         $datos = array(
             
             'fecha' => $datos['fecha'],
+            'patente' => $datos['patente'],
+            'conductor' => $datos['conductor'],
+            'estacion' => $datos['estacion'],
+            'litros' => $datos['litros'],
+            'valor' => $datos['valor'],
+            'doc_ad' => $datos['doc_ad'],
          
           
         );

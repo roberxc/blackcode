@@ -2,7 +2,12 @@ $(document).on('click', '#addcombustible', function(e) {
     e.preventDefault();
 
     var fecha = $("#fecha").val();
-
+    var patente = $("#patente").val();
+    var conductor = $("#conductor").val();
+    var estacion = $("#estacion").val();
+    var litros = $("#litros").val();
+    var valor = $("#valor").val();
+    var doc_ad = $("#doc_ad").val();
 
 
     $.ajax({
@@ -11,6 +16,12 @@ $(document).on('click', '#addcombustible', function(e) {
         dataType: "json",
         data: {
             fecha: fecha,
+            patente: patente,
+            conductor: conductor,
+            estacion: estacion,
+            litros: litros,
+            valor: valor,
+            doc_ad: doc_ad,
 
 
         },

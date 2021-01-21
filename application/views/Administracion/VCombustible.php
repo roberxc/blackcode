@@ -27,16 +27,16 @@
 						<div class="card card-primary card-outline">
 							<div class="card-body box-profile">
 								<div class="text-center">
-									<img class="profile-user-img img-fluid img-circle" src="<?php echo base_url();?>assets/dist/img/auto.png" alt="User profile picture">
+									<img class="profile-user-img img-fluid img-circle" src="<?php echo base_url();?>assets/dist/img/combus.png" alt="User profile picture">
 								</div>
 
-								<h3 class="profile-username text-center">Nuevo Vehículo</h3>
+								<h3 class="profile-username text-center">Gasto Combustible</h3>
 
 								<p class="text-muted text-center">CDH Ingenieria</p>
 
 								<ul class="list-group list-group-unbordered mb-3">
 									<li class="list-group-item">
-										<b>Existencia total</b> <a class="float-right">303</a>
+										<b>Existencia total</b> <a class="float-right">43</a>
 									</li>
 								</ul>
 
@@ -71,15 +71,51 @@
 
 												</div>
 											</div>
+                                 
+                                 <div class="form-group row">
+												<label for="inputName" class="col-sm-2 col-form-label">Patente </label>
+												<div class="col-sm-10">
+													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="patente" >
 
-											
+												</div>
+											</div>
+                                 <div class="form-group row">
+												<label for="inputName" class="col-sm-2 col-form-label">Conductor </label>
+												<div class="col-sm-10">
+													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="conductor" >
 
+												</div>
+											</div>
 
+                                 <div class="form-group row">
+												<label for="inputName" class="col-sm-2 col-form-label">Estacion </label>
+												<div class="col-sm-10">
+													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="estacion" >
 
-										
-											
+												</div>
+											</div>
 
-											
+                                 <div class="form-group row">
+												<label for="inputName" class="col-sm-2 col-form-label">Litros </label>
+												<div class="col-sm-10">
+													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="litros" >
+
+												</div>
+											</div>
+                                 <div class="form-group row">
+												<label for="inputName" class="col-sm-2 col-form-label">Valor </label>
+												<div class="col-sm-10">
+													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="valor" >
+
+												</div>
+											</div>
+                                 <div class="form-group row">
+												<label for="inputName" class="col-sm-2 col-form-label">Documento</label>
+												<div class="col-sm-10">
+													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="doc_ad" >
+
+												</div>
+											</div>	
 											
 											<hr class="mt-3 mb-3" />
 											<hr class="mt-3 mb-3" />

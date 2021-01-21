@@ -209,7 +209,12 @@ class Administracion extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 			//Validaciones
 			$this->form_validation->set_rules('fecha', 'fecha', 'required');
-			
+			$this->form_validation->set_rules('patente', 'patente', 'required');
+			$this->form_validation->set_rules('conductor', 'conductor', 'required');
+			$this->form_validation->set_rules('estacion', 'estacion', 'required');
+			$this->form_validation->set_rules('litros', 'litros', 'required');
+			$this->form_validation->set_rules('valor', 'valor', 'required');
+			$this->form_validation->set_rules('doc_ad', 'doc_ad', 'required');
 
 			if ($this->form_validation->run() == FALSE) {
 				$data = array('response' => "error", 'message' => validation_errors());
@@ -219,7 +224,7 @@ class Administracion extends CI_Controller {
 				if (!$this->Combustible->create($ajax_data)) {
 					$data = array('response' => "error", 'message' => "Falló el registro");
 				}else{
-					$data = array('response' => "success", 'message' => "Cuenta creada correctamente!");
+					$data = array('response' => "success", 'message' => "Gasto registrado correctamente!");
 				}
 
 			}
