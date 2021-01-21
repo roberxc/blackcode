@@ -41,7 +41,7 @@
 								</ul>
 
 								
-								<button type="reset" class="btn btn-outline-dark btn-block">Actualizar</button>
+								<button type="reset" class="btn btn-outline-info btn-block">Actualizar</button>
 								
 							</div>
 							<!-- /.card-body -->
@@ -98,27 +98,37 @@
                                  <div class="form-group row">
 												<label for="inputName" class="col-sm-2 col-form-label">Litros </label>
 												<div class="col-sm-10">
-													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="litros" >
+													<input type="number" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="litros" >
 
 												</div>
 											</div>
                                  <div class="form-group row">
 												<label for="inputName" class="col-sm-2 col-form-label">Valor </label>
 												<div class="col-sm-10">
-													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="valor" >
+													<input type="number" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="valor" >
 
 												</div>
 											</div>
                                  <div class="form-group row">
-												<label for="inputName" class="col-sm-2 col-form-label">Documento</label>
-												<div class="col-sm-10">
-													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="doc_ad" >
-
-												</div>
+												
 											</div>	
+											<div class="form-group">
+                              
+                              
+                           </div>
+                           <hr class="mt-3 mb-3"/>
+						   <hr class="mt-3 mb-3" />
+						   <label for="exampleInputFile">Adjuntar Documento Asociado</label>
+						   
+                      
+                      
+                       
+                              <div class="form-group">
+                                 <input type="file" class="form-control-file" id="doc_ad">
+                              </div>
+                           </div>
+											<hr class="mt-3 mb-3" />
 											
-											<hr class="mt-3 mb-3" />
-											<hr class="mt-3 mb-3" />
 											<div class="form-group row">
 												<div class="offset-sm-2 col-sm-10">
 													<div class="checkbox">
