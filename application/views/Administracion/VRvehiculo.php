@@ -151,7 +151,7 @@
 											
 											
 											
-											<div class="panel-collapse collapse in" id="div1"><input type="text" minlength="5" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="gps"  placeholder="Ingrese el numero aqui"></div>
+											<div class="panel-collapse collapse in" id="div1"><input type="text"  class="form-control" data-inputmask="'alias': 'ip'" data-mask id="gps"  placeholder="Ingrese el numero aqui"></div>
 											<div class="panel-collapse collapse in" id="div2"></div>
 											
 											</div>

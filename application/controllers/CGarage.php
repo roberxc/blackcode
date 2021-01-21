@@ -18,5 +18,6 @@ class CGarage extends CI_Controller {
 			$this->load->view('Administracion/VGarage');
 			$this->load->view('layout/footer');
 		}
+		
 	}
 }
