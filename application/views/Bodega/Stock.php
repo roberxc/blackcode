@@ -1,13 +1,14 @@
 <head>
    <!-- SELECT CON BUSCADOR -->
-   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" rel="stylesheet" />
-   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
    <!-- DataTables -->
    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.jqueryui.min.css">
+
+<!-- PDF Y EXCEL -->
+
+
+
 </head>
 <div class="content-wrapper">
    <div class="content-header">
@@ -59,84 +60,49 @@
 </section>     
 </body>  
 </html> 
-<div id="modal"></div>
-<!-- Modal -->
-<div class="modal fade" id="myModalVerMas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-   <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-         <div class="modal-header bg-blue">
-            <h4 class="modal-title" id="exampleModalLabel">Detalle Producto</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-         </div>
-         <form id="frmHistorialStock" method="POST">
-            <div class="modal-body">
-               <div class="box-body">
-                  <div class="col-md-12">
-                     <div class="panel-group">
-                        <div class="panel panel-primary">
-                           <div class="panel-heading">Mas Información</div>
-                           <div class="panel-body">
-                              <div class="col-md-4">
-                                 <div class="form-group">
-                                    <label for="txtGlosa">Glosa:</label>
-                                    <textarea class="form-control" name="txtGlosa" id="txtGlosa" readonly></textarea>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-md-12">
-                     <div class="panel-group">
-                        <div class="panel panel-primary">
-                           <div class="panel-heading">Detalles Almacenamiento</div>
-                           <div class="panel-body">
-                              <div class="detalle-producto table-resposive">
-                                 <div class="table-responsive">
-                                    <table id="table_vermas_reajustar_stock" name="table_vermas_reajustar_stock" class="table table-striped">
-                                       <thead>
-                                          <tr>
-                                             <th>Nombre del Producto</th>
-                                             <!-- 0 -->
-                                             <th>Bodega</th>
-                                             <!-- 1 -->
-                                             <th>Cantidad Almacenada</th>
-                                             <!-- 2 -->  
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                       </tbody>
-                                    </table>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-               </div>
-         </form>
-         </div>
-      </div>
-   </div>
-</div>
-</section>
-</div>
 <script>
    //Mostrar tabla principal
    $(document).ready(function(){
      $('#example1').DataTable({
+      dom: 'Bfrtip',
+        buttons: [
+            {
+               extend:     'excelHtml5',
+               text:       '<i class="fas fa-file-excel"></i>',
+               titleAttr:  'Exportar a Excel',
+               className:  'btn btn-success btn-lg'
+            },
+            {
+               extend:     'pdfHtml5',
+               text:       '<i class="fas fa-file-pdf"></i>',
+               titleAttr:  'Exportar a PDF',
+               className:  'btn btn-danger btn-lg'
+            },{
+               extend:     'copyHtml5',
+               text:       '<i class="far fa-copy"></i>',
+               titleAttr:  'Copiar a portapapeles',
+               className:  'btn btn-secondary btn-lg'
+            },
+            {
+               extend:     'csvHtml5',
+               text:       '<i class="fas fa-file-csv"></i>',
+               titleAttr:  'Exportar a CSV',
+               className:  'btn btn-outline-success btn-lg'
+            },
+            {
+               extend:     'print',
+               text:       '<i class="fas fa-print"></i>',
+               titleAttr:  'Imprimir',
+               className:  'btn btn-outline-dark btn-lg'
+            }
+        ],
        "language": {
          "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
          },
        "processing": true,
        "serverSide": true, 
        "ajax":{url:"<?php echo base_url('Stock/fetch_data'); ?>",
-       type: "POST"
+      type: "POST"
      },
        "columnDefs":[
          {
@@ -145,11 +111,26 @@
        ]
      });
    });
+
+
 </script>
 <!-- ESTE PARA LAS ALERTAS --->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="<?php echo base_url();?>assets/js/sweetAlert.js"></script>
+
+
 <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.jqueryui.min.js"></script>
-<script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
+<script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+<script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" ></script>
+
+
+
+<!-- PDF EXCEL ETC. --->
+
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.23/b-1.6.5/b-flash-1.6.5/b-html5-1.6.5/b-print-1.6.5/datatables.min.js" defer ></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+
