@@ -5,7 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Proyecto_model extends CI_Model {
 
 	function __construct(){
-		parent::__construct();
+          parent::__construct();
+          $this->load->database();
     }
     
     
@@ -57,8 +58,19 @@ class Proyecto_model extends CI_Model {
     // $this->db->where("material.ID_TipoBodega = tipobodega.ID_TipoBodega AND material.ID_TipoMaterial = tipomaterial.ID_TipoMaterial");
      return $this->db->count_all_results();  
      }  
+     
+
+     public function ingresoProyecto($datos){
+
+          $datos_detalle = array(
+
+              'nombreproyecto' => $datos['nombreProyecto'],
+              'fecha_inicio' => $datos['fechaInicio'],
+              'fecha_termino' => $datos['fechaTermino'],
+              'montototal' => $datos['monto'],
+          );
   
-
-
+          $this->db->insert('proyecto', $datos_detalle);
+      }
 }
 ?>

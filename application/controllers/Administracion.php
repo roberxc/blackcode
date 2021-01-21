@@ -237,7 +237,8 @@ class Administracion extends CI_Controller {
 			}
 
 
-	}public function registroVehiculo(){
+	}
+	public function registroVehiculo(){
 		if ($this->input->is_ajax_request()) {
 			//Validaciones
 			$this->form_validation->set_rules('patente', 'patente', 'required');

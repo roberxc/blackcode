@@ -105,7 +105,7 @@
          <div class="container">
             <div class="row pad-top-bottom  move-me">
                <div class="col-lg-5 col-md-5 col-sm-5 text-center">
-                  <form>
+                  <form id="registroproyecto">
                      <label>Nombre Proyecto</label>
                      <div class="form-group">
                         <input type="text" class="form-control" id="nombreProyecto" required="required"  />
@@ -123,7 +123,7 @@
                         <input type="number" class="form-control" id="monto" required="required" />
                      </div>
                      <div class="form-group">
-                        <button type="button" id="addGuardar" class="btn custom-btn-one">Guardar</button>
+                        <button type="button" id="addProyecto" class="btn custom-btn-one">Guardar</button>
                      </div>
                   </form>
                </div>
@@ -645,6 +645,8 @@
       </div>
       <!-- /.modal-dialog -->
    </div>
+    <!-- ESTE PARA LAS ALERTAS --->
+
    <!---------------------------------------->
    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -653,5 +655,9 @@
    <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/EvaluacionProyecto/DespieceProyecto.js"></script>
    <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/EvaluacionProyecto/InstalacionProyecto.js"></script>
    <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/EvaluacionProyecto/SupervisionProyecto.js"></script>
+
+
+<script src="<?php echo base_url();?>assets/js/EvaluacionProyecto/registro_proyecto.js"></script>
+
 </body>
 </html>

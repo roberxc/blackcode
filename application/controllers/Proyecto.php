@@ -6,6 +6,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Proyecto extends CI_Controller
 {
+    function __construct(){
+		parent::__construct();
+        $this->load->model('Proyecto_model');
+        $this->load->helper(array('form', 'url'));
+	}
     public function Estado_proyecto()
     {
         $data ['activo'] = 4;
@@ -67,4 +72,42 @@ class Proyecto extends CI_Controller
        );
        echo json_encode($output);  
    }
+   public function registroProyecto(){
+    if ($this->input->is_ajax_request()) {
+        //Validaciones
+        $this->form_validation->set_rules('patente', 'patente', 'required');
+        $this->form_validation->set_rules('tipo', 'tipo', 'required');
+        $this->form_validation->set_rules('modelo', 'modelo', 'required');
+        $this->form_validation->set_rules('marca', 'marca', 'required');
+        $this->form_validation->set_rules('color', 'color', 'required');
+        $this->form_validation->set_rules('ano', 'ano', 'required');
+        $this->form_validation->set_rules('tipomotor', 'tipomotor', 'required');
+        
+        
+        
+
+        if ($this->form_validation->run() == FALSE) {
+            $data = array('response' => "error", 'message' => validation_errors());
+        } else {
+            $ajax_data = $this->input->post();
+            
+            if (!$this->Vehiculo->create($ajax_data)) {
+                $data = array('response' => "error", 'message' => "Falló el registro");
+            }else{
+                $data = array('response' => "success", 'message' => "Vehiculo Registrado");
+            }
+
+        }
+
+        echo json_encode($data);
+    } else {
+        echo "'No direct script access allowed'";
+    }
+
 }
+
+}
+
+   
+
+
