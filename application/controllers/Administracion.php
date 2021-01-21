@@ -8,6 +8,7 @@ class Administracion extends CI_Controller {
 		parent::__construct();
 		$this->load->model('CajaChicaModel');
 		$this->load->model('Vehiculo');
+		$this->load->model('Combustible');
 		$this->load->model('Mantencion');
 		$this->load->model('OperacionesModel');
 		$this->load->helper(array('form', 'url'));
@@ -30,15 +31,6 @@ class Administracion extends CI_Controller {
 		$this->load->view('layout/nav');
      	$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/Ordenes');
-		$this->load->view('layout/footer');
-	}
-
-	public function Proveedores(){
-		$data ['activomenu'] = 15;
-		$data ['activo'] = 16;
-		$this->load->view('layout/nav');
-     	$this->load->view('menu/menu_supremo',$data);
-		$this->load->view('Administracion/Proveedores');
 		$this->load->view('layout/footer');
 	}
 
@@ -203,6 +195,36 @@ class Administracion extends CI_Controller {
 					$data = array('response' => "error", 'message' => "Falló el registro");
 				}else{
 					$data = array('response' => "success", 'message' => "Cuenta creada correctamente!");
+				}
+
+			}
+
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}	
+	}
+
+	public function registroCombustible(){
+		if ($this->input->is_ajax_request()) {
+			//Validaciones
+			$this->form_validation->set_rules('fecha', 'fecha', 'required');
+			$this->form_validation->set_rules('patente', 'patente', 'required');
+			$this->form_validation->set_rules('conductor', 'conductor', 'required');
+			$this->form_validation->set_rules('estacion', 'estacion', 'required');
+			$this->form_validation->set_rules('litros', 'litros', 'required');
+			$this->form_validation->set_rules('valor', 'valor', 'required');
+			$this->form_validation->set_rules('doc_ad', 'doc_ad', 'required');
+
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+			} else {
+				$ajax_data = $this->input->post();
+				
+				if (!$this->Combustible->create($ajax_data)) {
+					$data = array('response' => "error", 'message' => "Falló el registro");
+				}else{
+					$data = array('response' => "success", 'message' => "Gasto registrado correctamente!");
 				}
 
 			}

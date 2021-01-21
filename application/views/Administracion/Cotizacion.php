@@ -14,13 +14,13 @@
       <div class="container-fluid">
          <div class="row mb-2">
             <div class="col-sm-6">
-               <h1 class="m-0 text-dark">Ordenes de compra</h1>
+               <h1 class="m-0 text-dark">Cotizaciones</h1>
             </div>
             <div class="col-sm-6">
                <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a href="#">Inicio</a></li>
                   <li class="breadcrumb-item active">Compras</li>
-                  <li class="breadcrumb-item active">Ordenes de compra</li>
+                  <li class="breadcrumb-item active">Facturas</li>
                </ol>
             </div>
             <!-- /.col -->
@@ -127,12 +127,6 @@
                            <th>Proveedor</th>
                            <!-- 1 --->
                            <th>Fecha</th>
-                           
-                           <th>Numero cotizacion</th>
-                           <!-- 2 --->
-                           <th>Estado</th>
-                           <!-- 4 --->
-                           <th>Accion</th>
                            <!-- 5 --->
                         </tr>
                      </thead>
@@ -150,7 +144,7 @@
             <!-- Contenido del modal -->
             <div class="modal-content">
                <div class="modal-header bg-blue">
-                  <H3>Ingresar nueva orden</H3>
+                  <H3>Ingresar nueva cotizacion</H3>
                   <button type="button" class="close-white" data-dismiss="modal">&times;</button>
                </div>
                <div class="modal-body">
@@ -158,7 +152,7 @@
                      <div class="row">
                         <div class="col-md-4">
                            <div class="form-group">
-                              <label for="recipient-tipo" class="col-form-label">Proveedor </label>
+                              <label for="recipient-tipo" class="col-form-label">Fecha </label>
                               <select name="centrocostos" id="proveedor" style="width: 100%; height: 60%">
                               <?php
                                  foreach($centrocosto as $i){
@@ -170,19 +164,7 @@
                         </div>
                         <div class="col-md-4">
                            <div class="form-group">
-                              <label for="recipient-bodega" class="col-form-label">Bodega </label>
-                              <select name="tipobodega" id="tipobodega" style="width: 100%; height: 60%">
-                              <?php
-                                 foreach($tipobodega as $i){
-                                   echo '<option value="'. $i->ID_TipoBodega .'">'. $i->NombreTipoBodega .'</option>';
-                                 }
-                                 ?>
-                              </select>
-                           </div>
-                        </div>
-                        <div class="col-md-4">
-                           <div class="form-group">
-                              <label for="recipient-bodega" class="col-form-label">Estado </label>
+                              <label for="recipient-bodega" class="col-form-label">Proveedor </label>
                               <select name="tipobodega" id="estado" style="width: 100%; height: 60%">
                               <?php
                                  foreach($tipobodega as $i){
@@ -196,92 +178,17 @@
                      <div class="row">
                         <div class="col-md-4">
                            <div class="form-group">
-                              <label for="recipient-bodega" class="col-form-label">Proyecto </label>
-                              <select name="tipobodega" id="proyecto" style="width: 100%; height: 60%">
-                              <?php
-                                 foreach($tipobodega as $i){
-                                    echo '<option value="'. $i->ID_TipoBodega .'">'. $i->NombreTipoBodega .'</option>';
-                                    }
-                                    ?>
-                              </select>
+                              <label for="pic_file">Archivo</label>
+                                 <div class="form-group">
+                                    <input type="file" name="pic_file" class="form-control-file" id="pic_file">
+                                 </div>
+                           </div>
+                           <div class="form-check">
+                              <label class="form-check-label" for="exampleCheck1">Formatos admitidos: pdf, docx, jpg, pptx, xlsx.</label>
                            </div>
                         </div>
                      </div>
                      <hr class="cell-divide-hr">
-                     <div class="card-body" id="dynamic_field" >
-                        <table class="table table-bordered" >
-                           <tr>
-                              <!-- 0 ---> 
-                              <th><label for="recipient-bodega" class="col-form-label">Producto </label></th>
-                              <!-- 1 --->
-                              <th><label for="recipient-bodega" class="col-form-label" id="añadir-orden">Añadir </label></th>
-                              <!-- 5 --->
-                           </tr>
-                           <TR>
-                              <TD>
-                                 <div class="form-group">
-                                    <select name="tipobodega" id="producto" style="width: 100%; height: 60%">
-                                    <?php
-                                       foreach($tipobodega as $i){
-                                          echo '<option value="'. $i->ID_TipoBodega .'">'. $i->NombreTipoBodega .'</option>';
-                                          }
-                                          ?>
-                                    </select>
-                                 </div>
-                              </TD>
-                              <TD>
-                                 <div class="form-group">
-                                    <button type="button" name="add" class="btn btn-success"  id="añadir-orden">+</button>
-                                 </div>
-                              </TD>
-                           </TR>
-                        </table>
-                        <hr class="cell-divide-hr">
-                        <div class="button-wrapper">
-                        </div>
-                     </div>
-                     <hr class="cell-divide-hr">
-                     <div class="card-body" id="dynamic_field" >
-                        <section class="content">
-                           <div class="box box-info ">
-                              <div class="box-body">
-                                 <div class="table-responsive">
-                                    <table id="productos_orden" name="productos_orden" class="table table-bordered table-striped" style="width: 100%;">
-                                       <thead>
-                                          <tr>
-                                             <th>Codigo</th>
-                                             <!-- 0 ---> 
-                                             <th>Producto</th>
-                                             <!-- 1 --->
-                                             <th>Cantidad</th>
-                                             <!-- 2 --->
-                                             <th>Costo</th>
-                                             <th>IVA</th>
-                                             <th>Importe</th>
-                                             <!-- 4 --->
-                                             <th>Accion</th>
-                                             <!-- 5 --->
-                                          </tr>
-                                       </thead>
-                                    </table>
-                                 </div>
-                              </div>
-                           </div>
-                        </section>
-
-                        <hr class="cell-divide-hr">
-                        <div class="row">
-      
-      <div class="col">
-          <div class="float-right">Subtotal: 55555</div>
-          <br>
-          <div class="float-right">IVA: 0%</div>
-          <br>
-          <div class="float-right">Total: 32234</div>
-      </div>
-</div>
-
-                     </div>
                      <div class="modal-footer bg-white">
                         <input type="submit" class="btn btn-primary" value="Guardar"  onclick="Success();" >
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
