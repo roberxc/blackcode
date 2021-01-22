@@ -35,18 +35,7 @@
                         <!-- 0 ---> 
                         <th>Patente</th>
                         <!-- 1 --->
-                        <th>Tipo</th>
-                        <!-- 2 --->
-                        <th>Marca</th>
-                        <!-- 3 --->
-                        <th>Año</th>
-                        <!-- 4 --->
-                        <th>Tipo Motor</th>
-                        <!-- 5 --->
-                        <th>Color</th>
-                        <!-- 6 --->
-                        <th>Gps</th>
-                        <!-- 7 --->
+                     
                      </tr>
                   </thead>
                </table>
@@ -69,7 +58,7 @@
             <span aria-hidden="true">&times;</span>
             </button>
          </div>
-         <form id="frmHistorialStock" method="POST">
+         <form id="frmGarage" method="POST">
             <div class="modal-body">
                <div class="box-body">
                   <div class="col-md-12">
@@ -126,7 +115,7 @@
 </section>
 </div>
 <script>
-   /*//Mostrar tabla principal
+   //Mostrar tabla principal
    $(document).ready(function(){
      $('#example1').DataTable({
        "language": {
@@ -139,13 +128,13 @@
      },
        "columnDefs":[
          {
-             "targets": [1,2,3,4,5],
+             "targets": [1,2,3,4],
          }
        ]
      });
    });
 </script>
-*/
+
 <!-- ESTE PARA LAS ALERTAS --->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="<?php echo base_url();?>assets/js/sweetAlert.js"></script>
