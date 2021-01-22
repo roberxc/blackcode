@@ -35,6 +35,10 @@
                         <!-- 0 ---> 
                         <th>Patente</th>
                         <!-- 1 --->
+                        <th>Modelo</th>
+                        <!-- 2 --->
+
+                        
                      
                      </tr>
                   </thead>
@@ -123,12 +127,12 @@
          },
        "processing": true,
        "serverSide": true, 
-       "ajax":{url:"<?php echo base_url('Stock/fetch_data'); ?>",
+       "ajax":{url:"<?php echo base_url('CGarage/fetch_data'); ?>",
        type: "POST"
      },
        "columnDefs":[
          {
-             "targets": [1,2,3,4],
+             "targets": [1,2],
          }
        ]
      });
