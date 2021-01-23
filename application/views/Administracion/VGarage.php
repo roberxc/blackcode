@@ -35,18 +35,20 @@
                         <!-- 0 ---> 
                         <th>Patente</th>
                         <!-- 1 --->
-                        <th>Clase Vehiculo</th>
+                        <th>Año</th>
                         <!-- 2 --->
-                        <th>Marca</th>
+                        <th>Clase Vehiculo</th>
                         <!-- 3 --->
-                        <th>Modelo</th>
+                        <th>Marca</th>
                         <!-- 4 --->
-                        <th>Color</th>
+                        <th>Modelo</th>
                         <!-- 5 --->
-                        <th>Tipo Motor</th>
+                        <th>Color Vehiculo</th>
                         <!-- 6 --->
-                        <th>Gps</th>
+                        <th>Tipo Motor</th>
                         <!-- 7 --->
+                        <th>Gps</th>
+                        <!-- 8 --->
 
                         
                      
@@ -62,7 +64,7 @@
 </body>  
 </html> 
 <div id="modal"></div>
-<!-- Modal -->
+<!-- Modal 
 <div class="modal fade" id="myModalVerMas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -127,7 +129,7 @@
    </div>
 </div>
 </section>
-</div>
+</div>-->
 <script>
    //Mostrar tabla principal
    $(document).ready(function(){
@@ -142,7 +144,7 @@
      },
        "columnDefs":[
          {
-             "targets": [1,2,3,4,5,6,7],
+             "targets": [1,2,3,4,5,6,7,8],
          }
        ]
      });
