@@ -60,11 +60,10 @@ class Vehiculo extends CI_Model{
 
     //ESTE ES EL SELECT DE LA TABLA GARAGE VEHICULOS
 
-   
-    var $select_column = array("vehiculo.id_vehiculo", "vehiculo.patente","detalle_vehiculo.modelo");  
+    var $select_column = array("vehiculo.id_vehiculo", "vehiculo.gps", "vehiculo.ano","vehiculo.patente","detalle_vehiculo.tipo","detalle_vehiculo.marca","detalle_vehiculo.modelo","detalle_vehiculo.color","detalle_vehiculo.tipomotor");  
     var $table = array("detalle_vehiculo","vehiculo");  
     var $wheree = "vehiculo.id_detalle_vehiculo = detalle_vehiculo.id_detalle_vehiculo";
-    var $order_column = array("vehiculo.id_vehiculo", "vehiculo.patente","detalle_vehiculo.modelo");  
+    var $order_column = array("vehiculo.id_vehiculo","vehiculo.gps", "vehiculo.ano","vehiculo.patente","detalle_vehiculo.tipo","detalle_vehiculo.marca","detalle_vehiculo.modelo","detalle_vehiculo.color","detalle_vehiculo.tipomotor");  
 
   
     function make_query_vehiculo()  

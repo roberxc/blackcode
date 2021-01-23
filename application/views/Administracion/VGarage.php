@@ -31,15 +31,25 @@
                <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                   <thead>
                      <tr>
-                        <th>Codigo</th>
+                     <th>Codigo</th>
                         <!-- 0 ---> 
                         <th>Patente</th>
                         <!-- 1 --->
-                        <th>Modelo</th>
+                        <th>Año</th>
                         <!-- 2 --->
+                        <th>Clase Vehiculo</th>
+                        <!-- 3 --->
+                        <th>Marca</th>
+                        <!-- 4 --->
+                        <th>Modelo</th>
+                        <!-- 5 --->
+                        <th>Color Vehiculo</th>
+                        <!-- 6 --->
+                        <th>Tipo Motor</th>
+                        <!-- 7 --->
+                        <th>Gps</th>
+                        <!-- 8 --->
 
-                        
-                     
                      </tr>
                   </thead>
                </table>
@@ -132,7 +142,7 @@
      },
        "columnDefs":[
          {
-             "targets": [1,2],
+             "targets": [1,2,3,4,5,6,7,8],
          }
        ]
      });
