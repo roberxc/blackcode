@@ -1,22 +1,21 @@
+<!--Modelo vehiculo -->
 <?php 
 class Vehiculo extends CI_Model{
     function __construct(){
         $this->load->database();
     }
 
+    
     public function create($datos){
 
         $datos_detalle = array(
             
-            
-          
             'tipo' => $datos['tipo'],
             'modelo' => $datos['modelo'],
             'marca' => $datos['marca'],
             'color' => $datos['color'],
             'tipomotor' => $datos['tipomotor'],
             
-          
         );
 
         $this->db->insert('detalle_vehiculo', $datos_detalle);
@@ -40,27 +39,10 @@ class Vehiculo extends CI_Model{
     }
     
 
+//La funcion para cargar los datos desde la base de datos Consulta!
 
 
-
-
-
-
-
-
-
-
-
-
-    /////////////////////////////////////////////////
-
-
-
-
-
-    //ESTE ES EL SELECT DE LA TABLA GARAGE VEHICULOS
-
-   
+    //Consulta sql para hacer el llenado de la tabla garage vehiculos
     var $select_column = array("vehiculo.id_vehiculo", "vehiculo.gps", "vehiculo.ano","vehiculo.patente","detalle_vehiculo.tipo","detalle_vehiculo.marca","detalle_vehiculo.modelo","detalle_vehiculo.color","detalle_vehiculo.tipomotor");  
     var $table = array("detalle_vehiculo","vehiculo");  
     var $wheree = "vehiculo.id_detalle_vehiculo = detalle_vehiculo.id_detalle_vehiculo";
