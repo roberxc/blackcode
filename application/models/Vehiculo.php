@@ -1,21 +1,22 @@
-<!--Modelo vehiculo -->
 <?php 
 class Vehiculo extends CI_Model{
     function __construct(){
         $this->load->database();
     }
 
-    
     public function create($datos){
 
         $datos_detalle = array(
             
+            
+          
             'tipo' => $datos['tipo'],
             'modelo' => $datos['modelo'],
             'marca' => $datos['marca'],
             'color' => $datos['color'],
             'tipomotor' => $datos['tipomotor'],
             
+          
         );
 
         $this->db->insert('detalle_vehiculo', $datos_detalle);
@@ -39,16 +40,31 @@ class Vehiculo extends CI_Model{
     }
     
 
-//La funcion para cargar los datos desde la base de datos Consulta!
 
 
 
-    //Consulta sql para hacer el llenado de la tabla garage vehiculos
- 
-    var $select_column = array("vehiculo.id_vehiculo", "vehiculo.gps", "vehiculo.ano","vehiculo.patente","detalle_vehiculo.tipo","detalle_vehiculo.marca","detalle_vehiculo.modelo","detalle_vehiculo.color","detalle_vehiculo.tipomotor");  
+
+
+
+
+
+
+
+
+
+    /////////////////////////////////////////////////
+
+
+
+
+
+    //ESTE ES EL SELECT DE LA TABLA GARAGE VEHICULOS
+
+   
+    var $select_column = array("vehiculo.id_vehiculo", "vehiculo.patente","detalle_vehiculo.modelo");  
     var $table = array("detalle_vehiculo","vehiculo");  
     var $wheree = "vehiculo.id_detalle_vehiculo = detalle_vehiculo.id_detalle_vehiculo";
-    var $order_column = array("vehiculo.id_vehiculo","vehiculo.gps", "vehiculo.ano","vehiculo.patente","detalle_vehiculo.tipo","detalle_vehiculo.marca","detalle_vehiculo.modelo","detalle_vehiculo.color","detalle_vehiculo.tipomotor");  
+    var $order_column = array("vehiculo.id_vehiculo", "vehiculo.patente","detalle_vehiculo.modelo");  
 
   
     function make_query_vehiculo()  
@@ -58,9 +74,8 @@ class Vehiculo extends CI_Model{
        $this->db->where($this->wheree);
        if(isset($_POST["search"]["value"]) && $_POST["search"]["value"] != '')  
        {  
-            $this->db->like("patente", $_POST["search"]["value"]);  
+            $this->db->like("modelo", $_POST["search"]["value"]);  
        }  
-       
        if(isset($_POST["order"]))  
        {  
             $this->db->order_by($this->order_column[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);  
