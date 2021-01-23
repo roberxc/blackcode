@@ -35,8 +35,12 @@
                         <!-- 0 ---> 
                         <th>Patente</th>
                         <!-- 1 --->
-                        <th>Modelo</th>
+                        <th>Marca</th>
                         <!-- 2 --->
+                        <th>Modelo</th>
+                        <!-- 3 --->
+                        <th>Color</th>
+                        <!-- 4 --->
 
                         
                      
@@ -132,7 +136,7 @@
      },
        "columnDefs":[
          {
-             "targets": [1,2],
+             "targets": [1,2,3,4],
          }
        ]
      });
