@@ -22,7 +22,7 @@
          <!-- /.row -->
       </div>
       <!-- /.container-fluid -->
-      <!-- /.container-fluid -->
+
    </div>
    <section class="content">
       <div class="box box-info ">
@@ -62,74 +62,10 @@
 </body>  
 </html> 
 <div id="modal"></div>
-<!-- Modal -->
-<div class="modal fade" id="myModalVerMas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-   <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-         <div class="modal-header bg-blue">
-            <h4 class="modal-title" id="exampleModalLabel">Detalle Producto</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-         </div>
-         <form id="frmGarage" method="POST">
-            <div class="modal-body">
-               <div class="box-body">
-                  <div class="col-md-12">
-                     <div class="panel-group">
-                        <div class="panel panel-primary">
-                           <div class="panel-heading">Mas Información</div>
-                           <div class="panel-body">
-                              <div class="col-md-4">
-                                 <div class="form-group">
-                                    <label for="txtGlosa">Glosa:</label>
-                                    <textarea class="form-control" name="txtGlosa" id="txtGlosa" readonly></textarea>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-md-12">
-                     <div class="panel-group">
-                        <div class="panel panel-primary">
-                           <div class="panel-heading">Detalles Almacenamiento</div>
-                           <div class="panel-body">
-                              <div class="detalle-producto table-resposive">
-                                 <div class="table-responsive">
-                                    <table id="table_vermas_reajustar_stock" name="table_vermas_reajustar_stock" class="table table-striped">
-                                       <thead>
-                                          <tr>
-                                             <th>Nombre del Producto</th>
-                                             <!-- 0 -->
-                                             <th>Bodega</th>
-                                             <!-- 1 -->
-                                             <th>Cantidad Almacenada</th>
-                                             <!-- 2 -->  
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                       </tbody>
-                                    </table>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-               </div>
-         </form>
-         </div>
-      </div>
-   </div>
-</div>
-</section>
-</div>
-<script>
-   //Mostrar tabla principal
+
+
+<!--Mostrar tabla principal-->
+<script> 
    $(document).ready(function(){
      $('#example1').DataTable({
        "language": {
