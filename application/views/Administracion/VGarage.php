@@ -35,14 +35,18 @@
                         <!-- 0 ---> 
                         <th>Patente</th>
                         <!-- 1 --->
-                        <th>Marca</th>
+                        <th>Clase Vehiculo</th>
                         <!-- 2 --->
-                        <th>Modelo</th>
+                        <th>Marca</th>
                         <!-- 3 --->
-                        <th>Color</th>
+                        <th>Modelo</th>
                         <!-- 4 --->
-                        <th>Tipo Motor</th>
+                        <th>Color</th>
                         <!-- 5 --->
+                        <th>Tipo Motor</th>
+                        <!-- 6 --->
+                        <th>Gps</th>
+                        <!-- 7 --->
 
                         
                      
@@ -138,7 +142,7 @@
      },
        "columnDefs":[
          {
-             "targets": [1,2,3,4,5],
+             "targets": [1,2,3,4,5,6,7],
          }
        ]
      });

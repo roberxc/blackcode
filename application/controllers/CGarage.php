@@ -39,7 +39,8 @@ class CGarage extends CI_Controller {
 
             $sub_array      = array();
             $sub_array[]    = $value->id_vehiculo;
-            $sub_array[]    = $value->patente;
+			$sub_array[]    = $value->patente;
+			$sub_array[]    = $value->tipo;
 			$sub_array[]    = $value->marca;
 			$sub_array[]    = $value->modelo;
 			$sub_array[]    = $value->color;
