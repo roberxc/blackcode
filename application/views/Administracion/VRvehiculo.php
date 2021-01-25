@@ -87,6 +87,15 @@
 											</div>
 
 											<div class="form-group row">
+												<label for="inputName2" class="col-sm-2 col-form-label">Marca</label>
+												<div class="col-sm-10">
+													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="marca" placeholder="Especifique marca vehiculo">
+
+
+												</div>
+											</div>
+
+											<div class="form-group row">
 												<label for="inputEmail" class="col-sm-2 col-form-label">Modelo</label>
 												<div class="col-sm-10">
 													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="modelo" placeholder="Modelo del vehiculo">
@@ -95,14 +104,7 @@
 											</div>
 
 
-											<div class="form-group row">
-												<label for="inputName2" class="col-sm-2 col-form-label">Marca</label>
-												<div class="col-sm-10">
-													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="marca" placeholder="Especifique marca vehiculo">
-
-
-												</div>
-											</div>
+											
 
 											<div class="form-group row">
 												<label for="inputName2" class="col-sm-2 col-form-label">Color</label>
@@ -151,7 +153,7 @@
 											
 											
 											
-											<div class="panel-collapse collapse in" id="div1"><input type="text" minlength="5" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="gps"  placeholder="Ingrese el numero aqui"></div>
+											<div class="panel-collapse collapse in" id="div1"><input type="text"  class="form-control" data-inputmask="'alias': 'ip'" data-mask id="gps"  placeholder="Ingrese el numero aqui"></div>
 											<div class="panel-collapse collapse in" id="div2"></div>
 											
 											</div>

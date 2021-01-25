@@ -31,22 +31,27 @@
                <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                   <thead>
                      <tr>
-                        <th>Codigo</th>
+                     <th>Codigo</th>
                         <!-- 0 ---> 
                         <th>Patente</th>
                         <!-- 1 --->
-                        <th>Tipo</th>
-                        <!-- 2 --->
-                        <th>Marca</th>
-                        <!-- 3 --->
                         <th>Año</th>
+                        <!-- 2 --->
+                        <th>Clase Vehiculo</th>
+                        <!-- 3 --->
+                        <th>Marca</th>
                         <!-- 4 --->
-                        <th>Tipo Motor</th>
+                        <th>Modelo</th>
                         <!-- 5 --->
-                        <th>Color</th>
+                        <th>Color Vehiculo</th>
                         <!-- 6 --->
-                        <th>Gps</th>
+                        <th>Tipo Motor</th>
                         <!-- 7 --->
+                        <th>Gps</th>
+                        <!-- 8 --->
+
+                        
+                     
                      </tr>
                   </thead>
                </table>
@@ -69,7 +74,7 @@
             <span aria-hidden="true">&times;</span>
             </button>
          </div>
-         <form id="frmHistorialStock" method="POST">
+         <form id="frmGarage" method="POST">
             <div class="modal-body">
                <div class="box-body">
                   <div class="col-md-12">
@@ -126,7 +131,7 @@
 </section>
 </div>
 <script>
-   /*//Mostrar tabla principal
+   //Mostrar tabla principal
    $(document).ready(function(){
      $('#example1').DataTable({
        "language": {
@@ -134,18 +139,18 @@
          },
        "processing": true,
        "serverSide": true, 
-       "ajax":{url:"<?php echo base_url('Stock/fetch_data'); ?>",
+       "ajax":{url:"<?php echo base_url('CGarage/fetch_data'); ?>",
        type: "POST"
      },
        "columnDefs":[
          {
-             "targets": [1,2,3,4,5],
+             "targets": [1,2,3,4,5,6,7,8],
          }
        ]
      });
    });
 </script>
-*/
+
 <!-- ESTE PARA LAS ALERTAS --->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="<?php echo base_url();?>assets/js/sweetAlert.js"></script>
