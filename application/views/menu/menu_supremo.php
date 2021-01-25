@@ -224,7 +224,7 @@ if (isset($set_data['nombre_completo'])) {
                          <i class="nav-icon fas fa-truck-pickup"></i>
                          <p>
                              <!-- Tio Dani -->
-                             Modulo Vehicular
+                             Garage Vehicular
                              <i class="fas fa-angle-left right"></i>
                          </p>
                      </a>
@@ -252,16 +252,17 @@ if (isset($set_data['nombre_completo'])) {
                              </a>
                          </li>
 
+
                          <li class="nav-item">
                              <a href="<?php echo base_url()?>CGarage"
                                  class="nav-link <?php if(isset($activo) && ($activo == 98)){echo "active"; }?>">
                                  <i class="far fa-circle nav-icon"></i>
-                                 <p>Garage Vehiculo</p>
+                                 <p>Libro Vehiculos</p>
                              </a>
                          </li>
 
+
                         
-                      
 
                          <li class="nav-item">
                              <a href="<?php echo base_url()?>CLibroMantenciones"
@@ -270,6 +271,24 @@ if (isset($set_data['nombre_completo'])) {
                                  <p>Libro Mantenciones</p>
                              </a>
                          </li>
+
+
+                         <li class="nav-item">
+                             <a href="<?php echo base_url()?>CRCombustible"
+                                 class="nav-link <?php if(isset($activo) && ($activo == 95)){echo "active"; }?>">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Libro Combustible</p>
+                             </a>
+                         </li>
+
+                         
+                      
+
+                        
+
+                
+
+                     
 
 
                      </ul>
