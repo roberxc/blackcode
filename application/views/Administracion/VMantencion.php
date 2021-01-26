@@ -90,14 +90,14 @@
                       <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label">Patente</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="patente" placeholder="Placa patente unica">
+                          <input type="text" maxlength="8" style="text-transform:lowercase;" class="form-control" id="patente" placeholder="FF-XX-XX">
                         </div>
                       </div>
 
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Kilometraje</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="kilometraje" placeholder="Kilometraje entrante">
+                          <input type="number" maxlength="10" style="text-transform:lowercase;" class="form-control" id="kilometraje" placeholder="K/M 15.000">
                         </div>
                       </div>
                     
@@ -106,14 +106,14 @@
                       <div class="form-group row">
                         <label for="inputSkills" class="col-sm-2 col-form-label">Servicio</label>
                         <div class="col-sm-10">
-                        <input type="text" class="form-control" id="servicio" placeholder="Trabajo realizado">
+                        <input type="text" maxlength="35" style="text-transform:lowercase;" class="form-control" id="servicio" placeholder="Trabajo realizado">
                         </div>
                       </div>
 
                       <div class="form-group row">
                         <label for="inputSkills" class="col-sm-2 col-form-label">Encargado</label>
                         <div class="col-sm-10">
-                        <input type="text" class="form-control" id="nencargado" placeholder="Encargado de la mantención">
+                        <input type="text" maxlength="50" style="text-transform:lowercase;" class="form-control" id="nencargado" placeholder="Encargado de la mantención">
                         </div>
                       </div>
                       <hr class="mt-3 mb-3"/>
@@ -125,19 +125,19 @@
               <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Nombre</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nmecanico" placeholder="Nombre del mecánico">
+                          <input type="text" maxlength="50" style="text-transform:lowercase;" class="form-control" id="nmecanico" placeholder="Nombre del mecánico">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Taller</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="taller" placeholder="Taller o planta de mantención">
+                          <input type="text" maxlength="40" style="text-transform:lowercase;" class="form-control" id="taller" placeholder="Taller o planta de mantención">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Notas</label>
                         <div class="col-sm-10">
-                        <textarea class="form-control"id="detalle" rows="3" placeholder="Detalles del servicio o mantención..."></textarea>
+                        <textarea style="text-transform:lowercase;" class="form-control"id="detalle" rows="3" placeholder="Detalles del servicio o mantención..."></textarea>
                         </div>
                       </div>
                       <hr class="mt-3 mb-3"/>
@@ -150,7 +150,7 @@
               <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Total</label>
                         <div class="col-sm-10">
-                          <input type="number" class="form-control" id="total_m" placeholder="$ Costo Total">
+                          <input type="number" maxlength="10" style="text-transform:lowercase;" class="form-control" id="total_m" placeholder="$ Costo Total">
                         </div>
                       </div>
                       <div class="form-group row">
