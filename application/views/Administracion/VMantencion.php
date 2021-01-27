@@ -150,7 +150,7 @@
               <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Total</label>
                         <div class="col-sm-10">
-                          <input type="number" maxlength="10" style="text-transform:lowercase;" class="form-control" id="total_m" placeholder="$ Costo Total">
+                          <input type="number" min="0" step="1" maxlength="10" style="text-transform:lowercase;" class="form-control" id="total_m" placeholder="$ Costo Total">
                         </div>
                       </div>
                       <div class="form-group row">

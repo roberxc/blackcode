@@ -67,7 +67,7 @@
 											<div class="form-group row">
 												<label for="inputName" class="col-sm-2 col-form-label">Fecha</label>
 												<div class="col-sm-10">
-													<input type="date" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="fecha" >
+													<input type="date" min="2021-01-01" value="<?php echo date("Y-m-d\TH-i");?>" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="fecha" >
 
 												</div>
 											</div>
@@ -98,14 +98,14 @@
                                  <div class="form-group row">
 												<label for="inputName" class="col-sm-2 col-form-label">Litros </label>
 												<div class="col-sm-10">
-													<input type="number" maxlength="1000" style="text-transform:lowercase;" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="litros" >
+													<input type="number" min="0" step="1" maxlength="10" style="text-transform:lowercase;" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="litros" >
 
 												</div>
 											</div>
                                  <div class="form-group row">
 												<label for="inputName" class="col-sm-2 col-form-label">Valor </label>
 												<div class="col-sm-10">
-													<input type="number" minlength="1" maxlength="100000000" style="text-transform:lowercase;" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="valor" >
+													<input type="number" min="0" step="1" maxlength="10" style="text-transform:lowercase;" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="valor" >
 
 												</div>
 											</div>
