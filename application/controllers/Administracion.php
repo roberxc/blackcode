@@ -8,6 +8,7 @@ class Administracion extends CI_Controller {
 		parent::__construct();
 		$this->load->model('CajaChicaModel');
 		$this->load->model('Vehiculo');
+		$this->load->model('Proyecto_model');
 		$this->load->model('Combustible');
 		$this->load->model('Mantencion');
 		$this->load->model('OperacionesModel');
@@ -79,7 +80,8 @@ class Administracion extends CI_Controller {
 		$this->load->view('Administracion/GestionCuentas');
 		$this->load->view('layout/footer');
 	}
-
+	
+	
 	//Metodos para registro con base de datos
 	public function ingresoCajaChica(){
 		if ($this->input->is_ajax_request()) {
@@ -251,7 +253,8 @@ class Administracion extends CI_Controller {
 			}
 
 
-	}public function registroVehiculo(){
+	}
+	public function registroVehiculo(){
 		if ($this->input->is_ajax_request()) {
 			//Validaciones
 			$this->form_validation->set_rules('patente', 'patente', 'required');
