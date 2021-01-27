@@ -97,7 +97,7 @@
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Kilometraje</label>
                         <div class="col-sm-10">
-                          <input type="number" maxlength="10" style="text-transform:lowercase;" class="form-control" id="kilometraje" placeholder="K/M 15.000">
+                          <input type="number" min="0" step="1" maxlength="10" style="text-transform:lowercase;" class="form-control" id="kilometraje" placeholder="K/M 15.000">
                         </div>
                       </div>
                     
