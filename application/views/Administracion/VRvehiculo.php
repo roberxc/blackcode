@@ -9,7 +9,7 @@
 			<div class="container-fluid">
 				<div class="row mb-2">
 					<div class="col-sm-6">
-						<h1>Registro vehicular</h1>
+						<h1>Registro vehiculas</h1>
 					</div>
 
 				</div>
@@ -67,7 +67,7 @@
 											<div class="form-group row">
 												<label for="inputName" class="col-sm-2 col-form-label">Patente</label>
 												<div class="col-sm-10">
-													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="patente" placeholder="Placa patente unica">
+													<input type="text" maxlength="8" style="text-transform:lowercase;" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="patente" placeholder="FF-FF-XX">
 
 												</div>
 											</div>
@@ -89,7 +89,7 @@
 											<div class="form-group row">
 												<label for="inputName2" class="col-sm-2 col-form-label">Marca</label>
 												<div class="col-sm-10">
-													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="marca" placeholder="Especifique marca vehiculo">
+													<input type="text" maxlength="15" style="text-transform:lowercase;" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="marca" placeholder="Chevrolet">
 
 
 												</div>
@@ -98,7 +98,7 @@
 											<div class="form-group row">
 												<label for="inputEmail" class="col-sm-2 col-form-label">Modelo</label>
 												<div class="col-sm-10">
-													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="modelo" placeholder="Modelo del vehiculo">
+													<input type="text" maxlength="15" style="text-transform:lowercase;" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="modelo" placeholder="Camaro">
 
 												</div>
 											</div>
@@ -109,7 +109,7 @@
 											<div class="form-group row">
 												<label for="inputName2" class="col-sm-2 col-form-label">Color</label>
 												<div class="col-sm-10">
-													<input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="color" placeholder="Color de vehiculo">
+													<input type="text" maxlength="15" style="text-transform:lowercase;" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="color" placeholder="Gris">
 
 
 												</div>
@@ -119,7 +119,11 @@
 												<label for="inputName2" class="col-sm-2 col-form-label">Año</label>
 												<div class="col-sm-10">
 													
+
+                           <input type="date" min="2017-01-01" max="today" value="<?php echo date("Y-m-d\TH-i");?>"  class="form-control datetimepicker-input" data-target="#reservationdate" id="ano" format="y"/>
+
                            <input type="date" class="form-control datetimepicker-input" data-target="#reservationdate" id="ano" format="y"/>
+
 
 												</div>
 											</div>
@@ -150,16 +154,19 @@
 											
 											<input type="radio" name="group1" value="1" data-parent="#parent" data-toggle="collapse" data-target="#div1"  />	
 											<label>Si</label>
+											<input type="radio" name="group1" value="1" data-parent="#parent" data-toggle="collapse" data-target="#div1"  />	
+											<label>No</label>
 											
-											
-											
-											<div class="panel-collapse collapse in" id="div1"><input type="text"  class="form-control" data-inputmask="'alias': 'ip'" data-mask id="gps"  placeholder="Ingrese el numero aqui"></div>
-											<div class="panel-collapse collapse in" id="div2"></div>
+											<div class="panel-collapse collapse in" id="div1"><input type="text"style="text-transform:lowercase;" maxlength="12"  class="form-control" data-inputmask="'alias': 'ip'" data-mask id="gps"  placeholder="+56999988877"></div>
 											
 											</div>
-
+											
 												</div>
+												
 											</div> 
+
+											
+
 											<hr class="mt-3 mb-3" />
 											<hr class="mt-3 mb-3" />
 											<div class="form-group row">
