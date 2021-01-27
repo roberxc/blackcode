@@ -7,19 +7,19 @@ $("#añadir-orden").on('click', function(event) {
     i++;
     $('#productos_orden').append(
     '<tbody>'+
-    '<tr>'+
-        '<td><input type="text" id="item_material" placeholder="Ingrese" class="form-control" value="'+producto+'" /></td>'+
-        '<td><input type="text" id="item_cantidad" placeholder="Ingrese" class="form-control" value="'+id+'" /></td>'+
-        '<td><input type="text" id="item_cantidad" placeholder="Ingrese" class="form-control" /></td>'+
-        '<td><input type="text" id="item_valor" placeholder="Ingrese" class="form-control valor-prod" value="'+valor+'"/></td>'+
-        '<td><input type="text" id="item_cantidad" placeholder="Ingrese" class="form-control" value="19%" disabled/></td>'+
-        '<td><input  type="text" id="item_valortotal" class="form-control" disabled/></td>'+
-        '<td><button type="button" class="btnremove btn btn-danger" onclick="deleteRow(this)">X</button></td>'+
-    '</tr>'+
+        '<tr class="tr">'+
+            '<td contenteditable="false">'+producto+'</td>'+
+            '<td contenteditable="false">'+id+'</td>'+
+            '<td contenteditable="true" class="cantidad" onkeyup="calculfac()"></td>'+
+            '<td contenteditable="true" class="precio" onkeyup="calculfac()">'+valor+'</td>'+
+            '<td contenteditable="true" class="iva">'+ 19 +'</td>'+
+            '<td contenteditable="false" class="result"></td>'+
+            '<td><button type="button" class="btnremove btn btn-danger" onclick="deleteRow(this)">X</button></td>'+
+        '</tr>' +
     '</tbody>');
 
-    listaValores();
-    setTotal();
+    //listaValores();
+    //setTotal();
 
 });
 
@@ -57,21 +57,25 @@ $("#añadir-producto").on('click', function(event) {
 
 });
 
-$('.tableprod tbody').on('click','.btnremove',function(){
-
-
-    alert("CLICCICICIICI");
-
-
-});
-
-
 function deleteRow(btn) {
-    var valor = $(this).parents('tr').find(".valor-prod").val();
-    alert(valor);
     var row = btn.parentNode.parentNode;
     row.parentNode.removeChild(row);
 }
+
+function calculfac() {
+    $('.tr').each(function(){
+       var amount= $('.cantidad', this).text();
+       var price= $('.precio', this).text();
+       var iva = $('.iva', this).text();
+       var total = amount * price;
+       var totaliva = (total * iva)/100;
+       var result = total + totaliva;
+       var resultado = Math.round(result).toFixed(0);
+       $('.result', this).text(resultado);
+    });
+ }
+
+
 
 let item_valor = [];
 

@@ -180,7 +180,7 @@
                                              <th>Cantidad</th>
                                              <!-- 2 --->
                                              <th>Costo</th>
-                                             <th>IVA</th>
+                                             <th>IVA %</th>
                                              <th>Importe</th>
                                              <!-- 4 --->
                                              <th>Accion</th>
@@ -280,49 +280,37 @@
      $('#estado').select2({
        theme: "bootstrap"
      });
-   });
-   //mostrar personal
-   $(document).ready(function(){
+
      $('#proyecto').select2({
        theme: "bootstrap"
      });
-   });
-   //mostrar centrocostos
-   $(document).ready(function(){
+
      $('#proveedor').select2({
        theme: "bootstrap"
      });
-   });
-   //mostrar bodega
-   $(document).ready(function(){
+
      $('#tipobodega').select2({
        theme: "bootstrap"
      });
-   });
-   //mostrar material en tabla agregar stock
-   $(document).ready(function(){
+
      $('#material').select2({
        theme: "bootstrap"
      });
-   });
-   //mostrar tipoproducto en tabla agregar stock
-   $(document).ready(function(){
+
      $('#productos').select2({
        theme: "bootstrap"
      });
-   });
-   //mostrar tipobodega2 en tabla agregar stock
-   $(document).ready(function(){
+
      $('#tipobodega2').select2({
        theme: "bootstrap"
      });
-   });
-   //mostrar centrodecosto2 en tabla agregar stock
-   $(document).ready(function(){
+
      $('#centrodecostos2').select2({
        theme: "bootstrap"
      });
    });
+
+
 </script> 
 <!-- ESTE PARA LAS ALERTAS --->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -331,8 +319,6 @@
 <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.jqueryui.min.js"></script>
 <script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
-<script>var base_url = '<?php echo base_url();?>';</script>
-<script src="<?php echo base_url();?>assets/js/Administracion/ordenes.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
       integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -340,3 +326,7 @@
       integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+
+<script>var base_url = '<?php echo base_url();?>';</script>
+<script src="<?php echo base_url();?>assets/js/Administracion/ordenes.js"></script>
