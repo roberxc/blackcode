@@ -18,6 +18,7 @@ class CCombustible extends CI_Controller {
 			$this->load->view('layout/footer');
 		}
 	}
+
 	public function fetch_data()
     {
         $this->load->model('Vehiculo', 'vehiculo');
@@ -44,3 +45,4 @@ class CCombustible extends CI_Controller {
 		
     }
 }
+

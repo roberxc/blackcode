@@ -119,7 +119,11 @@
 												<label for="inputName2" class="col-sm-2 col-form-label">Año</label>
 												<div class="col-sm-10">
 													
+
                            <input type="date" min="2017-01-01" max="today" value="<?php echo date("Y-m-d\TH-i");?>"  class="form-control datetimepicker-input" data-target="#reservationdate" id="ano" format="y"/>
+
+                           <input type="date" class="form-control datetimepicker-input" data-target="#reservationdate" id="ano" format="y"/>
+
 
 												</div>
 											</div>

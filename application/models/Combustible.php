@@ -24,6 +24,7 @@ class Combustible extends CI_Model{
     }
 
 
+
     var $select_column = array( "id","patente");  
     var $table = array("com");  
     var $wheree = "id = patente";
@@ -72,3 +73,7 @@ class Combustible extends CI_Model{
        return $this->db->count_all_results();  
   }  
 }
+
+    
+
+
