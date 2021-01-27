@@ -2,6 +2,12 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <!-- SELECT CON BUSCADOR -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" rel="stylesheet" />
+   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -90,7 +96,15 @@
                       <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label">Patente</label>
                         <div class="col-sm-10">
-                          <input type="text" maxlength="8" style="text-transform:lowercase;" class="form-control" id="patente" placeholder="FF-XX-XX">
+                        <select name="patentes" id="patentes" style="width: 100%; height: 60%">
+                              <?php
+                                 foreach($lista_vehiculos as $i){
+                                   echo '<option value="'. $i->id_vehiculo .'">'. $i->patente .'</option>';
+                                 }
+                                 ?>
+                              </select>
+
+
                         </div>
                       </div>
 
@@ -113,7 +127,13 @@
                       <div class="form-group row">
                         <label for="inputSkills" class="col-sm-2 col-form-label">Encargado</label>
                         <div class="col-sm-10">
-                        <input type="text" maxlength="50" style="text-transform:lowercase;" class="form-control" id="nencargado" placeholder="Encargado de la mantención">
+                        <select name="personal" id="personal" style="width: 100%; height: 60%">
+                              <?php
+                                 foreach($lista_personal as $i){
+                                   echo '<option value="'. $i->id_personaltrabajo .'">'. $i->nombrecompleto .'</option>';
+                                 }
+                                 ?>
+                              </select>
                         </div>
                       </div>
                       <hr class="mt-3 mb-3"/>
@@ -215,5 +235,19 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>var base_url = '<?php echo base_url();?>';</script>
 <script src="<?php echo base_url()?>assets/js/ModoMantencion/registro_mantencion.js"></script>
+<script type="text/javascript">
+   //mostrar tipoproducto
+   //mostrar centrodecosto2 en tabla agregar stock
+   $(document).ready(function(){
+     $('#patentes').select2({
+       theme: "bootstrap"
+     });
+   });
+   $(document).ready(function(){
+     $('#personal').select2({
+       theme: "bootstrap"
+     });
+   }); 
+</script> 
 </body>
 </html>

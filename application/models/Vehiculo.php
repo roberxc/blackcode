@@ -108,4 +108,21 @@ class Vehiculo extends CI_Model{
        $this->db->where("vehiculo.id_detalle_vehiculo = detalle_vehiculo.id_detalle_vehiculo");
        return $this->db->count_all_results();  
   }  
+
+  public function ObtenerVehiculos(){
+    $query = $this->db
+            ->select("*") # También puedes poner * si quieres seleccionar todo
+            ->from("vehiculo")
+            ->get();
+    
+    return $query->result();
+}
+public function ObtenerTotalVehiculos(){
+    $query = $this->db
+            ->select("COUNT(id_vehiculo) as total") # También puedes poner * si quieres seleccionar todo
+            ->from("vehiculo")
+            ->get();
+    
+    return $query->result_array();
+}
 }
