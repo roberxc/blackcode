@@ -95,10 +95,11 @@
                       </div>
 
                       <div class="form-group row">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Kilometraje</label>
-                        <div class="col-sm-10">
-                        </div>
-                      </div>
+												<label for="inputName" class="col-sm-2 col-form-label">Kilometraje </label>
+												<div class="col-sm-10">
+													<input type="number" maxlength="15" style="text-transform:lowercase;" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="kilometraje" placeholder="123.431.000 K/M " >
+												</div>
+											</div>
                     
                       
                       

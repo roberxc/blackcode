@@ -69,7 +69,7 @@
 												<div class="col-sm-10">
 													<input type="date" min="2021-01-01" value="<?php echo date("Y-m-d\TH-i");?>" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="fecha" >
 
-													<input type="date" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="fecha" >
+												
 
 
 												</div>
@@ -82,6 +82,9 @@
 
 												</div>
 											</div>
+
+											
+
                                  <div class="form-group row">
 												<label for="inputName" class="col-sm-2 col-form-label">Conductor </label>
 												<div class="col-sm-10">
