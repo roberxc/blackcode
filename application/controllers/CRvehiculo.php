@@ -5,7 +5,7 @@ class CRvehiculo extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();// you have missed this line.
-		
+		$this->load->model('Vehiculo');
 	 }
 
 	public function index()
@@ -14,9 +14,11 @@ class CRvehiculo extends CI_Controller {
 		if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
 			$data ['activomenu'] = 20;
 			$data ['activo'] = 13;
+			$data ['total_vehiculos'] = $this->Vehiculo->ObtenerTotalVehiculos();
+
 			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_supremo',$data);
-			$this->load->view('Administracion/VRvehiculo');
+			$this->load->view('Administracion/VRvehiculo',$data);
 			$this->load->view('layout/footer');
 		}
 	}

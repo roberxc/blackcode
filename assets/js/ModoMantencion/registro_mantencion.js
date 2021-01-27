@@ -2,15 +2,17 @@ $(document).on('click', '#addmantencion', function(e) {
     e.preventDefault();
 
     var fecha = $("#fecha").val();
-    var patente = $("#patente").val();
+    var id_vehiculo = $("#id_vehiculo").val();
     var kilometraje = $("#kilometraje").val();
     var servicio = $("#servicio").val();
-    var nencargado = $("#nencargado").val();
-    var nmecanico = $("#nmecanico").val();
+    var id_personal = $("#id_personal").val();
+    var mecanico = $("#mecanico").val();
     var taller = $("#taller").val();
     var detalle = $("#detalle").val();
     var doc_adj = $("#doc_adj").val();
     var total_m = $("#total_m").val();
+
+
 
 
 
@@ -22,11 +24,11 @@ $(document).on('click', '#addmantencion', function(e) {
         dataType: "json",
         data: {
             fecha: fecha,
-            patente: patente,
+            id_vehiculo: id_vehiculo,
             kilometraje: kilometraje,
             servicio: servicio,
-            nencargado: nencargado,
-            nmecanico: nmecanico,
+            id_personal: id_personal,
+            mecanico: mecanico,
             taller: taller,
             detalle: detalle,
             doc_adj: doc_adj,
