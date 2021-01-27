@@ -71,6 +71,69 @@ class Proyecto_model extends CI_Model {
           );
   
           $this->db->insert('proyecto', $datos_detalle);
+          
       }
+
+      public function ObtenerCodigoProyecto(){
+          $query = $this->db
+                  ->select("id_proyecto") 
+                  ->from("proyecto")
+                  ->order_by("id_proyecto","DESC")
+                  ->limit("1")
+                  ->get();
+         return $query->result_array();
+        
+      }
+
+      function Mostrarpartidas(){
+     $id_proyectos = $this->ObtenerCodigoProyecto();
+     $this->db->SELECT('id_partidas, nombre');
+     $this->db->from('partidas');
+     $this->db->order_by('nombre', 'ASC');
+     $this->db->where('id_proyecto' ,$id_proyectos[0]["id_proyecto"]);
+     $query = $this->db->get();
+     if($query->num_rows()>0){
+         return $query->result();
+     }
+      }
+
+      public function registrarPartidasModels($data){
+		
+		//Registro  
+		$nombre = $data["lista_partida"];
+          
+		$id_proyectoss = $this->ObtenerCodigoProyecto();
+         // echo $id_proyectoss[0]["id_proyecto"];
+		for($count = 0; $count<count($nombre); $count++){
+			
+			$nombre_limpio = $nombre[$count];
+			
+
+			if(!empty($nombre_limpio)/* && !empty($cantidad_limpio)
+			 && !empty($valores_limpio)*/){
+				$insert_partidas[] = array(
+                         'nombre' => $nombre_limpio,
+                         'id_proyecto'=>$id_proyectoss[0]["id_proyecto"],
+				
+				);
+			}
+		}
+
+		//Si es 0 es: Materiales durante el trabajo
+		//SI es 1 es: Materiales antes el trabajo
+		//Actualizar estado de planilla
+		/*$idcodigoservicio = $this->getIDcodigoservicio($data['codigo_servicio']);
+			$this->db->set('MaterialesDurante','1', FALSE);
+			$this->db->where('id_codigo', $idcodigoservicio[0]['id_codigo']);
+			$this->db->update('planillaestado');*/
+		
+
+		
+		return  $this->db->insert_batch('partidas',$insert_partidas);
+     }
+
+     
+     
+
 }
 ?>

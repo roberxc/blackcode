@@ -10,7 +10,8 @@ class Proyecto extends CI_Controller
 		parent::__construct();
         $this->load->model('Proyecto_model');
         $this->load->helper(array('form', 'url'));
-	}
+    }
+    
     public function Estado_proyecto()
     {
         $data ['activo'] = 4;
@@ -36,6 +37,10 @@ class Proyecto extends CI_Controller
     }
     public function Evaluacion_proyecto()
     {
+        // $data[ es lo que lleva en la vista foreach($partidas as $i)]combobox
+        $data['partidas'] = $this->Proyecto_model->Mostrarpartidas();
+            
+        
         $data ['activo'] = 4;
         //$this->load->view('layout/nav');
         $this->load->view('menu/menu_proyecto',$data);
@@ -72,29 +77,26 @@ class Proyecto extends CI_Controller
        );
        echo json_encode($output);  
    }
-   public function registroProyecto(){
+  
+
+   public function GuardarProyectos(){
     if ($this->input->is_ajax_request()) {
         //Validaciones
-        $this->form_validation->set_rules('patente', 'patente', 'required');
-        $this->form_validation->set_rules('tipo', 'tipo', 'required');
-        $this->form_validation->set_rules('modelo', 'modelo', 'required');
-        $this->form_validation->set_rules('marca', 'marca', 'required');
-        $this->form_validation->set_rules('color', 'color', 'required');
-        $this->form_validation->set_rules('ano', 'ano', 'required');
-        $this->form_validation->set_rules('tipomotor', 'tipomotor', 'required');
-        
-        
-        
+        $this->form_validation->set_rules('nombreProyecto', 'nombreProyecto', 'required');
+        $this->form_validation->set_rules('fechaInicio', 'fechaInicio', 'required');
+        $this->form_validation->set_rules('fechaTermino', 'fechaTermino', 'required');
+        $this->form_validation->set_rules('monto', 'monto', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $data = array('response' => "error", 'message' => validation_errors());
         } else {
             $ajax_data = $this->input->post();
             
-            if (!$this->Vehiculo->create($ajax_data)) {
-                $data = array('response' => "error", 'message' => "Falló el registro");
+            if (!$this->Proyecto_model->ingresoProyecto($ajax_data)) {
+                $data = array('response' => "success", 'message' => "Proyecto Registrado");
+                
             }else{
-                $data = array('response' => "success", 'message' => "Vehiculo Registrado");
+                $data = array('response' => "error", 'message' => "Falló el registro");
             }
 
         }
@@ -104,6 +106,22 @@ class Proyecto extends CI_Controller
         echo "'No direct script access allowed'";
     }
 
+    }
+
+public function registroPartidas(){
+		
+    if ($this->input->is_ajax_request()) {
+        $ajax_data = $this->input->post();
+        $res = $this->Proyecto_model->registrarPartidasModels($ajax_data);
+        if ($res) {
+            $data = array('response' => "success", 'message' => "Guardado exitosamente!");
+        }else{
+            $data = array('response' => "error", 'message' => $res);
+        }
+        echo json_encode($data);
+    } else {
+        echo "'No direct script access allowed'";
+    }
 }
 
 }

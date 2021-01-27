@@ -6,5 +6,6 @@ function Success(){
         confirmButtonText: `Continuar`,
       }).then(function() {
         //window.location = "/TIC2020/RegistroEntrada";
+       
     });
 }
