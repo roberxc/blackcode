@@ -96,7 +96,7 @@
                       <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label">Patente</label>
                         <div class="col-sm-10">
-                        <select name="patentes" id="patentes" style="width: 100%; height: 60%">
+                        <select name="id_vehiculo" id="id_vehiculo" style="width: 100%; height: 60%">
                               <?php
                                  foreach($lista_vehiculos as $i){
                                    echo '<option value="'. $i->id_vehiculo .'">'. $i->patente .'</option>';
@@ -127,7 +127,7 @@
                       <div class="form-group row">
                         <label for="inputSkills" class="col-sm-2 col-form-label">Encargado</label>
                         <div class="col-sm-10">
-                        <select name="personal" id="personal" style="width: 100%; height: 60%">
+                        <select name="id_personal" id="id_personal" style="width: 100%; height: 60%">
                               <?php
                                  foreach($lista_personal as $i){
                                    echo '<option value="'. $i->id_personaltrabajo .'">'. $i->nombrecompleto .'</option>';
@@ -145,7 +145,7 @@
               <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Nombre</label>
                         <div class="col-sm-10">
-                          <input type="text" maxlength="50" style="text-transform:lowercase;" class="form-control" id="nmecanico" placeholder="Nombre del mecánico">
+                          <input type="text" maxlength="50" style="text-transform:lowercase;" class="form-control" id="mecanico" placeholder="Nombre del mecánico">
                         </div>
                       </div>
                       <div class="form-group row">
@@ -239,12 +239,12 @@
    //mostrar tipoproducto
    //mostrar centrodecosto2 en tabla agregar stock
    $(document).ready(function(){
-     $('#patentes').select2({
+     $('#id_vehiculo').select2({
        theme: "bootstrap"
      });
    });
    $(document).ready(function(){
-     $('#personal').select2({
+     $('#id_personal').select2({
        theme: "bootstrap"
      });
    }); 

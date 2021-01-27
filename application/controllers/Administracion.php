@@ -236,6 +236,7 @@ class Administracion extends CI_Controller {
 				} else {
 					$ajax_data = $this->input->post();
 					
+					
 					if (!$this->Mantencion->create($ajax_data)) {
 						$data = array('response' => "error", 'message' => "Falló el registro de mantencion");
 					}else{

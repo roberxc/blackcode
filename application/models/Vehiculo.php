@@ -111,7 +111,7 @@ class Vehiculo extends CI_Model{
 
   public function ObtenerVehiculos(){
     $query = $this->db
-            ->select("*") # También puedes poner * si quieres seleccionar todo
+            ->select("id_vehiculo,patente") # También puedes poner * si quieres seleccionar todo
             ->from("vehiculo")
             ->get();
     
