@@ -101,5 +101,65 @@ class Upload extends CI_Controller{
 			show_404();
 		}
 	}
+
+	public function subirCotizaciones(){
+		//El metodo is_ajax_request() de la libreria input permite verificar
+		//si se esta accediendo mediante el metodo AJAX 
+		if ($this->input->is_ajax_request()) {
+			$proveedor = $this->input->post("proveedor");
+			$fecha = $this->input->post("fecha");
+
+			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+			$config = [
+				"upload_path" => APPPATH. '../ArchivosSubidos/',
+				'allowed_types' => "jpg|png|pdf|docx|jepg"
+			];
+
+			$this->load->library("upload",$config);
+
+			if ($this->upload->do_upload('pic_file')) {
+				$data = array("upload_data" => $this->upload->data());
+				if($this->pic_model->subirCotizacion($data,$proveedor,$fecha)==true){
+					echo "exito";
+				}else{
+					echo "error";
+				}
+			}else{
+				echo $this->upload->display_errors();
+			}
+		}else{
+			show_404();
+		}
+	}
+
+	public function subirFacturas(){
+		//El metodo is_ajax_request() de la libreria input permite verificar
+		//si se esta accediendo mediante el metodo AJAX 
+		if ($this->input->is_ajax_request()) {
+			$fecha = $this->input->post("fecha");
+			$nroorden = $this->input->post("nroorden");
+
+			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+			$config = [
+				"upload_path" => APPPATH. '../ArchivosSubidos/',
+				'allowed_types' => "jpg|png|pdf|docx|jepg"
+			];
+
+			$this->load->library("upload",$config);
+
+			if ($this->upload->do_upload('pic_file')) {
+				$data = array("upload_data" => $this->upload->data());
+				if($this->pic_model->subirFactura($data,$fecha,$nroorden)==true){
+					echo "exito";
+				}else{
+					echo "error";
+				}
+			}else{
+				echo $this->upload->display_errors();
+			}
+		}else{
+			show_404();
+		}
+	}
 	
 }

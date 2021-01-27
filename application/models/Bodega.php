@@ -360,6 +360,7 @@ class Bodega extends CI_Model {
      $this->db->where("material.id_tipobodega = tipobodega.id_tipobodega AND material.id_tipomaterial = tipomaterial.id_tipomaterial");
      return $this->db->count_all_results();  
      }  
+
   
 
 

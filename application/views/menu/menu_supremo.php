@@ -168,7 +168,7 @@ if (isset($set_data['nombre_completo'])) {
                      
                      <ul class="nav nav-treeview">
                          <li class="nav-item">
-                             <a href="<?php echo base_url()?>Administracion/OrdenesCompra"
+                             <a href="<?php echo base_url()?>Ordenes"
                                  class="nav-link <?php if(isset($activo) && ($activo == 15)){echo "active"; }?>">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Ordenes de compra</p>
