@@ -4,6 +4,7 @@ class Pic_model extends CI_Model{
 
 	function __construct(){
 		parent::__construct();
+		$this->load->model('ProveedoresModel');
 	}
 
 	public function getIDTrabajoDiario($codigoservicio){
@@ -64,6 +65,31 @@ class Pic_model extends CI_Model{
 			"tipo" => 1,
 		);
 		return $this->db->insert("documentacion_empresa", $data);
+	}
+
+	public function getIDProveedor($rut){
+		return $this->ProveedoresModel->getIDProveedor($rut);
+
+	}
+
+
+	function subirCotizacion($data,$proveedor,$fecha){
+		$id_proveedor = $this->getIDProveedor($proveedor);
+		$data = array(
+			"fecha" => $fecha,
+			"ubicaciondocumento" => $data['upload_data']['file_name'],
+			"id_proveedor" => $id_proveedor[0]["id_proveedor"],
+		);
+		return $this->db->insert("cotizaciones", $data);
+	}
+
+	function subirFactura($data,$fecha,$nroorden){
+		$data = array(
+			"fecha" => $fecha,
+			"ubicaciondocumento" => $data['upload_data']['file_name'],
+			"id_orden" => $nroorden,
+		);
+		return $this->db->insert("cotizaciones", $data);
 	}
 	
 	/*function store_pic_data($data){

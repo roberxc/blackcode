@@ -45,6 +45,38 @@ class Proveedores extends CI_Controller
 
 	}
 
+	public function obtenerProveedores()
+    {
+        $fetch_data = $this->ProveedoresModel->make_datatables_proveedores();
+        $data = array();
+        foreach ($fetch_data as $value)
+        {
+
+            $sub_array = array();
+            $sub_array[] = '<input type="hidden" value='.$value->id_proveedor.'" class="name-file" disabled/>';
+            $sub_array[] = $value->rut;
+            $sub_array[] = $value->nombre;
+            $sub_array[] = $value->telefono;
+            $sub_array[] = '<a href="#" class="fas fa-eye" id="detalle_asistencia" data-toggle="modal"data-target="#modal-detalle-asistencia">';
+
+            $data[] = $sub_array;
+        }
+        $output = array(
+            "draw" => intval($_POST["draw"]) ,
+            "recordsTotal" => $this
+                ->ProveedoresModel
+                ->get_all_data_proveedores() ,
+            "recordsFiltered" => $this
+                ->ProveedoresModel
+                ->get_filtered_data_proveedores() ,
+            "data" => $data
+        );
+        echo json_encode($output);
+
+    }
+
+    
+
     
 }
 

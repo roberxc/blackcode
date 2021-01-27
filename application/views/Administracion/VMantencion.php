@@ -2,6 +2,12 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <!-- SELECT CON BUSCADOR -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" rel="stylesheet" />
+   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -90,30 +96,44 @@
                       <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label">Patente</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="patente" placeholder="Placa patente unica">
+                        <select name="id_vehiculo" id="id_vehiculo" style="width: 100%; height: 60%">
+                              <?php
+                                 foreach($lista_vehiculos as $i){
+                                   echo '<option value="'. $i->id_vehiculo .'">'. $i->patente .'</option>';
+                                 }
+                                 ?>
+                              </select>
+
+
                         </div>
                       </div>
 
                       <div class="form-group row">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Kilometraje</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="kilometraje" placeholder="Kilometraje entrante">
-                        </div>
-                      </div>
+												<label for="inputName" class="col-sm-2 col-form-label">Kilometraje </label>
+												<div class="col-sm-10">
+													<input type="number" min="0" step="1" maxlength="10" style="text-transform:lowercase;" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="kilometraje" placeholder="123.431.000 K/M " >
+												</div>
+											</div>
                     
                       
                       
                       <div class="form-group row">
                         <label for="inputSkills" class="col-sm-2 col-form-label">Servicio</label>
                         <div class="col-sm-10">
-                        <input type="text" class="form-control" id="servicio" placeholder="Trabajo realizado">
+                        <input type="text" maxlength="35" style="text-transform:lowercase;" class="form-control" id="servicio" placeholder="Trabajo realizado">
                         </div>
                       </div>
 
                       <div class="form-group row">
                         <label for="inputSkills" class="col-sm-2 col-form-label">Encargado</label>
                         <div class="col-sm-10">
-                        <input type="text" class="form-control" id="nencargado" placeholder="Encargado de la mantención">
+                        <select name="id_personal" id="id_personal" style="width: 100%; height: 60%">
+                              <?php
+                                 foreach($lista_personal as $i){
+                                   echo '<option value="'. $i->id_personaltrabajo .'">'. $i->nombrecompleto .'</option>';
+                                 }
+                                 ?>
+                              </select>
                         </div>
                       </div>
                       <hr class="mt-3 mb-3"/>
@@ -125,19 +145,19 @@
               <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Nombre</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nmecanico" placeholder="Nombre del mecánico">
+                          <input type="text" maxlength="50" style="text-transform:lowercase;" class="form-control" id="mecanico" placeholder="Nombre del mecánico">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Taller</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="taller" placeholder="Taller o planta de mantención">
+                          <input type="text" maxlength="40" style="text-transform:lowercase;" class="form-control" id="taller" placeholder="Taller o planta de mantención">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Notas</label>
                         <div class="col-sm-10">
-                        <textarea class="form-control"id="detalle" rows="3" placeholder="Detalles del servicio o mantención..."></textarea>
+                        <textarea style="text-transform:lowercase;" class="form-control"id="detalle" rows="3" placeholder="Detalles del servicio o mantención..."></textarea>
                         </div>
                       </div>
                       <hr class="mt-3 mb-3"/>
@@ -150,7 +170,10 @@
               <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Total</label>
                         <div class="col-sm-10">
-                          <input type="number" class="form-control" id="total_m" placeholder="$ Costo Total">
+
+
+                          <input type="number" maxlength="10" style="text-transform:lowercase;" class="form-control" id="total_m" placeholder="$ Costo Total">
+
                         </div>
                       </div>
                       <div class="form-group row">
@@ -212,5 +235,19 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>var base_url = '<?php echo base_url();?>';</script>
 <script src="<?php echo base_url()?>assets/js/ModoMantencion/registro_mantencion.js"></script>
+<script type="text/javascript">
+   //mostrar tipoproducto
+   //mostrar centrodecosto2 en tabla agregar stock
+   $(document).ready(function(){
+     $('#id_vehiculo').select2({
+       theme: "bootstrap"
+     });
+   });
+   $(document).ready(function(){
+     $('#id_personal').select2({
+       theme: "bootstrap"
+     });
+   }); 
+</script> 
 </body>
 </html>

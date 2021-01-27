@@ -37,52 +37,6 @@
    </a>
 
    <div class="card-header">
-      <!-- SELECT2 EXAMPLE -->
-      <div class="card card-default">
-         <div class="card-header">
-            <div class="card-tools">
-               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-               <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-            </div>
-         </div>
-         <!-- /.card-header -->
-         <div class="card-body">
-            <div class="row">
-               <div class="col-md-2">
-                  <!-- /.form-group -->
-                  <div class="form-group">
-                     <label>Rut</label>
-                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Ingrese">
-                     </div>
-                  </div>
-                  <!-- /.form-group -->
-               </div>
-               <div class="col-md-2">
-                  <!-- /.form-group -->
-                  <div class="form-group">
-                     <label>Nombre</label>
-                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Ingrese">
-                     </div>
-                  </div>
-                  <!-- /.form-group -->
-               </div>
-               <div class="col-md-2">
-                  <!-- /.form-group -->
-                  <div class="form-group">
-                     <label class="invisible">Buscar</label>
-                     <button type="button" class="btn btn-block btn-primary">Listar</button>
-                  </div>
-                  <!-- /.form-group -->
-               </div>
-               <!-- /.col -->
-            </div>
-            <!-- /.row -->
-         </div>
-      </div>
-   </div>
-   <div class="card-header">
       <section class="content">
          <div class="box box-info ">
             <div class="box-body">
@@ -90,11 +44,15 @@
                   <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                      <thead>
                         <tr>
+                           <th></th>
+
                            <th>Rut</th>
                            <!-- 0 ---> 
                            <th>Nombre</th>
                            <!-- 1 --->
                            <th>Telefono</th>
+
+                           <th>Accion</th>
                            <!-- 5 --->
                         </tr>
                      </thead>
@@ -193,7 +151,7 @@
          },
        "processing": true,
        "serverSide": true, 
-       "ajax":{url:"<?php echo base_url('Stock/fetch_data'); ?>",
+       "ajax":{url:"<?php echo base_url('Proveedores/obtenerProveedores'); ?>",
        type: "POST"
      },
        "columnDefs":[
@@ -202,22 +160,7 @@
          }
        ]
      });
-   
-     $('#productos_orden').DataTable({
-       "language": {
-         "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
-         },
-       "processing": true,
-       "serverSide": true, 
-       "ajax":{url:"<?php echo base_url('Stock/fetch_data'); ?>",
-       type: "POST"
-     },
-       "columnDefs":[
-         {
-             "targets": [1,2,3,4],
-         }
-       ]
-     });
+
    });
 </script>
 

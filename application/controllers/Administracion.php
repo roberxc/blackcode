@@ -26,15 +26,6 @@ class Administracion extends CI_Controller {
 		$this->load->view('layout/footer');
 	}
 
-	public function OrdenesCompra(){
-		$data ['activomenu'] = 15;
-		$data ['activo'] = 15;
-		$this->load->view('layout/nav');
-     	$this->load->view('menu/menu_supremo',$data);
-		$this->load->view('Administracion/Ordenes');
-		$this->load->view('layout/footer');
-	}
-
 	public function CostosFijos(){
 		$data ['activomenu'] = 5;
 		$data ['activo'] = 6;
@@ -246,6 +237,7 @@ class Administracion extends CI_Controller {
 					$data = array('response' => "error", 'message' => validation_errors());
 				} else {
 					$ajax_data = $this->input->post();
+					
 					
 					if (!$this->Mantencion->create($ajax_data)) {
 						$data = array('response' => "error", 'message' => "Falló el registro de mantencion");

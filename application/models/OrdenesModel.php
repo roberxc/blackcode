@@ -2,13 +2,13 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-class ProveedoresModel extends CI_Model {
+class OrdenesModel extends CI_Model {
 
 	function __construct(){
 		parent::__construct();
 	}
 
-	//Metodo para registrar gastos combustible
+
 	public function registrarProveedores($ajax_data){
 		$dataproveedores = array(
 			'rut' => $ajax_data['rut'],
@@ -21,6 +21,15 @@ class ProveedoresModel extends CI_Model {
 		);
 
 		return $this->db->insert('proveedores',$dataproveedores);
+    }
+
+	public function registrarNuevoProducto($ajax_data){
+		$dataproductos = array(
+			'nombre' => $ajax_data['producto'],
+			'valor' => $ajax_data['valor'],
+		);
+
+		return $this->db->insert('materiales_comprados',$dataproductos);
 	}
 
 	function make_datatables_proveedores()
@@ -97,7 +106,7 @@ class ProveedoresModel extends CI_Model {
 		return $query->result();
     }
     
-    public function listaProveedores(){
+    public function listaOrdenes(){
 		$query = $this->db
 				->select("rut,nombre") # También puedes poner * si quieres seleccionar todo
 				->from("proveedores")
@@ -105,15 +114,23 @@ class ProveedoresModel extends CI_Model {
 		
 		return $query->result();
     }
+
+    public function listaMateriales(){
+		$query = $this->db
+				->select("id_material,nombre, valor") # También puedes poner * si quieres seleccionar todo
+				->from("materiales_comprados")
+				->get();
+    	return $query->result();
+    }
     
-    //Se obtiene el la id del trabajo diario segun el codigo de servicio 
-	public function getIDProveedor($rut){
-		$query = $this->db->select("id_proveedor") # También puedes poner * si quieres seleccionar todo
-				->from("proveedores")
-				->where('rut', $rut);
-		$query = $this->db->get();
-		return $query->result_array();
+    public function listaBodegas(){
+		$query = $this->db
+				->select("id_tipobodega, nombretipobodega") # También puedes poner * si quieres seleccionar todo
+				->from("tipobodega")
+				->get();
+    	return $query->result();
 	}
+    
 
 }
 

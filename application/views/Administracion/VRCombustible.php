@@ -14,7 +14,7 @@
       <div class="container-fluid">
          <div class="row mb-2">
             <div class="col-sm-6">
-               <h1 class="m-0 text-dark">Libro Vehiculos</h1>
+               <h1 class="m-0 text-dark">Gastos de Combustible</h1>
             </div>
             
             <!-- /.col -->
@@ -35,6 +35,7 @@
                         <!-- 0 ---> 
                         <th>Patente</th>
                         <!-- 1 --->
+
                         <th>Año</th>
                         <!-- 2 --->
                         <th>Clase Vehiculo</th>
@@ -49,6 +50,7 @@
                         <!-- 7 --->
                         <th>Gps</th>
                         <!-- 8 --->
+
 
                         
                      
@@ -144,7 +146,11 @@
      },
        "columnDefs":[
          {
-             "targets": [1,2,3,4,5,6,7,8],
+
+             "targets": [1],
+
+            
+
          }
        ]
      });
