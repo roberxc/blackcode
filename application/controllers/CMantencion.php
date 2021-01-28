@@ -7,6 +7,9 @@ class CMantencion extends CI_Controller {
 		parent::__construct();// you have missed this line.
 		$this->load->model('Vehiculo');
 		$this->load->model('Personal');
+		$this->load->model('Mantencion');
+
+
 	 }
 
 	public function index(){
