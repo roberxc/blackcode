@@ -25,5 +25,14 @@ class Mantencion extends CI_Model{
         }
         return true;
     }
+
+    public function ObtenerTotalVehiculos(){
+        $query = $this->db
+                ->select("COUNT(id_mantencion) as total") # También puedes poner * si quieres seleccionar todo
+                ->from("mantencion")
+                ->get();
+        
+        return $query->result_array();
+    }
     
 }

@@ -17,7 +17,7 @@ class Combustible extends CI_Model{
          
           
         );
-        if(!$this->db->insert('com', $datos)){
+        if(!$this->db->insert('combustible', $datos)){
             return false;
         }
         return true;
