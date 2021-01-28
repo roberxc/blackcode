@@ -117,7 +117,7 @@
 
 													<input type="number" min="0" step="1" maxlength="10" style="text-transform:lowercase;" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="valor" >
 
-													<input type="number" minlength="1" maxlength="100000000" style="text-transform:lowercase;" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="valor" >
+													
 
 
 												</div>

@@ -99,7 +99,7 @@ class ProveedoresModel extends CI_Model {
     
     public function listaProveedores(){
 		$query = $this->db
-				->select("rut,nombre") # También puedes poner * si quieres seleccionar todo
+				->select("id_proveedor,rut,nombre") # También puedes poner * si quieres seleccionar todo
 				->from("proveedores")
 				->get();
 		

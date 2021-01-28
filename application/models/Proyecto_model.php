@@ -88,6 +88,7 @@ class Proyecto_model extends CI_Model {
           
      }
 
+
      public function ingresarEvaluacion($data){
 
           $datos_detalle = array(
@@ -128,6 +129,16 @@ class Proyecto_model extends CI_Model {
 		}
 		return  $this->db->insert_batch('evaluacion',$insert_evaluacion);
       }
+
+
+     public function listaProyectos(){
+		$query = $this->db
+				->select("*") # También puedes poner * si quieres seleccionar todo
+				->from("proyecto")
+				->get();
+		
+		return $query->result();
+    }
 
      
 
