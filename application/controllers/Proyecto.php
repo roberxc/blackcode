@@ -79,7 +79,7 @@ class Proyecto extends CI_Controller
    }
   
 
-   public function GuardarProyectos(){
+public function GuardarProyectos(){
     if ($this->input->is_ajax_request()) {
         //Validaciones
         $this->form_validation->set_rules('nombreProyecto', 'nombreProyecto', 'required');
@@ -106,7 +106,7 @@ class Proyecto extends CI_Controller
         echo "'No direct script access allowed'";
     }
 
-    }
+}
 
 public function registroPartidas(){
 		
@@ -124,8 +124,70 @@ public function registroPartidas(){
     }
 }
 
+public function GuardarPorcentaje(){
+    if ($this->input->is_ajax_request()) {
+        $ajax_data = $this->input->post();
+        $res = $this->Proyecto_model->ingresoPorcentaje($ajax_data);
+        if ($res) {
+            $data = array('response' => "success", 'message' => "Guardado exitosamente!");
+        }else{
+            $data = array('response' => "error", 'message' => $res);
+        }
+        echo json_encode($data);
+    } else {
+        echo "'No direct script access allowed'";
+    }
+}
+
+public function registroInstalacion(){
+		
+    if ($this->input->is_ajax_request()) {
+        $ajax_data = $this->input->post();
+        $res = $this->Proyecto_model->ingresarEvaluacion($ajax_data);
+        if ($res) {
+            $data = array('response' => "success", 'message' => "Guardado exitosamente!");
+        }else{
+            $data = array('response' => "error", 'message' => $res);
+        }
+        echo json_encode($data);
+    } else {
+        echo "'No direct script access allowed'";
+    }
+}
+
+public function registroSupervision(){
+		
+    if ($this->input->is_ajax_request()) {
+        $ajax_data = $this->input->post();
+        $res = $this->Proyecto_model->ingresarEvaluacion($ajax_data);
+        if ($res) {
+            $data = array('response' => "success", 'message' => "Guardado exitosamente!");
+        }else{
+            $data = array('response' => "error", 'message' => $res);
+        }
+        echo json_encode($data);
+    } else {
+        echo "'No direct script access allowed'";
+    }
+}
+
+public function registroEtapas(){
+		
+    if ($this->input->is_ajax_request()) {
+        $ajax_data = $this->input->post();
+        $res = $this->Proyecto_model->ingresarEtapas($ajax_data);
+        if ($res) {
+            $data = array('response' => "success", 'message' => "Guardado exitosamente!");
+        }else{
+            $data = array('response' => "error", 'message' => $res);
+        }
+        echo json_encode($data);
+    } else {
+        echo "'No direct script access allowed'";
+    }
 }
 
    
 
 
+}

@@ -7,7 +7,7 @@ $(document).ready(function(){
 		
 	//ID de la clase #dynamic_field
 	$('#divEtapa').append('<table id="row'+i+'" class="table table-bordered">'+
-	'<tr><TD><input type="text" name="partida" id="nombre_partida" class="form-control"/></TD>'+
+	'<tr><TD><input type="text" name="partida" id="nombre_etapa" class="form-control"/></TD>'+
 	'<TD><button type="button" id="'+i+'" class="btn btn-danger btn_remove">Eliminar</button></TD></TR> </table>');
 	
 

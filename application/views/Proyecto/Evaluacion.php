@@ -111,7 +111,7 @@
          </ul>
       </li>
    </nav>
-   <!--------------------------------------------------------------------------------------------------->
+   <!------------------------------------------Registro Proyectos---------------------------------->
    <div id="home-sec">
       <div class="overlay">
          <div class="container">
@@ -258,7 +258,8 @@
                            <div class="form-group">
                               <label>Valor total según días de instalación:</label>
                               <div class="form-group">
-                                 <input type="number" class="form-control" required="required"  />
+                                 <input type="number" id="numdias" class="form-control" required="required"  />
+                                 <input type="text" id="tipoInsta" value="Instalacion"class="form-control" style="visibility:hidden" />
                               </div>
                            </div>
                            <!-- /.form-group -->
@@ -286,7 +287,7 @@
                   </div>
                </div>
                <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-primary">Guardar</button>
+                  <button type="button" id="addInstalacion" class="btn btn-primary">Guardar</button>
                </div>
             </div>
             <!-- /.modal-content -->
@@ -311,9 +312,10 @@
                      <div class="row">
                         <div class="col-md-5">
                            <div class="form-group">
-                              <label>Valor total según días de instalación:</label>
+                              <label>Valor total según días de supervisión:</label>
                               <div class="form-group">
-                                 <input type="number" class="form-control" required="required"  />
+                                 <input type="number" id="diasSuper" class="form-control" required="required"  />
+                                 <input type="text" id="tipoSuper" value="Supervision" class="form-control" style="visibility:hidden"/>
                               </div>
                            </div>
                            <!-- /.form-group -->
@@ -341,7 +343,7 @@
                   </div>
                </div>
                <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-primary">Guardar</button>
+                  <button type="button" id="addSupervision" class="btn btn-primary">Guardar</button>
                </div>
             </div>
             <!-- /.modal-content -->
@@ -384,7 +386,7 @@
       </div>
       <!-- /.modal-dialog -->
    </div>
-   <!--------------------------------------------Registrar etapas de las pratidas--------------------->
+   <!--------------------------------------------Registrar etapas de las partidas--------------------->
    <!-- /.modal -->
    <div class="modal fade" id="etapas">
       <div class="modal-dialog modal-lg">
@@ -407,6 +409,56 @@
                            }
                            ?>
                         </select>
+                        <input type="text" id="estado" value="0"class="form-control" style="visibility:hidden" />
+                     </div>
+                     <!-- /.form-group -->
+                     <!-- /.form-group -->
+                  </div>
+                  <div class="col-lg-10" id="divEtapa">
+                     <table class="table table-bordered">
+                        <TR>
+                           <TH>Etapa</TH>
+                        </TR>
+                        <tr>
+                           <TD><input type="text" name="Etapa" id="nombre_etapa" class="form-control"/></TD>
+                           <TD><button type="button" name="add" id="GuardarEtapa" class="btn btn-success">+</button></TD>
+                        </tr>
+                     </table>
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+               <button type="button" id ="addEtapa" class="btn btn-primary">Guardar</button>
+            
+            </div>
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!---------------------------------------Registrar despiece menu------------------------------------------------------>
+   <!-- /.modal -->
+   <div class="modal fade" id="despiece">
+      <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h4 class="modal-title">Registrar despiece </h4>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <div class="row">
+                  <div class="col-md-5">
+                     <div class="form-group">
+                        <label>Nombre de Partida</label>
+                        <select class="form-control select2bs4" name="partidas1" id="partidas1" style="width: 100%; height: 60%">
+                        <?php
+                           foreach($partidas as $i){
+                              echo '<option value="'. $i->id_partidas .'">'. $i->nombre .'</option>';
+                           }
+                           ?>
+                        </select>
                      </div>
                      <!-- /.form-group -->
                      <!-- /.form-group -->
@@ -423,13 +475,14 @@
                   <!-- /.col -->
                   <div class="col-lg-10" id="divEtapa">
                      <table class="table table-bordered">
-                        <TR>
-                           <TH>Etapa</TH>
-                        </TR>
-                        <tr>
-                           <TD><input type="text" name="Etapa" id="nombre_etapa" class="form-control"/></TD>
-                           <TD><button type="button" name="add" id="GuardarEtapa" class="btn btn-success">+</button></TD>
-                        </tr>
+                     <thead>
+                              <tr>
+                                 <th>Etapa</th>
+                                 <th>Estado</th>
+                                 <th>Ingresar Despiece</th>
+                                 <th>Fletes</th>
+                              </tr>
+                           </thead>
                      </table>
                   </div>
                   <!-- end of col -->
@@ -443,73 +496,6 @@
          <!-- /.modal-content -->
       </div>
       <!-- /.modal-dialog -->
-   </div>
-   <!---------------------------------------Registrar despiece menu------------------------------------------------------>
-   <!-- /.modal -->
-   <div class="modal fade" id="despiece">
-   <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h4 class="modal-title">Registrar Despiece</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-         </div>
-         <div class="modal-body">
-            <div class="row">
-               <!-- Buscador de partidas ------------------------------>      
-               <div class="card-body">
-                  <div class="row">
-                  <div class="col-md-5">
-                     <div class="form-group">
-                        <label>Nombre de Partida</label>
-                        <select class="form-control select2bs4" name="partidas2" id="partidas2" style="width: 100%; height: 60%">
-                        <?php
-                           foreach($partidas as $i){
-                              echo '<option value="'. $i->id_partidas .'">'. $i->nombre .'</option>';
-                           }
-                           ?>
-                        </select>
-                     </div>
-                     <!-- /.form-group -->
-                     <!-- /.form-group -->
-                  </div>
-                     <!-- /.col -->
-                     <div class="col-md-2">
-                        <!-- /.form-group -->
-                        <div class="form-group">
-                           <label class="invisible">Listar</label>
-                           <button type="button" class="btn btn-block btn-primary">Listar</button>
-                        </div>
-                        <!-- /.form-group -->
-                     </div>
-                     <!-- /.col -->
-                     <!--Tabla despiece-------------------------------------->
-                     <div class="col-lg-10" id="dynamic_field">
-                        <table id="tablaDespiece" name="tablaDespiece" class="table table-bordered table-striped">
-                           <thead>
-                              <tr>
-                                 <th>Etapa</th>
-                                 <th>Estado</th>
-                                 <th>Ingresar Despiece</th>
-                                 <th>Fletes</th>
-                              </tr>
-                           </thead>
-                        </table>
-                     </div>
-                     <!-- end of col -->
-                     <!-- href="<?php echo base_url() ?>PlantillaOperaciones"-->
-                  </div>
-               </div>
-               <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-primary">Salir</button>
-               </div>
-            </div>
-            <!-- /.modal-content -->
-         </div>
-         <!-- /.modal-dialog -->
-      </div>
-   </div>
    </div>
    
    <!-----------------------------------------Registrar Despiece-------------------->
@@ -632,6 +618,7 @@
       </div>
       <!-- /.modal-dialog -->
    </div>
+   
    <script type="text/javascript">
       $(document).ready(function(){
            $('#partidas1').select2({
