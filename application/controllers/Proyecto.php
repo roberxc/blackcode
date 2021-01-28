@@ -39,7 +39,6 @@ class Proyecto extends CI_Controller
     {
         // $data[ es lo que lleva en la vista foreach($partidas as $i)]combobox
         $data['partidas'] = $this->Proyecto_model->Mostrarpartidas();
-            
         
         $data ['activo'] = 4;
         //$this->load->view('layout/nav');
@@ -47,6 +46,58 @@ class Proyecto extends CI_Controller
 		$this->load->view('Proyecto/Evaluacion');
         $this->load->view('layout/footer');
     }
+
+    public function obtenerDetalleDespiece(){
+		$ajax_data = $this->input->post(); //Datos que vienen por POST
+		$lista_etapas = $this->Proyecto_model->MostrarpartidasEtapas($ajax_data['id_partida']);
+		$response = "<div class='table-responsive'>";
+		$response .= "<table class='table table-bordered'>";
+        $response .= "<tr>";
+        $response .= "<td style='visibility:hidden'>";
+		$response .= "<label>ID</label>";
+		$response .= "</td>";
+		$response .= "<td>";
+		$response .= "<label>Etapa</label>";
+		$response .= "</td>";
+		$response .= "<td>";
+		$response .= "<label>Estado</label>";
+		$response .= "</td>";
+		$response .= "<td>";
+		$response .= "<label>Ingresar despiece</label>";
+        $response .= "</td>";	
+        $response .= "<td>";
+		$response .= "<label>Ingresar flete</label>";
+        $response .= "</td>";	
+		$response .= "</tr>";
+		$response .= "<tbody>";
+		foreach($lista_etapas as $row){ 
+            $response .= "<tr>";
+            $response .= "<td>";
+			$response .= $row->id;
+			$response .= "</td>";
+			$response .= "<td>";
+			$response .= $row->nombreetapa;
+			$response .= "</td>";
+			$response .= "<td>";
+			$response .= $row->estado;
+			$response .= "</td>";
+			$response .= "<td>";
+			$response .= "<button type='button' name='add' onclick='setId(this)' data-toggle='modal' data-target='#registro_despiece' class='btn btn-success'>+</button>";
+            $response .= "</td>";
+            $response .= "<td>";
+			$response .= "<button type='button' name='add' onclick='setIdFlete(this)' data-toggle='modal' data-target='#registro_flete' class='btn btn-success'>+</button>";
+			$response .= "</td>";
+			$response .= "</tr>";
+		}
+		$response .= "</tbody>";
+		$response .= "</table>";
+		$response .= "</div>";
+
+		$data = array('response' => 'success', 'detalle' => $response);
+
+
+		echo json_encode($data);
+	}
     
     //Mostrar estado de todos los proyectos en ejecución a la vista de todos los usuarios
 
@@ -187,6 +238,48 @@ public function registroEtapas(){
     }
 }
 
+public function registroDespiece(){
+		
+    if ($this->input->is_ajax_request()) {
+        $ajax_data = $this->input->post();
+        $res = $this->Proyecto_model->ingresarDespiece($ajax_data);
+        if ($res) {
+            $data = array('response' => "success", 'message' => "Guardado exitosamente!");
+        }else{
+            $data = array('response' => "error", 'message' => $res);
+        }
+        echo json_encode($data);
+    } else {
+        echo "'No direct script access allowed'";
+    }
+}
+public function Guardarflete(){
+    if ($this->input->is_ajax_request()) {
+        //Validaciones
+        $this->form_validation->set_rules('id_etapa', 'id_etapa', 'required');
+        $this->form_validation->set_rules('valor', 'valor', 'required');
+       
+
+        if ($this->form_validation->run() == FALSE) {
+            $data = array('response' => "error", 'message' => validation_errors());
+        } else {
+            $ajax_data = $this->input->post();
+            
+            if (!$this->Proyecto_model->ingresoflete($ajax_data)) {
+                $data = array('response' => "success", 'message' => "Proyecto Registrado");
+                
+            }else{
+                $data = array('response' => "error", 'message' => "Falló el registro");
+            }
+
+        }
+
+        echo json_encode($data);
+    } else {
+        echo "'No direct script access allowed'";
+    }
+
+}
    
 
 

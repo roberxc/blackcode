@@ -23,28 +23,51 @@ $(document).ready(function(){
 	
 });
 
-$(document).ready(function(){
-	var count=1;
-	var max=10;
-	var x = 1;
-	
-	$('#agregarTrabajador').click(function(){
-		if(x<=max){
-			count = count + 1;
-			var html_code = "<tr id='row"+count+"'>";
-			html_code += "<td><input type='text' id='item_rut' placeholder='Ingrese' class='form-control'/></td>";
-			html_code += "<td><input type='text' id='item_nombre' placeholder='Ingrese' class='form-control'/></td>";
-			html_code += "<td><button type='button' name='remove' data-row='row"+count+"' class='btn btn-danger btn-xs remove'>-</button></td>";   
-			html_code += "</tr>";
-			$('#tabla_personal').append(html_code);
-			x++;
-		}
-		
-	});
+$("#añadir-despiece").on('click', function(event) {
+    var nombre = $('#partidas1').val().split(',')[1];
+    var id =$('#partidas1').val().split(',')[0];
+	var estado = $('#partidas1').val().split(',')[2];
+	$.ajax({
+        url: base_url+"Proyecto/obtenerDetalleDespiece",
+        type: "post",
+        dataType: "json",
+        data: {
+            id_partida: id,
+        },
+        success: function(respuesta) {
+            if (respuesta.response == "success") {
+				$('#detalle-etapas').html(respuesta.detalle);
 
-	$(document).on('click', '.remove',function(){
-		var delete_row = $(this).data("row");
-		$('#' + delete_row).remove();
-	});
+            
+            } else if (respuesta.response === "error") {
+				alert("ERROR");
+
+				generarAvisoError(respuesta.message);
+                
+            }else {
+                //$("#msg-error").show();
+                generarAvisoError(respuesta);
+            }
+        }
+    });
+
 
 });
+
+/*
+function test (table) {
+	var idetapa = table.parentNode.parentNode.cells[0].textContent;
+	document.getElementById("ID_Despiece").innerHTML = idetapa;
+}*/
+
+function setId(table){
+	document.getElementById("ID_Despiece").value = test(table);
+}
+function setIdFlete(table){
+	document.getElementById("id_etapa").value = test(table);
+}
+function test (table){
+	var id=table.parentNode.parentNode.cells[0].textContent;
+	return id;
+}
+

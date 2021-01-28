@@ -48,6 +48,21 @@ class Proyecto_model extends CI_Model {
           }
      }
 
+     function MostrarpartidasEtapas($id_partida){
+          $id_proyectos = $this->ObtenerCodigoProyecto();
+
+          $query = $this->db->SELECT('e.id_etapas as id, e.nombre as nombreetapa, e.estado as estado')
+          ->from('proyecto py')
+          ->join("partidas p", "p.id_proyecto = py.id_proyecto")
+          ->join("etapas e", "e.id_partidas = p.id_partidas")
+          ->where('p.id_partidas' ,$id_partida)
+          ->where('py.id_proyecto' ,$id_proyectos[0]["id_proyecto"])
+          ->get();
+          
+
+          return $query->result();
+     }
+
       public function registrarPartidasModels($data){
 		
 		//Registro  
@@ -165,6 +180,49 @@ class Proyecto_model extends CI_Model {
 			}
 		}
 		return  $this->db->insert_batch('etapas',$insert_etapas);
+     }
+
+     public function ingresarDespiece($data){
+		
+          //Registro  
+         
+          $id_etapa = $data["idEtapa"];
+          $cantidad = $data["lista_cantidad"];
+          $item = $data["lista_item"];
+          $precio = $data["lista_precio"];
+		
+         // echo $id_proyectoss[0]["id_proyecto"];
+		for($count = 0; $count<count($cantidad); $count++){
+			
+               $cantidad_limpio = $cantidad[$count];
+               $item_limpio = $item[$count];
+               $precio_limpio = $precio[$count];
+
+			if(!empty($cantidad_limpio) && !empty($item_limpio)
+               && !empty($precio_limpio)){
+				$insert_despiece[] = array(
+                         'cantidad' => $cantidad_limpio,
+                         'item' => $item_limpio,
+                         'precio_unitario' => $precio_limpio,
+                         'id_etapas'=>$id_etapa,
+				
+				);
+			}
+		}
+		return  $this->db->insert_batch('despiece',$insert_despiece);
+     }
+
+     public function ingresoflete($datos){
+
+          $datos_flete = array(
+
+              'id_etapas' => $datos['id_etapa'],
+              'valor' => $datos['valor'],
+              
+          );
+  
+          $this->db->insert('fletes', $datos_flete);
+          
      }
 }
 ?>

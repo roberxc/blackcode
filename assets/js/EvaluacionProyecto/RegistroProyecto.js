@@ -258,8 +258,90 @@ $(document).on('click', '#addEtapa', function(e) {
     });
     
 });
+//Registro Despiece
+$(document).on('click', '#addDespiece', function(e) {
+    e.preventDefault();
+    
+    var idEtapa = $("#ID_Despiece").val();
+    var numCantidad = [];
+    var txtItem = [];
+    var numPrecioDespiece = [];
+
+    //etapa
+    $('input[id="numCantidad"]').each(function(){
+        numCantidad.push($(this).val());
+    });
+    //etapa
+    $('input[id="txtItem"]').each(function(){
+        txtItem.push($(this).val());
+    });
+    //etapa
+    $('input[id="numPrecioDespiece"]').each(function(){
+        numPrecioDespiece.push($(this).val());
+    });
+
+    $.ajax({
+        url: base_url+"Proyecto/registroDespiece",
+        type: "post",
+        dataType: "json",
+        data: {
+            idEtapa:idEtapa,
+            lista_cantidad: numCantidad,
+            lista_item: txtItem,
+            lista_precio: numPrecioDespiece,
+            
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                generarAvisoExitoso(data.message);
+                window.location.href = base_url+"Proyecto/Evaluacion_proyecto";
+                //window.location.href = base_url+"DetalleOperaciones/"+codigoservicio;
+                
+            } else {
+                generarAvisoError(data.message);
+            }
+        }
+    });
+    
+});
+//Registro Flete
+$(document).on('click', '#addflete', function(e) {
+    e.preventDefault();
+
+    var id_etapa = $("#id_etapa").val();
+    var valor= $("#valor").val();
 
 
+
+    $.ajax({
+        url: base_url + "Proyecto/Guardarflete",
+        type: "post",
+        dataType: "json",
+        data: {
+            id_etapa: id_etapa,
+            valor: valor,
+            
+           
+
+        },
+        success: function(data) {
+            if (data.response == "success") {
+               
+                generarAvisoExitoso('Proyecto registrado correctamente!');
+                window.location.href = base_url+"Proyecto/Evaluacion_proyecto";
+            } else if(data.response == "error"){
+                generarAvisoError('Error al registrar el proyecto');
+                
+            }
+            else{
+                //$("#msg-error").show();
+                generarAvisoError(response);
+            }
+        }
+    });
+
+
+});
 
 function generarAvisoError($mensaje){
     Command: toastr["error"]($mensaje,'Error')
