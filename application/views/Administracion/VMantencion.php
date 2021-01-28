@@ -64,7 +64,7 @@
                 
                 </ul>
 
-                <button type="reset" class="btn btn-outline-info btn-block">Actualizar</button>
+                <button type="button" onclick="document.location.reload();" class="btn btn-outline-info btn-block">Actualizar</button>
               </div>
               <!-- /.card-body -->
             </div>
