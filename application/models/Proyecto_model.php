@@ -132,7 +132,14 @@ class Proyecto_model extends CI_Model {
 		return  $this->db->insert_batch('partidas',$insert_partidas);
      }
 
-     
+     public function listaProyectos(){
+		$query = $this->db
+				->select("*") # También puedes poner * si quieres seleccionar todo
+				->from("proyecto")
+				->get();
+		
+		return $query->result();
+    }
      
 
 }
