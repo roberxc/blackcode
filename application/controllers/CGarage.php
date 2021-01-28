@@ -41,6 +41,7 @@ class CGarage extends CI_Controller {
             $sub_array[]    = $value->id_vehiculo;
             $sub_array[]    = $value->patente;
 <<<<<<< HEAD
+<<<<<<< HEAD
 			$sub_array[]    = $value->ano;
 			$sub_array[]    = $value->tipo;
 			$sub_array[]    = $value->marca;
@@ -54,6 +55,12 @@ class CGarage extends CI_Controller {
 			$sub_array[]    = $value->modelo;
 			$sub_array[]    = $value->modelo;
 >>>>>>> b19a2c8... XD
+=======
+			$sub_array[]    = $value->modelo;
+			$sub_array[]    = $value->modelo;
+			$sub_array[]    = $value->modelo;
+			$sub_array[]    = $value->modelo;
+>>>>>>> b19a2c83b1ab2e01fec56c59c7ea13e4a67d3ddd
 			//$sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" onclick="vermas('.$value['id_material'].');" ></a>';
            // <a href="#" class="fas fa-edit" style="font-size: 20px;"></a> EN CASO DE QUERER EDITAR LOS REGISTROS
             $data[]         = $sub_array;
