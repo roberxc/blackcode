@@ -37,7 +37,7 @@
                <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                   <thead>
                      <tr>
-                        <th>ID</th>
+                        <th>Codigo Producto</th>
                         <!-- 0 ---> 
                         <th>Nombre Producto</th>
                         <!-- 1 --->
@@ -70,29 +70,24 @@
                extend:     'excelHtml5',
                text:       '<i class="fas fa-file-excel"></i>',
                titleAttr:  'Exportar a Excel',
+               messageTop: 'Documento oficial de CDH INGENIERIA',
+               title:      'Bodega CDH INGENIERIA',
                className:  'btn btn-success btn-lg'
             },
             {
                extend:     'pdfHtml5',
                text:       '<i class="fas fa-file-pdf"></i>',
                titleAttr:  'Exportar a PDF',
+               messageTop: 'Documento oficial de CDH INGENIERIA',
+               title:      'Bodega CDH INGENIERIA',
                className:  'btn btn-danger btn-lg'
-            },{
-               extend:     'copyHtml5',
-               text:       '<i class="far fa-copy"></i>',
-               titleAttr:  'Copiar a portapapeles',
-               className:  'btn btn-secondary btn-lg'
-            },
-            {
-               extend:     'csvHtml5',
-               text:       '<i class="fas fa-file-csv"></i>',
-               titleAttr:  'Exportar a CSV',
-               className:  'btn btn-outline-success btn-lg'
             },
             {
                extend:     'print',
                text:       '<i class="fas fa-print"></i>',
                titleAttr:  'Imprimir',
+               title:      'Bodega CDH INGENIERIA',
+               messageTop: 'Documento oficial de CDH INGENIERIA',
                className:  'btn btn-outline-dark btn-lg'
             }
         ],
