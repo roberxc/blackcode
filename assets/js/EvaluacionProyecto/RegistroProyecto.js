@@ -383,3 +383,26 @@ function generarAvisoExitoso($mensaje){
         "hideMethod": "fadeOut"
     }
 }
+
+function actualizarResumen(){
+    var id =$('#partidas3').val().split(',')[0];
+    $.ajax({
+        url: base_url+"Proyecto/obtenerResumenProyecto",
+        type: "post",
+        dataType: "json",
+        data: {
+            id_partida: id,
+       
+        },
+        success: function(data) {
+            if (data.response == "success") {
+
+                
+                $('#resumen-proyecto').html(data.detalle);
+            } else {
+                generarAvisoError(data.message);
+            }
+        }
+    });
+    
+}

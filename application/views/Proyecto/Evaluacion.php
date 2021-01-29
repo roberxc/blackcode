@@ -172,68 +172,22 @@
                </div>
                <div class="col-lg-5 col-md-5 col-sm-5 text-center">
                   <label for="cars" >Seleccione Partidas del proyecto:</label>
-                  <select class="form-control select2bs4" name="partidas3" id="partidas3" style="width: 100%; height: 60%">
+                  <select class="form-control select2bs4" name="partidas3" onchange="actualizarResumen()" id="partidas3" style="width: 100%; height: 60%">
+                  <option value="0" selected>Seleccione</option>
                   <?php
+                     
                      foreach($partidas as $i){
                         echo '<option value="'. $i->id_partidas .'">'. $i->nombre .'</option>';
                      }
                      ?>
                   </select>
-                  </br>
-                  <TABLE BORDER class="table table-bordered ">
-                     <TR>
-                        <TH>Subtotal por partida</TH>
-                        <TD>$361000</TD>
-                     </TR>
-                     <TR>
-                        <TH>Imprevistos</TH>
-                        <TD>$36100</TD>
-                     </TR>
-                     <TR>
-                        <TH>Costo materiales</TH>
-                        <TD>$397100</TD>
-                     </TR>
-                     <TR>
-                        <TH>Instalación</TH>
-                        <TD>$500000</TD>
-                     </TR>
-                     <TR>
-                        <TH>Supervisión</TH>
-                        <TD>$240000</TD>
-                     </TR>
-                     <TR>
-                        <TH>Valor equipamiento instalado</TH>
-                        <TD>$24000</TD>
-                     </TR>
-                     <TR>
-                        <TH>Supervisión</TH>
-                        <TD>$1137100</TD>
-                     </TR>
-                     <TR>
-                        <TH>Flete traslado </TH>
-                        <TD>$300000</TD>
-                     </TR>
-                     <TR>
-                        <TH>Gastos generales </TH>
-                        <TD></TD>
-                     </TR>
-                     <TR>
-                        <TH>Comisiones </TH>
-                        <TD></TD>
-                     </TR>
-                     <TR>
-                        <TH>Ingeniería </TH>
-                        <TD></TD>
-                     </TR>
-                     <TR>
-                        <TH>Utilidades </TH>
-                        <TD></TD>
-                     </TR>
-                     <TR>
-                        <TH>Precio sugerido venta </TH>
-                        <TD>$1437100</TD>
-                     </TR>
-                  </TABLE>
+                  
+                 
+                  <div class="modal-body" id="resumen-proyecto">
+                  </div>
+            </div>
+
+                  
                </div>
             </div>
          </div>

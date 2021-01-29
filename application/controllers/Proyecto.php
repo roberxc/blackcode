@@ -180,9 +180,10 @@ public function GuardarPorcentaje(){
         $ajax_data = $this->input->post();
         $res = $this->Proyecto_model->ingresoPorcentaje($ajax_data);
         if ($res) {
-            $data = array('response' => "success", 'message' => "Guardado exitosamente!");
-        }else{
             $data = array('response' => "error", 'message' => $res);
+           
+        }else{
+            $data = array('response' => "success", 'message' => "Guardado exitosamente!");
         }
         echo json_encode($data);
     } else {
@@ -278,6 +279,73 @@ public function Guardarflete(){
     } else {
         echo "'No direct script access allowed'";
     }
+
+}
+
+public function obtenerResumenProyecto(){
+        $ajax_data = $this->input->post(); //Datos que vienen por POST
+		$lista_etapas = $this->Proyecto_model->obtenerResumen($ajax_data);
+		$response ="<TABLE BORDER class='table table-bordered'>";
+        foreach($lista_etapas as $row){
+            $response .="<TR>";
+            $response .="<TH>Subtotal por partida</TH>";
+            $response .="<TD>".$row->subtotal."</TD>";
+            $response .="</TR>";
+            $response .="<TR>";
+            $response .="<TH>Imprevistos</TH>";
+            $response .="<TD></TD>";
+            $response .="</TR>";
+            $response .="<TR>";
+            $response .="<TH>Costo materiales</TH>";
+            $response .="<TD></TD>";
+            $response .="</TR>";
+            $response .="<TR>";
+            $response .="<TH>Instalación</TH>";
+            $response .="<TD></TD>";
+            $response .="</TR>";
+            $response .="<TR>";
+            $response .="<TH>Supervisión</TH>";
+            $response .="<TD></TD>";
+            $response .="</TR>";
+            $response .="<TR>";
+            $response .="<TH>Valor equipamiento instalado</TH>";
+            $response .="<TD></TD>";
+            $response .="</TR>";
+            $response .="<TR>";
+            $response .="<TH>Supervisión</TH>";
+            $response .="<TD></TD>";
+            $response .="</TR>";
+            $response .="<TR>";
+            $response .="<TH>Flete traslado </TH>";
+            $response .="<TD></TD>";
+            $response .="</TR>";
+            $response .="<TR>";
+            $response .="<TH>Gastos generales </TH>";
+            $response .="<TD></TD>";
+            $response .="</TR>";
+            $response .="<TR>";
+            $response .="<TH>Comisiones </TH>";
+            $response .="<TD></TD>";
+            $response .="</TR>";
+            $response .="<TR>";
+            $response .="<TH>Ingeniería </TH>";
+            $response .="<TD></TD>";
+            $response .="</TR>";
+            $response .="<TR>";
+            $response .="<TH>Utilidades </TH>";
+            $response .="<TD></TD>";
+            $response .="</TR>";
+            $response .="<TR>";
+            $response .="<TH>Precio sugerido venta </TH>";
+            $response .="<TD></TD>";
+            $response .="</TR>";
+        }
+        $response .="</TABLE>";
+		$data = array('response' => 'success', 'detalle' => $response);
+
+
+		echo json_encode($data);
+   
 
 }
    

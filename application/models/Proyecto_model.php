@@ -130,6 +130,7 @@ class Proyecto_model extends CI_Model {
 			$cantidad_limpio = $cantidad[$count];
 			$item_limpio = $item[$count];
                $unitario_limpio = $precio_unitario[$count];
+               $total = $cantidad_limpio * $unitario_limpio;
 
 			if(!empty($cantidad_limpio) && !empty($item_limpio)
 			 && !empty($unitario_limpio)){
@@ -137,6 +138,7 @@ class Proyecto_model extends CI_Model {
                          'cantidad' => $cantidad_limpio,
                          'item' => $item_limpio,
                          'precio_unitario' => $unitario_limpio,
+                         'total' => $total,
                          'id_proyecto'=>$id_proyectoss[0]["id_proyecto"],
                          'id_detalle'=>$id_detalle,
 				);
@@ -197,6 +199,7 @@ class Proyecto_model extends CI_Model {
                $cantidad_limpio = $cantidad[$count];
                $item_limpio = $item[$count];
                $precio_limpio = $precio[$count];
+               $total = $cantidad_limpio * $precio_limpio;
 
 			if(!empty($cantidad_limpio) && !empty($item_limpio)
                && !empty($precio_limpio)){
@@ -204,6 +207,7 @@ class Proyecto_model extends CI_Model {
                          'cantidad' => $cantidad_limpio,
                          'item' => $item_limpio,
                          'precio_unitario' => $precio_limpio,
+                         'total' => $total,
                          'id_etapas'=>$id_etapa,
 				
 				);
@@ -223,6 +227,22 @@ class Proyecto_model extends CI_Model {
   
           $this->db->insert('fletes', $datos_flete);
           
+     }
+
+     function obtenerResumen($id_partida){
+          $query = $this->db->SELECT('(SUM(d.total)+SUM(f.valor)) as subtotal')
+          ->from('etapas e')
+          ->join("partidas p", "p.id_partidas = e.id_partidas")
+          ->join("despiece d", "e.id_etapas = d.id_etapas")
+          ->join("fletes f", "e.id_etapas=f.id_etapas")
+          ->where('p.id_partidas' ,$id_partida['id_partida'])
+          ->get();
+          
+          //select (SUM(d.total)+SUM(f.valor)) as subtotal from despiece d, partidas p, fletes f,
+          //etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas = d.id_etapas and
+          //e.id_etapas=f.id_etapas AND p.id_partidas= 43;
+
+          return $query->result();
      }
 }
 ?>
