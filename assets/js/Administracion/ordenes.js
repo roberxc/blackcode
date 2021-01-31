@@ -156,9 +156,10 @@ $("#añadir-nuevaorden").on('click', function(event) {
     var iva = subtotal * 0.19;
     var total = subtotal + iva;
 
-    var idproveedor = $("#proveedor").val();
+    var nrocotizacion = $("#nrocotizacion").val();
     var idbodega = $("#bodega").val();
     var estado = $("#estado").val();
+    var nroorden = $("#nroorden").val();
 
     var proyecto = $("#proyecto").val();
 
@@ -173,17 +174,19 @@ $("#añadir-nuevaorden").on('click', function(event) {
             lista_cantidad: item_cantidad,
             lista_iva: item_iva,
             lista_valor: item_valor,
-            idproveedor: idproveedor,
+            nrocotizacion: nrocotizacion,
             idbodega: idbodega,
             estado: estado,
             proyecto: proyecto,
             total: total,
+            nroorden: nroorden,
         },
         success: function(data) {
             if (data.response === "success") {
+                generarAvisoExitoso(data.message);
                 window.location.href = base_url+"Ordenes";
-            } else {
-
+            } else if(data.response === "error") {
+                generarAvisoError(data.message);
 
             }
         }

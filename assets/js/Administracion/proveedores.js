@@ -37,6 +37,29 @@ $("#añadir-proveedor").on('click', function(event) {
 
 });
 
+//Llenar tabla de detalle orden al hacer click en el ojo
+function setTablaDetalle(table){
+    var iditem = table.parentNode.parentNode.cells[0].textContent;
+    $.ajax({
+        url: base_url+"Proveedores/obtenerDetalleProveedores",
+        type: "post",
+        dataType: "json",
+        data: {
+            iditem: iditem,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                // Add response in Modal body
+                $('#detalle-proveedores').html(data.detalle);
+                // Display Modal
+                 //$('#detalle-trabajo').modal('show');
+            } else {
+                
+            }
+        }
+    });
+}
+
 function generarAvisoError($mensaje) {
     Command: toastr["error"]($mensaje, 'Error')
     toastr.options = {

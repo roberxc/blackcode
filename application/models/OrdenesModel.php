@@ -6,48 +6,82 @@ class OrdenesModel extends CI_Model {
 
 	function __construct(){
 		parent::__construct();
+    }
+    
+    public function getIdCotizacion($nrocotizacion){
+		$query = $this->db->select("id_cotizacion") # También puedes poner * si quieres seleccionar todo
+				->from("cotizaciones")
+				->where('nrocotizacion', $nrocotizacion);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+
+    public function getNroOrden($nroorden){
+		$query = $this->db->select("nroorden") # También puedes poner * si quieres seleccionar todo
+				->from("ordenes")
+				->where('nroorden', $nroorden);
+		$query = $this->db->get();
+		return $query->result_array();
 	}
 
     public function registrarOrdenes($data){
+        $idordenquery = $this->getNroOrden($data['nroorden']);
+        $idcotizacionquery = $this->getIdCotizacion($data['nrocotizacion']);
+        //Si existe la orden
+        if(count($idordenquery) == 0){
+            //Registro de la tabla ordenes
+            $nrocotizacion = $data["nrocotizacion"];
+            $bodega = $data["idbodega"];
+            $estado = $data["estado"];
+            $nroorden = $data["nroorden"];
+            $iva = 19;
+            $total = $data["total"];
+            $fecha = date("d/m/Y");
 
-        //Registro de la tabla ordenes
-        $proveedor = $data["idproveedor"];
-        $bodega = $data["idbodega"];
-        $estado = $data["estado"];
-        $iva = 19;
-        $total = $data["total"];
-        $fecha = date("d/m/Y");
+            $dataordenes = array(
+                'iva' => $iva,
+                'nroorden' => $nroorden,
+                'total' => $total,
+                'fecha' => $fecha,
+                'estado' => $estado,
+                'id_tipobodega' => $bodega,
+            );
 
-		$dataordenes = array(
-			'iva' => $iva,
-			'total' => $total,
-			'fecha' => $fecha,
-			'estado' => $estado,
-			'id_proveedor' => $proveedor,
-			'id_tipobodega' => $bodega,
-        );
+            $this->db->insert('ordenes', $dataordenes);
+            $id_orden = $this->db->insert_id();
 
-        $this->db->insert('ordenes', $dataordenes);
-        $id_orden = $this->db->insert_id();
-        
-        //Registro de la tabla ordenes_materiales
-        $idmateriales = $data["lista_iditem"];
-        $valores = $data["lista_valor"];
-        $cantidad = $data["lista_cantidad"];
-        for($count = 0; $count<count($idmateriales); $count++){
-            $materialesid_limpio = $idmateriales[$count];
-            $valores_limpio = $valores[$count];
-            $cantidad_limpio = $cantidad[$count];
-            if(!empty($materialesid_limpio)){
-				$insert_data_ordenesmateriales[] = array(
-                    'id_orden' => $id_orden,
-                    'id_material' => $materialesid_limpio,
-                    'preciounitario' => $valores_limpio,
-                    'cantidad' => $cantidad_limpio,
-				);
-			}
+            //ordenes_cotizaciones
+            $dataordenes_cotizaciones = array(
+                'id_orden' => $id_orden,
+                'id_cotizacion' =>  $idcotizacionquery[0]['id_cotizacion'],
+                'fecha' => $fecha,
+            );
+
+            $this->db->insert('ordenes_cotizaciones', $dataordenes_cotizaciones);
+            
+            //Registro de la tabla ordenes_materiales
+            $idmateriales = $data["lista_iditem"];
+            $valores = $data["lista_valor"];
+            $cantidad = $data["lista_cantidad"];
+            for($count = 0; $count<count($idmateriales); $count++){
+                $materialesid_limpio = $idmateriales[$count];
+                $valores_limpio = $valores[$count];
+                $cantidad_limpio = $cantidad[$count];
+                if(!empty($materialesid_limpio)){
+                    $insert_data_ordenesmateriales[] = array(
+                        'id_orden' => $id_orden,
+                        'id_material' => $materialesid_limpio,
+                        'preciounitario' => $valores_limpio,
+                        'cantidad' => $cantidad_limpio,
+                    );
+                }
+            }
+            return $this->db->insert_batch('ordenes_materiales', $insert_data_ordenesmateriales);
         }
-        return $this->db->insert_batch('ordenes_materiales', $insert_data_ordenesmateriales);
+
+        return null;
+
     }
 
 	public function registrarProveedores($ajax_data){
@@ -149,8 +183,8 @@ class OrdenesModel extends CI_Model {
     
     public function listaOrdenes(){
 		$query = $this->db
-				->select("rut,nombre") # También puedes poner * si quieres seleccionar todo
-				->from("proveedores")
+				->select("nroorden") # También puedes poner * si quieres seleccionar todo
+				->from("ordenes")
 				->get();
 		
 		return $query->result();
@@ -186,12 +220,14 @@ class OrdenesModel extends CI_Model {
     var $tablaordenes = array(
         "proveedores",
         "ordenes",
+        "cotizaciones",
+        "ordenes_cotizaciones",
     );
     var $select_columna_ordenes = array(
-		"id_orden",
+		"nroorden",
 		"iva",
         "total",
-        "fecha",
+        "ordenes_cotizaciones.fecha",
         "estado",
         "proveedores.nombre",
     );
@@ -201,7 +237,7 @@ class OrdenesModel extends CI_Model {
 		"proveedores.nombre",
     );
 
-    var $where_orden = "ordenes.id_proveedor = proveedores.id_proveedor";
+    var $where_orden = "cotizaciones.id_proveedor = proveedores.id_proveedor AND ordenes_cotizaciones.id_orden = ordenes.id_orden AND ordenes_cotizaciones.id_cotizacion = cotizaciones.id_cotizacion";
 
     function make_query_ordenes(){
         $this->db->select($this->select_columna_ordenes);
@@ -239,14 +275,12 @@ class OrdenesModel extends CI_Model {
 
     public function ObtenerDetalleOrden($idorden){
 		$query = $this->db
-				->select("o.id_orden as numero, m.nombre as nombre, om.cantidad as cantidad, om.preciounitario as valor") # También puedes poner * si quieres seleccionar todo
+				->select("o.nroorden as numero, m.nombre as nombre, om.cantidad as cantidad, om.preciounitario as valor") # También puedes poner * si quieres seleccionar todo
 				->from("ordenes_materiales om")
 				->join("ordenes o", "om.id_orden = o.id_orden")
 				->join("materiales_comprados m", "om.id_material = m.id_material")
-				->where("o.id_orden",$idorden)
+				->where("o.nroorden",$idorden)
 				->get();
-
-
         // if (count($query->result()) > 0) {
         return $query->result();
         // }

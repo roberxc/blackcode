@@ -11,11 +11,12 @@ $("#form-subir-cotizaciones").submit(function (event){
         success:function(respuesta){
             if (respuesta==="exito") {
                 //$("#msg-error").hide();
-                window.location.href = base_url+"Cotizacion";
                 generarAvisoExitoso('Cotizacion subida correctamente!');
+                window.location.href = base_url+"Cotizacion";
+        
             }
-            else if(respuesta==="error"){
-                generarAvisoError('Error al subir la cotizacion');
+            else if(respuesta==="null"){
+                generarAvisoError('Numero de cotizacion existente');
             }
             else{
                 //$("#msg-error").show();

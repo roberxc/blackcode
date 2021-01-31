@@ -17,7 +17,7 @@ class Ordenes extends CI_Controller
 
     public function index(){
         $data['lista_materiales'] = $this->OrdenesModel->listaMateriales();
-        $data['lista_proveedores'] = $this->ProveedoresModel->listaProveedores();
+        $data['lista_cotizaciones'] = $this->CotizacionesModel->listaCotizaciones();
         $data['lista_bodegas'] = $this->OrdenesModel->listaBodegas();
         $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
         $data ['activomenu'] = 15;
@@ -34,11 +34,17 @@ class Ordenes extends CI_Controller
         $data = array();
         foreach ($fetch_data as $value){
             $sub_array = array();
-            $sub_array[] = $value->id_orden;
+            $sub_array[] = $value->nroorden;
             $sub_array[] = $value->fecha;
-            $sub_array[] = $value->nombre;
-            $sub_array[] = $value->total;
-            $sub_array[] = $value->estado;
+			$sub_array[] = $value->nombre;
+			$sub_array[] = $value->total;
+			if($value->estado == 0){
+				$sub_array[] = 'Por aprobar';
+			}
+
+			if($value->estado == 1){
+				$sub_array[] = 'Aprobada';
+			}
             $sub_array[] = '<a href="#" class="fas fa-eye" data-toggle="modal" id="eyedetalle-orden" data-target="#modal-detalle-orden" onclick="setTablaDetalle(this)"></a>';
             $data[] = $sub_array;
         }
@@ -81,11 +87,15 @@ class Ordenes extends CI_Controller
     public function nuevaOrden(){
 		if ($this->input->is_ajax_request()) {
 			$ajax_data = $this->input->post();
-			if ($this->OrdenesModel->registrarOrdenes($ajax_data)) {
+			$res = $this->OrdenesModel->registrarOrdenes($ajax_data); 
+			if ($res) {
 				$data = array('response' => "success", 'message' => "Orden ingresada correctamente!");
-			} else {
-				$data = array('response' => "error", 'message' => "Falló el ingreso");
+			} 
+			
+			if($res == null){
+				$data = array('response' => "error", 'message' => "Numero de orden existente");
 			}
+
 			echo json_encode($data);
 		} else {
 			echo "'No direct script access allowed'";

@@ -74,9 +74,14 @@
                      <div class="row">
                         <div class="col-md-4">
                            <div class="form-group">
+                              <label for="recipient-tipo" class="col-form-label">Numero Cotizacion </label>
+                              <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" id="nrocotizacion" name="nrocotizacion"/>
+                           </div>
+                           <div class="form-group">
                               <label for="recipient-tipo" class="col-form-label">Fecha </label>
                               <input type="date" class="form-control datetimepicker-input" data-target="#reservationdate" id="fecha" name="fecha"/>
                            </div>
+               
                         </div>
                         <div class="col-md-4">
                            <div class="form-group">
@@ -117,6 +122,31 @@
          </div>
       </div>
    </div>
+
+   <!-- Archivos -->
+<div class="modal fade" id="modal-archivos">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+            <div align="center"><img src=""></div>
+            </br>
+            <h4 class="modal-title">Documento</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="card card-info">
+            <div class="card-body p-0">
+               <div class="modal-body" id="descargar-documento">
+               </div>
+               <!-- /.card-body -->
+            </div>
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+</div>
 </div>
 <script>
    //Mostrar tabla principal

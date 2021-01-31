@@ -25,6 +25,29 @@ $("#form-subir-facturas").submit(function (event){
     });
 });
 
+function listaDocumentos (table) {
+    var nrofactura= table.parentNode.parentNode.cells[0].textContent;
+    $.ajax({
+        url: base_url+"Factura/detalleArchivos",
+        type: "post",
+        dataType: "json",
+        data: {
+            nrofactura: nrofactura,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                // Add response in Modal body
+                $('#descargar-documento').html(data.planilla);
+                // Display Modal
+                 //$('#detalle-trabajo').modal('show');
+            } else {
+                
+            }
+        }
+    });
+
+}
+
 function generarAvisoError($mensaje){
     Command: toastr["error"]($mensaje,'Error')
     toastr.options = {

@@ -1068,7 +1068,6 @@ class OperacionesModel extends CI_Model {
 		return $this->db->update_batch('materialesbodega', $insert_data, 'ID_MaterialesBodega');
 	}
 
-	//Metodo para obtener los materiales comprados antes el trabajo
 	public function ObtenerArchivosSubidos($codigo){
 
 		$idtipotrabajo = $this->getIDTrabajoDiarioCS($codigo);

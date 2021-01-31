@@ -113,6 +113,19 @@ class ProveedoresModel extends CI_Model {
 				->where('rut', $rut);
 		$query = $this->db->get();
 		return $query->result_array();
+    }
+    
+    public function ObtenerDetalleProveedores($idproveedor){
+		$query = $this->db
+				->select("p.rut as rut, p.nombre as nombre, p.direccion as direccion, p.telefono as telefono, p.correo as correo, p.descripcion as descripcion, p.diascredito as diascredito") # También puedes poner * si quieres seleccionar todo
+				->from("proveedores p")
+				->where("p.id_proveedor",$idproveedor)
+				->get();
+
+
+        // if (count($query->result()) > 0) {
+        return $query->result();
+        // }
 	}
 
 }

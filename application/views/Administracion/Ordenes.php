@@ -76,13 +76,19 @@
                   <div class="row">
                      <div class="col-md-4">
                         <div class="form-group">
-                           <label for="recipient-tipo" class="col-form-label">Proveedor </label>
-                           <select name="proveedor" id="proveedor" style="width: 100%; height: 60%">
+                           <label for="recipient-tipo" class="col-form-label">Numero Orden </label>
+                           <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" id="nroorden" name="nroorden"/>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <label for="recipient-tipo" class="col-form-label">Numero cotizacion </label>
+                           <select name="nrocotizacion" id="nrocotizacion" style="width: 100%; height: 60%">
                            <?php
-                              foreach($lista_proveedores as $i){
-                                echo '<option value="'. $i->id_proveedor .'">'. $i->nombre .'</option>';
-                              }
-                              ?>
+                              foreach($lista_cotizaciones as $i){
+                                 echo '<option value="'.$i->nrocotizacion.'">'. $i->nrocotizacion.'</option>';
+                                    }
+                                 ?>
                            </select>
                         </div>
                      </div>
@@ -98,7 +104,10 @@
                            </select>
                         </div>
                      </div>
-                     <div class="col-md-4">
+      
+                  </div>
+                  <div class="row">
+                  <div class="col-md-4">
                         <div class="form-group">
                            <label for="recipient-bodega" class="col-form-label">Estado </label>
                            <select name="estado" id="estado" style="width: 100%; height: 60%">
@@ -107,8 +116,6 @@
                            </select>
                         </div>
                      </div>
-                  </div>
-                  <div class="row">
                      <div class="col-md-4">
                         <div class="form-group">
                            <label for="recipient-bodega" class="col-form-label">Proyecto </label>
@@ -324,6 +331,10 @@
      });
    
      $('#material').select2({
+       theme: "bootstrap"
+     });
+
+     $('#nrocotizacion').select2({
        theme: "bootstrap"
      });
    

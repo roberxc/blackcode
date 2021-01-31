@@ -44,7 +44,8 @@
                      <thead>
                         <tr>
                            <th>Numero</th>
-                           <th>Proveedor</th>
+                           <th>Rut proveedor</th>
+                           <th>Nombre proveedor</th>
                            <th>Fecha</th>
                            <th>Numero cotizacion</th>
                            <th>Numero orden</th>
@@ -66,12 +67,18 @@
             <!-- Contenido del modal -->
             <div class="modal-content">
                <div class="modal-header bg-blue">
-                  <H3>Ingresar nueva cotizacion</H3>
+                  <H3>Ingresar nueva factura</H3>
                   <button type="button" class="close-white" data-dismiss="modal">&times;</button>
                </div>
                <div class="modal-body">
                   <form id="form-subir-facturas" style="padding:0px 15px;" class="form-horizontal" role="form" action="<?php echo base_url();?>Upload/subirFacturas" method="POST">
                      <div class="row">
+                        <div class="col-md-4">
+                           <div class="form-group">
+                              <label for="recipient-tipo" class="col-form-label">Numero factura </label>
+                              <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" id="nrofactura" name="nrofactura"/>
+                           </div>
+                        </div>
                         <div class="col-md-4">
                            <div class="form-group">
                               <label for="recipient-tipo" class="col-form-label">Fecha </label>
@@ -84,8 +91,8 @@
                               <select name="nroorden" id="nroorden" style="width: 100%; height: 60%">
                               <?php
                               
-                                 foreach($lista_proveedores as $i){
-                                   echo '<option value="'. $i->rut .'">'. $i->nombre .'</option>';
+                                 foreach($lista_ordenes as $i){
+                                   echo '<option value="'. $i->nroorden .'">'. $i->nroorden .'</option>';
                                  }
                              
                                  ?>
@@ -119,6 +126,31 @@
          </div>
       </div>
    </div>
+
+      <!-- Archivos -->
+<div class="modal fade" id="modal-archivos">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+            <div align="center"><img src=""></div>
+            </br>
+            <h4 class="modal-title">Documentos</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="card card-info">
+            <div class="card-body p-0">
+               <div class="modal-body" id="descargar-documento">
+               </div>
+               <!-- /.card-body -->
+            </div>
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+</div>
 </div>
 <script>
    //Mostrar tabla principal
@@ -129,7 +161,7 @@
          },
        "processing": true,
        "serverSide": true, 
-       "ajax":{url:"<?php echo base_url('Cotizacion/obtenerCotizaciones'); ?>",
+       "ajax":{url:"<?php echo base_url('Factura/obtenerFacturas'); ?>",
        type: "POST"
      },
        "columnDefs":[
