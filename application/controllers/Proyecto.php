@@ -65,9 +65,9 @@ class Proyecto extends CI_Controller
 		$response .= "<td>";
 		$response .= "<label>Ingresar despiece</label>";
         $response .= "</td>";	
-        $response .= "<td>";
+       /* $response .= "<td>";
 		$response .= "<label>Ingresar flete</label>";
-        $response .= "</td>";	
+        $response .= "</td>";*/	
 		$response .= "</tr>";
 		$response .= "<tbody>";
 		foreach($lista_etapas as $row){ 
@@ -84,9 +84,10 @@ class Proyecto extends CI_Controller
 			$response .= "<td>";
 			$response .= "<button type='button' name='add' onclick='setId(this)' data-toggle='modal' data-target='#registro_despiece' class='btn btn-success'>+</button>";
             $response .= "</td>";
+            /*
             $response .= "<td>";
 			$response .= "<button type='button' name='add' onclick='setIdFlete(this)' data-toggle='modal' data-target='#registro_flete' class='btn btn-success'>+</button>";
-			$response .= "</td>";
+			$response .= "</td>";*/
 			$response .= "</tr>";
 		}
 		$response .= "</tbody>";

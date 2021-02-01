@@ -192,6 +192,17 @@ class Proyecto_model extends CI_Model {
           $cantidad = $data["lista_cantidad"];
           $item = $data["lista_item"];
           $precio = $data["lista_precio"];
+
+          $datos_fletes = array(
+              
+          
+               'id_etapas' => $data['idEtapa'],
+               'valor' => $data['valorFlete'],
+                            
+             
+           );
+   
+           $this->db->insert('fletes', $datos_fletes);
 		
          // echo $id_proyectoss[0]["id_proyecto"];
 		for($count = 0; $count<count($cantidad); $count++){
