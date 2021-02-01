@@ -26,13 +26,69 @@ class Mantencion extends CI_Model{
         return true;
     }
 
-    public function ObtenerTotalVehiculos(){
-        $query = $this->db
-                ->select("COUNT(id_mantencion) as total") # También puedes poner * si quieres seleccionar todo
-                ->from("mantencion")
-                ->get();
+    var $select_column = array("mantencion.id_mantencion",  "vehiculo.patente","mantencion.id_mantencion", "mantencion.fecha", "mantencion.id_personal", "mantencion.taller", "mantencion.mecanico", "mantencion.total_m", "mantencion.detalle");  
+    var $table = array("mantencion","personal", "vehiculo");  
+    var $wheree = "mantencion.id_personal = personal.id_personal and mantencion.id_vehiculo = vehiculo.id_vehiculo";
+    var $order_column = array("mantencion.id_mantencion", "vehiculo.patente", "mantencion.fecha", "mantencion.id_personal", "mantencion.taller", "mantencion.mecanico", "mantencion.total_m", "mantencion.detalle");  
+ 
+
+  
+    function make_query_mvehiculo()  
+  {  
+       $this->db->select($this->select_column);  
+       $this->db->from($this->table);  
+       $this->db->where($this->wheree);
+       if(isset($_POST["search"]["value"]) && $_POST["search"]["value"] != '')  
+       {  
+            $this->db->like("patente", $_POST["search"]["value"]);  
+       }  
+       if(isset($_POST["order"]))  
+       {  
+            $this->db->order_by($this->order_column[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);  
+       }  
+       else  
+       {  
+            $this->db->order_by('id_mantencion', 'ASC');    
+
+       }  
+  }  
+  function make_datatables_mvehiculo(){  
+       $this->make_query_mvehiculo();  
+       if ($_POST["length"] != -1) {
+        $this->db->limit($_POST['length'], $_POST['start']);
+    } 
+       $query = $this->db->get();  
+       return $query->result(); 
         
-        return $query->result_array();
-    }
+  }  
+  function get_filtered_data_mvehiculo(){  
+       $this->make_query_mvehiculo();  
+       $query = $this->db->get();  
+       return $query->num_rows();  
+  }       
+  function get_all_data_mvehiculo()  
+  {  
+       $this->db->select($this->select_column);  
+       $this->db->from($this->table);  
+       $this->db->where("mantencion.id_personal = personal.id_personal and mantencion.id_vehiculo = vehiculo.id_vehiculo");
+       return $this->db->count_all_results();  
+  }  
+//////////////////////////////////
+  public function ObtenerVehiculos(){
+    $query = $this->db
+            ->select("id_vehiculo,patente") # También puedes poner * si quieres seleccionar todo
+            ->from("vehiculo")
+            ->get();
     
+    return $query->result();
 }
+public function ObtenerTotalVehiculos(){
+    $query = $this->db
+            ->select("COUNT(id_vehiculo) as total") # También puedes poner * si quieres seleccionar todo
+            ->from("vehiculo")
+            ->get();
+    
+    return $query->result_array();
+}
+}
+    

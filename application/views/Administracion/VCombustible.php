@@ -1,4 +1,12 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<meta charset="utf-8">
+  <!-- SELECT CON BUSCADOR -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" rel="stylesheet" />
+   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  <!-- Tell the browser to be responsive to screen width -->
 <div class="wrapper">
 	<!-- /.navbar -->
 
@@ -78,8 +86,14 @@
                                  <div class="form-group row">
 												<label for="inputName" class="col-sm-2 col-form-label">Patente </label>
 												<div class="col-sm-10">
-													<input type="text" maxlength="8" style="text-transform:lowercase;" class="form-control" data-inputmask="'alias': 'ip'" data-mask id="patente" >
-
+												<select name="id_vehiculo" id="id_vehiculo" style="width: 100%; height: 60%">
+                              <?php
+                                 foreach($lista_vehiculos as $i){
+                                   echo '<option value="'. $i->id_vehiculo .'">'. $i->patente .'</option>';
+                                 }
+                                 ?>
+                              </select>
+													
 												</div>
 											</div>
 
@@ -167,6 +181,20 @@
 									<script>
 										var base_url = '<?php echo base_url();?>';
 									</script>
+									<script type="text/javascript">
+   //mostrar tipoproducto
+   //mostrar centrodecosto2 en tabla agregar stock
+   $(document).ready(function(){
+     $('#id_vehiculo').select2({
+       theme: "bootstrap"
+     });
+   });
+   $(document).ready(function(){
+     $('#id_personal').select2({
+       theme: "bootstrap"
+     });
+   }); 
+</script> 
 									<script src="<?php echo base_url()?>assets/js/ModoCombustible/registro_combustible.js"></script>
 									</body>
 									</html>
