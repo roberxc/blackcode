@@ -363,7 +363,7 @@
                            }
                            ?>
                         </select>
-                        <input type="text" id="estado" value="0"class="form-control" style="visibility:hidden" />
+                        <input type="text" id="estado" value="Sin registro"class="form-control" style="visibility:hidden" />
                      </div>
                      <!-- /.form-group -->
                      <!-- /.form-group -->
@@ -460,6 +460,10 @@
             </div>
             <div class="modal-body">
                <div class="row">
+               <label>Ingrese gasto del flete</label>
+               <div class="col-lg-5">
+               <input type="text" id="ValorFlete" class="form-control" value="0"  />
+               </div>
                <input type="text" id="ID_Despiece" class="form-control" style="visibility:hidden" />
                   <div class="col-lg-10" id="div_despiece">
                      <table class="table table-bordered" id="tabla_personal">

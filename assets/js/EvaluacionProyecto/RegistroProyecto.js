@@ -263,6 +263,7 @@ $(document).on('click', '#addDespiece', function(e) {
     e.preventDefault();
     
     var idEtapa = $("#ID_Despiece").val();
+    var valorFlete=$("#ValorFlete").val();
     var numCantidad = [];
     var txtItem = [];
     var numPrecioDespiece = [];
@@ -286,6 +287,7 @@ $(document).on('click', '#addDespiece', function(e) {
         dataType: "json",
         data: {
             idEtapa:idEtapa,
+            valorFlete:valorFlete,
             lista_cantidad: numCantidad,
             lista_item: txtItem,
             lista_precio: numPrecioDespiece,
