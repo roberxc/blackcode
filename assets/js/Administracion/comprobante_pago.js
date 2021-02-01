@@ -1,6 +1,6 @@
-$("#form-subir-cotizaciones").submit(function (event){
+$("#form-subir-documentopago").submit(function (event){
     event.preventDefault();
-    var formData = new FormData($("#form-subir-cotizaciones")[0]);
+    var formData = new FormData($("#form-subir-documentopago")[0]);
     $.ajax({
         url:$("form").attr("action"),
         type:$("form").attr("method"),
@@ -11,12 +11,12 @@ $("#form-subir-cotizaciones").submit(function (event){
         success:function(respuesta){
             if (respuesta==="exito") {
                 //$("#msg-error").hide();
-                generarAvisoExitoso('Cotizacion subida correctamente!');
-                window.location.href = base_url+"Cotizacion";
-        
+                generarAvisoExitoso('Documento subido correctamente!');
+                window.location.href = base_url+"ComprobantePago";
+                
             }
-            else if(respuesta==="null"){
-                generarAvisoError('Numero de cotizacion existente');
+            else if(respuesta==="error"){
+                generarAvisoError('Error al subir el documento');
             }
             else{
                 //$("#msg-error").show();
@@ -27,13 +27,13 @@ $("#form-subir-cotizaciones").submit(function (event){
 });
 
 function listaDocumentos (table) {
-    var nrocotizacion= table.parentNode.parentNode.cells[0].textContent;
+    var nrodocumento = table.parentNode.parentNode.cells[0].textContent;
     $.ajax({
-        url: base_url+"Cotizacion/detalleArchivos",
+        url: base_url+"ComprobantePago/detalleArchivos",
         type: "post",
         dataType: "json",
         data: {
-            nro_cotizacion: nrocotizacion,
+            nrodocumento: nrodocumento,
         },
         success: function(data) {
             if (data.response == "success") {

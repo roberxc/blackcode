@@ -118,19 +118,19 @@ class Upload extends CI_Controller{
 			];
 
 			$this->load->library("upload",$config);
-			$data = array("upload_data" => $this->upload->data());
-			$res = $this->CotizacionesModel->subirCotizacion($data,$proveedor,$fecha,$nrocotizacion);
-
-			if($res){
-				if ($this->upload->do_upload('pic_file')) {
-					echo 'exito';
-				} else{
-					echo $this->upload->display_errors();
+			if ($this->upload->do_upload('pic_file')) {
+				$data = array("upload_data" => $this->upload->data());
+				if($this->CotizacionesModel->subirCotizacion($data,$proveedor,$fecha,$nrocotizacion)==true){
+					echo "exito";
+				}else{
+					echo "error";
 				}
+			}else{
+				echo $this->upload->display_errors();
 			}
-			if($res == null){
-				echo 'null';
-			}
+
+
+
 		}else{
 			show_404();
 		}
@@ -155,6 +155,38 @@ class Upload extends CI_Controller{
 			if ($this->upload->do_upload('pic_file')) {
 				$data = array("upload_data" => $this->upload->data());
 				if($this->pic_model->subirFactura($data,$fecha,$nroorden,$nrofactura)==true){
+					echo "exito";
+				}else{
+					echo "error";
+				}
+			}else{
+				echo $this->upload->display_errors();
+			}
+		}else{
+			show_404();
+		}
+	}
+
+	public function subirDocumentoPago(){
+		//El metodo is_ajax_request() de la libreria input permite verificar
+		//si se esta accediendo mediante el metodo AJAX 
+		if ($this->input->is_ajax_request()) {
+			$fecha = $this->input->post("fecha");
+			$detalle = $this->input->post("detalle");
+			$nrodocumento = $this->input->post("nrodocumento");
+			$nrofactura = $this->input->post("nrofactura");
+
+			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+			$config = [
+				"upload_path" => APPPATH. '../ArchivosSubidos/',
+				'allowed_types' => "jpg|png|pdf|docx|jepg"
+			];
+
+			$this->load->library("upload",$config);
+
+			if ($this->upload->do_upload('pic_file')) {
+				$data = array("upload_data" => $this->upload->data());
+				if($this->pic_model->subirComprobante($data,$fecha,$detalle,$nrodocumento,$nrofactura)==true){
 					echo "exito";
 				}else{
 					echo "error";

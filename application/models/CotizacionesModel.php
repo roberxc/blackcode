@@ -123,7 +123,7 @@ class CotizacionesModel extends CI_Model {
     //Subir documento de cotizaciones
 	function subirCotizacion($data,$proveedor,$fecha,$nrocotizacion){
         $nrocotizacionquery = $this->siExisteNroCotizacion($nrocotizacion);
-		$id_proveedor = $this->getIDProveedor($proveedor);
+        $id_proveedor = $this->getIDProveedor($proveedor);
 		if(count($nrocotizacionquery) == 0){
 			$data = array(
 				"fecha" => $fecha,

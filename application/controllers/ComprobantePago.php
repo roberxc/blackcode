@@ -1,43 +1,44 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Cotizacion extends CI_Controller
+class ComprobantePago extends CI_Controller
 {
 
     public function __construct()
     {
         parent::__construct(); // you have missed this line.
-        //$this->load->model('FacturaModel');
-        $this->load->model('CotizacionesModel');
-        $this->load->model('ProveedoresModel');
+        $this->load->model('ComprobantePagoModel');
+        $this->load->model('FacturasModel');
+        $this->load->model('OrdenesModel');
     }
 
     public function index(){
+        $data['lista_facturas'] = $this->FacturasModel->listaFacturas();
         $data['activomenu'] = 15;
-        $data['activo'] = 19;
-        $data['lista_proveedores'] = $this->ProveedoresModel->listaProveedores();
+        $data['activo'] = 21;
         $this->load->view('layout/nav');
         $this->load->view('menu/menu_supremo', $data);
-        $this->load->view('Administracion/Cotizacion');
+        $this->load->view('Administracion/DocumentoPago',$data);
         $this->load->view('layout/footer');
     }
 
-    public function obtenerCotizaciones()
+    public function obtenerDocumento()
     {
-        $fetch_data = $this->CotizacionesModel->make_datatables_cotizaciones();
+        $fetch_data = $this->ComprobantePagoModel->make_datatables_comprobante();
         $data = array();
         foreach ($fetch_data as $value){
             $sub_array = array();
-            $sub_array[] = $value->nrocotizacion;
-            $sub_array[] = $value->nombre;
+            $sub_array[] = $value->nrodocumento;
             $sub_array[] = $value->fecha;
+            $sub_array[] = $value->nrofactura;
+            $sub_array[] = $value->detalle;
             $sub_array[] = '<a href="#" class="fas fa-eye" id="detalle_archivos" data-toggle="modal"data-target="#modal-archivos" onclick="listaDocumentos(this)">';
             $data[] = $sub_array;
         }
         $output = array(
             "draw" => intval($_POST["draw"]) ,
-            "recordsTotal" => $this->CotizacionesModel->get_all_data_cotizaciones(),
-            "recordsFiltered" => $this->CotizacionesModel->get_filtered_data_cotizaciones(),
+            "recordsTotal" => $this->ComprobantePagoModel->get_all_data_comprobante(),
+            "recordsFiltered" => $this->ComprobantePagoModel->get_filtered_data_comprobante(),
             "data" => $data
         );
         echo json_encode($output);
@@ -50,7 +51,7 @@ class Cotizacion extends CI_Controller
             $this->load->helper('download');
             
             //get file info from database
-			$fileInfo = $this->CotizacionesModel->getRows(array('id' => $id));
+			$fileInfo = $this->ComprobantePagoModel->getRows(array('id' => $id));
             
             //file path
 			$file ='ArchivosSubidos/'.$fileInfo['ubicaciondocumento'];
@@ -64,7 +65,7 @@ class Cotizacion extends CI_Controller
     public function detalleArchivos(){
 		$ajax_data = $this->input->post(); //Datos que vienen por POST
 		
-		$archivos_subidos = $this->CotizacionesModel->ObtenerArchivosSubidos($ajax_data['nro_cotizacion']);
+		$archivos_subidos = $this->ComprobantePagoModel->ObtenerArchivosSubidos($ajax_data['nrodocumento']);
 		
 		$response = "<div class='table-responsive'>";
 		$response .= "<table class='table table-bordered'>";
@@ -85,7 +86,7 @@ class Cotizacion extends CI_Controller
 			$response .= "</td>";
 			$response .= "<td>";
 			$response .= "<div class='btn-group btn-group-sm' >";
-			$response .= "<a class='btn btn-info' href=".base_url().'Cotizacion/download/'.$row->ID."?><i class='fas fa-eye'></i></a>";
+			$response .= "<a class='btn btn-info' href=".base_url().'ComprobantePago/download/'.$row->ID."?><i class='fas fa-eye'></i></a>";
 			$response .= "</div>";
 			$response .= "</td>";
 			$response .= "</tr>";
