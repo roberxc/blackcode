@@ -135,6 +135,35 @@
          </div>
       </div>
    </div>
+
+   <!-- MODAL DETALLE ORDEN DE COMPRA --->
+   <div id="modal-detalle-proveedor" class="modal fade bd-example-modal-lg" role="dialog">
+      <div class="modal-dialog modal-lg">
+         <div class="table-responsive">
+            <!-- Contenido del modal -->
+            <div class="modal-content">
+               <div class="modal-header bg-blue">
+                  <H3>Detalle proveedor</H3>
+                  <button type="button" class="close-white" data-dismiss="modal">&times;</button>
+               </div>
+               <div class="modal-body">
+                  <div class="card-body" id="dynamic_field" >
+                  <div class="box-body">
+                  <div class="modal-body" id="detalle-proveedores">
+                  </div>
+            </div>
+                     
+                  </div>
+               
+                  <div class="modal-footer bg-white">
+                     <input type="submit" class="btn btn-primary" value="Guardar" id="añadir-nuevaorden">
+                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
       integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

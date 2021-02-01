@@ -111,7 +111,7 @@
          </ul>
       </li>
    </nav>
-   <!--------------------------------------------------------------------------------------------------->
+   <!------------------------------------------Registro Proyectos---------------------------------->
    <div id="home-sec">
       <div class="overlay">
          <div class="container">
@@ -172,68 +172,22 @@
                </div>
                <div class="col-lg-5 col-md-5 col-sm-5 text-center">
                   <label for="cars" >Seleccione Partidas del proyecto:</label>
-                  <select class="form-control select2bs4" name="partidas3" id="partidas3" style="width: 100%; height: 60%">
+                  <select class="form-control select2bs4" name="partidas3" onchange="actualizarResumen()" id="partidas3" style="width: 100%; height: 60%">
+                  <option value="0" selected>Seleccione</option>
                   <?php
+                     
                      foreach($partidas as $i){
                         echo '<option value="'. $i->id_partidas .'">'. $i->nombre .'</option>';
                      }
                      ?>
                   </select>
-                  </br>
-                  <TABLE BORDER class="table table-bordered ">
-                     <TR>
-                        <TH>Subtotal por partida</TH>
-                        <TD>$361000</TD>
-                     </TR>
-                     <TR>
-                        <TH>Imprevistos</TH>
-                        <TD>$36100</TD>
-                     </TR>
-                     <TR>
-                        <TH>Costo materiales</TH>
-                        <TD>$397100</TD>
-                     </TR>
-                     <TR>
-                        <TH>Instalación</TH>
-                        <TD>$500000</TD>
-                     </TR>
-                     <TR>
-                        <TH>Supervisión</TH>
-                        <TD>$240000</TD>
-                     </TR>
-                     <TR>
-                        <TH>Valor equipamiento instalado</TH>
-                        <TD>$24000</TD>
-                     </TR>
-                     <TR>
-                        <TH>Supervisión</TH>
-                        <TD>$1137100</TD>
-                     </TR>
-                     <TR>
-                        <TH>Flete traslado </TH>
-                        <TD>$300000</TD>
-                     </TR>
-                     <TR>
-                        <TH>Gastos generales </TH>
-                        <TD></TD>
-                     </TR>
-                     <TR>
-                        <TH>Comisiones </TH>
-                        <TD></TD>
-                     </TR>
-                     <TR>
-                        <TH>Ingeniería </TH>
-                        <TD></TD>
-                     </TR>
-                     <TR>
-                        <TH>Utilidades </TH>
-                        <TD></TD>
-                     </TR>
-                     <TR>
-                        <TH>Precio sugerido venta </TH>
-                        <TD>$1437100</TD>
-                     </TR>
-                  </TABLE>
+                  
+                 
+                  <div class="modal-body" id="resumen-proyecto">
+                  </div>
+            </div>
+
+                  
                </div>
             </div>
          </div>
@@ -258,7 +212,8 @@
                            <div class="form-group">
                               <label>Valor total según días de instalación:</label>
                               <div class="form-group">
-                                 <input type="number" class="form-control" required="required"  />
+                                 <input type="number" id="numdias" class="form-control" required="required"  />
+                                 <input type="text" id="tipoInsta" value="Instalacion"class="form-control" style="visibility:hidden" />
                               </div>
                            </div>
                            <!-- /.form-group -->
@@ -286,7 +241,7 @@
                   </div>
                </div>
                <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-primary">Guardar</button>
+                  <button type="button" id="addInstalacion" class="btn btn-primary">Guardar</button>
                </div>
             </div>
             <!-- /.modal-content -->
@@ -311,9 +266,10 @@
                      <div class="row">
                         <div class="col-md-5">
                            <div class="form-group">
-                              <label>Valor total según días de instalación:</label>
+                              <label>Valor total según días de supervisión:</label>
                               <div class="form-group">
-                                 <input type="number" class="form-control" required="required"  />
+                                 <input type="number" id="diasSuper" class="form-control" required="required"  />
+                                 <input type="text" id="tipoSuper" value="Supervision" class="form-control" style="visibility:hidden"/>
                               </div>
                            </div>
                            <!-- /.form-group -->
@@ -341,7 +297,7 @@
                   </div>
                </div>
                <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-primary">Guardar</button>
+                  <button type="button" id="addSupervision" class="btn btn-primary">Guardar</button>
                </div>
             </div>
             <!-- /.modal-content -->
@@ -384,7 +340,7 @@
       </div>
       <!-- /.modal-dialog -->
    </div>
-   <!--------------------------------------------Registrar etapas de las pratidas--------------------->
+   <!--------------------------------------------Registrar etapas de las partidas--------------------->
    <!-- /.modal -->
    <div class="modal fade" id="etapas">
       <div class="modal-dialog modal-lg">
@@ -407,20 +363,11 @@
                            }
                            ?>
                         </select>
+                        <input type="text" id="estado" value="Sin registro"class="form-control" style="visibility:hidden" />
                      </div>
                      <!-- /.form-group -->
                      <!-- /.form-group -->
                   </div>
-                  <!-- /.col -->
-                  <div class="col-md-2">
-                     <!-- /.form-group -->
-                     <div class="form-group">
-                        <label class="invisible">Listar</label>
-                        <button type="button" class="btn btn-block btn-primary">Listar</button>
-                     </div>
-                     <!-- /.form-group -->
-                  </div>
-                  <!-- /.col -->
                   <div class="col-lg-10" id="divEtapa">
                      <table class="table table-bordered">
                         <TR>
@@ -432,8 +379,62 @@
                         </tr>
                      </table>
                   </div>
-                  <!-- end of col -->
-                  <!-- href="<?php echo base_url() ?>PlantillaOperaciones"-->
+               </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+               <button type="button" id ="addEtapa" class="btn btn-primary">Guardar</button>
+            
+            </div>
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!---------------------------------------Registrar despiece menu------------------------------------------------------>
+   <!-- /.modal -->
+   <div class="modal fade" id="despiece">
+      <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h4 class="modal-title">Registrar despiece </h4>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <div class="row">
+                  <div class="col-md-5">
+                     <div class="form-group">
+                        <label>Nombre de Partida</label>
+                        <select class="form-control select2bs4" name="partidas1" id="partidas1" style="width: 100%; height: 60%">
+                                    <?php
+                                    foreach($partidas as $i){
+                                       echo '<option value="'.$i->id_partidas.'">'. $i->nombre .'</option>';
+                                       }
+                                       ?>
+                        </select>
+                     </div>
+                     <!-- /.form-group -->
+                     <!-- /.form-group -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-md-2">
+                     <!-- /.form-group -->
+                     <div class="form-group">
+                        <label class="invisible">Listar</label>
+                        <button type="button" class="btn btn-block btn-primary" id="añadir-despiece">Listar</button>
+                     </div>
+                     <!-- /.form-group -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="card-body" id="dynamic_field" >
+                  <div class="box-body">
+                  <div class="modal-body" id="detalle-etapas">
+                  </div>
+            </div>
+                     
+                  </div>
+                 
                </div>
             </div>
             <div class="modal-footer justify-content-between">
@@ -444,73 +445,6 @@
       </div>
       <!-- /.modal-dialog -->
    </div>
-   <!---------------------------------------Registrar despiece menu------------------------------------------------------>
-   <!-- /.modal -->
-   <div class="modal fade" id="despiece">
-   <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h4 class="modal-title">Registrar Despiece</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-         </div>
-         <div class="modal-body">
-            <div class="row">
-               <!-- Buscador de partidas ------------------------------>      
-               <div class="card-body">
-                  <div class="row">
-                  <div class="col-md-5">
-                     <div class="form-group">
-                        <label>Nombre de Partida</label>
-                        <select class="form-control select2bs4" name="partidas2" id="partidas2" style="width: 100%; height: 60%">
-                        <?php
-                           foreach($partidas as $i){
-                              echo '<option value="'. $i->id_partidas .'">'. $i->nombre .'</option>';
-                           }
-                           ?>
-                        </select>
-                     </div>
-                     <!-- /.form-group -->
-                     <!-- /.form-group -->
-                  </div>
-                     <!-- /.col -->
-                     <div class="col-md-2">
-                        <!-- /.form-group -->
-                        <div class="form-group">
-                           <label class="invisible">Listar</label>
-                           <button type="button" class="btn btn-block btn-primary">Listar</button>
-                        </div>
-                        <!-- /.form-group -->
-                     </div>
-                     <!-- /.col -->
-                     <!--Tabla despiece-------------------------------------->
-                     <div class="col-lg-10" id="dynamic_field">
-                        <table id="tablaDespiece" name="tablaDespiece" class="table table-bordered table-striped">
-                           <thead>
-                              <tr>
-                                 <th>Etapa</th>
-                                 <th>Estado</th>
-                                 <th>Ingresar Despiece</th>
-                                 <th>Fletes</th>
-                              </tr>
-                           </thead>
-                        </table>
-                     </div>
-                     <!-- end of col -->
-                     <!-- href="<?php echo base_url() ?>PlantillaOperaciones"-->
-                  </div>
-               </div>
-               <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-primary">Salir</button>
-               </div>
-            </div>
-            <!-- /.modal-content -->
-         </div>
-         <!-- /.modal-dialog -->
-      </div>
-   </div>
-   </div>
    
    <!-----------------------------------------Registrar Despiece-------------------->
    <!-- /.modal -->
@@ -520,11 +454,17 @@
             <div class="modal-header">
                <h4 class="modal-title">Registrar Despiece</h4>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               
                <span aria-hidden="true">&times;</span>
                </button>
             </div>
             <div class="modal-body">
                <div class="row">
+               <label>Ingrese gasto del flete</label>
+               <div class="col-lg-5">
+               <input type="text" id="ValorFlete" class="form-control" value="0"  />
+               </div>
+               <input type="text" id="ID_Despiece" class="form-control" style="visibility:hidden" />
                   <div class="col-lg-10" id="div_despiece">
                      <table class="table table-bordered" id="tabla_personal">
                         <TR>
@@ -546,7 +486,7 @@
                </div>
             </div>
             <div class="modal-footer justify-content-between">
-               <button type="button" class="btn btn-primary">Guardar</button>
+               <button type="button" id="addDespiece"class="btn btn-primary">Guardar</button>
             </div>
          </div>
          <!-- /.modal-content -->
@@ -566,20 +506,22 @@
             </div>
             <div class="modal-body">
                <div class="row">
+               <input type="text" id="id_etapa" class="form-control" style="visibility:hidden" />
+               
                   <div class="col-lg-10" id="divFletes">
                      <table class="table table-bordered" id="tabla_personal">
                         <TR>
                            <TH>Fletes</TH>
                         </TR>
                         <tr>
-                           <TD><input type="text" name="partida" id="txtFletes" class="form-control"/></TD>
+                           <TD><input type="number" name="partida" id="valor" class="form-control"/></TD>
                         </tr>
                      </table>
                   </div>
                </div>
             </div>
             <div class="modal-footer justify-content-between">
-               <button type="button" class="btn btn-primary">Guardar</button>
+               <button type="button" id="addflete" class="btn btn-primary">Guardar</button>
             </div>
          </div>
          <!-- /.modal-content -->
@@ -632,6 +574,7 @@
       </div>
       <!-- /.modal-dialog -->
    </div>
+   
    <script type="text/javascript">
       $(document).ready(function(){
            $('#partidas1').select2({
@@ -672,11 +615,6 @@
    </script>
    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-   <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/EvaluacionProyecto/PartidaProyecto.js"></script>
-   <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/EvaluacionProyecto/EtapasProyecto.js"></script>
-   <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/EvaluacionProyecto/DespieceProyecto.js"></script>
-   <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/EvaluacionProyecto/InstalacionProyecto.js"></script>
-   <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/EvaluacionProyecto/SupervisionProyecto.js"></script>
    <!--Script alarma  -->
    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
       integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -689,5 +627,10 @@
       var base_url = '<?php echo base_url();?>';
    </script>
    <script src="<?php echo base_url();?>assets/js/EvaluacionProyecto/RegistroProyecto.js"></script>
+   <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/EvaluacionProyecto/PartidaProyecto.js"></script>
+   <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/EvaluacionProyecto/EtapasProyecto.js"></script>
+   <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/EvaluacionProyecto/DespieceProyecto.js"></script>
+   <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/EvaluacionProyecto/InstalacionProyecto.js"></script>
+   <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/EvaluacionProyecto/SupervisionProyecto.js"></script>
 </body>
 </html>

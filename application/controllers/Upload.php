@@ -6,6 +6,7 @@ class Upload extends CI_Controller{
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('pic_model');
+		$this->load->model('CotizacionesModel');
 		//$this->load->library('form_validation');
 		
 		//$this->load->view('header');
@@ -108,6 +109,7 @@ class Upload extends CI_Controller{
 		if ($this->input->is_ajax_request()) {
 			$proveedor = $this->input->post("proveedor");
 			$fecha = $this->input->post("fecha");
+			$nrocotizacion = $this->input->post("nrocotizacion");
 
 			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 			$config = [
@@ -116,16 +118,18 @@ class Upload extends CI_Controller{
 			];
 
 			$this->load->library("upload",$config);
+			$data = array("upload_data" => $this->upload->data());
+			$res = $this->CotizacionesModel->subirCotizacion($data,$proveedor,$fecha,$nrocotizacion);
 
-			if ($this->upload->do_upload('pic_file')) {
-				$data = array("upload_data" => $this->upload->data());
-				if($this->pic_model->subirCotizacion($data,$proveedor,$fecha)==true){
-					echo "exito";
-				}else{
-					echo "error";
+			if($res){
+				if ($this->upload->do_upload('pic_file')) {
+					echo 'exito';
+				} else{
+					echo $this->upload->display_errors();
 				}
-			}else{
-				echo $this->upload->display_errors();
+			}
+			if($res == null){
+				echo 'null';
 			}
 		}else{
 			show_404();
@@ -138,6 +142,7 @@ class Upload extends CI_Controller{
 		if ($this->input->is_ajax_request()) {
 			$fecha = $this->input->post("fecha");
 			$nroorden = $this->input->post("nroorden");
+			$nrofactura = $this->input->post("nrofactura");
 
 			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 			$config = [
@@ -149,7 +154,7 @@ class Upload extends CI_Controller{
 
 			if ($this->upload->do_upload('pic_file')) {
 				$data = array("upload_data" => $this->upload->data());
-				if($this->pic_model->subirFactura($data,$fecha,$nroorden)==true){
+				if($this->pic_model->subirFactura($data,$fecha,$nroorden,$nrofactura)==true){
 					echo "exito";
 				}else{
 					echo "error";

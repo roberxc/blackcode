@@ -53,11 +53,11 @@ class Proveedores extends CI_Controller
         {
 
             $sub_array = array();
-            $sub_array[] = '<input type="hidden" value='.$value->id_proveedor.'" class="name-file" disabled/>';
+            $sub_array[] = $value->id_proveedor;
             $sub_array[] = $value->rut;
             $sub_array[] = $value->nombre;
             $sub_array[] = $value->telefono;
-            $sub_array[] = '<a href="#" class="fas fa-eye" id="detalle_asistencia" data-toggle="modal"data-target="#modal-detalle-asistencia">';
+            $sub_array[] = '<a href="#" class="fas fa-eye" id="detalle_asistencia" data-toggle="modal"data-target="#modal-detalle-proveedor" onclick="setTablaDetalle(this)">';
 
             $data[] = $sub_array;
         }
@@ -74,6 +74,58 @@ class Proveedores extends CI_Controller
         echo json_encode($output);
 
     }
+
+    public function obtenerDetalleProveedores(){
+		$ajax_data = $this->input->post(); //Datos que vienen por POST
+		
+		$detalle_proveedor = $this->ProveedoresModel->ObtenerDetalleProveedores($ajax_data['iditem']);
+		
+		$response = "<div class='table-responsive'>";
+		$response .= "<table class='table table-bordered'>";
+		foreach($detalle_proveedor as $row){ 
+			$response .="<TR>";
+			$response .="<TH>Rut</TH>";
+			$response .="<TD>".$row->rut."</TD>";
+			$response .="</TR>";
+			
+			$response .="<TR>";
+			$response .="<TH>Nombre</TH>";
+			$response .="<TD>".$row->nombre."</TD>";
+			$response .="</TR>";
+			
+			$response .="<TR>";
+			$response .="<TH>Direccion</TH>";
+			$response .="<TD>".$row->direccion."</TD>";
+			$response .="</TR>";
+
+			$response .="<TR>";
+			$response .="<TH>Telefono</TH>";
+			$response .="<TD>".$row->telefono."</TD>";
+			$response .="</TR>";
+			
+			$response .="<TR>";
+			$response .="<TH>Correo</TH>";
+			$response .="<TD>".$row->correo."</TD>";
+			$response .="</TR>";
+			
+			$response .="<TR>";
+			$response .="<TH>Descripcion</TH>";
+			$response .="<TD>".$row->descripcion."</TD>";
+			$response .="</TR>";
+			
+			$response .="<TR>";
+			$response .="<TH>Dias credito</TH>";
+			$response .="<TD>".$row->diascredito."</TD>";
+			$response .="</TR>";
+		}
+		$response .= "</table>";
+		$response .= "</div>";
+
+		$data = array('response' => 'success', 'detalle' => $response);
+
+
+		echo json_encode($data);
+	}
 
     
 

@@ -17,7 +17,7 @@ class Combustible extends CI_Model{
          
           
         );
-        if(!$this->db->insert('com', $datos)){
+        if(!$this->db->insert('combustible', $datos)){
             return false;
         }
         return true;
@@ -72,6 +72,15 @@ class Combustible extends CI_Model{
        $this->db->where("id = detalle_vehiculo.patente");
        return $this->db->count_all_results();  
   }  
+
+  public function ObtenerTotalCombustible(){
+     $query = $this->db
+             ->select("COUNT(id_vehiculo) as total") # También puedes poner * si quieres seleccionar todo
+             ->from("vehiculo")
+             ->get();
+     
+     return $query->result_array();
+ }
 }
 
     

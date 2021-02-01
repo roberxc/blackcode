@@ -11,13 +11,15 @@ class Ordenes extends CI_Controller
         $this->load->model('CotizacionesModel');
         $this->load->model('ProveedoresModel');
         $this->load->model('OrdenesModel');
+        $this->load->model('Proyecto_model');
         $this->load->model('Bodega');
     }
 
     public function index(){
         $data['lista_materiales'] = $this->OrdenesModel->listaMateriales();
-        $data['lista_proveedores'] = $this->ProveedoresModel->listaProveedores();
+        $data['lista_cotizaciones'] = $this->CotizacionesModel->listaCotizaciones();
         $data['lista_bodegas'] = $this->OrdenesModel->listaBodegas();
+        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
         $data ['activomenu'] = 15;
 		$data ['activo'] = 15;
 		$this->load->view('layout/nav');
@@ -26,22 +28,31 @@ class Ordenes extends CI_Controller
 		$this->load->view('layout/footer');
     }
 
-    public function obtenerOrdenes()
+    public function listaOrdenes()
     {
-        $fetch_data = $this->CotizacionesModel->make_datatables_ordenes();
+        $fetch_data = $this->OrdenesModel->make_datatables_ordenes();
         $data = array();
         foreach ($fetch_data as $value){
             $sub_array = array();
-            $sub_array[] = '<input type="text" value='.$value->id_cotizacion.' class="name-file" disabled/>';
-            $sub_array[] = $value->nombre;
+            $sub_array[] = $value->nroorden;
             $sub_array[] = $value->fecha;
-            $sub_array[] = '<a href="#" class="fas fa-eye" id="detalle_asistencia" data-toggle="modal"data-target="#modal-detalle-asistencia">';
+			$sub_array[] = $value->nombre;
+			$sub_array[] = $value->total;
+			if($value->estado == 0){
+				$sub_array[] = 'Por aprobar';
+			}
+
+			if($value->estado == 1){
+				$sub_array[] = 'Aprobada';
+			}
+            $sub_array[] = '<a href="#" class="fas fa-eye" data-toggle="modal" id="eyedetalle-orden" data-target="#modal-detalle-orden" onclick="setTablaDetalle(this)"></a>';
             $data[] = $sub_array;
         }
+
         $output = array(
             "draw" => intval($_POST["draw"]) ,
-            "recordsTotal" => $this->CotizacionesModel->get_all_data_cotizaciones(),
-            "recordsFiltered" => $this->CotizacionesModel->get_filtered_data_cotizaciones(),
+            "recordsTotal" => $this->OrdenesModel->get_all_data_ordenes() ,
+            "recordsFiltered" => $this->OrdenesModel->get_filtered_data_ordenes() ,
             "data" => $data
         );
         echo json_encode($output);
@@ -71,6 +82,73 @@ class Ordenes extends CI_Controller
 			echo "'No direct script access allowed'";
 		}
 
+    }
+    
+    public function nuevaOrden(){
+		if ($this->input->is_ajax_request()) {
+			$ajax_data = $this->input->post();
+			$res = $this->OrdenesModel->registrarOrdenes($ajax_data); 
+			if ($res) {
+				$data = array('response' => "success", 'message' => "Orden ingresada correctamente!");
+			} 
+			
+			if($res == null){
+				$data = array('response' => "error", 'message' => "Numero de orden existente");
+			}
+
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+    }
+    
+    public function obtenerDetalleOrden(){
+		$ajax_data = $this->input->post(); //Datos que vienen por POST
+		
+		$horas_extras = $this->OrdenesModel->ObtenerDetalleOrden($ajax_data['iditem']);
+		
+		$response = "<div class='table-responsive'>";
+		$response .= "<table class='table table-bordered'>";
+		$response .= "<tr>";
+		$response .= "<td>";
+		$response .= "<label>Numero</label>";
+		$response .= "</td>";
+		$response .= "<td>";
+		$response .= "<label>Material</label>";
+		$response .= "</td>";
+		$response .= "<td>";
+		$response .= "<label>Cantidad</label>";
+        $response .= "</td>";	
+        $response .= "<td>";
+		$response .= "<label>Valor</label>";
+        $response .= "</td>";	
+		$response .= "</tr>";
+		$response .= "<tbody>";
+		foreach($horas_extras as $row){ 
+			$response .= "<tr>";
+			$response .= "<td>";
+			$response .= $row->numero;
+			$response .= "</td>";
+			$response .= "<td>";
+			$response .= $row->nombre;
+			$response .= "</td>";
+			$response .= "<td>";
+			$response .= $row->cantidad;
+            $response .= "</td>";
+            $response .= "<td>";
+			$response .= $row->valor;
+			$response .= "</td>";
+			$response .= "</tr>";
+		}
+		$response .= "</tbody>";
+		$response .= "</table>";
+		$response .= "</div>";
+
+		$data = array('response' => 'success', 'detalle' => $response);
+
+
+		echo json_encode($data);
 	}
 
     
