@@ -188,8 +188,8 @@ if (isset($set_data['nombre_completo'])) {
 
                      <ul class="nav nav-treeview">
                          <li class="nav-item">
-                             <a href="<?php echo base_url()?>Administracion/Proveedores"
-                                 class="nav-link <?php if(isset($activo) && ($activo == 17)){echo "active"; }?>">
+                             <a href="<?php echo base_url()?>ComprobantePago"
+                                 class="nav-link <?php if(isset($activo) && ($activo == 21)){echo "active"; }?>">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Comprobantes de pago</p>
                              </a>

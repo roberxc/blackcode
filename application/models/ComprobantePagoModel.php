@@ -2,15 +2,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-class FacturasModel extends CI_Model {
+class ComprobantePagoModel extends CI_Model {
 
 	function __construct(){
 		parent::__construct();
 	}
 
-	function make_datatables_facturas()
+	function make_datatables_comprobante()
     {
-        $this->make_query_facturas();
+        $this->make_query_comprobante();
         if ($_POST["length"] != - 1){
             $this->db->limit($_POST['length'], $_POST['start']);
         }
@@ -19,48 +19,31 @@ class FacturasModel extends CI_Model {
 
     }
 
-    public function listaFacturas(){
-		$query = $this->db
-				->select("id_facturas,nrofactura") # También puedes poner * si quieres seleccionar todo
-				->from("facturas")
-				->get();
-		return $query->result();
-    }
-
     //ESTE ES EL SELECT DE LA TABLA PRINCIPAL DE Stock
     var $tablaaa = array(
-        "proveedores p",
-        "cotizaciones c",
         "facturas f",
-        "ordenes o",
-        "ordenes_cotizaciones oc",
+        "documento_pago d",
     );
     var $select_columnaaa = array(
         "f.nrofactura",
-        "f.fecha",
-        "p.nombre",
-        "p.rut",
-        "c.nrocotizacion",
-        "o.nroorden",
+        "d.nrodocumento",
+        "d.fecha",
+        "d.detalle",
     );
 
     var $order_columnaaa = array(
-        "id_facturas",
-        "nombre",
+        "nrodocumento",
     );
-    var $whereee = "o.id_orden = f.id_orden AND o.id_orden = oc.id_orden AND c.id_cotizacion = oc.id_cotizacion AND c.id_proveedor = p.id_proveedor";
+    var $whereee = "f.id_facturas = d.id_factura";
 
-    function make_query_facturas(){
+    function make_query_comprobante(){
         $this->db->select($this->select_columnaaa);
         $this->db->from($this->tablaaa);
         $this->db->where($this->whereee);
-        
         if (isset($_POST["search"]["value"]) && $_POST["search"]["value"] != ''){
             $this->db->group_start();
-            $this->db->like("id_facturas", $_POST["search"]["value"]);
-            $this->db->or_like("nombre", $_POST["search"]["value"]);
-            $this->db->or_like("rut", $_POST["search"]["value"]);
-            $this->db->group_end();
+            $this->db->like("nrodocumento", $_POST["search"]["value"]);
+             $this->db->group_end();
         }
         if (isset($_POST["order"])){
             $this->db->order_by($this->order_columnaaa[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
@@ -70,27 +53,25 @@ class FacturasModel extends CI_Model {
         }
     }
 
-    function get_all_data_facturas(){
+    function get_all_data_comprobante(){
         $this->db->select($this->select_columnaaa);
         $this->db->from($this->tablaaa);
-
-
         return $this->db->count_all_results();
     }
 
-    function get_filtered_data_facturas(){
-        $this->make_query_facturas();
+    function get_filtered_data_comprobante(){
+        $this->make_query_comprobante();
         $query = $this->db->get();
 
         return $query->num_rows();
     }
     
-    public function ObtenerArchivosSubidos($nrofactura){
+    public function ObtenerArchivosSubidos($nrodocumento){
 
 		$query = $this->db
-		->select("id_facturas AS ID, ubicaciondocumento AS Archivo") # También puedes poner * si quieres seleccionar todo
-		->from("facturas")
-		->where('nrofactura',$nrofactura)
+		->select("id_documentopago AS ID, ubicaciondocumento AS Archivo") # También puedes poner * si quieres seleccionar todo
+		->from("documento_pago")
+		->where('nrodocumento',$nrodocumento)
 		->get();
 
 		return $query->result();
@@ -98,9 +79,9 @@ class FacturasModel extends CI_Model {
     
     function getRows($params = array()){
         $this->db->select('ubicaciondocumento');
-        $this->db->from('cotizaciones');
+        $this->db->from('documento_pago');
         if(!empty($params['id'])){
-            $this->db->where('id_cotizacion',$params['id']);
+            $this->db->where('id_documentopago',$params['id']);
             //get records
             $query = $this->db->get();
             $result = ($query->num_rows() > 0)?$query->row_array():FALSE;

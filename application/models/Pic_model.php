@@ -83,6 +83,17 @@ class Pic_model extends CI_Model{
 		return $this->db->insert("facturas", $data);
 	}
 
+	function subirComprobante($data,$fecha,$detalle,$nrodocumento,$nrofactura){
+		$data = array(
+			"nrodocumento" => $nrodocumento,
+			"fecha" => $fecha,
+			"detalle" => $detalle,
+			"ubicaciondocumento" => $data['upload_data']['file_name'],
+			"id_factura" => $nrofactura,
+		);
+		return $this->db->insert("documento_pago", $data);
+	}
+
 	//Obtener id de orden
 	public function getIdOrden($nroorden){
 		$query = $this->db->select("id_orden") # También puedes poner * si quieres seleccionar todo
