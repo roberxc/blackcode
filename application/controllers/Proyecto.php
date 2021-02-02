@@ -285,20 +285,30 @@ public function Guardarflete(){
 
 public function obtenerResumenProyecto(){
         $ajax_data = $this->input->post(); //Datos que vienen por POST
-		$lista_etapas = $this->Proyecto_model->obtenerResumen($ajax_data);
-		$response ="<TABLE BORDER class='table table-bordered'>";
+        $lista_etapas = $this->Proyecto_model->obtenerResumen($ajax_data);
+        $lista_imprevistos = $this->Proyecto_model->obtenerImprevisto($ajax_data);
+        $response ="<TABLE BORDER class='table table-bordered'>";
+        $subtotal = 0;
         foreach($lista_etapas as $row){
+            $subtotal = intval($row->SubTotal);
             $response .="<TR>";
             $response .="<TH>Subtotal por partida</TH>";
-            $response .="<TD>".$row->SubTotal."</TD>";
+            $response .="<TD>".$subtotal."</TD>";
+        }
             $response .="</TR>";
+        $imprevisto = 0;
+        foreach($lista_imprevistos as $row){
+            $imprevisto = $subtotal * (float)$row->imprevisto;
             $response .="<TR>";
             $response .="<TH>Imprevistos</TH>";
-            $response .="<TD></TD>";
+            $response .="<TD>".$imprevisto."</TD>";
             $response .="</TR>";
+        }
+
+        $costomaterial = intval($subtotal)+intval($imprevisto);
             $response .="<TR>";
             $response .="<TH>Costo materiales</TH>";
-            $response .="<TD></TD>";
+            $response .="<TD>".$costomaterial."</TD>";
             $response .="</TR>";
             $response .="<TR>";
             $response .="<TH>Instalación</TH>";
@@ -340,7 +350,7 @@ public function obtenerResumenProyecto(){
             $response .="<TH>Precio sugerido venta </TH>";
             $response .="<TD></TD>";
             $response .="</TR>";
-        }
+        
         $response .="</TABLE>";
 		$data = array('response' => 'success', 'detalle' => $response);
 

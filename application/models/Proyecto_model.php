@@ -266,14 +266,22 @@ class Proyecto_model extends CI_Model {
           //etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas = d.id_etapas and
           //e.id_etapas=f.id_etapas AND p.id_partidas= 43;
 */
-          $sql = "SELECT sum(total) SubTotal FROM (SELECT total FROM despiece d, partidas p,etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas = d.id_etapas AND e.id_partidas= ".$id_partida['id_partida']." union all SELECT valor FROM  partidas p, fletes f,etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas=f.id_etapas AND e.id_partidas= ".$id_partida['id_partida']." )t GROUP BY total";
+          $sql = "SELECT sum(total) SubTotal FROM (SELECT total FROM despiece d, partidas p,etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas = d.id_etapas AND e.id_partidas= ".$id_partida['id_partida']." union all SELECT valor FROM  partidas p, fletes f,etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas=f.id_etapas AND e.id_partidas= ".$id_partida['id_partida']." )x";
           $query = $this->db->query($sql);  
 
           return $query->result();
      }
 
-     public function obtenerImprevisto(){
-          
+     public function obtenerImprevisto($id_partida){
+          $id_proyectoss = $this->ObtenerCodigoProyecto();
+          $query = $this->db->SELECT('imprevisto')
+          ->from('porcentaje p')
+          ->join("proyecto py", "py.id_proyecto = p.id_proyecto")
+          ->join("partidas pr", "pr.id_proyecto = py.id_proyecto")
+          ->where('py.id_proyecto' ,$id_proyectoss[0]['id_proyecto'])
+          ->where('pr.id_partidas' ,$id_partida['id_partida'])
+          ->get();
+          return $query->result();
      }
 }
 ?>
