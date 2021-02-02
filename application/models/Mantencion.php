@@ -91,5 +91,13 @@ public function ObtenerTotalVehiculos(){
     
     return $query->result_array();
 }
+public function ObtenerListaMantenciones(){
+     $query = $this->db
+             ->select("COUNT(id_mantencion) as total") # También puedes poner * si quieres seleccionar todo
+             ->from("mantencion")
+             ->get();
+     
+     return $query->result_array();
+ }
 }
     

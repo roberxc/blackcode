@@ -12,10 +12,11 @@ class CRCombustible extends CI_Controller {
 		$set_data = $this->session->all_userdata();
 		if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
 			$data ['activomenu'] = 20;
-			$data ['activo'] = 95;
+            $data ['activo'] = 95;
+            $data ['total_BoletasC'] = $this->Combustible->Obtener_BoletasC();
 			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_supremo',$data);
-			$this->load->view('Administracion/VRCombustible');
+			$this->load->view('Administracion/VRCombustible',$data);
 			$this->load->view('layout/footer');
 		}
 	}

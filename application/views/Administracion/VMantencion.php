@@ -59,7 +59,7 @@
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <b>Existencia total</b> <a class="float-right"><?php if(isset($total_vehiculos)){ echo $total_vehiculos[0]['total'];}else{echo"0";}?></a>
+                    <b>Existencia total</b> <a class="float-right"><?php if(isset($total_mantenciones)){ echo $total_mantenciones[0]['total'];}else{echo"0";}?></a>
                   </li>
                 
                 </ul>

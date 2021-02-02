@@ -43,10 +43,10 @@
 								<p class="text-muted text-center">CDH Ingenieria</p>
 
 								<ul class="list-group list-group-unbordered mb-3">
-									<li class="list-group-item">
-										<b>Existencia total</b> <a class="float-right">43</a>
-									</li>
-								</ul>
+                                    <li class="list-group-item">
+                                        <b>Existencia total</b> <a class="float-right"><?php if(isset($total_BoletasC)){ echo $total_BoletasC[0]['total'];}else{echo"0";}?></a>
+                                    </li>
+                                </ul>
 
 								
 								<button type="button" onclick="document.location.reload();"class="btn btn-outline-info btn-block">Actualizar</button>

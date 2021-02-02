@@ -19,6 +19,7 @@ class CMantencion extends CI_Controller {
 			$data ['activo'] = 14;
 			$data ['lista_vehiculos'] = $this->Vehiculo->ObtenerVehiculos();
 			$data ['lista_personal'] = $this->Personal->ObtenerListaPersonal();
+			$data ['total_mantenciones'] = $this->Mantencion->ObtenerListaMantenciones();
 			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('Administracion/VMantencion',$data);

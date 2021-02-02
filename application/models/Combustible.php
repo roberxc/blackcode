@@ -75,14 +75,15 @@ class Combustible extends CI_Model{
 
 
   ///////////////////////////////////////////////
-  public function ObtenerTotalCombustible(){
+  public function Obtener_BoletasC(){
      $query = $this->db
-             ->select("COUNT(id_vehiculo) as total") # También puedes poner * si quieres seleccionar todo
-             ->from("vehiculo")
+             ->select("COUNT(id_combustible) as total") # También puedes poner * si quieres seleccionar todo
+             ->from("combustible")
              ->get();
      
      return $query->result_array();
  }
+
 }
 
     
