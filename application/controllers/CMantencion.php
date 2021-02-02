@@ -36,10 +36,10 @@ class CMantencion extends CI_Controller {
         foreach ($fetch_data as $value) {
 
             $sub_array      = array();
-            $sub_array[]    = $value->id_mantencion;
-			$sub_array[]    = $value->fecha;
+			$sub_array[]    = $value->id_mantencion;
 			$sub_array[]    = $value->patente;
-			$sub_array[]    = $value->id_personal;
+			$sub_array[]    = $value->fecha;
+			$sub_array[]    = $value->nombrecompleto;
 			$sub_array[]    = $value->taller;
 			$sub_array[]    = $value->mecanico;
 			$sub_array[]    = $value->total_m;

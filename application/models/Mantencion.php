@@ -26,10 +26,11 @@ class Mantencion extends CI_Model{
         return true;
     }
 
-    var $select_column = array("mantencion.id_mantencion",  "vehiculo.patente","mantencion.id_mantencion", "mantencion.fecha", "mantencion.id_personal", "mantencion.taller", "mantencion.mecanico", "mantencion.total_m", "mantencion.detalle");  
-    var $table = array("mantencion","personal", "vehiculo");  
-    var $wheree = "mantencion.id_personal = personal.id_personal and mantencion.id_vehiculo = vehiculo.id_vehiculo";
-    var $order_column = array("mantencion.id_mantencion", "vehiculo.patente", "mantencion.fecha", "mantencion.id_personal", "mantencion.taller", "mantencion.mecanico", "mantencion.total_m", "mantencion.detalle");  
+
+    var $select_column = array("mantencion.id_mantencion",  "vehiculo.patente", "mantencion.fecha", "personaltrabajo.nombrecompleto", "mantencion.taller", "mantencion.mecanico", "mantencion.total_m", "mantencion.detalle");  
+    var $table = array("mantencion","personaltrabajo", "vehiculo");  
+    var $wheree = "mantencion.id_personal =  personaltrabajo.id_personaltrabajo AND mantencion.id_vehiculo = vehiculo.id_vehiculo";
+    var $order_column = array("mantencion.id_mantencion",  "vehiculo.patente", "mantencion.fecha", "mantencion.nombrecompleto", "mantencion.taller", "mantencion.mecanico", "mantencion.total_m", "mantencion.detalle");  
  
 
   
@@ -70,7 +71,7 @@ class Mantencion extends CI_Model{
   {  
        $this->db->select($this->select_column);  
        $this->db->from($this->table);  
-       $this->db->where("mantencion.id_personal = personal.id_personal and mantencion.id_vehiculo = vehiculo.id_vehiculo");
+       $this->db->where("mantencion.id_personal =  personaltrabajo.id_personaltrabajo AND mantencion.id_vehiculo = vehiculo.id_vehiculo");
        return $this->db->count_all_results();  
   }  
 //////////////////////////////////
