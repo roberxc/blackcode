@@ -137,15 +137,13 @@
          },
        "processing": true,
        "serverSide": true, 
-       "ajax":{url:"<?php echo base_url('CGarage/fetch_data'); ?>",
+       "ajax":{url:"<?php echo base_url('CRCombustible/fetch_data'); ?>",
        type: "POST"
      },
        "columnDefs":[
          {
 
-             "targets": [1],
-
-            
+             "targets": [1,2,3,4,5,6],
 
          }
        ]

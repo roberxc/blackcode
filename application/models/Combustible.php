@@ -25,14 +25,14 @@ class Combustible extends CI_Model{
 
 
 
-    var $select_column = array( "id","patente");  
-    var $table = array("com");  
-    var $wheree = "id = patente";
-    var $order_column = array("id","patente");  
+    var $select_column = array("combustible.id_combustible", "combustible.fecha", "vehiculo.patente", "combustible.conductor", "combustible.estacion", "combustible.litros", "combustible.valor");  
+    var $table = array("combustible", "vehiculo");  
+    var $wheree = "combustible.id_vehiculo = vehiculo.id_vehiculo";
+    var $order_column = array("combustible.id_combustible", "combustible.fecha", "vehiculo.patente", "combustible.conductor", "combustible.estacion", "combustible.litros", "combustible.valor");  
  
 
   
-    function make_query_vehiculo()  
+    function make_query_cvehiculo()  
   {  
        $this->db->select($this->select_column);  
        $this->db->from($this->table);  
@@ -47,12 +47,12 @@ class Combustible extends CI_Model{
        }  
        else  
        {  
-            $this->db->order_by('id', 'ASC');    
+            $this->db->order_by('id_combustible', 'ASC');    
 
        }  
   }  
-  function make_datatables_vehiculo(){  
-       $this->make_query_vehiculo();  
+  function make_datatables_cvehiculo(){  
+       $this->make_query_cvehiculo();  
        if ($_POST["length"] != -1) {
         $this->db->limit($_POST['length'], $_POST['start']);
     } 
@@ -60,19 +60,21 @@ class Combustible extends CI_Model{
        return $query->result(); 
         
   }  
-  function get_filtered_data_vehiculo(){  
-       $this->make_query_vehiculo();  
+  function get_filtered_data_cvehiculo(){  
+       $this->make_query_cvehiculo();  
        $query = $this->db->get();  
        return $query->num_rows();  
   }       
-  function get_all_data_vehiculo()  
+  function get_all_data_cvehiculo()  
   {  
        $this->db->select($this->select_column);  
        $this->db->from($this->table);  
-       $this->db->where("id = detalle_vehiculo.patente");
+       $this->db->where("combustible.id_vehiculo = vehiculo.id_vehiculo");
        return $this->db->count_all_results();  
   }  
 
+
+  ///////////////////////////////////////////////
   public function ObtenerTotalCombustible(){
      $query = $this->db
              ->select("COUNT(id_vehiculo) as total") # También puedes poner * si quieres seleccionar todo
