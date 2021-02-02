@@ -88,14 +88,26 @@ class Proyecto_model extends CI_Model {
      }
 
      public function ingresoPorcentaje($datos){
-          $id_proyectoss = $this->ObtenerCodigoProyecto();     
+          $id_proyectoss = $this->ObtenerCodigoProyecto(); 
+          $impre=$datos['imprevisto'];
+          $gene = $datos['generales'];
+          $comi = $datos['comision'];    
+          $ingen = $datos['ingenieria'];  
+          $util= $datos['utilidades'];  
+
+          $porcentajeImp= $impre /100;
+          $porcentajeGene= $gene /100;
+          $porcentajeComi= $comi /100;
+          $porcentajeIngen= $ingen /100;
+          $porcentajeUtil= $util /100;
+          
           $datos_detalle = array(
 
-              'imprevisto' => $datos['imprevisto'],
-              'gasto_generales' => $datos['generales'],
-              'comisiones' => $datos['comision'],
-              'ingenieria' => $datos['ingenieria'],
-              'utilidades' => $datos['utilidades'],
+              'imprevisto' => $porcentajeImp,
+              'gasto_generales' => $porcentajeGene,
+              'comisiones' =>  $porcentajeComi,
+              'ingenieria' => $porcentajeIngen,
+              'utilidades' => $porcentajeUtil,
               'id_proyecto' => $id_proyectoss[0]["id_proyecto"],
           );
   
@@ -241,6 +253,7 @@ class Proyecto_model extends CI_Model {
      }
 
      function obtenerResumen($id_partida){
+          /*
           $query = $this->db->SELECT('(SUM(d.total)+SUM(f.valor)) as subtotal')
           ->from('etapas e')
           ->join("partidas p", "p.id_partidas = e.id_partidas")
@@ -252,8 +265,15 @@ class Proyecto_model extends CI_Model {
           //select (SUM(d.total)+SUM(f.valor)) as subtotal from despiece d, partidas p, fletes f,
           //etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas = d.id_etapas and
           //e.id_etapas=f.id_etapas AND p.id_partidas= 43;
+*/
+          $sql = "SELECT sum(total) SubTotal FROM (SELECT total FROM despiece d, partidas p,etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas = d.id_etapas AND e.id_partidas= ".$id_partida['id_partida']." union all SELECT valor FROM  partidas p, fletes f,etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas=f.id_etapas AND e.id_partidas= ".$id_partida['id_partida']." )t GROUP BY total";
+          $query = $this->db->query($sql);  
 
           return $query->result();
+     }
+
+     public function obtenerImprevisto(){
+          
      }
 }
 ?>

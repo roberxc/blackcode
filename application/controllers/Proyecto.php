@@ -290,7 +290,7 @@ public function obtenerResumenProyecto(){
         foreach($lista_etapas as $row){
             $response .="<TR>";
             $response .="<TH>Subtotal por partida</TH>";
-            $response .="<TD>".$row->subtotal."</TD>";
+            $response .="<TD>".$row->SubTotal."</TD>";
             $response .="</TR>";
             $response .="<TR>";
             $response .="<TH>Imprevistos</TH>";
