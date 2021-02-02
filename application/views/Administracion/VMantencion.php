@@ -31,7 +31,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Registro mantención</h1>
+            <h1>Registro Mantención</h1>
           </div>
           
         </div>
@@ -53,7 +53,7 @@
                        alt="User profile picture">
                 </div>
 
-                <h3 class="profile-username text-center">Mantención Vehiculo</h3>
+                <h3 class="profile-username text-center">Mantención Vehicular</h3>
 
                 <p class="text-muted text-center">CDH Ingenieria</p>
 

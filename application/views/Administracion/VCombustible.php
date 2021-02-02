@@ -38,7 +38,7 @@
 									<img class="profile-user-img img-fluid img-circle" src="<?php echo base_url();?>assets/dist/img/combus.png" alt="User profile picture">
 								</div>
 
-								<h3 class="profile-username text-center">Gasto Combustible</h3>
+								<h3 class="profile-username text-center">Consumo Combustible</h3>
 
 								<p class="text-muted text-center">CDH Ingenieria</p>
 
