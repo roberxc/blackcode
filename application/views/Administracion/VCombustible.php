@@ -61,7 +61,7 @@
 						<div class="card">
 							<div class="card-header p-2">
 								<div class="col-md-3 text-center">
-									<h5>Datos del Vehículo</h5>
+									<h5>Datos del Consumo</h5>
 								</div>
 								<ul class="nav nav-pills">
 
