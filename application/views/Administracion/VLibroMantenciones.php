@@ -33,18 +33,20 @@
                      <tr>
                         <th>N° Registro</th>
                         <!-- 0 ---> 
-                        <th>Fecha Servicio</th>
+                        <th>Vehiculo</th>
                         <!-- 1 --->
-                        <th>Encargado</th>
+                        <th>Fecha Servicio</th>
                         <!-- 2 --->
-                        <th>Taller</th>
+                        <th>Encargado</th>
                         <!-- 3 --->
-                        <th>Mecanico</th>
+                        <th>Taller</th>
                         <!-- 4 --->
-                        <th>Costo</th>
+                        <th>Mecanico</th>
                         <!-- 5 --->
-                        <th>Detalle</th>
+                        <th>Costo</th>
                         <!-- 6 --->
+                        <th>Detalle</th>
+                        <!-- 7 --->
                      </tr>
                   </thead>
                </table>
@@ -124,7 +126,7 @@
 </section>
 </div>
 <script>
-/*
+
    //Mostrar tabla principal
    $(document).ready(function(){
      $('#example1').DataTable({
@@ -133,12 +135,12 @@
          },
        "processing": true,
        "serverSide": true, 
-       "ajax":{url:"<?php echo base_url('Stock/fetch_data'); ?>",
+       "ajax":{url:"<?php echo base_url('CMantencion/fetch_data'); ?>",
        type: "POST"
      },
        "columnDefs":[
          {
-             "targets": [1,2,3,4,5],
+             "targets": [1,2,3,4,5,6,7],
          }
        ]
      });

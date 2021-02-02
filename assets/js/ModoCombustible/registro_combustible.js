@@ -2,7 +2,7 @@ $(document).on('click', '#addcombustible', function(e) {
     e.preventDefault();
 
     var fecha = $("#fecha").val();
-    var patente = $("#patente").val();
+    var patente = $("#id_vehiculo").val();
     var conductor = $("#conductor").val();
     var estacion = $("#estacion").val();
     var litros = $("#litros").val();
@@ -16,7 +16,7 @@ $(document).on('click', '#addcombustible', function(e) {
         dataType: "json",
         data: {
             fecha: fecha,
-            patente: patente,
+            id_vehiculo: patente,
             conductor: conductor,
             estacion: estacion,
             litros: litros,

@@ -202,7 +202,7 @@ class Administracion extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 			//Validaciones
 			$this->form_validation->set_rules('fecha', 'fecha', 'required');
-			$this->form_validation->set_rules('patente', 'patente', 'required');
+			//$this->form_validation->set_rules('id_vehiculo', 'id_vehiculo', 'required');
 			$this->form_validation->set_rules('conductor', 'conductor', 'required');
 			$this->form_validation->set_rules('estacion', 'estacion', 'required');
 			$this->form_validation->set_rules('litros', 'litros', 'required');
