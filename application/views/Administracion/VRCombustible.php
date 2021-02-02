@@ -31,25 +31,21 @@
                <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                   <thead>
                      <tr>
-                     <th>Codigo</th>
+                     <th>N° Boleta</th>
                         <!-- 0 ---> 
-                        <th>Patente</th>
+                        <th>Fecha</th>
                         <!-- 1 --->
-
-                        <th>Año</th>
+                        <th>Patente</th>
                         <!-- 2 --->
-                        <th>Clase Vehiculo</th>
+                        <th>Conductor</th>
                         <!-- 3 --->
-                        <th>Marca</th>
+                        <th>Estacion</th>
                         <!-- 4 --->
-                        <th>Modelo</th>
+                        <th>Litros</th>
                         <!-- 5 --->
-                        <th>Color Vehiculo</th>
+                        <th>Total</th>
                         <!-- 6 --->
-                        <th>Tipo Motor</th>
-                        <!-- 7 --->
-                        <th>Gps</th>
-                        <!-- 8 --->
+                       
 
 
                         
