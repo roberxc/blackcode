@@ -87,5 +87,3 @@ class Combustible extends CI_Model{
 }
 
     
-
-
