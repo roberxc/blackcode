@@ -207,8 +207,8 @@
                                 var base_url = '<?php echo base_url();?>';
                                 </script>
                                 <script type="text/javascript">
-                                //mostrar tipoproducto
-                                //mostrar centrodecosto2 en tabla agregar stock
+                                
+                                //mostrar registros boletas en la tabla 
                                 $(document).ready(function() {
                                     $('#id_vehiculo').select2({
                                         theme: "bootstrap"

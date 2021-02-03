@@ -85,9 +85,9 @@
                                                 <div class="col-sm-10">
                                                     <select id="tipo" class="form-control">
                                                         <option selected>Seleccione</option>
-                                                        <option>Camión</option>
-                                                        <option>Camioneta</option>
                                                         <option>Automovil</option>
+                                                        <option>Camioneta</option>
+                                                        <option>Camion</option>
                                                         <option>Otro</option>
 
                                                     </select>
@@ -153,7 +153,7 @@
                                                         <option>Bencinero</option>
                                                         <option>Diesel</option>
                                                         <option>Eléctrico</option>
-                                                        <option>Otro</option>
+                                                        <option>Otro tipo</option>
 
                                                     </select>
 

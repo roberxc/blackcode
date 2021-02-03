@@ -277,8 +277,8 @@
                                         src="<?php echo base_url()?>assets/js/ModoMantencion/registro_mantencion.js">
                                     </script>
                                     <script type="text/javascript">
-                                    //mostrar tipoproducto
-                                    //mostrar centrodecosto2 en tabla agregar stock
+                                  
+                                    //mostrar registros en tabla agregar mantenciones
                                     $(document).ready(function() {
                                         $('#id_vehiculo').select2({
                                             theme: "bootstrap"
