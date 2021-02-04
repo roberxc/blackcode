@@ -39,26 +39,8 @@ class Vehiculo extends CI_Model{
         return true;
     }
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /////////////////////////////////////////////////
-
-
-
-
-
-    //ESTE ES EL SELECT DE LA TABLA GARAGE VEHICULOS
+    //////////////////////////////////////////////////
+    //ESTE ES EL SELECT DE LA TABLA GARAGE VEHICULOS//
 
    
     var $select_column = array("vehiculo.id_vehiculo","vehiculo.gps", "vehiculo.ano","vehiculo.patente","detalle_vehiculo.tipo","detalle_vehiculo.marca","detalle_vehiculo.modelo","detalle_vehiculo.color","detalle_vehiculo.tipomotor");  
@@ -117,6 +99,8 @@ class Vehiculo extends CI_Model{
     
     return $query->result();
 }
+
+//ESTE ES EL SELECT COUNT PARA TENER LOS TOTALES DE LOS ID Y SABER CUANTOS REGISTROS HAY//
 public function ObtenerTotalVehiculos(){
     $query = $this->db
             ->select("COUNT(id_vehiculo) as total") # También puedes poner * si quieres seleccionar todo
