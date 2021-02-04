@@ -85,7 +85,7 @@ $(document).on('click', '#addpartidas', function(e) {
 //Registro Porcentaje
 $(document).on('click', '#addPorcentaje', function(e) {
     e.preventDefault();
-
+    var partidas6 = $("#partidas6").val();
     var imprevisto = $("#imprevisto").val();
     var generales = $("#generales").val();
     var comision = $("#comision").val();
@@ -99,6 +99,7 @@ $(document).on('click', '#addPorcentaje', function(e) {
         type: "post",
         dataType: "json",
         data: {
+            partidas6:partidas6,
             imprevisto: imprevisto,
             generales: generales,
             comision: comision,
@@ -128,6 +129,7 @@ $(document).on('click', '#addPorcentaje', function(e) {
 //Registrar Instalacion
 $(document).on('click', '#addInstalacion', function(e) {
     e.preventDefault();
+    var partidas5 = $("#partidas5").val();
     var tipo = $("#tipoInsta").val();
     var dias = $("#numdias").val();
     var numCantidadIns = [];
@@ -154,7 +156,7 @@ $(document).on('click', '#addInstalacion', function(e) {
         type: "post",
         dataType: "json",
         data: {
-            
+            partidas5:partidas5,
             tipo:tipo,
             dias: dias,
             lista_cantidad: numCantidadIns,
@@ -177,6 +179,7 @@ $(document).on('click', '#addInstalacion', function(e) {
 //Registro supervision
 $(document).on('click', '#addSupervision', function(e) {
     e.preventDefault();
+    var partidas4 = $("#partidas4").val();
     var tipo = $("#tipoSuper").val();
     var dias = $("#diasSuper").val();
     var numCantidadSup = [];
@@ -199,10 +202,11 @@ $(document).on('click', '#addSupervision', function(e) {
     });
 
     $.ajax({
-        url: base_url+"Proyecto/registroInstalacion",
+        url: base_url+"Proyecto/registroSupervision",
         type: "post",
         dataType: "json",
         data: {
+            partidas4:partidas4,
             tipo:tipo,
             dias: dias,
             lista_cantidad: numCantidadSup,
@@ -333,6 +337,43 @@ $(document).on('click', '#addflete', function(e) {
                 window.location.href = base_url+"Proyecto/Evaluacion_proyecto";
             } else if(data.response == "error"){
                 generarAvisoError('Error al registrar el proyecto');
+                
+            }
+            else{
+                //$("#msg-error").show();
+                generarAvisoError(response);
+            }
+        }
+    });
+
+
+});
+//Registro Flete Traslado
+$(document).on('click', '#addfleteTraslado', function(e) {
+    e.preventDefault();
+    var partidas7 = $("#partidas7").val();
+    var flete_Traslado = $("#flete_Traslado").val();
+ 
+
+
+    $.ajax({
+        url: base_url + "Proyecto/GuardarFleteTraslado",
+        type: "post",
+        dataType: "json",
+        data: {
+            partidas7:partidas7,
+            flete_Traslado: flete_Traslado,
+           
+
+        },
+        success: function(data) {
+            if (data.response == "success") {
+               
+                window.location.href = base_url+"Proyecto/Evaluacion_proyecto";
+                generarAvisoExitoso('Porcentaje registrado correctamente!');
+            } else if(data.response == "error"){
+                
+                generarAvisoError('Error al registrar el porcentaje');
                 
             }
             else{
