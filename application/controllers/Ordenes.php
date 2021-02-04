@@ -39,13 +39,13 @@ class Ordenes extends CI_Controller
 			$sub_array[] = $value->nombre;
 			$sub_array[] = $value->total;
 			if($value->estado == 0){
-				$sub_array[] = 'Por aprobar';
+				$sub_array[] = '<span class="badge badge-warning">Por aprobar</span>';
 			}
 
 			if($value->estado == 1){
-				$sub_array[] = 'Aprobada';
+				$sub_array[] = '<span class="badge badge-success">Aprobada</span>';
 			}
-            $sub_array[] = '<a href="#" class="fas fa-eye" data-toggle="modal" id="eyedetalle-orden" data-target="#modal-detalle-orden" onclick="setTablaDetalle(this)"></a>';
+            $sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal" id="eyedetalle-orden" data-target="#modal-detalle-orden" onclick="setTablaDetalle(this)"><i class="far fa-eye"></i></button><button class="btn btn-success btn-sm" data-toggle="modal" id="estado-orden" data-target="#modal-estado-orden" onclick="setTablaEstado(this)"><i class="fas fa-edit"></i></button>';
             $data[] = $sub_array;
         }
 
@@ -101,6 +101,26 @@ class Ordenes extends CI_Controller
 			echo "'No direct script access allowed'";
 		}
 
+	}
+	
+	public function actualizarEstadoOrden(){
+		if ($this->input->is_ajax_request()) {
+			$ajax_data = $this->input->post();
+			$estado = $ajax_data['estado'];
+			$nroorden = $ajax_data['nroorden'];
+			$res = $this->OrdenesModel->actualizarEstadoOrden($estado,$nroorden); 
+			if ($res) {
+				$data = array('response' => "success", 'message' => "Estado actualizado correctamente!");
+			} 
+			if($res == null){
+				$data = array('response' => "error", 'message' => "Error al actualizar");
+			}
+
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
     }
     
     public function obtenerDetalleOrden(){
@@ -145,6 +165,19 @@ class Ordenes extends CI_Controller
 		$response .= "</table>";
 		$response .= "</div>";
 
+		$data = array('response' => 'success', 'detalle' => $response);
+
+
+		echo json_encode($data);
+	}
+
+	public function obtenerEstadoOrden(){
+		$ajax_data = $this->input->post(); //Datos que vienen por POST
+		$response = "<select class='form-control select2' style='width: 100%;' id='estado_orden' onchange='setEstadoOrden()'>";
+		$response .= "<option value='0' selected>Seleccione</option>";
+		$response .= "<option value='0'>Por aprobar</option>";
+		$response .= "<option value='1'>Aprobada</option>";
+		$response .= "</select>";
 		$data = array('response' => 'success', 'detalle' => $response);
 
 

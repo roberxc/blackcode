@@ -157,14 +157,4 @@ $(document).on('click', '#detalle_asistencia', function(e) {
 
 });
 
-$(document).on('click', '#listar_trabajosrealizados', function(e) {
-    e.preventDefault();
-    var codigoservicio_filtro = $("#codigoservicio_filtro").val();
-    var fecha = $("#fecha_filtro").val();
-    alert('asdasdads');
-    alert(fecha);
-    alert(codigoservicio_filtro);
-
-});
-
 

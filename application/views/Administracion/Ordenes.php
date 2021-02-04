@@ -9,6 +9,9 @@
    <!-- DataTables -->
    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.jqueryui.min.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
 </head>
 <div class="content-wrapper">
    <div class="content-header">
@@ -104,10 +107,9 @@
                            </select>
                         </div>
                      </div>
-      
                   </div>
                   <div class="row">
-                  <div class="col-md-4">
+                     <div class="col-md-4">
                         <div class="form-group">
                            <label for="recipient-bodega" class="col-form-label">Estado </label>
                            <select name="estado" id="estado" style="width: 100%; height: 60%">
@@ -249,7 +251,6 @@
          </div>
       </div>
    </div>
-
    <!-- MODAL DETALLE ORDEN DE COMPRA --->
    <div id="modal-detalle-orden" class="modal fade bd-example-modal-lg" role="dialog">
       <div class="modal-dialog modal-lg">
@@ -268,13 +269,11 @@
                   </a>
                   <p>(no se si este bien aqui el exportar xD)</p>
                   <div class="card-body" id="dynamic_field" >
-                  <div class="box-body">
-                  <div class="modal-body" id="detalle-ordenes">
+                     <div class="box-body">
+                        <div class="modal-body" id="detalle-ordenes">
+                        </div>
+                     </div>
                   </div>
-            </div>
-                     
-                  </div>
-               
                   <div class="modal-footer bg-white">
                      <input type="submit" class="btn btn-primary" value="Guardar" id="añadir-nuevaorden">
                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -284,11 +283,30 @@
          </div>
       </div>
    </div>
-
-
+   <!-- MODAL ESTADO ORDEN DE COMPRA --->
+   <div id="modal-estado-orden" class="modal fade bd-example-modal-sm" role="dialog">
+      <div class="modal-dialog modal-sm">
+         <div class="table-responsive">
+            <!-- Contenido del modal -->
+            <div class="modal-content">
+               <div class="modal-header bg-blue">
+                  <H3>Estado de orden</H3>
+                  <button type="button" class="close-white" data-dismiss="modal">&times;</button>
+               </div>
+               <div class="modal-body">
+                  <div class="card-body" id="dynamic_field" >
+                     <div class="box-body">
+                        <div class="modal-body" id="estado-ordenes">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 </div>
-
-<input type="text" class="form-control" id="idhidden">
+<input type="hidden" class="form-control" id="idhidden">
 <script>
    //Mostrar tabla principal
    $(document).ready(function(){
@@ -307,7 +325,7 @@
          }
        ]
      });
-
+   
    
    });
 </script>
@@ -333,7 +351,7 @@
      $('#material').select2({
        theme: "bootstrap"
      });
-
+   
      $('#nrocotizacion').select2({
        theme: "bootstrap"
      });

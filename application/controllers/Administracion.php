@@ -12,6 +12,7 @@ class Administracion extends CI_Controller {
 		$this->load->model('Combustible');
 		$this->load->model('Mantencion');
 		$this->load->model('OperacionesModel');
+		$this->load->model('AdministracionModel');
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('Users');
 		
@@ -29,9 +30,10 @@ class Administracion extends CI_Controller {
 	public function CostosFijos(){
 		$data ['activomenu'] = 5;
 		$data ['activo'] = 6;
+		$data['lista_tipocostos'] = $this->AdministracionModel->listaTipoCostos();
 		$this->load->view('layout/nav');
      	$this->load->view('menu/menu_supremo',$data);
-		$this->load->view('Administracion/CostosFijos');
+		$this->load->view('Administracion/CostosFijos',$data);
 		$this->load->view('layout/footer');
 	}
 
@@ -374,6 +376,56 @@ class Administracion extends CI_Controller {
 		$resultado = $this->OperacionesModel->ObtenerPlanillasRealizadas($texto);
 		echo json_encode($resultado);
 	}
+
+	public function registrarTipoCosto(){
+		if ($this->input->is_ajax_request()) {
+			//Validaciones
+			$this->form_validation->set_rules('nombre', 'Nombre', 'required');
+
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+			} else {
+				$ajax_data = $this->input->post();
+
+				if ($this->AdministracionModel->registroTipoCostoFijo($ajax_data)) {
+					$data = array('response' => "success", 'message' => "Producto ingresado correctamente!");
+				} else {
+					$data = array('response' => "error", 'message' => "Falló el ingreso");
+				}
+			}
+
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+	}
+	
+	public function registrarNuevoCostoFijo(){
+		if ($this->input->is_ajax_request()) {
+			//Validaciones
+			$this->form_validation->set_rules('fecha', 'Fecha', 'required');
+			$this->form_validation->set_rules('valor', 'Valor', 'required');
+			$this->form_validation->set_rules('id_tipo', 'Tipo', 'required');
+
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+			} else {
+				$ajax_data = $this->input->post();
+
+				if ($this->AdministracionModel->registroCostoFijo($ajax_data)) {
+					$data = array('response' => "success", 'message' => "Producto ingresado correctamente!");
+				} else {
+					$data = array('response' => "error", 'message' => "Falló el ingreso");
+				}
+			}
+
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+    }
 }
 
 ?>

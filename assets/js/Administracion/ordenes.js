@@ -83,6 +83,57 @@ function setTablaDetalle(table){
     });
 }
 
+function setNumeroOrdenInput(table){
+    var iditem = table.parentNode.parentNode.cells[0].textContent;
+    return iditem;
+}
+
+//Llenar tabla de estado de orden al hacer click en editar
+var nroorden = 0;
+function setTablaEstado(table){
+    nroorden = setNumeroOrdenInput(table);
+    $.ajax({
+        url: base_url+"Ordenes/obtenerEstadoOrden",
+        type: "post",
+        dataType: "json",
+        data: {
+            iditem: nroorden,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                // Add response in Modal body
+                $('#estado-ordenes').html(data.detalle);
+                // Display Modal
+                 //$('#detalle-trabajo').modal('show');
+            } else {
+                
+            }
+        }
+    });
+}
+
+function setEstadoOrden(){
+    var iditem = nroorden;
+    var estado = $('#estado_orden').val();
+    $.ajax({
+        url: base_url+"Ordenes/actualizarEstadoOrden",
+        type: "post",
+        dataType: "json",
+        data: {
+            nroorden: iditem,
+            estado: estado,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                generarAvisoExitoso(data.message);
+                window.location.href = "Ordenes";
+            } else {
+                
+            }
+        }
+    });
+}
+
 function calculfac() {
     //Establecer el resumen de total y subtotal
     setTotal();

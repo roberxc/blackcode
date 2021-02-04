@@ -98,6 +98,12 @@ class OrdenesModel extends CI_Model {
 		return $this->db->insert('proveedores',$dataproveedores);
     }
 
+    public function actualizarEstadoOrden($estado,$nroorden){
+		$this->db->set('estado', $estado, FALSE);
+        $this->db->where('nroorden', $nroorden);
+		return $this->db->update('ordenes');
+    }
+
 	public function registrarNuevoProducto($ajax_data){
 		$dataproductos = array(
 			'nombre' => $ajax_data['producto'],
@@ -280,6 +286,17 @@ class OrdenesModel extends CI_Model {
 				->join("ordenes o", "om.id_orden = o.id_orden")
 				->join("materiales_comprados m", "om.id_material = m.id_material")
 				->where("o.nroorden",$idorden)
+				->get();
+        // if (count($query->result()) > 0) {
+        return $query->result();
+        // }
+    }
+    
+    public function ObtenerEstadoOrden($idorden){
+		$query = $this->db
+				->select("estado") # También puedes poner * si quieres seleccionar todo
+				->from("ordenes")
+				->where("nroorden",$idorden)
 				->get();
         // if (count($query->result()) > 0) {
         return $query->result();

@@ -7,27 +7,19 @@ class Asistencia extends CI_Controller
     public function __construct()
     {
         parent::__construct(); // you have missed this line.
-        $this
-            ->load
-            ->model('AsistenciaModel');
+        $this->load->model('AsistenciaModel');
+        $this->load->model('OperacionesModel');
     }
 
     public function index()
     {
         $data['activomenu'] = 4;
         $data['activo'] = 5;
-        $this
-            ->load
-            ->view('layout/nav');
-        $this
-            ->load
-            ->view('menu/menu_admin_personal', $data);
-        $this
-            ->load
-            ->view('Asistencia/IngresarAsistencia');
-        $this
-            ->load
-            ->view('layout/footer');
+        $data['lista_personal'] = $this->AsistenciaModel->listaPersonal();
+        $this->load->view('layout/nav');
+        $this->load->view('menu/menu_admin_personal', $data);
+        $this->load->view('Asistencia/IngresarAsistencia');
+        $this->load->view('layout/footer');
     }
 
     public function AsistenciaEspera()
@@ -55,64 +47,35 @@ class Asistencia extends CI_Controller
             ->is_ajax_request())
         {
             //Validaciones
-            $this
-                ->form_validation
-                ->set_rules('rut', 'Rut', 'required');
-            $this
-                ->form_validation
-                ->set_rules('nombrecompleto', 'Nombre', 'required');
-            $this
-                ->form_validation
-                ->set_rules('fecha', 'Fecha', 'required');
-            $this
-                ->form_validation
-                ->set_rules('horallegadam', 'Hora llegada mañana', 'required');
-            $this
-                ->form_validation
-                ->set_rules('horasalidam', 'Hora salida mañana', 'required');
-            $this
-                ->form_validation
-                ->set_rules('horallegadat', 'Hora llegada tarde', 'required');
-            $this
-                ->form_validation
-                ->set_rules('horasalidat', 'Hora salida tarde', 'required');
-            $this
-                ->form_validation
-                ->set_rules('estado', 'Asistente', 'required');
-
-            if ($this
-                ->form_validation
-                ->run() == false)
+            $this->form_validation->set_rules('rut', 'Rut', 'required');
+            $this->form_validation->set_rules('nombrecompleto', 'Nombre', 'required');
+            $this->form_validation->set_rules('fecha', 'Fecha', 'required');
+            $this->form_validation->set_rules('horallegadam', 'Hora llegada mañana', 'required');
+            $this->form_validation->set_rules('horasalidam', 'Hora salida mañana', 'required');
+            $this->form_validation->set_rules('horallegadat', 'Hora llegada tarde', 'required');
+            $this->form_validation->set_rules('horasalidat', 'Hora salida tarde', 'required');
+            $this->form_validation->set_rules('estado', 'Asistente', 'required');
+            if ($this->form_validation->run() == false)
             {
                 $data = array(
                     'response' => "error",
                     'message' => validation_errors()
                 );
-            }
-            else
-            {
-                $ajax_data = $this
-                    ->input
-                    ->post();
-
-                if ($this
-                    ->AsistenciaModel
-                    ->registrarAsistenciaPersonal($ajax_data))
-                {
+            }else{
+                $ajax_data = $this->input->post();
+                if ($this->AsistenciaModel->registrarAsistenciaPersonal($ajax_data)){
                     $data = array(
                         'response' => "success",
                         'message' => "Monto ingresado correctamente!"
                     );
                 }
-                else
-                {
+                else{
                     $data = array(
                         'response' => "error",
                         'message' => "Falló el ingreso"
                     );
                 }
             }
-
             echo json_encode($data);
         }
         else
@@ -136,6 +99,11 @@ class Asistencia extends CI_Controller
             $sub_array[] = $value->rut;
             $sub_array[] = $value->nombrecompleto;
             $sub_array[] = $value->fecha_asistencia;
+            if($value->estado == 0){
+                $sub_array[] = '<span class="badge badge-danger">No</span>';
+            }else{
+                $sub_array[] = '<span class="badge badge-success">Si</span>';
+            }
             $sub_array[] = '<a href="#" class="fas fa-eye" id="detalle_asistencia" data-toggle="modal"data-target="#modal-detalle-asistencia">';
 
             $data[] = $sub_array;
@@ -234,5 +202,72 @@ class Asistencia extends CI_Controller
 
         echo json_encode($data);
     }
+
+    public function obtenerHoraExtrasPersonal(){
+		$ajax_data = $this->input->post(); //Datos que vienen por POST
+		
+		$horas_extras = $this->AsistenciaModel->ObtenerHorasExtras($ajax_data['rut_personal'],$ajax_data['fecha_inicio'],$ajax_data['fecha_fin']);
+		
+		$response = "<div class='table-responsive'>";
+		$response .= "<table class='table table-bordered'>";
+		$response .= "<tr>";
+		$response .= "<td>";
+		$response .= "<label>Nombre</label>";
+		$response .= "</td>";
+		$response .= "<td>";
+		$response .= "<label>Total horas extras</label>";
+		$response .= "</td>";	
+		$response .= "</tr>";
+		$response .= "<tbody>";
+		foreach($horas_extras as $row){ 
+			$response .= "<tr>";
+			$response .= "<td>";
+			$response .= $row->Nombre;
+			$response .= "</td>";
+			$response .= "<td>";
+			$response .= $row->TotalHoras;
+			$response .= "</td>";
+			$response .= "</tr>";
+		}
+		$response .= "</tbody>";
+		$response .= "</table>";
+		$response .= "</div>";
+
+		$data = array('response' => 'success', 'horas' => $response);
+
+
+		echo json_encode($data);
+    }
+    
+    public function obtenerEstadisticasHorasExtras(){
+		if ($this->input->is_ajax_request()) {
+			//Validaciones
+			$this->form_validation->set_rules('fecha_inicial', 'Fecha', 'required');
+			$this->form_validation->set_rules('fecha_termino', 'Fecha', 'required');
+
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+				echo json_encode($data);
+			} else {
+				$ajax_data = $this->input->post();
+				$fechainicio = $ajax_data['fecha_inicial'];
+                $fechatermino = $ajax_data['fecha_termino'];
+                $rutpersonal = $ajax_data['rut_personal'];
+				$res = $this->AsistenciaModel->generarEstadisticasHorasExtras($fechainicio,$fechatermino,$rutpersonal);
+                if($res){
+                    $data = array('response' => 'success', 'message' => 'Exito');
+                }else{
+                    $data = array('response' => 'error', 'message' => $res);
+                }
+                
+                
+            
+            
+            }
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+	}
 }
 
