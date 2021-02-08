@@ -19,13 +19,13 @@
          <div class="card-header p-0 pt-1">
             <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
                <li class="pt-2 px-3">
-                  <h3 class="card-title">Asistencia</h3>
+                  <h3 class="card-title">Vacaciones</h3>
                </li>
                <li class="nav-item">
-                  <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">Ingreso asistencia</a>
+                  <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">Ingreso vacaciones</a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">Reportes</a>
+                  <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">Registros</a>
                </li>
             </ul>
          </div>
@@ -33,38 +33,66 @@
             <div class="tab-content" id="custom-tabs-two-tabContent">
                <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
                   <br>
-                  <a class="btn btn-app"  data-toggle="modal" data-target="#modal-ingreso-asistencia">
-                  <i class="fas fa-plus">
-                  </i> Nuevo
-                  </a>
                   <div class="card-body">
-                     <div class="card">
-                        <section class="content">
-                           <div class="box box-info ">
-                              <div class="box-body">
-                                 <div class="table-responsive">
-                                    <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
-                                       <thead>
-                                          <tr>
-                                             <th></th>
-                                             <th>Rut</th>
-                                             <!-- 0 ---> 
-                                             <th>Nombre</th>
-                                             <!-- 1 --->
-                                             <th>Fecha</th>
-                                             <th>Asistente</th>
-                                             <!-- 3 --->
-                                             <th>Detalle</th>
-                                             <!-- 4 --->
-                                             <!--<th>Accion</th>
-                                                5 --->
-                                          </tr>
-                                       </thead>
-                                    </table>
+                     <div class="row">
+                              <div class="col-md-3">
+                                 <!-- /.form-group -->
+                                 <div class="form-group">
+                                    <label>Rut</label>
+                                    <div class="form-group">
+                                       <select name="rutpersonal" id="rutpersonal" style="width: 100%; height: 60%">
+                                       <?php
+                                          foreach($lista_personal as $i){
+                                             echo '<option value="'.$i->id_personal.'">'. $i->rut .'</option>';
+                                             }
+                                             ?>
+                                       </select>
+                                    </div>
+                                 </div>
+                                 <!-- /.form-group -->
+                              </div>
+
+                              <div class="col-md-3">
+                                 <!-- /.form-group -->
+                                 <div class="form-group">
+                                    <label>Dias pedidos</label>
+                                    <input type="text" id="diaspedidos" class="form-control">
+                                 </div>
+                                 <!-- /.form-group -->
+                              </div>
+                              <div class="col-md-2">
+                                 <!-- /.form-group -->
+                                 <div class="form-group">
+                                    <label class="invisible">Actualizar</label>
+                                    <button type="button" id="boton-filtrodetallevacaciones" class="btn btn-block btn-primary">Actualizar</button>
                                  </div>
                               </div>
+                              <!-- /.col -->
                            </div>
-                     </div>
+
+                           <div class="row">
+                              <div class="col-md-3">
+                                 <!-- /.form-group -->
+                                 <div class="form-group">
+                                    <label>Fecha inicio trabajo</label>
+                                    <input type="date" id="fecha_iniciotrabajo" name="date_range" class="form-control">
+                                 </div>
+                                 <!-- /.form-group -->
+                              </div>
+
+                              <div class="col-md-3">
+                                 <!-- /.form-group -->
+                                 <div class="form-group">
+                                    <label>Fecha termino trabajo</label>
+                                    <input type="date" id="fecha_terminotrabajo" name="date_range" class="form-control">
+                                 </div>
+                                 <!-- /.form-group -->
+                              </div>
+
+                              <!-- /.col -->
+                           </div>
+                           <div class="card-body" id="detalle-vacaciones">
+                           </div>
                   </div>
                   </section>
                   <div class="modal fade" id="modal-ingreso-asistencia">
@@ -73,7 +101,7 @@
                            <div class="modal-header">
                               <div align="center"><img src=""></div>
                               </br>
-                              <h4 class="modal-title">Ingreso asistencia</h4>
+                              <h4 class="modal-title">Registros</h4>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                               </button>
@@ -201,73 +229,33 @@
                   </div>
                </div>
                <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
-                  <div class="card-header">
-                     
-                     <!-- SELECT2 EXAMPLE -->
-                     <div class="card card-default">
-                        <div class="card-header">
-                           <div class="card-tools">
-                              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                           </div>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                           <div class="row">
-                              
-                           </div>
-                           <div class="row">
-
-                              <div class="col-md-3">
-                                 <!-- /.form-group -->
-                                 <div class="form-group">
-                                    <label>Rut</label>
-                                    <div class="form-group">
-                                       <select name="rutpersonal" id="rutpersonal" style="width: 100%; height: 60%">
-                                       <?php
-                                          foreach($lista_personal as $i){
-                                             echo '<option value="'.$i->rut.'">'. $i->rut .'</option>';
-                                             }
-                                             ?>
-                                       </select>
-                                    </div>
-                                 </div>
-                                 <!-- /.form-group -->
-                              </div>
-                              <div class="col-md-3">
-                                 <!-- /.form-group -->
-                                 <div class="form-group">
-                                    <label>Fecha</label>
-                                    <input type="text" id="date_range" name="date_range" class="form-control">
-                                 </div>
-                                 <!-- /.form-group -->
-                              </div>
-                              <div class="col-md-2">
-                                 <!-- /.form-group -->
-                                 <div class="form-group">
-                                    <label class="invisible">Graficar</label>
-                                    <button type="button" id="boton-filtrohorasextras" class="btn btn-block btn-primary">Listar</button>
-                                 </div>
-                              </div>
-                              <!-- /.col -->
-                           </div>
-                           <div class="card-body" id="horas-extras">
-                           </div>
-                           <!-- /.row -->
-                        </div>
-                     </div>
-                  </div>
                   <div class="container">
                      <div class="card">
-                        <div class="card-header border-0">
-                           <div class="d-flex justify-content-between">
-                              <h3 class="card-title">Horas extras</h3>
+                        <section class="content">
+                           <div class="box box-info ">
+                              <div class="box-body">
+                                 <div class="table-responsive">
+                                    <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
+                                       <thead>
+                                          <tr>
+                                             <th></th>
+                                             <th>Rut</th>
+                                             <!-- 0 ---> 
+                                             <th>Nombre</th>
+                                             <!-- 1 --->
+                                             <th>Fecha</th>
+                                             <th>Asistente</th>
+                                             <!-- 3 --->
+                                             <th>Detalle</th>
+                                             <!-- 4 --->
+                                             <!--<th>Accion</th>
+                                                5 --->
+                                          </tr>
+                                       </thead>
+                                    </table>
+                                 </div>
+                              </div>
                            </div>
-                        </div>
-                        <div class="card-body">
-                           <div class="position-relative mb-4" id="gh">
-                              <canvas id="myChart" height="200"></canvas>
-                           </div>
-                        </div>
                      </div>
                   </div>
                </div>
@@ -338,7 +326,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js" integrity="sha512-hZf9Qhp3rlDJBvAKvmiG+goaaKRZA6LKUO35oK6EsM0/kjPK32Yw7URqrq3Q+Nvbbt8Usss+IekL7CRn83dYmw==" crossorigin="anonymous"></script>
 <script src="<?php echo base_url()?>assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script>var base_url = '<?php echo base_url();?>';</script>
-<script src="<?php echo base_url();?>assets/js/Asistencia/asistencia.js"></script>
+<script src="<?php echo base_url();?>assets/js/Asistencia/vacaciones.js"></script>
 <script>
    //Mostrar tabla principal
    $(document).ready(function(){
@@ -353,7 +341,7 @@
      },
        "columnDefs":[
          {
-             "targets": [1,2,3,4,5],
+             "targets": [1,2,3],
          }
        ]
      });

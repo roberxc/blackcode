@@ -39,7 +39,7 @@ class Administracion extends CI_Controller {
 
 	public function CajaEgreso()
 	{
-		
+		$data ['activomenu'] = 5;
 		$data ['activo'] = 5;
 		$this->load->view('layout/nav');
 		$this->load->view('menu/menu_supremo',$data);
@@ -49,7 +49,7 @@ class Administracion extends CI_Controller {
 
 	public function CajaIngreso()
 	{
-		
+		$data ['activomenu'] = 5;
 		$data ['activo'] = 5;
 		$data['include_css'] = array("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css");
 		$this->load->view('layout/nav');
@@ -59,6 +59,7 @@ class Administracion extends CI_Controller {
 	}
 	public function MenuCaja()
 	{
+		$data ['activomenu'] = 5;
 		$data ['activo'] = 5;
 		$data ['totalcajachica'] = $this->CajaChicaModel->obtenerTotalCajaChica();
 		$this->load->view('layout/nav');
@@ -425,7 +426,61 @@ class Administracion extends CI_Controller {
 			echo "'No direct script access allowed'";
 		}
 
-    }
+	}
+	
+	public function obtenerCostosFijos()
+    {
+        $fetch_data = $this->AdministracionModel->make_datatables_costosfijos();
+        $data = array();
+        foreach ($fetch_data as $value){
+            $sub_array = array();
+            $sub_array[] = $value->fecha;
+            $sub_array[] = $value->valor;
+			$sub_array[] = $value->tipo;
+			$sub_array[] = $value->detalle;
+            $sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal" id="eyedetalle-orden" data-target="#modal-detalle-orden" onclick="setTablaDetalle(this)"><i class="far fa-eye"></i></button><button class="btn btn-success btn-sm" data-toggle="modal" id="estado-orden" data-target="#modal-estado-orden" onclick="setTablaEstado(this)"><i class="fas fa-edit"></i></button>';
+            $data[] = $sub_array;
+        }
+
+        $output = array(
+            "draw" => intval($_POST["draw"]) ,
+            "recordsTotal" => $this->AdministracionModel->get_all_data_costosfijos() ,
+            "recordsFiltered" => $this->AdministracionModel->get_filtered_data_costosfijos() ,
+            "data" => $data
+        );
+        echo json_encode($output);
+
+	}
+	
+	public function graficarCostosFijos(){
+		if ($this->input->is_ajax_request()) {
+			//Validaciones
+			$this->form_validation->set_rules('fecha_inicial', 'Fecha', 'required');
+			$this->form_validation->set_rules('fecha_termino', 'Fecha', 'required');
+
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+				echo json_encode($data);
+			} else {
+				$ajax_data = $this->input->post();
+				$fechainicio = $ajax_data['fecha_inicial'];
+                $fechatermino = $ajax_data['fecha_termino'];
+				$res = $this->AdministracionModel->generarEstadisticasCostosFijos($fechainicio,$fechatermino);
+                if($res){
+                    $data = array('response' => 'success', 'message' => 'Exito');
+                }else{
+                    $data = array('response' => 'error', 'message' => $res);
+                }
+                
+                
+            
+            
+            }
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+	}
 }
 
 ?>

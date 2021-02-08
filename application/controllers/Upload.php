@@ -103,6 +103,38 @@ class Upload extends CI_Controller{
 		}
 	}
 
+	public function updateDocumentacionActualizable(){
+		//El metodo is_ajax_request() de la libreria input permite verificar
+		//si se esta accediendo mediante el metodo AJAX 
+		if ($this->input->is_ajax_request()) {
+			$nombredocumento = $this->input->post("nombre-documento");
+			$fechalimite = $this->input->post("fecha-limite");
+			$iddoc = $this->input->post("id-doc");
+			
+			
+			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+			$config = [
+				"upload_path" => APPPATH. '../ArchivosSubidos/',
+				'allowed_types' => "jpg|png|pdf|docx|jepg"
+			];
+
+			$this->load->library("upload",$config);
+
+			if ($this->upload->do_upload('pic-file-update')) {
+				$data = array("upload_data" => $this->upload->data());
+				if($this->pic_model->updateDocumentacionActualizable($data,$nombredocumento,$fechalimite,$iddoc)==true){
+					echo "exito";
+				}else{
+					echo "error";
+				}
+			}else{
+				echo $this->upload->display_errors();
+			}
+		}else{
+			show_404();
+		}
+	}
+
 	public function subirCotizaciones(){
 		//El metodo is_ajax_request() de la libreria input permite verificar
 		//si se esta accediendo mediante el metodo AJAX 

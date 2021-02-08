@@ -12,7 +12,6 @@ class PlantillaOperaciones extends CI_Controller {
 		$data ['activo'] = 2;
 		$data ['codigo'] = $codigo;
 		$estadoplanilla = $this->OperacionesModel->ObtenerEstadoPlantilla($data['codigo']);
-		//print_r($data['accion']);
 		if(isset($estadoplanilla)){
 			foreach($estadoplanilla as $row){
 				$data ['asistencia_estado'] = $row->asistencia;

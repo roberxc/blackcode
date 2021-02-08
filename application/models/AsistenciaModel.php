@@ -9,8 +9,7 @@ class AsistenciaModel extends CI_Model
         parent::__construct();
     }
 
-    public function registrarAsistenciaPersonal($data)
-    {
+    public function registrarAsistenciaPersonal($data){
         $rut_personal = $data['rut'];
         $nombre_completo = $data['nombrecompleto'];
         //Registro de personal
@@ -119,8 +118,7 @@ class AsistenciaModel extends CI_Model
         return $this->db->insert('asistencia_personal', $insert_data);
     }
 
-    function make_datatables_asistencia()
-    {
+    function make_datatables_asistencia(){
         $this->make_query_stock();
         if ($_POST["length"] != - 1){
             $this->db->limit($_POST['length'], $_POST['start']);

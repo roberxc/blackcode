@@ -1,20 +1,19 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Asistencia extends CI_Controller
+class CAsistencia extends CI_Controller
 {
 
     public function __construct()
     {
         parent::__construct(); // you have missed this line.
         $this->load->model('AsistenciaModel');
-        $this->load->model('OperacionesModel');
     }
 
     public function index()
     {
         $data['activomenu'] = 4;
-        $data['activo'] = 5;
+        $data['activo'] = 55;
         $data['lista_personal'] = $this->AsistenciaModel->listaPersonal();
         $this->load->view('layout/nav');
         $this->load->view('menu/menu_admin_personal', $data);
@@ -22,26 +21,16 @@ class Asistencia extends CI_Controller
         $this->load->view('layout/footer');
     }
 
-    public function AsistenciaEspera()
-    {
+    public function AsistenciaEspera(){
         $data['activomenu'] = 4;
         $data['activo'] = 6;
-        $this
-            ->load
-            ->view('layout/nav');
-        $this
-            ->load
-            ->view('menu/menu_admin_personal', $data);
-        $this
-            ->load
-            ->view('Asistencia/AsistenciaEspera');
-        $this
-            ->load
-            ->view('layout/footer');
+        $this->load->view('layout/nav');
+        $this->load->view('menu/menu_admin_personal', $data);
+        $this->load->view('Asistencia/AsistenciaEspera');
+        $this->load->view('layout/footer');
     }
 
-    public function ingresoAsistencia()
-    {
+    public function ingresoAsistencia(){
         if ($this
             ->input
             ->is_ajax_request())
@@ -85,14 +74,10 @@ class Asistencia extends CI_Controller
 
     }
 
-    public function obtenerAsistencia()
-    {
-        $fetch_data = $this
-            ->AsistenciaModel
-            ->make_datatables_asistencia();
+    public function obtenerAsistencia(){
+        $fetch_data = $this->AsistenciaModel->make_datatables_asistencia();
         $data = array();
-        foreach ($fetch_data as $value)
-        {
+        foreach ($fetch_data as $value){
 
             $sub_array = array();
             $sub_array[] = '<input type="hidden" value='.$value->id_personal.'" class="name-file" disabled/>';
@@ -110,20 +95,17 @@ class Asistencia extends CI_Controller
         }
         $output = array(
             "draw" => intval($_POST["draw"]) ,
-            "recordsTotal" => $this
-                ->AsistenciaModel
-                ->get_all_data_stock() ,
-            "recordsFiltered" => $this
-                ->AsistenciaModel
-                ->get_filtered_data_stock() ,
+            "recordsTotal" => $this->AsistenciaModel->get_all_data_stock() ,
+            "recordsFiltered" => $this->AsistenciaModel->get_filtered_data_stock() ,
             "data" => $data
         );
+    
+        
         echo json_encode($output);
 
     }
 
-    public function obtenerAsistenciaCompleta()
-    {
+    public function obtenerAsistenciaCompleta(){
         $ajax_data = $this->input->post(); //Datos que vienen por POST
         $asistencia_planilla = $this->AsistenciaModel->ObtenerAsistenciaCompleta($ajax_data['id_personal']);
 

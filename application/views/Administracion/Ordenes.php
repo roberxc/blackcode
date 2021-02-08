@@ -267,7 +267,6 @@
                   <i class="fas fa-plus" id="nuevo-producto">
                   </i> Exportar
                   </a>
-                  <p>(no se si este bien aqui el exportar xD)</p>
                   <div class="card-body" id="dynamic_field" >
                      <div class="box-body">
                         <div class="modal-body" id="detalle-ordenes">
