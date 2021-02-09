@@ -521,7 +521,7 @@ function make_datatables_ProyectoEjecutados(){
  var $select_columna_ProyectoEjecutados = array(
        "p.id_proyecto",
        "p.nombreproyecto",
-     "u.nombre_completo as nombreusuario",
+
      "p.fecha_inicio",
      "p.fecha_termino",
      "pu.estado",
@@ -530,7 +530,7 @@ function make_datatables_ProyectoEjecutados(){
  var $order_columna_ProyectoEjecutados = array(
      "p.id_proyecto",
      "p.nombreproyecto",
-     "u.nombre_completo ",
+   
      "p.fecha_inicio",
      "p.fecha_termino",
      "pu.estado",

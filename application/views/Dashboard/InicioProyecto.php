@@ -33,9 +33,9 @@
               <a href="<?php echo base_url();?>Proyecto/Estado_proyecto" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-            <!-- ./col ------------------------------------------------------->
+            <!-- ./col ------------------------------------------------
           <div class="col-lg-3 col-6">
-            <!-- small box -->
+            
             <div class="small-box bg-success">
               <div class="inner">
                 <p>Cotización</p>
@@ -47,7 +47,7 @@
               Ingresar <i class="fas fa-arrow-circle-right"></i></a>
               
             </div>
-          </div>
+          </div>------->
           <!-- ./col ------------------------------------------------------->
           <div class="col-lg-3 col-6">
             <!-- small box -->
