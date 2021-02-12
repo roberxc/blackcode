@@ -117,27 +117,21 @@
          <div class="container">
             <div class="row pad-top-bottom  move-me">
                <div class="col-lg-5 col-md-5 col-sm-5 text-center">
-                  <form id="fromProyecto">
-                     <label>Nombre Proyecto</label>
-                     <div class="form-group">
-                        <input type="text" class="form-control" id="nombreProyecto" required="required"  />
-                     </div>
-                     <label>Fecha de inicio</label>
-                     <div class="form-group">
-                        <input type="date" class="form-control" id="fechaInicio" required="required"  />
-                     </div>
-                     <label>Fecha de termino</label>
-                     <div class="form-group">
-                        <input type="date" class="form-control" id="fechaTermino" required="required"  />
-                     </div>
-                     <label>Monto total del proyecto</label>
-                     <div class="form-group">
-                        <input type="number" class="form-control" id="monto" required="required" />
-                     </div>
-                     <div class="form-group">
-                        <button type="button" id="addProyecto"  class="btn custom-btn-one">Guardar</button>
-                     </div>
-                  </form>
+
+               <label for="cars" >Seleccione Partidas del proyecto:</label>
+                  <select class="form-control select2bs4" name="partidas3" onchange="actualizarResumen()" id="partidas3" style="width: 100%; height: 60%">
+                  <option value="0" selected>Seleccione</option>
+                  <?php
+                     
+                     foreach($partidas as $i){
+                        echo '<option value="'. $i->id_partidas .'">'. $i->nombre .'</option>';
+                     }
+                     ?>
+                  </select>
+                  
+                 
+                  <div class="modal-body" id="resumen-proyecto">
+                  </div>
                </div>
                <div class="col-lg-2 col-md-2 col-sm-2 text-center  ">
                   <a href="<?php echo base_url(); ?> nicio" data-toggle="modal" data-target="#modal-lg" class="small-box-footer" class="wow bounceIn animated" data-wow-duration="1s" data-wow-delay=".1s">
@@ -169,26 +163,15 @@
                      <i class="fa fa-briefcase icon-round "></i>
                      <h4 class="wow bounceIn animated" data-wow-duration="1s" data-wow-delay=".6s">Flete traslado</h4>
                   </a>
-                  <a href="<?php echo base_url(); ?> nicio" data-toggle="modal" data-target="#modal-lg3" class="small-box-footer" class="wow bounceIn animated" data-wow-duration="1s" data-wow-delay=".7s">
+                  <a href="<?php echo base_url() ?>Inicio" class="nav-link"  class="small-box-footer" class="wow bounceIn animated" data-wow-duration="1s" data-wow-delay=".7s">
                      <i class="fa fa-paper-plane-o icon-round"></i>
                      <h4 class="wow bounceIn animated" data-wow-duration="1s" data-wow-delay=".12s">Salir</h4>
                   </a>
                </div>
-               <div class="col-lg-5 col-md-5 col-sm-5 text-center">
-                  <label for="cars" >Seleccione Partidas del proyecto:</label>
-                  <select class="form-control select2bs4" name="partidas3" onchange="actualizarResumen()" id="partidas3" style="width: 100%; height: 60%">
-                  <option value="0" selected>Seleccione</option>
-                  <?php
-                     
-                     foreach($partidas as $i){
-                        echo '<option value="'. $i->id_partidas .'">'. $i->nombre .'</option>';
-                     }
-                     ?>
-                  </select>
-                  
-                 
-                  <div class="modal-body" id="resumen-proyecto">
+               <div class="col-lg-4 col-md-4 col-sm-4 text-center">
+               <div class="modal-body" id="precioSugeridoProyecto">
                   </div>
+                  
             </div>
 
                   
@@ -612,7 +595,7 @@
       <div class="modal-dialog modal-lg">
          <div class="modal-content">
             <div class="modal-header">
-               <h4 class="modal-title">Registrar porcentajes</h4>
+               <h4 class="modal-title">Registrar flete traslado</h4>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
                </button>

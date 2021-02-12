@@ -48,7 +48,14 @@ class Proyecto extends CI_Controller
 		$this->load->view('Proyecto/Evaluacion');
         $this->load->view('layout/footer');
     }
-
+    public function Registro_proyecto()
+    {      
+        $data ['activo'] = 4;
+        //$this->load->view('layout/nav');
+        $this->load->view('menu/menu_proyecto',$data);
+		$this->load->view('Proyecto/RegistroProyecto');
+        $this->load->view('layout/footer');
+    }
     public function obtenerDetalleDespiece(){
 		$ajax_data = $this->input->post(); //Datos que vienen por POST
 		$lista_etapas = $this->Proyecto_model->MostrarpartidasEtapas($ajax_data['id_partida']);
@@ -328,10 +335,10 @@ public function GuardarFleteTraslado(){
         $ajax_data = $this->input->post();
         $res = $this->Proyecto_model->ingresoFleteTraslado($ajax_data);
         if ($res) {
-            $data = array('response' => "error", 'message' => $res);
+            $data = array('response' => "success", 'message' => $res);
            
         }else{
-            $data = array('response' => "success", 'message' => "Guardado exitosamente!");
+            $data = array('response' => "error", 'message' => "ERRRROR!");
         }
         echo json_encode($data);
     } else {
@@ -348,13 +355,17 @@ public function obtenerResumenProyecto(){
         $lista_supervision = $this->Proyecto_model->obtenerSupervision($ajax_data);
         $lista_porcentaje = $this->Proyecto_model->obtenerPorcentaje($ajax_data);
         $lista_fletetraslado = $this->Proyecto_model->obtenerFleteTraslado($ajax_data);
+        $lista_gastoGeneral = $this->Proyecto_model->totalGastoGeneral($ajax_data);
+        $lista_comisiones = $this->Proyecto_model->totalComisiones($ajax_data);
+        $lista_ingenieria = $this->Proyecto_model->totalIngenieria($ajax_data);
+        $lista_utilidades = $this->Proyecto_model->totalUtilidades($ajax_data);
         $response ="<TABLE BORDER class='table table-bordered'>";
         $subtotal = 0;
         foreach($lista_etapas as $row){
             $subtotal = intval($row->SubTotal);
             $response .="<TR>";
             $response .="<TH>Subtotal por partida</TH>";
-            $response .="<TD>".$subtotal."</TD>";
+            $response .="<TD>$".$subtotal."</TD>";
         }
             $response .="</TR>";
         $imprevisto = 0;
@@ -362,77 +373,82 @@ public function obtenerResumenProyecto(){
             $imprevisto = $subtotal * (float)$row->imprevisto;
             $response .="<TR>";
             $response .="<TH>Imprevistos</TH>";
-            $response .="<TD>".$imprevisto."</TD>";
+            $response .="<TD>$".$imprevisto."</TD>";
             $response .="</TR>";
         }
 
         $costomaterial = intval($subtotal)+intval($imprevisto);
             $response .="<TR>";
             $response .="<TH>Costo materiales</TH>";
-            $response .="<TD>".$costomaterial."</TD>";
+            $response .="<TD>$".$costomaterial."</TD>";
             $response .="</TR>";
 
         $instalacion=0;
         foreach($lista_instalacion as $row){
+            $instalacion = $row->instalacion;
             $response .="<TR>";
             $response .="<TH>Instalación</TH>";
-            $response .="<TD>".$row->instalacion."</TD>";
+            $response .="<TD>$".$row->instalacion."</TD>";
             $response .="</TR>";
         }
         $supervision=0;
         foreach($lista_supervision as $row){
+            $supervision = $row->supervision;
             $response .="<TR>";
             $response .="<TH>Supervisión</TH>";
-            $response .="<TD>".$row->supervision."</TD>";
+            $response .="<TD>$".$row->supervision."</TD>";
             $response .="</TR>";
         }
+        //echo"Costo material: ".$costomaterial."\n";
+        //echo"Instalacion: ".$instalacion."\n";
+        //echo"Supervision: ".$supervision."\n";
+
         $valorEquipamiento = intval($costomaterial)+intval($instalacion)+intval($supervision);
+
             $response .="<TR>";
             $response .="<TH>Valor equipamiento instalado</TH>";
-            $response .="<TD>".$valorEquipamiento."</TD>";
+            $response .="<TD>$".$valorEquipamiento."</TD>";
             $response .="</TR>";
         
         $valor=0;
         foreach($lista_fletetraslado as $row){
+            $valor=intval($row->valor);
             $response .="<TR>";
             $response .="<TH>Flete traslado </TH>";
-            $response .="<TD>".$row->valor."</TD>";
+            $response .="<TD>$".$row->valor."</TD>";
             $response .="</TR>";
         }
-        $generales=0;
-        $comision=0;
-        $ingenieria=0;
-        $utilidades=0;
-
-        foreach($lista_porcentaje as $row){
-            $generales=(float)$row ->gasto_generales*100;
             $response .="<TR>";
             $response .="<TH>Gastos generales </TH>";
-            $response .="<TD>".$generales."%</TD>";
+            $response .="<TD>$".$lista_gastoGeneral."</TD>";
             $response .="</TR>";
-
-            $comision=(float)$row ->comisiones*100;
+        $comisiones=0;
+        
             $response .="<TR>";
             $response .="<TH>Comisiones </TH>";
-            $response .="<TD>".$comision."%</TD>";
+            $response .="<TD>$".$lista_comisiones."</TD>";
             $response .="</TR>";
-
-            $ingenieria=(float)$row ->ingenieria*100;
+        $ingenieria=0;
+        
+           
             $response .="<TR>";
             $response .="<TH>Ingeniería </TH>";
-            $response .="<TD>".$ingenieria."%</TD>";
+            $response .="<TD>$".$lista_ingenieria."</TD>";
             $response .="</TR>";
-
-            $utilidades=(float)$row ->utilidades*100;
+            
+        
+        $utilidades=0;
+            
             $response .="<TR>";
             $response .="<TH>Utilidades </TH>";
-            $response .="<TD>".$utilidades."%</TD>";
+            $response .="<TD>$".$lista_utilidades."</TD>";
             $response .="</TR>";
-        }
-        $Preciosugerido = intval($valorEquipamiento)+intval($valor)+intval($generales)+intval($comision)+intval($ingenieria)+intval($utilidades);  
+            
+    
+        $Preciosugerido = intval($valorEquipamiento)+intval($valor)+(float)$lista_gastoGeneral+(float)$lista_comisiones+(float)$lista_ingenieria+(float)$lista_utilidades;  
             $response .="<TR>";
             $response .="<TH>Precio sugerido venta </TH>";
-            $response .="<TD>".$Preciosugerido."</TD>";
+            $response .="<TD>$".$Preciosugerido."</TD>";
             $response .="</TR>";
         
         $response .="</TABLE>";
@@ -443,8 +459,26 @@ public function obtenerResumenProyecto(){
    
 
 }
+public function obtenerPrecioVenta(){
 
-   
+    $PreciosugeridoVenta = $this->Proyecto_model->obtenerPrecioSugeridoProyecto();
 
+    $response ="<TABLE BORDER class='table table-bordered'>";
+    $response .="<TR>";
+    $response .="<TD class='bg-info'><h5>Precio sugerido Proyecto</h5></TD>"; 
+    $response .="</TR>";
+
+
+    foreach($PreciosugeridoVenta as $row){
+    $response .="<TR>";
+    $response .="<TD scope='col'>$".$row->PrecioSugerido."</TD>"; 
+    $response .="</TR>";
+    }
+    $response .="</TABLE>";
+    
+    $data = array('response' => 'success', 'detalle' => $response);
+
+    echo json_encode($data);
+}
 
 }
