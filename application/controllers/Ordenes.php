@@ -36,8 +36,10 @@ class Ordenes extends CI_Controller
             $sub_array = array();
             $sub_array[] = $value->nroorden;
             $sub_array[] = $value->fecha;
+			$sub_array[] = $value->rut;
 			$sub_array[] = $value->nombre;
 			$sub_array[] = $value->total;
+
 			if($value->estado == 0){
 				$sub_array[] = 'Por aprobar';
 			}
@@ -45,8 +47,10 @@ class Ordenes extends CI_Controller
 			if($value->estado == 1){
 				$sub_array[] = 'Aprobada';
 			}
+			$sub_array[] = $value->id_cotizacion;
             $sub_array[] = '<a href="#" class="fas fa-eye" data-toggle="modal" id="eyedetalle-orden" data-target="#modal-detalle-orden" onclick="setTablaDetalle(this)"></a>';
-            $data[] = $sub_array;
+			//$sub_array[] = '<a href="#"  class="fas fa-eye" data-toggle="modal" onclick="verMas('.$value->nroorden.');">';
+			$data[] = $sub_array;
         }
 
         $output = array(
@@ -57,7 +61,34 @@ class Ordenes extends CI_Controller
         );
         echo json_encode($output);
 
+	}
+	
+
+	public function fetch_vermas_data()
+    {
+        $this->load->model('OrdenesModel', 'reajustar');
+
+		$fetch_data = $this->reajustar->make_model_vermas($this->input->get('id'))[0];
+		$data = array();
+        foreach ($fetch_data as $value){
+            $sub_array = array();
+            $sub_array[] = $value->nroorden;
+            $sub_array[] = $value->nombre;
+			$sub_array[] = $value->cantidad;
+			$sub_array[] = $value->preciounitario;
+			$data[] = $sub_array;
+		}
+			
+
+		$output = array(
+            "draw" => intval($_POST["draw"]) ,
+            "recordsTotal" => $this->reajustar->get_all_data_vermas() ,
+            "recordsFiltered" => $this->reajustar->get_filtered_data_vermas() ,
+            "data" => $data
+        );
+        echo json_encode($data);
     }
+
 
     public function productoNuevo(){
 		if ($this->input->is_ajax_request()) {
@@ -109,7 +140,7 @@ class Ordenes extends CI_Controller
 		$horas_extras = $this->OrdenesModel->ObtenerDetalleOrden($ajax_data['iditem']);
 		
 		$response = "<div class='table-responsive'>";
-		$response .= "<table class='table table-bordered'>";
+		$response .= "<table class='table table-bordered' id='productos_detalle' name='productos_detalle'>";
 		$response .= "<tr>";
 		$response .= "<td>";
 		$response .= "<label>Numero</label>";
@@ -145,12 +176,16 @@ class Ordenes extends CI_Controller
 		$response .= "</table>";
 		$response .= "</div>";
 
+
 		$data = array('response' => 'success', 'detalle' => $response);
 
 
 		echo json_encode($data);
 	}
 
+
+
+	
     
 }
 

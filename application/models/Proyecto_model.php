@@ -266,9 +266,10 @@ class Proyecto_model extends CI_Model {
           //etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas = d.id_etapas and
           //e.id_etapas=f.id_etapas AND p.id_partidas= 43;
 */
-          $sql = "SELECT sum(total) SubTotal FROM (SELECT total FROM despiece d, partidas p,etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas = d.id_etapas AND e.id_partidas= ".$id_partida['id_partida']." union all SELECT valor FROM  partidas p, fletes f,etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas=f.id_etapas AND e.id_partidas= ".$id_partida['id_partida']." )t GROUP BY total";
+          $sql = "SELECT sum(total) SubTotal FROM (SELECT total FROM despiece d, partidas p,etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas = d.id_etapas AND e.id_partidas= ".$id_partida['id_partida']." union all SELECT valor FROM partidas p, fletes f,etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas=f.id_etapas AND e.id_partidas= ".$id_partida['id_partida']." )t GROUP BY total";
           $query = $this->db->query($sql);  
 
+        
           return $query->result();
      }
 

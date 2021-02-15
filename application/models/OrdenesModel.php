@@ -230,6 +230,8 @@ class OrdenesModel extends CI_Model {
         "ordenes_cotizaciones.fecha",
         "estado",
         "proveedores.nombre",
+        "proveedores.rut",
+        "cotizaciones.id_cotizacion",
     );
 
     var $order_columna_ordenes = array(
@@ -254,7 +256,7 @@ class OrdenesModel extends CI_Model {
             $this->db->order_by($this->order_columna_ordenes[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
         
         }else{
-            $this->db->order_by('id_orden', 'ASC');
+            $this->db->order_by('nroorden', 'ASC');
         }
     }
 
@@ -284,7 +286,47 @@ class OrdenesModel extends CI_Model {
         // if (count($query->result()) > 0) {
         return $query->result();
         // }
-	}
+    }
+    
+
+
+
+
+
+    /////////////////xddddddddddddddd ESTO ES UNA PRUEBA PARA EL DETALLE ORDEN DE COMPRA
+    var $order_columna_ordenesss = array(
+        "nroorden",
+		"nombre",
+    );
+
+    function make_query_vermas($IDENTRADA = '0')
+    {
+        $this->db->SELECT('nroorden, nombre, cantidad, preciounitario');
+        $this->db->from('ordenes_materiales, ordenes, materiales_comprados ');
+        $this->db->where('ordenes.id_orden = ordenes_materiales.id_orden AND materiales_comprados.id_material = ordenes_materiales.id_material AND ordenes.nroorden =',$IDENTRADA);
+    }
+
+    function make_model_vermas($IDENTRADA = '0')
+    {
+        $this->make_query_vermas($IDENTRADA);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    function get_filtered_data_vermas()
+    {
+        $this->make_query_vermas($IDENTRADA = '0');
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+    function get_all_data_vermas()
+    {
+        $this->db->SELECT('nroorden, nombre,cantidad , preciounitario ');
+        $this->db->from('ordenes_materiales, ordenes, materiales_comprados ');
+        $this->db->where('ordenes.id_orden = ordenes_materiales.id_orden AND materiales_comprados.id_material = ordenes_materiales.id_material');
+        return $this->db->count_all_results();
+    }
+
+
 
 }
 

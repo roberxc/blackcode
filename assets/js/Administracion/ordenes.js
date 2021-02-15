@@ -1,3 +1,9 @@
+
+$(function () {
+    cargarTabla()
+});
+
+
 var i=1;
 
 $("#añadir-orden").on('click', function(event) {
@@ -237,4 +243,117 @@ function generarAvisoExitoso($mensaje) {
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     }
+}
+
+
+var dataTablee;
+function verMas(id){
+    $('#myModalVerMas').modal('show')
+    dataTable = $('#table_vermas_reajustar_stock').DataTable({
+        aLengthMenu: [
+            [15, 30, 50, 100, -1],
+            [15, 30, 50, 100, "All"],
+        ],
+        "processing": true,
+        "serverSide": true,
+        "order": [],
+        "ajax": {
+            url: base_url+"Ordenes/fetch_vermas_data",
+            type: "GET",
+            data : { id : id},
+        },
+        "columnDefs": [
+            {
+                "targets": [ 0, 1, 2],  // elementos de la tabla table_reajustar_stock 0 1 2 3 -> el 4 estaba dando drama de stilo
+                'className': 'vcenter',
+            }
+        ],
+        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+
+        }
+    });
+    /*$.ajax({
+    url: base_url+"Ordenes/fetch_vermas_data",
+    type: "GET",
+    dataType: "json",
+    data: {
+        id: id,
+    },
+
+        success : function(response) {
+           console.log(response);
+           $('#table_vermas_reajustar_stock > tbody').empty()
+           $('#table_vermas_reajustar_stock > tbody').append("<tr><td>"+response.nroorden+"</td><td>"+response.nombre+"</td><td>"+response.cantidad+"</td><td>"+response.preciounitario+"</td></tr>");
+        },
+    
+        error : function(xhr, status) {
+           console.log(xhr)
+        },
+    
+        complete : function(xhr, status) {
+    
+        }
+    });*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var dataTable;
+cargarTabla = function () {
+    dataTable = $('#table_vermas_reajustar_stock').DataTable({
+        aLengthMenu: [
+            [15, 30, 50, 100, -1],
+            [15, 30, 50, 100, "All"],
+        ],
+        "processing": true,
+        "serverSide": true,
+        "order": [],
+        "ajax": {
+            url: base_url+"Ordenes/fetch_vermas_data",
+            type: "GET",
+            data : { id : id},
+        },
+        "columnDefs": [
+            {
+                "targets": [ 0, 1, 2, 3],  // elementos de la tabla table_reajustar_stock 0 1 2 3 -> el 4 estaba dando drama de stilo
+                'className': 'vcenter',
+            }
+        ],
+        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+
+        }
+    });
 }
