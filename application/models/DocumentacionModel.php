@@ -195,6 +195,30 @@ class DocumentacionModel extends CI_Model {
         // }
     }
 
+
+	public function ObtenerFechaDocActualizable(){
+		$query = $this->db
+				->select("fechalimite") # También puedes poner * si quieres seleccionar todo
+				->from("documentacion_empresa")
+				->where("tipo",1)
+				->get();
+        // if (count($query->result()) > 0) {
+        return $query->result();
+        // }
+    }
+
+	public function ObtenerNroDocActualizable($fechalimite){
+		$query = $this->db
+				->select("id_documentos") # También puedes poner * si quieres seleccionar todo
+				->from("documentacion_empresa")
+				->where("tipo",1)
+				->where("fechalimite",$fechalimite)
+				->get();
+        // if (count($query->result()) > 0) {
+        return $query->result();
+        // }
+    }
+
 }
 
 ?>

@@ -34,163 +34,64 @@
                <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
                   <br>
                   <div class="card-body">
+                  <form id="form-descargar-detalle-vacaciones" role="form" action="Vacaciones/descargarDetalle" method="POST">
                      <div class="row">
-                              <div class="col-md-3">
-                                 <!-- /.form-group -->
-                                 <div class="form-group">
-                                    <label>Rut</label>
-                                    <div class="form-group">
-                                       <select name="rutpersonal" id="rutpersonal" style="width: 100%; height: 60%">
-                                       <?php
-                                          foreach($lista_personal as $i){
-                                             echo '<option value="'.$i->id_personal.'">'. $i->rut .'</option>';
-                                             }
-                                             ?>
-                                       </select>
-                                    </div>
-                                 </div>
-                                 <!-- /.form-group -->
-                              </div>
-
-                              <div class="col-md-3">
-                                 <!-- /.form-group -->
-                                 <div class="form-group">
-                                    <label>Dias pedidos</label>
-                                    <input type="text" id="diaspedidos" class="form-control">
-                                 </div>
-                                 <!-- /.form-group -->
-                              </div>
-                              <div class="col-md-2">
-                                 <!-- /.form-group -->
-                                 <div class="form-group">
-                                    <label class="invisible">Actualizar</label>
-                                    <button type="button" id="boton-filtrodetallevacaciones" class="btn btn-block btn-primary">Actualizar</button>
-                                 </div>
-                              </div>
-                              <!-- /.col -->
-                           </div>
-
-                           <div class="row">
-                              <div class="col-md-3">
-                                 <!-- /.form-group -->
-                                 <div class="form-group">
-                                    <label>Fecha inicio trabajo</label>
-                                    <input type="date" id="fecha_iniciotrabajo" name="date_range" class="form-control">
-                                 </div>
-                                 <!-- /.form-group -->
-                              </div>
-
-                              <div class="col-md-3">
-                                 <!-- /.form-group -->
-                                 <div class="form-group">
-                                    <label>Fecha termino trabajo</label>
-                                    <input type="date" id="fecha_terminotrabajo" name="date_range" class="form-control">
-                                 </div>
-                                 <!-- /.form-group -->
-                              </div>
-
-                              <!-- /.col -->
-                           </div>
-                           <div class="card-body" id="detalle-vacaciones">
-                           </div>
-                  </div>
-                  </section>
-                  <div class="modal fade" id="modal-ingreso-asistencia">
-                     <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                           <div class="modal-header">
-                              <div align="center"><img src=""></div>
-                              </br>
-                              <h4 class="modal-title">Registros</h4>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                              </button>
-                           </div>
-                           <div class="card card-default">
-                              <!-- /.card-header -->
-                              <div class="card-body">
-                                 <div class="row">
-                                    <div class="col-md-6">
-                                       <div class="form-group">
-                                          <label>Rut</label>
-                                          <input type="text" class="form-control" placeholder="Ingrese" id="rut">
-                                       </div>
-                                       <div class="form-group">
-                                          <label>Fecha</label>
-                                          <input type="date" class="form-control" placeholder="Ingrese" id="fecha" format="d/m/y">
-                                       </div>
-                                    </div>
-                                    <!-- /.col -->
-                                    <div class="col-md-6">
-                                       <div class="form-group">
-                                          <label>Nombre completo</label>
-                                          <input type="text" class="form-control" placeholder="Ingrese" id="nombrecompleto">
-                                       </div>
-                                    </div>
-                                    <!-- /.col -->
-                                 </div>
-                                 </br>
-                                 <hr class="mt-2 mb-3"/>
-                                 <h5>Jornada mañana</h5>
-                                 <br>
-                                 <div class="row">
-                                    <div class="col-md-6">
-                                       <div class="form-group">
-                                          <label>Hora de entrada</label>
-                                          <input type="time" class="form-control" placeholder="Ingrese" value="08:30" id="hora_llegadam">
-                                       </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                       <div class="form-group">
-                                          <label>Hora de salida</label>
-                                          <input type="time" class="form-control" placeholder="Ingrese" value="14:00" id="hora_salidam">
-                                       </div>
-                                    </div>
-                                    <!-- /.col -->
-                                 </div>
-                                 </br>
-                                 <hr class="mt-2 mb-3"/>
-                                 <h5>Jornada tarde</h5>
-                                 <br>
-                                 <div class="row">
-                                    <div class="col-md-6">
-                                       <div class="form-group">
-                                          <label>Hora de entrada</label>
-                                          <input type="time" class="form-control" placeholder="Ingrese" value="15:00" id="hora_llegadat">
-                                       </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                       <div class="form-group">
-                                          <label>Hora de salida</label>
-                                          <input type="time" class="form-control" placeholder="Ingrese" value="18:30" id="hora_salidat">
-                                       </div>
-                                    </div>
-                                 </div>
-                                 </br>
-                                 <hr class="mt-2 mb-3"/>
-                                 <div class="row">
-                                    <div class="col-md-6">
-                                       <div class="card card-primary">
-                                          <div class="card-header">
-                                             <h3 class="card-title">Asistente</h3>
-                                          </div>
-                                          <div class="card-body">
-                                             <input type="checkbox" id="estado_asistencia" checked data-toggle="toggle" data-on="Si" data-off="No" data-onstyle="success" data-offstyle="danger" >
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
+                        <div class="col-md-3">
+                           <!-- /.form-group -->
+                           <div class="form-group">
+                              <label>Rut</label>
+                              <div class="form-group">
+                                 <select name="rutpersonal" id="rutpersonal" style="width: 100%; height: 60%">
+                                 <?php
+                                    foreach($lista_personal as $i){
+                                       echo '<option value="'.$i->id_personal.'">'. $i->rut .'</option>';
+                                       }
+                                       ?>
+                                 </select>
                               </div>
                            </div>
-                           <!-- /.card-body -->
-                           <div class="modal-footer justify-content-between">
-                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                              <button type="button" class="btn btn-primary" id="guardar-asistencia">Guardar</button>
+                           <!-- /.form-group -->
+                        </div>
+                        <div class="col-md-3">
+                           <!-- /.form-group -->
+                           <div class="form-group">
+                              <label>Dias pedidos</label>
+                              <input type="text" id="diaspedidos" name="diaspedidos" class="form-control">
+                           </div>
+                           <!-- /.form-group -->
+                        </div>
+                        <div class="col-md-2">
+                           <!-- /.form-group -->
+                           <div class="form-group">
+                              <label class="invisible">Actualizar</label>
+                              <button type="button" id="boton-filtrodetallevacaciones" class="btn btn-block btn-primary">Actualizar</button>
                            </div>
                         </div>
+                        <!-- /.col -->
                      </div>
-                     <!-- /.modal-content -->
+                     <div class="row">
+                        <div class="col-md-3">
+                           <!-- /.form-group -->
+                           <div class="form-group">
+                              <label>Fecha inicio trabajo</label>
+                              <input type="date" id="fecha_iniciotrabajo" name="date_range" class="form-control">
+                           </div>
+                           <!-- /.form-group -->
+                        </div>
+                        <div class="col-md-3">
+                           <!-- /.form-group -->
+                           <div class="form-group">
+                              <label>Fecha solicitud</label>
+                              <input type="date" id="fecha_terminotrabajo" name="fecha_termino" class="form-control">
+                           </div>
+                           <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                     </div>
+                     <div class="card-body" id="detalle-vacaciones" name="detalle-vacaciones">
+                     </div>
                   </div>
+                  </form>
                   <div class="modal fade" id="modal-detalle-asistencia">
                      <div class="modal-dialog modal-xl">
                         <div class="modal-content">
@@ -232,30 +133,30 @@
                   <div class="container">
                      <div class="card">
                         <section class="content">
-                           <div class="box box-info ">
-                              <div class="box-body">
-                                 <div class="table-responsive">
-                                    <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
-                                       <thead>
-                                          <tr>
-                                             <th></th>
-                                             <th>Rut</th>
-                                             <!-- 0 ---> 
-                                             <th>Nombre</th>
-                                             <!-- 1 --->
-                                             <th>Fecha</th>
-                                             <th>Asistente</th>
-                                             <!-- 3 --->
-                                             <th>Detalle</th>
-                                             <!-- 4 --->
-                                             <!--<th>Accion</th>
-                                                5 --->
-                                          </tr>
-                                       </thead>
-                                    </table>
-                                 </div>
+                        <div class="box box-info ">
+                           <div class="box-body">
+                              <div class="table-responsive">
+                                 <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
+                                    <thead>
+                                       <tr>
+                                          <th></th>
+                                          <th>Rut</th>
+                                          <!-- 0 ---> 
+                                          <th>Nombre</th>
+                                          <!-- 1 --->
+                                          <th>Fecha inicio</th>
+                                          <th>Fecha termino</th>
+                                          <!-- 3 --->
+                                          <th>Dias pedidos</th>
+                                          <!-- 4 --->
+                                          <!--<th>Accion</th>
+                                             5 --->
+                                       </tr>
+                                    </thead>
+                                 </table>
                               </div>
                            </div>
+                        </div>
                      </div>
                   </div>
                </div>
@@ -276,43 +177,83 @@
    var yyyy = today.getFullYear();
    var date = dd+mm+yyyy;
    $(function () {
-   $('#date_range').daterangepicker({
-     "locale": {
-         "format": "DD-MM-YYYY",
-         "separator": " - ",
-         "applyLabel": "Guardar",
-         "cancelLabel": "Cancelar",
-         "fromLabel": "Desde",
-         "toLabel": "Hasta",
-         "customRangeLabel": "Personalizar",
-         "daysOfWeek": [
-             "Do",
-             "Lu",
-             "Ma",
-             "Mi",
-             "Ju",
-             "Vi",
-             "Sa"
-         ],
-         "monthNames": [
-             "Enero",
-             "Febrero",
-             "Marzo",
-             "Abril",
-             "Mayo",
-             "Junio",
-             "Julio",
-             "Agosto",
-             "Setiembre",
-             "Octubre",
-             "Noviembre",
-             "Diciembre"
-         ],
-         "firstDay": 1
-     },
-     "startDate": date,
-     "opens": "center"
+      $('#date_range').daterangepicker({
+      "locale": {
+            "format": "DD-MM-YYYY",
+            "separator": " - ",
+            "applyLabel": "Guardar",
+            "cancelLabel": "Cancelar",
+            "fromLabel": "Desde",
+            "toLabel": "Hasta",
+            "customRangeLabel": "Personalizar",
+            "daysOfWeek": [
+               "Do",
+               "Lu",
+               "Ma",
+               "Mi",
+               "Ju",
+               "Vi",
+               "Sa"
+            ],
+            "monthNames": [
+               "Enero",
+               "Febrero",
+               "Marzo",
+               "Abril",
+               "Mayo",
+               "Junio",
+               "Julio",
+               "Agosto",
+               "Setiembre",
+               "Octubre",
+               "Noviembre",
+               "Diciembre"
+            ],
+            "firstDay": 1
+      },
+      "startDate": date,
+      "opens": "center"
+      });
    });
+
+   $(function () {
+      $('#fecha_termino').daterangepicker({
+      "locale": {
+            "format": "DD-MM-YYYY",
+            "separator": " - ",
+            "applyLabel": "Guardar",
+            "cancelLabel": "Cancelar",
+            "fromLabel": "Desde",
+            "toLabel": "Hasta",
+            "customRangeLabel": "Personalizar",
+            "daysOfWeek": [
+               "Do",
+               "Lu",
+               "Ma",
+               "Mi",
+               "Ju",
+               "Vi",
+               "Sa"
+            ],
+            "monthNames": [
+               "Enero",
+               "Febrero",
+               "Marzo",
+               "Abril",
+               "Mayo",
+               "Junio",
+               "Julio",
+               "Agosto",
+               "Setiembre",
+               "Octubre",
+               "Noviembre",
+               "Diciembre"
+            ],
+            "firstDay": 1
+      },
+      "startDate": date,
+      "opens": "center"
+      });
    });
 </script>
 <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
@@ -336,7 +277,7 @@
          },
        "processing": true,
        "serverSide": true, 
-       "ajax":{url:"<?php echo base_url('CAsistencia/obtenerAsistencia'); ?>",
+       "ajax":{url:"<?php echo base_url('Vacaciones/obtenerVacaciones'); ?>",
        type: "POST"
      },
        "columnDefs":[

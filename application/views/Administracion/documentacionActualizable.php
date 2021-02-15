@@ -87,10 +87,10 @@
                </button>
             </div>
             <div class="modal-body">
-               <div class="card card-primary">
-                  <!-- /.card-header -->
-                  <!-- form start -->
-                  <form id="form-subir-archivos-actualizable" style="padding:0px 15px;" class="form-horizontal" role="form" action="<?php echo base_url();?>Upload/subirDocumentacionActualizable" method="POST">
+               <form id="form-subir-archivos-actualizable" style="padding:0px 15px;" class="form-horizontal" role="form" action="<?php echo base_url();?>Upload/subirDocumentacionActualizable" method="POST">
+                  <div class="card card-primary">
+                     <!-- /.card-header -->
+                     <!-- form start -->
                      <div class="card-body">
                         <div class="form-group">
                            <label for="exampleInputEmail1">Nombre del documento</label>
@@ -110,11 +110,11 @@
                            <label class="form-check-label" for="exampleCheck1">Formatos admitidos: pdf,docx,jpg,pptx,xlsx.</label>
                         </div>
                      </div>
-               </div>
-               <div class="modal-footer justify-content-between">
-               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-               <button type="submit" class="btn btn-primary">Guardar</button>
-               </div>
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                     <button type="submit" class="btn btn-primary">Guardar</button>
+                  </div>
                </form>
             </div>
          </div>
@@ -132,29 +132,27 @@
                </button>
             </div>
             <div class="modal-body">
-               <div class="card card-primary">
-                  <!-- /.card-header -->
-                  <!-- form start -->
-                  <form id="form-update-archivos-actualizable" style="padding:0px 15px;" class="form-horizontal" role="form" action="<?php echo base_url();?>Upload/updateDocumentacionActualizable" method="POST">
-                     <div class="card-body">
-                        <div class="card-body" id="detalle-documentos">                      
-                        </div>
-                        <div class="form-group">
-                           <label for="pic_file">Archivo</label>
+               <form id="form-update-archivos-actualizable" style="padding:0px 15px;" class="form-horizontal" role="form" action="<?php echo base_url();?>Upload/updateDocumentacionActualizable" method="POST">
+                     <div class="card card-primary">
+                        <div class="card-body">
+                           <div class="card-body" id="detalle-documentos">                      
+                           </div>
                            <div class="form-group">
-                              <input type="file" name="pic_file" class="form-control-file" id="pic_file">
+                              <label for="pic_file_update">Archivo</label>
+                              <div class="form-group">
+                                 <input type="file" name="pic_file_update" class="form-control-file" id="pic_file_update">
+                              </div>
+                           </div>
+                           <div class="form-check">
+                              <label class="form-check-label" for="exampleCheck1">Formatos admitidos: pdf,docx,jpg,pptx,xlsx.</label>
                            </div>
                         </div>
-                        <div class="form-check">
-                           <label class="form-check-label" for="exampleCheck1">Formatos admitidos: pdf,docx,jpg,pptx,xlsx.</label>
-                        </div>
+                        <input type="hidden" name="id-doc" class="form-control-file" id="id-doc">
                      </div>
-                     <input type="hidden" name="id-doc" class="form-control-file" id="id-doc">
-               </div>
-               <div class="modal-footer justify-content-between">
-               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-               <button type="submit" class="btn btn-primary">Guardar</button>
-               </div>
+                     <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                     </div>
                </form>
             </div>
          </div>
@@ -214,7 +212,7 @@
    <!-- Bootstrap Switch -->
    <script src="<?php echo base_url();?>assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
-   <script>var base_url = '<?php echo base_url();?>';</script>
+   <script>var base_url = "<?php echo base_url();?>";</script>
    <script src="<?php echo base_url();?>assets/js/Administracion/documentos_actualizables.js"></script>
    <!-- page script -->
 </body>

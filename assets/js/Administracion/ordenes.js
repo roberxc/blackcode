@@ -167,37 +167,31 @@ function setTotal() {
 
 $("#añadir-nuevaorden").on('click', function(event) {
     item_producto = [];
-    $('#productos_orden').find("td.item").each(function(index,elem){
+    $('#productos_cotizacion').find("td.item_material").each(function(index,elem){
          /* do something */ 
          item_producto.push($(elem).text());
     });
     
-    item_iva = [];
-    $('#productos_iva').find("td.iva").each(function(index,elem){
-         /* do something */ 
-         item_iva.push($(elem).text());
-    });
-    
     item_importe = [];
-    $('#productos_orden').find("td.importe").each(function(index,elem){
+    $('#productos_cotizacion').find("td.importe").each(function(index,elem){
          /* do something */ 
          item_importe.push($(elem).text());
     });
     
     item_cantidad = [];
-    $('#productos_orden').find("td.cantidad").each(function(index,elem){
+    $('#productos_cotizacion').find("td.cantidad").each(function(index,elem){
          /* do something */ 
          item_cantidad.push(parseInt($(elem).text()));
     });
     
     item_valor = [];
-    $('#productos_orden').find("td.precio").each(function(index,elem){
+    $('#productos_cotizacion').find("td.precio").each(function(index,elem){
          /* do something */ 
          item_valor.push(parseInt($(elem).text()));
     });
 
     item_idmaterial = [];
-    $('#productos_orden').find("td.item").each(function(index,elem){
+    $('#productos_cotizacion').find("td.item").each(function(index,elem){
          /* do something */ 
          item_idmaterial.push(parseInt($(elem).text()));
     });
@@ -223,7 +217,6 @@ $("#añadir-nuevaorden").on('click', function(event) {
             lista_item: item_producto,
             lista_importe: item_importe,
             lista_cantidad: item_cantidad,
-            lista_iva: item_iva,
             lista_valor: item_valor,
             nrocotizacion: nrocotizacion,
             idbodega: idbodega,
@@ -288,4 +281,25 @@ function generarAvisoExitoso($mensaje) {
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     }
+}
+
+function obtenerCotizacion(){
+    var idcotizacion = $("#nrocotizacion").val();
+    $.ajax({
+        url: base_url+"Cotizacion/obtenerDetalleCotizacion",
+        type: "post",
+        dataType: "json",
+        data: {
+            id_cotizacion: idcotizacion,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                // Add response in Modal body
+                generarAvisoExitoso("Actualizando cotizacion...");
+                $('#detalle-cotizacion').html(data.detalle);
+                // Display Modal
+                 //$('#detalle-trabajo').modal('show');
+            }
+        }
+    });
 }

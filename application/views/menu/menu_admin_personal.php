@@ -41,7 +41,7 @@ if (isset($set_data['nombre_completo'])) {
 
           <li class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 11)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activomenu) && ($activomenu == 11)){echo "active"; }?>">
-              <i class="nav-icon fas fa-hammer"></i>
+              <i class="nav-icon fas fa-book-open"></i>
               <p>
                 Registro
                 <i class="fas fa-angle-left right"></i>
@@ -55,11 +55,19 @@ if (isset($set_data['nombre_completo'])) {
                 </a>
               </li>
             </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url();?>Permisos" class="nav-link <?php if(isset($activo) && ($activo == 123)){echo "active"; }?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Permisos</p>
+                </a>
+              </li>
+            </ul>
           </li>
 
           <li class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 4)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activomenu) && ($activomenu == 4)){echo "active"; }?>">
-              <i class="nav-icon fas fa-hammer"></i>
+              <i class="nav-icon 	fas fa-book-reader"></i>
               <p>
                 Asistencia
                 <i class="fas fa-angle-left right"></i>

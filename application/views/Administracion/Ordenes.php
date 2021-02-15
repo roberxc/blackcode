@@ -86,10 +86,11 @@
                      <div class="col-md-4">
                         <div class="form-group">
                            <label for="recipient-tipo" class="col-form-label">Numero cotizacion </label>
-                           <select name="nrocotizacion" id="nrocotizacion" style="width: 100%; height: 60%">
+                           <select name="nrocotizacion" id="nrocotizacion" style="width: 100%; height: 60%" onchange="obtenerCotizacion()">
+                           <option value="" selected>Seleccione</option>
                            <?php
                               foreach($lista_cotizaciones as $i){
-                                 echo '<option value="'.$i->nrocotizacion.'">'. $i->nrocotizacion.'</option>';
+                                 echo '<option value="'.$i->id_cotizacion.'">'. $i->nrocotizacion.'</option>';
                                     }
                                  ?>
                            </select>
@@ -99,9 +100,10 @@
                         <div class="form-group">
                            <label for="recipient-bodega" class="col-form-label">Bodega </label>
                            <select name="bodega" id="bodega" style="width: 100%; height: 60%">
+                           <option value="" selected>Seleccione</option>
                            <?php
                               foreach($lista_bodegas as $i){
-                                 echo '<option value="'.$i->id_tipobodega.','.$i->nombretipobodega.'">'. $i->nombretipobodega .'</option>';
+                                 echo '<option value="'.$i->id_tipobodega.'">'. $i->nombretipobodega .'</option>';
                                     }
                                  ?>
                            </select>
@@ -113,8 +115,10 @@
                         <div class="form-group">
                            <label for="recipient-bodega" class="col-form-label">Estado </label>
                            <select name="estado" id="estado" style="width: 100%; height: 60%">
-                              <option value="1">Aprobada</option>
-                              <option value="0" selected>Por aprobar</option>
+                              <option value="1" selected>Seleccione</option>
+                              <option value="2">Pagada</option>
+                              <option value="1">Impagada</option>
+                              <option value="0">Cheque a 30 dias</option>
                            </select>
                         </div>
                      </div>
@@ -122,6 +126,7 @@
                         <div class="form-group">
                            <label for="recipient-bodega" class="col-form-label">Proyecto </label>
                            <select name="proyecto" id="proyecto" style="width: 100%; height: 60%">
+                           <option value="" selected>Seleccione</option>
                            <?php
                               foreach($lista_proyectos as $i){
                                  echo '<option value="'. $i->id_proyecto.'">'. $i->nombreproyecto .'</option>';
@@ -132,67 +137,11 @@
                      </div>
                   </div>
                   <hr class="cell-divide-hr">
-                  <a class="btn btn-app" data-toggle="modal" data-target="#modal-nuevo-producto">
-                  <i class="fas fa-plus" id="nuevo-producto">
-                  </i> Nuevo producto
-                  </a>
-                  <div class="card-body" id="dynamic_field" >
-                     <table class="table table-bordered" >
-                        <tr>
-                           <!-- 0 ---> 
-                           <th><label for="recipient-bodega" class="col-form-label">Producto </label></th>
-                           <!-- 1 --->
-                           <th><label for="recipient-bodega" class="col-form-label">Añadir </label></th>
-                           <!-- 5 --->
-                        </tr>
-                        <TR>
-                           <TD>
-                              <div class="form-group">
-                                 <select name="material" id="material" style="width: 100%; height: 60%">
-                                 <?php
-                                    foreach($lista_materiales as $i){
-                                       echo '<option value="'.$i->id_material.','.$i->nombre.','.$i->valor.'">'. $i->nombre .'</option>';
-                                       }
-                                       ?>
-                                 </select>
-                              </div>
-                           </TD>
-                           <TD>
-                              <div class="form-group">
-                                 <button type="button" name="add" class="btn btn-success"  id="añadir-orden">+</button>
-                              </div>
-                           </TD>
-                        </TR>
-                     </table>
-                     <hr class="cell-divide-hr">
-                     <div class="button-wrapper">
-                     </div>
-                  </div>
-                  <hr class="cell-divide-hr">
                   <div class="card-body">
                      <section class="content">
                         <div class="box box-info ">
-                           <div class="box-body">
-                              <div class="table-responsive">
-                                 <table id="productos_orden" name="productos_orden" class="table table-bordered table-striped tableprod" style="width: 100%;">
-                                    <thead>
-                                       <tr>
-                                          <th>Codigo</th>
-                                          <!-- 0 ---> 
-                                          <th>Producto</th>
-                                          <!-- 1 --->
-                                          <th>Cantidad</th>
-                                          <!-- 2 --->
-                                          <th>Costo</th>
-                                          <th>IVA %</th>
-                                          <th>Importe</th>
-                                          <!-- 4 --->
-                                          <th>Accion</th>
-                                          <!-- 5 --->
-                                       </tr>
-                                    </thead>
-                                 </table>
-                              </div>
+                           <div class="box-body" id="detalle-cotizacion">
+
                            </div>
                         </div>
                      </section>
@@ -256,29 +205,31 @@
       <div class="modal-dialog modal-lg">
          <div class="table-responsive">
             <!-- Contenido del modal -->
-            <div class="modal-content">
-               <div class="modal-header bg-blue">
-                  <H3>Detalle orden</H3>
-                  <button type="button" class="close-white" data-dismiss="modal">&times;</button>
-               </div>
-               <div class="modal-body">
-                  <hr class="cell-divide-hr">
-                  <a class="btn btn-app" data-toggle="modal" data-target="#modal-nuevo-producto">
-                  <i class="fas fa-plus" id="nuevo-producto">
-                  </i> Exportar
-                  </a>
-                  <div class="card-body" id="dynamic_field" >
-                     <div class="box-body">
-                        <div class="modal-body" id="detalle-ordenes">
+            <form id="form-descargar-detalle-orden" role="form" action="Ordenes/descargarDetalleOrden" method="POST">
+               <div class="modal-content">
+                  <div class="modal-header bg-blue">
+                     <H3>Detalle orden</H3>
+                     <button type="button" class="close-white" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                     <hr class="cell-divide-hr">
+                     <button type='submit' class='btn btn-app'>
+                     <i class="fas fa-plus">
+                     </i> Exportar
+                     </button>
+                     <div class="card-body" id="dynamic_field" >
+                        <div class="box-body">
+                           <div class="modal-body" id="detalle-ordenes">
+                           </div>
                         </div>
                      </div>
-                  </div>
-                  <div class="modal-footer bg-white">
-                     <input type="submit" class="btn btn-primary" value="Guardar" id="añadir-nuevaorden">
-                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                     <div class="modal-footer bg-white">
+                        <input class="btn btn-primary">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                     </div>
                   </div>
                </div>
-            </div>
+            </form>
          </div>
       </div>
    </div>

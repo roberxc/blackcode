@@ -63,6 +63,7 @@ class AdministracionModel extends CI_Model
         "tipocostosfijos t",
     );
     var $select_columna_costosfijos = array(
+        "c.id_costofijos",
 		"c.fecha",
 		"c.valor",
         "c.detalle",
@@ -76,7 +77,7 @@ class AdministracionModel extends CI_Model
         "t.nombre",
     );
 
-    var $where_costosfijos = "c.id_tipo = t.id_tipo";
+    var $where_costosfijos = "c.id_tipo = t.id_tipo AND c.estado = 0";
 
     function make_query_costosfijos(){
         $this->db->select($this->select_columna_costosfijos);
@@ -133,6 +134,12 @@ class AdministracionModel extends CI_Model
 
 		return $query->result_array();
 	}
+
+    public function actualizarEstadoCostoFijo($nrocosto){
+		$this->db->set('estado', 1);
+        $this->db->where('id_costofijos', $nrocosto);
+		return $this->db->update('costosfijos');
+    }
     
     public function generarEstadisticasCostosFijos($fechainicial,$fechatermino){
         // Declare an empty array 

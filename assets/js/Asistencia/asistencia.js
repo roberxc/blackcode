@@ -73,7 +73,7 @@ $(document).on('click', '#guardar-asistencia', function(e) {
     }
 
     $.ajax({
-        url: base_url+"Asistencia/ingresoAsistencia",
+        url: base_url+"CAsistencia/ingresoAsistencia",
         type: "post",
         dataType: "json",
         data: {
@@ -90,7 +90,7 @@ $(document).on('click', '#guardar-asistencia', function(e) {
             if (respuesta.response == "success") {
                 // Add response in Modal body
                 generarAvisoExitoso('Asistencia ingresada correctamente!');
-                window.location.href = base_url + "Asistencia";
+                window.location.href = base_url + "CAsistencia";
                 // Display Modal
                  //$('#detalle-trabajo').modal('show');
             } else if (respuesta.response === "error") {
@@ -154,7 +154,7 @@ $(document).on('click', '#detalle_asistencia', function(e) {
     e.preventDefault();
     var idpersonal = $(this).parents('tr').find(".name-file").val();
     $.ajax({
-        url: base_url+"Asistencia/obtenerAsistenciaCompleta",
+        url: base_url+"CAsistencia/obtenerAsistenciaCompleta",
         type: "post",
         dataType: "json",
         data: {
@@ -177,7 +177,7 @@ $(document).on('click', '#detalle_asistencia', function(e) {
     e.preventDefault();
     var idpersonal = $(this).parents('tr').find(".name-file").val();
     $.ajax({
-        url: base_url+"Asistencia/obtenerAsistenciaCompleta",
+        url: base_url+"CAsistencia/obtenerAsistenciaCompleta",
         type: "post",
         dataType: "json",
         data: {
@@ -204,7 +204,7 @@ $(document).on('click', '#boton-filtrohorasextras', function(e) {
     var startDate = $('#date_range').data('daterangepicker').startDate.format('YYYY-MM-DD');
     var endDate = $('#date_range').data('daterangepicker').endDate.format('YYYY-MM-DD');
     $.ajax({
-        url: base_url+"Asistencia/obtenerHoraExtrasPersonal",
+        url: base_url+"CAsistencia/obtenerHoraExtrasPersonal",
         type: "post",
         dataType: "json",
         data: {
@@ -233,7 +233,7 @@ function generarGrafico(){
 	var endDate = $('#date_range').data('daterangepicker').endDate.format('YYYY-MM-DD');
     var rutfiltro = $("#rutpersonal").val();
 	$.ajax({
-        url: base_url+"Asistencia/obtenerEstadisticasHorasExtras",
+        url: base_url+"CAsistencia/obtenerEstadisticasHorasExtras",
         type: 'POST',
         dataType: 'json',
         data: {

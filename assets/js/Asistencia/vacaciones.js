@@ -1,41 +1,50 @@
 
 
-$(document).on('click', '#guardar-asistencia', function(e) {
-    var rut = $("#rut").val();
-	var nombrecompleto = $("#nombrecompleto").val();
-	var fecha = $("#fecha").val();
-    var horallegadam = $("#hora_llegadam").val();
-	var horasalidam = $("#hora_salidam").val();
-	var horallegadat = $("#hora_llegadat").val();
-    var horasalidat = $("#hora_salidat").val();
-    
-    var estado = 0;
-    var inputs = document.getElementById("estado_asistencia");
-    if(inputs.checked == true) {
-        estado = 1;
-    }else{
-        estado = 0;
-    }
+function guardarAsistencia() {
+    item_diasacumulados = [];
+    $('#tabla_vacaciones').find("th.diaslegales").each(function(index,elem){
+         /* do something */ 
+         item_diasacumulados.push($(elem).text());
+    });
+
+    item_progresivos = [];
+    $('#tabla_vacaciones').find("th.diasprogresivos").each(function(index,elem){
+         /* do something */ 
+         item_progresivos.push($(elem).text());
+    });
+
+    item_indemnizar = [];
+    $('#tabla_vacaciones').find("th.diasindemnizar").each(function(index,elem){
+         /* do something */ 
+         item_indemnizar.push($(elem).text());
+    });
+
+    item_diasausar = [];
+    $('#tabla_vacaciones').find("th.diaspedidos").each(function(index,elem){
+         /* do something */ 
+         item_diasausar.push($(elem).text());
+    });
+
+    var idpersonal = $("#rutpersonal").val();
+    var fechatermino = $("#fecha_terminotrabajo").val();
 
     $.ajax({
-        url: base_url+"CAsistencia/ingresoAsistencia",
+        url: base_url+"Vacaciones/ingresoVacaciones",
         type: "post",
         dataType: "json",
         data: {
-			rut: rut,
-			nombrecompleto: nombrecompleto,
-			fecha: fecha,
-			horallegadam: horallegadam,
-			horasalidam: horasalidam,
-			horallegadat: horallegadat,
-			horasalidat: horasalidat,
-			estado: estado,
+			rut: idpersonal,
+			diasusar: item_diasausar,
+			diasproporcionales: item_indemnizar,
+            diasprogresivos: item_progresivos,
+			diasacumulados: item_diasacumulados,
+            fecha_terminotrabajo: fechatermino,
         },
         success: function(respuesta) {
             if (respuesta.response == "success") {
                 // Add response in Modal body
                 generarAvisoExitoso('Asistencia ingresada correctamente!');
-                window.location.href = base_url + "Asistencia";
+                window.location.href = base_url + "Vacaciones";
                 // Display Modal
                  //$('#detalle-trabajo').modal('show');
             } else if (respuesta.response === "error") {
@@ -50,7 +59,7 @@ $(document).on('click', '#guardar-asistencia', function(e) {
         }
     });
     
-});
+}
 
 function generarAvisoError($mensaje) {
     Command: toastr["error"]($mensaje, 'Error')
@@ -126,3 +135,4 @@ $(document).on('click', '#boton-filtrodetallevacaciones', function(e) {
         }
     });
 });
+

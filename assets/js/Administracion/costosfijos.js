@@ -221,3 +221,30 @@ $(document).on('click', '#boton-generargrafico', function(e) {
         },
     });
 });
+
+var nrocosto = 0;
+function setIDCosto(table){
+    var idcostofijo = table.parentNode.parentNode.cells[0].textContent;
+    nrocosto = idcostofijo;
+}
+
+
+function deleteCostoFijo(){
+
+    $.ajax({
+        url: base_url+"Administracion/cambiarEstadoCostoFijo",
+        type: "post",
+        dataType: "json",
+        data: {
+            nro_costo: nrocosto,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                generarAvisoExitoso(data.message);
+                window.location.href =  base_url+"Administracion/CostosFijos";
+            } else if (data.response == "error") {
+                generarAvisoError(data.message);
+            }
+        }
+    });
+}

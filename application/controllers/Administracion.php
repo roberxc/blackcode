@@ -15,13 +15,33 @@ class Administracion extends CI_Controller {
 		$this->load->model('AdministracionModel');
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('Users');
-		
+		$this->load->model('DocumentacionModel');
+	}
+
+	public function setNotificaciones(){
+		$data ['expiracion'] = 0;
+		$lista_fecha = $this->DocumentacionModel->ObtenerFechaDocActualizable();
+		$fechaactual = date("d-m-Y");
+		$data ['totaldocumentos'] = 0;
+		foreach($lista_fecha as $row){
+			//Paso de string a fecha
+			$d1 = new DateTime($row->fechalimite);
+			$d2 = new DateTime($fechaactual);
+			$interval = $d1->diff($d2);
+			$diasTotales    = $interval->d; 
+			if($diasTotales == 3){
+				$data ['lista_nrodocactualizables'] = $this->DocumentacionModel->ObtenerNroDocActualizable($row->fechalimite);
+				$data ['expiracion'] = 1;
+				$data ['totaldocumentos'] = $data ['totaldocumentos'] + 1;
+			}
+		}
+		$this->load->view('layout/nav',$data);
 	}
 
 	public function informeEgresos(){
 		
 		$data ['activo'] = 10;
-		$this->load->view('layout/nav');
+		$this->setNotificaciones();
      	$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/InformeEgresos');
 		$this->load->view('layout/footer');
@@ -31,7 +51,7 @@ class Administracion extends CI_Controller {
 		$data ['activomenu'] = 5;
 		$data ['activo'] = 6;
 		$data['lista_tipocostos'] = $this->AdministracionModel->listaTipoCostos();
-		$this->load->view('layout/nav');
+		$this->setNotificaciones();
      	$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/CostosFijos',$data);
 		$this->load->view('layout/footer');
@@ -41,7 +61,7 @@ class Administracion extends CI_Controller {
 	{
 		$data ['activomenu'] = 5;
 		$data ['activo'] = 5;
-		$this->load->view('layout/nav');
+		$this->setNotificaciones();
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/Egreso');
 		$this->load->view('layout/footer');
@@ -52,7 +72,7 @@ class Administracion extends CI_Controller {
 		$data ['activomenu'] = 5;
 		$data ['activo'] = 5;
 		$data['include_css'] = array("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css");
-		$this->load->view('layout/nav');
+		$this->setNotificaciones();
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/Ingreso',$data);
 		$this->load->view('layout/footer');
@@ -62,7 +82,7 @@ class Administracion extends CI_Controller {
 		$data ['activomenu'] = 5;
 		$data ['activo'] = 5;
 		$data ['totalcajachica'] = $this->CajaChicaModel->obtenerTotalCajaChica();
-		$this->load->view('layout/nav');
+		$this->setNotificaciones();
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/CajaChica');
 		$this->load->view('layout/footer');
@@ -70,7 +90,7 @@ class Administracion extends CI_Controller {
 	public function vueltocaja()
 	{
 		$data ['activo'] = 5;
-		$this->load->view('layout/nav');
+		$this->setNotificaciones();
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/Vuelto');
 		$this->load->view('layout/footer');
@@ -78,7 +98,7 @@ class Administracion extends CI_Controller {
 	public function registroTrabajador(){
 		$data ['activo'] = 6;
 		$data ['activomenu'] = 2;
-		$this->load->view('layout/nav');
+		$this->setNotificaciones();
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/GestionCuentas');
 		$this->load->view('layout/footer');
@@ -434,11 +454,12 @@ class Administracion extends CI_Controller {
         $data = array();
         foreach ($fetch_data as $value){
             $sub_array = array();
+			$sub_array[] = $value->id_costofijos;
             $sub_array[] = $value->fecha;
             $sub_array[] = $value->valor;
 			$sub_array[] = $value->tipo;
 			$sub_array[] = $value->detalle;
-            $sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal" id="eyedetalle-orden" data-target="#modal-detalle-orden" onclick="setTablaDetalle(this)"><i class="far fa-eye"></i></button><button class="btn btn-success btn-sm" data-toggle="modal" id="estado-orden" data-target="#modal-estado-orden" onclick="setTablaEstado(this)"><i class="fas fa-edit"></i></button>';
+            $sub_array[] = '<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="setIDCosto(this)"><i class="fa fa-trash"></i></button>';
             $data[] = $sub_array;
         }
 
@@ -479,6 +500,20 @@ class Administracion extends CI_Controller {
 		} else {
 			echo "'No direct script access allowed'";
 		}
+
+	}
+
+	//Eliminar costos fijos cambiando su estado
+	public function cambiarEstadoCostoFijo(){
+		$ajax_data = $this->input->post();
+		$nrocosto = $ajax_data['nro_costo'];
+		$res = $this->AdministracionModel->actualizarEstadoCostoFijo($nrocosto);
+        if($res){
+            $data = array('response' => 'success', 'message' => 'Exito');
+        }else{
+            $data = array('response' => 'error', 'message' => $res);
+        }
+		echo json_encode($data);
 
 	}
 }
