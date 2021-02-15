@@ -235,6 +235,16 @@ if (isset($set_data['nombre_completo'])) {
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Registrar Vehiculo</p>
                              </a>
+
+                           
+                         <li class="nav-item">
+                             <a href="<?php echo base_url()?>CMantencion"
+                                 class="nav-link <?php if(isset($activo) && ($activo == 14)){echo "active"; }?>">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Registrar Mantenciones</p>
+                             </a>
+                         </li>
+                           
                          </li>
                          <li class="nav-item">
                              <a href="<?php echo base_url()?>CCombustible"
@@ -244,13 +254,6 @@ if (isset($set_data['nombre_completo'])) {
                              </a>
                          </li>
 
-                         <li class="nav-item">
-                             <a href="<?php echo base_url()?>CMantencion"
-                                 class="nav-link <?php if(isset($activo) && ($activo == 14)){echo "active"; }?>">
-                                 <i class="far fa-circle nav-icon"></i>
-                                 <p>Registrar Mantenciones</p>
-                             </a>
-                         </li>
 
 
                          <li class="nav-item">
