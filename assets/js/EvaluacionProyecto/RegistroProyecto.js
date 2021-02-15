@@ -22,9 +22,10 @@ $(document).on('click', '#addProyecto', function(e) {
         },
         success: function(data) {
             if (data.response == "success") {
-                $("#fromProyecto")[0].reset();
-                
                 generarAvisoExitoso('Proyecto registrado correctamente!');
+                window.location.href = base_url+"Proyecto/Evaluacion_proyecto";
+                
+
             } else if(data.response == "error"){
                 generarAvisoError('Error al registrar el proyecto');
                 
@@ -50,25 +51,12 @@ $(document).on('click', '#addpartidas', function(e) {
         nombre_partida.push($(this).val());
     });
 
-    //Cantidad
-  /*  $('input[id="item_cantidad"]').each(function(){
-        item_cantidad.push($(this).val());
-    });
-
-    //Valor total 
-    $('input[id="item_valortotal"]').each(function(){
-        item_valortotal.push($(this).val());
-    });*/
-
     $.ajax({
         url: base_url+"Proyecto/registroPartidas",
         type: "post",
         dataType: "json",
         data: {
             lista_partida: nombre_partida,
-           /* lista_cantidad: item_cantidad,
-            lista_valores: item_valortotal,
-            codigo_servicio: codigoservicio,*/
         },
         success: function(data) {
             if (data.response == "success") {
@@ -373,7 +361,7 @@ $(document).on('click', '#addfleteTraslado', function(e) {
                 generarAvisoExitoso('Porcentaje registrado correctamente!');
             } else if(data.response == "error"){
                 
-                generarAvisoError('Error al registrar el porcentaje');
+                generarAvisoError('Error al registrar el Flete traslado');
                 
             }
             else{
@@ -385,6 +373,7 @@ $(document).on('click', '#addfleteTraslado', function(e) {
 
 
 });
+
 
 function generarAvisoError($mensaje){
     Command: toastr["error"]($mensaje,'Error')
@@ -449,3 +438,27 @@ function actualizarResumen(){
     });
     
 }
+function preciosujerido(){
+   
+    $.ajax({
+        url: base_url+"Proyecto/obtenerPrecioVenta",
+        type: "post",
+        dataType: "json",
+        data: {
+            
+       
+        },
+        success: function(data) {
+            if (data.response == "success") {
+
+                
+                $('#precioSugeridoProyecto').html(data.detalle);
+            } else {
+                generarAvisoError(data.message);
+            }
+        }
+    });
+    
+}
+
+preciosujerido();

@@ -132,16 +132,73 @@ class Proyecto_model extends CI_Model {
      public function ingresoFleteTraslado($datos){
           $id_partida = $datos["partidas7"];
           $valor=$datos['flete_Traslado'];
+
+          $datapartida['id_partida'] = $id_partida;
           
           $datos_fleteTraslado = array(
 
               'valor' => $valor,
               'id_partidas' => $id_partida,
           );
+
   
           $this->db->insert('flete_traslado', $datos_fleteTraslado);
           
+          $subtotalPartida=$this->obtenerResumen($datapartida);
+          $imprevistos=$this->obtenerImprevisto($datapartida);
+          $instalacion=$this ->obtenerInstalacion($datapartida);
+          $supervision=$this->obtenerSupervision($datapartida);
+          $gastoGeneral=$this->totalGastoGeneral($datapartida);
+          $comision=$this->totalComisiones($datapartida);
+          $ingenieria=$this->totalIngenieria($datapartida);
+          $utilidades=$this->totalUtilidades($datapartida);
+      
+          //---------------------
+
+          $subtotalpartida_limpio = 0;
+          $imprevistos_limpio = 0;
+          $instalacion_limpio = 0;
+          $supervision_limpio = 0;
+          
+        
+      
+          foreach($subtotalPartida as $row){
+              $subtotalPartida_limpio = $row->SubTotal; //20
+          }
+      
+          foreach($imprevistos as $row){
+              $imprevistos_limpio = $row->imprevisto; //0.1
+          }
+      
+          foreach($instalacion as $row){
+              $instalacion_limpio = $row->instalacion; //20
+          }
+      
+          foreach($supervision as $row){
+              $supervision_limpio = $row->supervision; //20
+          }
+      
+          
+          $totalImprevisto = intval($subtotalPartida_limpio) * (float)$imprevistos_limpio; //Imprevistos 
+          //echo"Total imprevisto ".$totalImprevisto."\n";
+          
+      
+          $costoMaterial= intval($subtotalPartida_limpio) + intval($totalImprevisto); 
+          //echo"Costo material ".$costoMaterial."\n";
+          
+          
+          $valorEquipamiento=intval($costoMaterial) + intval($instalacion_limpio) + intval($supervision_limpio);
+          //echo"Valor equipamiento ".$valorEquipamiento."\n";
+          
+          $precioSugeridoVenta=intval($valor)+intval($valorEquipamiento)+ (float)$gastoGeneral+(float)$comision+(float)$ingenieria+(float)$utilidades;
+        
+
+          $this->db->set('precio_sugerido',$precioSugeridoVenta);
+          $this->db->where('id_partidas', $id_partida);
+          return $this->db->update('partidas');
+
      }
+
 
      public function ingresarSupervision($data){
 
@@ -326,20 +383,7 @@ class Proyecto_model extends CI_Model {
      }
 
      function obtenerResumen($id_partida){
-          /*
-          $query = $this->db->SELECT('(SUM(d.total)+SUM(f.valor)) as subtotal')
-          ->from('etapas e')
-          ->join("partidas p", "p.id_partidas = e.id_partidas")
-          ->join("despiece d", "e.id_etapas = d.id_etapas")
-          ->join("fletes f", "e.id_etapas=f.id_etapas")
-          ->where('p.id_partidas' ,$id_partida['id_partida'])
-          ->get();
-          
-          //select (SUM(d.total)+SUM(f.valor)) as subtotal from despiece d, partidas p, fletes f,
-          //etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas = d.id_etapas and
-          //e.id_etapas=f.id_etapas AND p.id_partidas= 43;
-*/
-          $sql = "SELECT sum(total) SubTotal FROM (SELECT total FROM despiece d, partidas p,etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas = d.id_etapas AND e.id_partidas= ".$id_partida['id_partida']." union all SELECT valor FROM  partidas p, fletes f,etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas=f.id_etapas AND e.id_partidas= ".$id_partida['id_partida']." )x";
+          $sql = "SELECT sum(total) SubTotal FROM (SELECT total FROM despiece d, partidas p,etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas = d.id_etapas AND e.id_partidas= ".$id_partida["id_partida"]." union all SELECT valor FROM  partidas p, fletes f,etapas e WHERE p.id_partidas=e.id_partidas AND e.id_etapas=f.id_etapas AND e.id_partidas= ".$id_partida["id_partida"]." )x";
           $query = $this->db->query($sql);  
 
           return $query->result();
@@ -352,7 +396,7 @@ class Proyecto_model extends CI_Model {
           ->join("proyecto pr", "pr.id_proyecto = p.id_proyecto")
           ->join("porcentaje po", "p.id_partidas=po.id_partidas")
           ->where('pr.id_proyecto' ,$id_proyectoss[0]['id_proyecto'])
-          ->where('p.id_partidas' ,$id_partida['id_partida'])
+          ->where('p.id_partidas' ,$id_partida["id_partida"])
           ->get();
           return $query->result();
      }
@@ -374,7 +418,7 @@ class Proyecto_model extends CI_Model {
           ->join("evaluacion e", "p.id_partidas=e.id_partidas")
           ->join("detalle_evaluacion d", "e.id_detalle=d.id_detalle")
           ->where('pr.id_proyecto' ,$id_proyectoss[0]['id_proyecto'])
-          ->where('p.id_partidas' ,$id_partida['id_partida'])
+          ->where('p.id_partidas' ,$id_partida["id_partida"])
           ->where('d.tipo',"Instalacion")
           ->get();
           return $query->result();
@@ -388,7 +432,7 @@ class Proyecto_model extends CI_Model {
           ->join("evaluacion e", "p.id_partidas=e.id_partidas")
           ->join("detalle_evaluacion d", "e.id_detalle=d.id_detalle")
           ->where('pr.id_proyecto' ,$id_proyectoss[0]['id_proyecto'])
-          ->where('p.id_partidas' ,$id_partida['id_partida'])
+          ->where('p.id_partidas' ,$id_partida["id_partida"])
           ->where('d.tipo',"Supervision")
           ->get();
           return $query->result();
@@ -405,12 +449,12 @@ class Proyecto_model extends CI_Model {
      public function obtenerPorcentaje($id_partida){
           $id_proyectoss = $this->ObtenerCodigoProyecto();
           
-          $query = $this->db->SELECT('gasto_generales,comisiones,ingenieria,utilidades')
+          $query = $this->db->SELECT('comisiones,ingenieria,utilidades')
           ->from('partidas p')
           ->join("proyecto pr", "pr.id_proyecto = p.id_proyecto")
           ->join("porcentaje po", "p.id_partidas=po.id_partidas")
           ->where('pr.id_proyecto' ,$id_proyectoss[0]['id_proyecto'])
-          ->where('p.id_partidas' ,$id_partida['id_partida'])
+          ->where('p.id_partidas' ,$id_partida["id_partida"])
           ->get();
           return $query->result();
      }
@@ -429,10 +473,292 @@ class Proyecto_model extends CI_Model {
      ->join("proyecto pr", "pr.id_proyecto = p.id_proyecto")
      ->join("flete_traslado f", "p.id_partidas=f.id_partidas")
      ->where('pr.id_proyecto' ,$id_proyectoss[0]['id_proyecto'])
-     ->where('p.id_partidas' ,$id_partida['id_partida'])
+     ->where('p.id_partidas' ,$id_partida["id_partida"])
      ->get();
      return $query->result();
 }
+/************************************************************************************ */
+public function obtenerGastoGeneral($id_partida){
+    $id_proyectoss = $this->ObtenerCodigoProyecto();
+   
+    $query = $this->db->SELECT('gasto_generales')
+    ->from('partidas p')
+    ->join("proyecto pr", "pr.id_proyecto = p.id_proyecto")
+    ->join("porcentaje pc", "p.id_partidas=pc.id_partidas")
+    ->where('pr.id_proyecto' ,$id_proyectoss[0]['id_proyecto'])
+    ->where('p.id_partidas' ,$id_partida["id_partida"])
+    ->get();
+    return $query->result();
+        
+}
+    public function totalGastoGeneral($id_partida){
+
+        $gastoGeneral =$this->obtenerGastoGeneral($id_partida);
+
+        $subtotalPartida=$this->obtenerResumen($id_partida);
+        $imprevistos=$this->obtenerImprevisto($id_partida);
+        $instalacion=$this ->obtenerInstalacion($id_partida);
+        $supervision=$this->obtenerSupervision($id_partida);
+
+        //---------------------
+        $gastogeneral_limpio = 0;
+        $subtotalpartida_limpio = 0;
+        $imprevistos_limpio = 0;
+        $instalacion_limpio = 0;
+        $supervision_limpio = 0;
+
+        foreach($gastoGeneral as $row){
+           $gastogeneral_limpio = $row->gasto_generales; //0.2
+        }
+
+        foreach($subtotalPartida as $row){
+            $subtotalPartida_limpio = $row->SubTotal; //20
+        }
+
+        foreach($imprevistos as $row){
+            $imprevistos_limpio = $row->imprevisto; //0.1
+        }
+
+        foreach($instalacion as $row){
+            $instalacion_limpio = $row->instalacion; //20
+        }
+
+        foreach($supervision as $row){
+            $supervision_limpio = $row->supervision; //20
+        }
+
+        
+        $totalImprevisto = intval($subtotalPartida_limpio) * (float)$imprevistos_limpio; //Imprevistos 
+        //echo"Total imprevisto ".$totalImprevisto."\n";
+        
+
+        $costoMaterial= intval($subtotalPartida_limpio) + intval($totalImprevisto); 
+        //echo"Costo material ".$costoMaterial."\n";
+        
+        
+        $valorEquipamiento=intval($costoMaterial) + intval($instalacion_limpio) + intval($supervision_limpio);
+        //echo"Valor equipamiento ".$valorEquipamiento."\n";
+
+        $totalgastogeneral=intval($valorEquipamiento) * (float)$gastogeneral_limpio;
+        //echo"Total gasto general ".$totalgastogeneral."\n";
+        return $totalgastogeneral;
+    }
+
+
+public function obtenerComisiones($id_partida){
+    $id_proyectoss = $this->ObtenerCodigoProyecto();
+    
+    $query = $this->db->SELECT('comisiones')
+    ->from('partidas p')
+    ->join("proyecto pr", "pr.id_proyecto = p.id_proyecto")
+    ->join("porcentaje pc", "p.id_partidas=pc.id_partidas")
+    ->where('pr.id_proyecto' ,$id_proyectoss[0]['id_proyecto'])
+    ->where('p.id_partidas' ,$id_partida["id_partida"])
+    ->get();
+    return $query->result();
+}
+public function totalComisiones($id_partida){
+
+    $comision =$this->obtenerComisiones($id_partida);
+
+    $subtotalPartida=$this->obtenerResumen($id_partida);
+    $imprevistos=$this->obtenerImprevisto($id_partida);
+    $instalacion=$this ->obtenerInstalacion($id_partida);
+    $supervision=$this->obtenerSupervision($id_partida);
+
+    //---------------------
+    $comision_limpio = 0;
+    $subtotalpartida_limpio = 0;
+    $imprevistos_limpio = 0;
+    $instalacion_limpio = 0;
+    $supervision_limpio = 0;
+
+    foreach($comision as $row){
+       $comision_limpio = $row->comisiones; //0.2
+    }
+
+    foreach($subtotalPartida as $row){
+        $subtotalPartida_limpio = $row->SubTotal; //20
+    }
+
+    foreach($imprevistos as $row){
+        $imprevistos_limpio = $row->imprevisto; //0.1
+    }
+
+    foreach($instalacion as $row){
+        $instalacion_limpio = $row->instalacion; //20
+    }
+
+    foreach($supervision as $row){
+        $supervision_limpio = $row->supervision; //20
+    }
+
+    
+    $totalImprevisto = intval($subtotalPartida_limpio) * (float)$imprevistos_limpio; //Imprevistos 
+    //echo"Total imprevisto ".$totalImprevisto."\n";
+    
+
+    $costoMaterial= intval($subtotalPartida_limpio) + intval($totalImprevisto); 
+    //echo"Costo material ".$costoMaterial."\n";
+    
+    
+    $valorEquipamiento=intval($costoMaterial) + intval($instalacion_limpio) + intval($supervision_limpio);
+    //echo"Valor equipamiento ".$valorEquipamiento."\n";
+
+    $totalcomision=intval($valorEquipamiento) * (float)$comision_limpio;
+    //echo"Total gasto general ".$totalcomision."\n";
+    return $totalcomision;
+
+}
+public function obtenerIngenieria($id_partida){
+    $id_proyectoss = $this->ObtenerCodigoProyecto();
+    
+    $query = $this->db->SELECT('ingenieria')
+    ->from('partidas p')
+    ->join("proyecto pr", "pr.id_proyecto = p.id_proyecto")
+    ->join("porcentaje pc", "p.id_partidas=pc.id_partidas")
+    ->where('pr.id_proyecto' ,$id_proyectoss[0]['id_proyecto'])
+    ->where('p.id_partidas' ,$id_partida["id_partida"])
+    ->get();
+    return $query->result();
+}
+public function totalIngenieria($id_partida){
+
+    $ingenieria =$this->obtenerIngenieria($id_partida);
+
+    $subtotalPartida=$this->obtenerResumen($id_partida);
+    $imprevistos=$this->obtenerImprevisto($id_partida);
+    $instalacion=$this ->obtenerInstalacion($id_partida);
+    $supervision=$this->obtenerSupervision($id_partida);
+
+    //---------------------
+    $ingenieria_limpio = 0;
+    $subtotalpartida_limpio = 0;
+    $imprevistos_limpio = 0;
+    $instalacion_limpio = 0;
+    $supervision_limpio = 0;
+
+    foreach($ingenieria as $row){
+       $ingenieria_limpio = $row->ingenieria; //0.2
+    }
+
+    foreach($subtotalPartida as $row){
+        $subtotalPartida_limpio = $row->SubTotal; //20
+    }
+
+    foreach($imprevistos as $row){
+        $imprevistos_limpio = $row->imprevisto; //0.1
+    }
+
+    foreach($instalacion as $row){
+        $instalacion_limpio = $row->instalacion; //20
+    }
+
+    foreach($supervision as $row){
+        $supervision_limpio = $row->supervision; //20
+    }
+
+    
+    $totalImprevisto = intval($subtotalPartida_limpio) * (float)$imprevistos_limpio; //Imprevistos 
+    //echo"Total imprevisto ".$totalImprevisto."\n";
+    
+
+    $costoMaterial= intval($subtotalPartida_limpio) + intval($totalImprevisto); 
+    //echo"Costo material ".$costoMaterial."\n";
+    
+    
+    $valorEquipamiento=intval($costoMaterial) + intval($instalacion_limpio) + intval($supervision_limpio);
+    //echo"Valor equipamiento ".$valorEquipamiento."\n";
+
+    $totalingenieria=intval($valorEquipamiento) * (float)$ingenieria_limpio;
+    //echo"Total gasto ingenieria ".$totalingenieria."\n";
+    return $totalingenieria;
+}
+
+public function obtenerUtilidades($id_partida){
+    $id_proyectoss = $this->ObtenerCodigoProyecto();
+    
+    $query = $this->db->SELECT('utilidades')
+    ->from('partidas p')
+    ->join("proyecto pr", "pr.id_proyecto = p.id_proyecto")
+    ->join("porcentaje pc", "p.id_partidas=pc.id_partidas")
+    ->where('pr.id_proyecto' ,$id_proyectoss[0]['id_proyecto'])
+    ->where('p.id_partidas' ,$id_partida["id_partida"])
+    ->group_by('utilidades')
+    ->get();
+    return $query->result();
+}
+
+public function totalUtilidades($id_partida){
+
+    $utilidades =$this->obtenerUtilidades($id_partida);
+
+    $subtotalPartida=$this->obtenerResumen($id_partida);
+    $imprevistos=$this->obtenerImprevisto($id_partida);
+    $instalacion=$this ->obtenerInstalacion($id_partida);
+    $supervision=$this->obtenerSupervision($id_partida);
+
+    //---------------------
+    $utilidades_limpio = 0;
+    $subtotalpartida_limpio = 0;
+    $imprevistos_limpio = 0;
+    $instalacion_limpio = 0;
+    $supervision_limpio = 0;
+
+    foreach($utilidades as $row){
+       $utilidades_limpio = $row->utilidades; //0.2
+    }
+
+    foreach($subtotalPartida as $row){
+        $subtotalPartida_limpio = $row->SubTotal; //20
+    }
+
+    foreach($imprevistos as $row){
+        $imprevistos_limpio = $row->imprevisto; //0.1
+    }
+
+    foreach($instalacion as $row){
+        $instalacion_limpio = $row->instalacion; //20
+    }
+
+    foreach($supervision as $row){
+        $supervision_limpio = $row->supervision; //20
+    }
+
+    //echo"Supervision model: ".$supervision_limpio;
+    
+    $totalImprevisto = intval($subtotalPartida_limpio) * (float)$imprevistos_limpio; //Imprevistos 
+    //echo"Total imprevisto ".$totalImprevisto."\n";
+    
+
+    $costoMaterial= intval($subtotalPartida_limpio) + intval($totalImprevisto); 
+    //echo"Costo material ".$costoMaterial."\n";
+    
+    
+    $valorEquipamiento=intval($costoMaterial) + intval($instalacion_limpio) + intval($supervision_limpio);
+    //echo"Valor equipamiento ".$valorEquipamiento."\n";
+
+    $totalUtilidades=intval($valorEquipamiento) * (float)$utilidades_limpio;
+    //echo"Total utilidades ".$totalUtilidades."\n";
+    return $totalUtilidades;
+}
+/*********************************************************************************************** */
+public function obtenerPrecioSugeridoProyecto(){
+
+    $id_proyectoss = $this->ObtenerCodigoProyecto();
+    
+    $query = $this->db->SELECT('round (sum(precio_sugerido)) as PrecioSugerido')
+    ->from('partidas p')
+    ->join("proyecto pr", "pr.id_proyecto = p.id_proyecto")
+    ->where('pr.id_proyecto' ,$id_proyectoss[0]['id_proyecto'])
+    ->get();
+    return $query->result();
+
+   /**SELECT round (sum(precio_sugerido)) FROM partidas p,proyecto pr WHERE pr.id_proyecto=p.id_proyecto and pr.id_proyecto=34 */
+
+
+}
+
 /* ----------------------------------Tabla Estado--------------------------------*/
 //Tabla de con buscador ordenes
 function make_datatables_EstadoProyecto(){
@@ -521,7 +847,7 @@ function make_datatables_ProyectoEjecutados(){
  var $select_columna_ProyectoEjecutados = array(
        "p.id_proyecto",
        "p.nombreproyecto",
-     "u.nombre_completo as nombreusuario",
+
      "p.fecha_inicio",
      "p.fecha_termino",
      "pu.estado",
@@ -530,7 +856,7 @@ function make_datatables_ProyectoEjecutados(){
  var $order_columna_ProyectoEjecutados = array(
      "p.id_proyecto",
      "p.nombreproyecto",
-     "u.nombre_completo ",
+   
      "p.fecha_inicio",
      "p.fecha_termino",
      "pu.estado",
