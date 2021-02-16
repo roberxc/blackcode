@@ -240,6 +240,8 @@ class OrdenesModel extends CI_Model {
         "ordenes_cotizaciones.fecha",
         "estado",
         "proveedores.nombre",
+        "proveedores.rut",
+        "cotizaciones.id_cotizacion",
     );
 
     var $order_columna_ordenes = array(

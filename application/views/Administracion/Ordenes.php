@@ -52,6 +52,7 @@
                         <tr>
                            <th>Numero</th>
                            <th>Fecha</th>
+                           <th>Rut</th>
                            <th>Proveedor</th>
                            <th>Total</th>
                            <th>Estado</th>
@@ -166,40 +167,6 @@
       </div>
    </div>
    <!-- TERMINO MODAL INGRESAR NUEVA ORDEN --->                             
-   <!-- MODAL INGRESAR PRODUCTO NUEVOS --->
-   <div id="modal-nuevo-producto" class="modal fade bd-example-modal-lg" role="dialog">
-      <div class="modal-dialog modal-lg">
-         <div class="table-responsive">
-            <!-- Contenido del modal -->
-            <div class="modal-content">
-               <div class="modal-header bg-blue">
-                  <H3>Nuevo producto</H3>
-                  <button type="button" class="close-white" data-dismiss="modal">&times;</button>
-               </div>
-               <div class="modal-body">
-                  <div class="row">
-                     <div class="col-md-4">
-                        <div class="form-group">
-                           <label for="recipient-tipo" class="col-form-label">Nombre </label>
-                           <input type="text" class="form-control" id="nombre-producto" placeholder="Ingrese">
-                        </div>
-                     </div>
-                     <div class="col-md-4">
-                        <div class="form-group">
-                           <label for="recipient-tipo" class="col-form-label">Valor unitario</label>
-                           <input type="text" class="form-control" id="valor-producto" placeholder="Ingrese">
-                        </div>
-                     </div>
-                  </div>
-                  <div class="modal-footer bg-white">
-                     <input type="submit" class="btn btn-primary" id="añadir-producto" value="Guardar">
-                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
    <!-- MODAL DETALLE ORDEN DE COMPRA --->
    <div id="modal-detalle-orden" class="modal fade bd-example-modal-lg" role="dialog">
       <div class="modal-dialog modal-lg">

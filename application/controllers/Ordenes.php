@@ -39,6 +39,7 @@ class Ordenes extends CI_Controller
 			$sub_array[] = $value->rut;
 			$sub_array[] = $value->nombre;
 			$sub_array[] = $value->total;
+			//$sub_array[] = $value->id_cotizacion;
 
 			if($value->estado == 0){
 				$sub_array[] = 'Por aprobar';
@@ -49,15 +50,11 @@ class Ordenes extends CI_Controller
 				$sub_array[] = '<span class="badge badge-danger">Impagada</span>';
 			}
 
-
 			if($value->estado == 2){
 				$sub_array[] = '<span class="badge badge-success">Pagada</span>';
-
-				$sub_array[] = 'Aprobada';
-
 			}
-			$sub_array[] = $value->id_cotizacion;
-            $sub_array[] = '<a href="#" class="fas fa-eye" data-toggle="modal" id="eyedetalle-orden" data-target="#modal-detalle-orden" onclick="setTablaDetalle(this)"></a>';
+			
+            $sub_array[] = '<a href="#" class="fas fa-eye" data-toggle="modal" id="eyedetalle-orden" data-target="#modal-detalle-orden" onclick="setTablaDetalle(this)"></a><a href="#" class="fas fa-edit" data-toggle="modal" data-target="#modal-estado-orden" onclick="setTablaEstado(this)"></a>';
 			//$sub_array[] = '<a href="#"  class="fas fa-eye" data-toggle="modal" onclick="verMas('.$value->nroorden.');">';
 			$data[] = $sub_array;
         }
@@ -123,6 +120,18 @@ class Ordenes extends CI_Controller
 		}
 
     }
+
+	public function actualizarEstadoOrden(){
+		$ajax_data = $this->input->post();
+		$estado = $ajax_data['estado'];
+		$numeroorden = $ajax_data['nroorden'];
+		if ($this->OrdenesModel->actualizarEstadoOrden($estado,$numeroorden)) {
+			$data = array('response' => "success", 'message' => "Orden actualizada correctamente!");
+		} else {
+			$data = array('response' => "error", 'message' => "Falló la actualizacio");
+		}
+		echo json_encode($data);
+    }
     
     public function nuevaOrden(){
 		if ($this->input->is_ajax_request()) {
@@ -163,21 +172,27 @@ class Ordenes extends CI_Controller
         $response .= "<td>";
 		$response .= "<label>Valor</label>";
         $response .= "</td>";	
+		$response .= "<td>";
+		$response .= "<label>Importe</label>";
+        $response .= "</td>";	
 		$response .= "</tr>";
 		$response .= "<tbody>";
 		foreach($horas_extras as $row){ 
 			$response .= "<tr>";
 			$response .= "<td>";
-			$response .= $row->numero;
+			$response .= "<input name='col1[]' style='border:0;outline:0;display:inline-block' value=".$row->numero.">";
 			$response .= "</td>";
 			$response .= "<td>";
-			$response .= $row->nombre;
+			$response .= "<input name='col2[]' style='border:0;outline:0;display:inline-block' value=".$row->nombre.">";
 			$response .= "</td>";
 			$response .= "<td>";
-			$response .= $row->cantidad;
+			$response .= "<input name='col3[]' style='border:0;outline:0;display:inline-block' value=".$row->cantidad.">";
             $response .= "</td>";
             $response .= "<td>";
-			$response .= $row->valor;
+			$response .= "<input name='col4[]' style='border:0;outline:0;display:inline-block' value=".$row->valor.">";
+			$response .= "</td>";
+			$response .= "<td>";
+			$response .= "<input name='col5[]' style='border:0;outline:0;display:inline-block' value=".$row->importe.">";
 			$response .= "</td>";
 			$response .= "</tr>";
 		}
