@@ -118,6 +118,28 @@ class FacturasModel extends CI_Model {
         //return fetched data
         return $result;
 	}
+
+    public function getIDTrabajoDiario($codigoservicio){
+		$query = $this->db
+				->select("tb.ID_TrabajoDiario AS ID")
+				->from("CodigoServicio c")
+				->join("TrabajoDiario tb", "tb.ID_Codigo = c.ID_Codigo")
+				->where("c.CodigoServicio",$codigoservicio)
+				->get();
+		return $query->result_array();
+
+	}
+
+    function subirFacturaCompraMateriales($data,$codigoservicio,$monto,$detalle){
+		$idtrabajodiario = $this->getIDTrabajoDiario($codigoservicio);
+		$data = array(
+			"ubicaciondocumento" => $data['upload_data']['file_name'],
+            "montototal" => $monto,
+            "detalle" => $detalle,
+            "id_trabajodiario" => $idtrabajodiario[0]['ID'],
+        );
+		return $this->db->insert("detalletrabajodiario", $data);
+	}
 }
 
 ?>

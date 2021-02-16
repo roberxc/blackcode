@@ -7,6 +7,7 @@ class Upload extends CI_Controller{
 		parent::__construct();
 		$this->load->model('pic_model');
 		$this->load->model('CotizacionesModel');
+		$this->load->model('FacturasModel');
 		$this->load->helper(array('form', 'url'));
 		//$this->load->library('form_validation');
 		
@@ -17,6 +18,36 @@ class Upload extends CI_Controller{
 	public function form(){
 		$this->load->view('planilla');
 		//$this->load->view('footer');
+	}
+
+	public function subirDocumentoCompra(){
+		//El metodo is_ajax_request() de la libreria input permite verificar
+		//si se esta accediendo mediante el metodo AJAX 
+		if ($this->input->is_ajax_request()) {
+			$codigoservicio = $this->input->post("codigo1");
+			$monto = $this->input->post("monto");
+			$detalle = $this->input->post("detalle");
+			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+			$config = [
+				"upload_path" => APPPATH. '../ArchivosSubidos/',
+				'allowed_types' => "*"
+			];
+
+			$this->load->library("upload",$config);
+
+			if ($this->upload->do_upload('pic_file')) {
+				$data = array("upload_data" => $this->upload->data());
+				if($this->FacturasModel->subirFacturaCompraMateriales($data,$codigoservicio,$monto,$detalle)==true){
+					echo "exito";
+				}else{
+					echo "error";
+				}
+			}else{
+				echo $this->upload->display_errors();
+			}
+		}else{
+			show_404();
+		}
 	}
 
 	public function subirArchivo(){

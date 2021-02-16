@@ -192,16 +192,8 @@
                            <!-- VALOR TOTAL -->
                         </div>
                         <hr class="cell-divide-hr">
-                        <?php 
-                           if($materialdurante_estado == 0){
-                              $res = 'Ingresar';
-                           }else if($materialdurante_estado == 1){
-                              $res = 'Modificar';
-                           }
-                           
-                           ?>
                         <div class="button-wrapper">
-                           <a class="btn-solid-reg popup-with-move-anim" href="#duranteTrab<?php echo $materialdurante_estado;?>" id="in-mat1"><?php if(isset($res)){ echo $res;}?></a>
+                           <a class="btn-solid-reg popup-with-move-anim" href="#duranteTrab" id="in-mat1">Ingresar</a>
                         </div>
                      </div>
                   </div>
@@ -336,10 +328,10 @@
          <!-- end of container -->
          <div class="card">
             <div class="card-body">
-               <div class="card-title">Subir Documentos</div>
+               <div class="card-title">Subir Fotografias</div>
                <hr class="cell-divide-hr">
                </br></br>
-               <div class="card-subtitle">Registrar documentos que verique la compra o el trabajo hecho</div>
+               <div class="card-subtitle">Registrar fotografias que verifique el trabajo realizado</div>
                <hr class="cell-divide-hr">
                <div class="button-wrapper">
                   <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#documentosubir">Ingresar</a>
@@ -387,91 +379,60 @@
          <!-- end of container -->
       </div>
       <!-- Ingreso de materiales comprados durante -->
-      <div id="duranteTrab0" class="lightbox-basic zoom-anim-dialog mfp-hide">
+      <div id="duranteTrab" class="lightbox-basic zoom-anim-dialog mfp-hide">
+      <form id="form-subir-archivos" style="padding:0px 15px;" class="form-horizontal" role="form" action="<?php echo base_url();?>Upload/subirDocumentoCompra" method="POST" >
          <div class="container">
             <div class="row">
                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
                <div class="col-lg-4">
                   <div class="card"></div>
+                  
                   <div class="card-body" id="dynamic_field" >
-                     <div class="card-title">Ingrese materiales comprados durante el trabajo</div>
+                     <div class="card-title">Suba los documentos que verifiquen los materiales comprados</div>
                      <hr class="cell-divide-hr">
-                     <table class="table table-bordered" >
-                        <TR>
-                           <TH>Material</TH>
-                           <TD><input type="text" id="item_material" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Cantidad</TH>
-                           <TD><input type="text" id="item_cantidad" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Total $</TH>
-                           <TD><input type="text" id="item_valortotal" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Agregar más</TH>
-                           <TD><button type="button" name="add" id="durante" class="btn btn-success">+</button></TD>
-                        </TR>
-                     </table>
+                     
+                        <div class="col-lg-4">
+                           <div class="card"></div>
+                           <div class="card-body" id="dynamic_field" >
+                              <div class="card-title">Subir documentos</div>
+                              <hr class="cell-divide-hr">
+                              <div class="form-group">
+                                 <input type="hidden" class="form-control" name="codigo1" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" id="codigo1">
+                              </div>
+                              <div class="form-group">
+                                 <label for="pic_file">Monto total:</label>
+                                 <input type="text" name="pic_file" class="form-control"  id="pic_file">
+                              </div>
+                              <div class="form-group">
+                                 <label for="pic_file">Detalle:</label>
+                                 <input type="text" name="pic_file" class="form-control"  id="pic_file">
+                              </div>
+                              <div class="form-group">
+                                 <label for="pic_file">Ingresar:</label>
+                                 <input type="file" name="pic_file" class="form-control"  id="pic_file">
+                              </div>
+                              <hr class="cell-divide-hr">
+                              <div class="button-wrapper">
+                              </div>
+                           </div>
+                        </div>
+                     
                      <hr class="cell-divide-hr">
                      <div class="button-wrapper">
                      </div>
                   </div>
+                  
                </div>
                <!-- end of card -->
             </div>
             <!-- end of col -->
             <div class="form-group">
-               <button class="btn-solid-reg" id="addmaterial1">Guardar</button></br> </br>
+               <button type="submit" class="btn-solid-reg" id="addmaterial1">Guardar</button></br> </br>
             </div>
          </div>
+      </form>
          <!-- end of row -->
-      </div>
-      <!-- Actualizar materiales comprados durante -->
-      <div id="duranteTrab1" class="lightbox-basic zoom-anim-dialog mfp-hide">
-         <div class="container">
-            <div class="row">
-               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-               <div class="col-lg-4">
-                  <div class="card"></div>
-                  <div class="card-body" id="materialdurante_modificacion" >
-                     <div class="card-title">Modificar materiales comprados durante el trabajo</div>
-                     <hr class="cell-divide-hr">
-                     <table class="table table-bordered" >
-                     <?php if(isset($materiales_durante) && (count($materiales_durante)>0)){
-                           foreach($materiales_durante as $row){ ?>
-                        <TR>
-                           <TD><input type="hidden" id="item_material_update_id" value="<?php echo $row->ID;?>" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Material</TH>
-                           <TD><input type="text" id="item_material_update" value="<?php echo $row->nombre;?>" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Cantidad</TH>
-                           <TD><input type="text" id="item_cantidad_update" value="<?php echo $row->Cantidad;?>" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Total $</TH>
-                           <TD><input type="text" id="item_valortotal_update" value="<?php echo $row->Valor;?>" class="form-control" /></TD>
-                        </TR>
-                           <?php }
-                           }?>
-                     </table>
-                     <hr class="cell-divide-hr">
-                     
-                  </div>
-               </div>
-               <!-- end of card -->
-            </div>
-            <!-- end of col -->
-            <div class="form-group">
-               <button class="btn-solid-reg float-left" id="matdurante_modificacion">Agregar más</button><button class="btn-solid-reg float-right" id="update_material1">Guardar</button>
-            </div>
-         </div>
-         <!-- end of row -->
-      </div>
+      </div> 
       <!-- Ingreso de materiales comprados antes del trabajo -->
       <div id="antesTrab0" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
@@ -647,11 +608,10 @@
                   <div class="col-lg-4">
                      <div class="card"></div>
                      <div class="card-body" id="dynamic_field" >
-                        <div class="card-title">Subir documentos</div>
+                        <div class="card-title">Subir fotografias</div>
                         <hr class="cell-divide-hr">
                         <div class="form-group">
-                           <label for="pic_title">codigo:</label>
-                           <input type="text" class="form-control" name="codigo1" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" id="codigo1">
+                           <input type="hidden" class="form-control" name="codigo1" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" id="codigo1">
                         </div>
                         <div class="form-group">
                            <label for="pic_file">Ingresar:</label>

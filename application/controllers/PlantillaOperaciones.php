@@ -37,7 +37,6 @@ class PlantillaOperaciones extends CI_Controller {
 		$data ['gastosvarios_registrados'] = $this->OperacionesModel->ObtenerGastosVarios($data['codigo']);
 
 		//Materiales comprados
-		$data ['materiales_durante'] = $this->OperacionesModel->ObtenerMaterialesDurante($codigo);
 		$data ['materiales_antes'] = $this->OperacionesModel->ObtenerMaterialesAntes($codigo);
 		//Materiales bodega
 		$data ['materiales_bodega'] = $this->OperacionesModel->ObtenerMaterialesBodega($codigo);
