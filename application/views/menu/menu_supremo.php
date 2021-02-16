@@ -224,7 +224,7 @@ if (isset($set_data['nombre_completo'])) {
                          <i class="nav-icon fas fa-truck-pickup"></i>
                          <p>
                              <!-- Tio Dani -->
-                             Garage Vehicularr
+                             Garage Vehicularrr
                              <i class="fas fa-angle-left right"></i>
                          </p>
                      </a>
