@@ -32,6 +32,9 @@ class Proyecto extends CI_Controller
     {
         $data ['activo'] = 4;
         $data ['codigo'] = $idproyecto;
+
+       // $data ['Monto_total'] = $this->Proyecto_model->obtenerTotalFactura($data['codigo']);
+
         //$data['Listado_materiales'] = $this->Proyecto_model->obtenrmateriales();
         $this->load->view('menu/menu_proyecto',$data);
 		$this->load->view('Proyecto/PlanillasPro',$data);
@@ -479,6 +482,37 @@ public function obtenerPrecioVenta(){
     $data = array('response' => 'success', 'detalle' => $response);
 
     echo json_encode($data);
+}
+
+public function obtenerRegistroInsumo(){
+
+    //$PreciosugeridoVenta = $this->Proyecto_model->obtenerPrecioSugeridoProyecto();
+    
+  
+    $response .="<h3><b>Registro compras materiales</b></h3>";
+    $response .="<TD class='bg-info'><h5>Precio sugerido Proyecto</h5></TD>"; 
+    $response .="<div class='gr-line'></div>";
+
+    $response .="<div >Total monto <b class='text-gr'>$20000</b></div>";
+    
+    $response .="<div class='gr-line'></div>"; 
+    
+    $response .="<div>Total Presupuesto <b class='text-gr'>$150.000 </b></div>";
+    
+    $response .="<div class='gr-line'></div>";
+    
+    $response .="<div>Total Balance <b class='text-gr'>$50.000</b> </div>";
+    
+    $response .="<br>";
+    $response .="<button class='btn btn-banner' href='<?php echo base_url()?>Inicio' data-toggle='modal'";
+    $response .="data-target='#materiales'>Ver detalles</button>";
+    $response .="</div>";
+
+    $data = array('response' => 'success', 'detalle' => $response);
+
+    echo json_encode($data);
+
+
 }
 
 }
