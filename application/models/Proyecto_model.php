@@ -897,6 +897,38 @@ function make_datatables_ProyectoEjecutados(){
 
      return $query->num_rows();
  }
-/* ----------------------------------Fin Tabla ejecutados--------------------------------*/
+/* ----------------------------------Fin Tabla Estado--------------------------------*/
+public function obtenerTotalFactura($codigo){
+     echo"codigo: ".$codigo;
+    
+    $query = $this->db->SELECT('SUM(f.montototal)AS totalMonto')
+    ->from('trabajodiario t ')
+    ->join("proyecto pr", "pr.id_proyecto = t.id_proyecto")
+    ->join("factura_trabajo f", "t.id_trabajodiario=f.id_trabajodiario ")
+    ->where('pr.id_proyecto' ,$codigo)
+    ->get();
+    return $query->result();
+}
+
+public function obtenerTotalPresupuesto($codigo){
+   $query = $this->db->SELECT('SUM(t.valorasignado)AS totalpresupuesto ')
+   ->from('trabajodiario t ')
+   ->join("proyecto pr", "pr.id_proyecto = t.id_proyecto")
+   ->where('pr.id_proyecto' ,$codigo)
+   ->get();
+   return $query->result();
+}
+
+public function obtenerTrabajoDiario($codigo){
+    $query = $this->db->SELECT('fecha_inicio, detalle, codigoservicio')
+    ->from('trabajodiario t ')
+    ->join("proyecto pr", "pr.id_proyecto = t.id_proyecto")
+    ->join("codigoservicio c","t.id_codigo=c.id_codigo")
+    ->where('pr.id_proyecto' ,$codigo)
+    ->get();
+    return $query->result();
+ }
+
+
 }
 ?>
