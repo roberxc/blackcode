@@ -215,7 +215,7 @@
                      <hr class="cell-divide-hr">
                      <button type='submit' class='btn btn-app'>
                      <i class="fas fa-plus">
-                     </i> Exportar
+                     </i> Exportarr
                      </button>
                      <div class="card-body" id="dynamic_field" >
                         <div class="box-body">
