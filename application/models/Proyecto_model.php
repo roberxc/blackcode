@@ -897,7 +897,7 @@ function make_datatables_ProyectoEjecutados(){
 
      return $query->num_rows();
  }
-/* ----------------------------------Fin Tabla Estado--------------------------------*/
+/* ----------------------------------Fin Tabla ejecutados--------------------------------*/
 public function obtenerTotalFactura($codigo){
      echo"codigo: ".$codigo;
     
