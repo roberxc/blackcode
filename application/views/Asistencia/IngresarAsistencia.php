@@ -52,6 +52,7 @@
                                              <th>Nombre</th>
                                              <!-- 1 --->
                                              <th>Fecha</th>
+                                             <th>Asistente</th>
                                              <!-- 3 --->
                                              <th>Detalle</th>
                                              <!-- 4 --->
@@ -143,20 +144,10 @@
                                     <div class="col-md-6">
                                        <div class="card card-primary">
                                           <div class="card-header">
-                                             <h3 class="card-title">Horas extras</h3>
-                                          </div>
-                                          <div class="card-body">
-                                          <input type="text" value="0">
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                       <div class="card card-primary">
-                                          <div class="card-header">
                                              <h3 class="card-title">Asistente</h3>
                                           </div>
                                           <div class="card-body">
-                                          <input type="checkbox" id="estado_asistencia" checked data-toggle="toggle" data-on="Si" data-off="No" data-onstyle="success" data-offstyle="danger">
+                                             <input type="checkbox" id="estado_asistencia" checked data-toggle="toggle" data-on="Si" data-off="No" data-onstyle="success" data-offstyle="danger" >
                                           </div>
                                        </div>
                                     </div>
@@ -172,8 +163,6 @@
                      </div>
                      <!-- /.modal-content -->
                   </div>
-
-
                   <div class="modal fade" id="modal-detalle-asistencia">
                      <div class="modal-dialog modal-xl">
                         <div class="modal-content">
@@ -195,7 +184,7 @@
                                              <h3 class="card-title">Horas extras</h3>
                                           </div>
                                           <div class="card-body">
-                                          <input type="text" value="0">
+                                             <input type="text" value="0">
                                           </div>
                                        </div>
                                     </div>
@@ -210,29 +199,36 @@
                      </div>
                      <!-- /.modal-content -->
                   </div>
-
                </div>
                <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
                   <div class="card-header">
+                     
                      <!-- SELECT2 EXAMPLE -->
                      <div class="card card-default">
                         <div class="card-header">
                            <div class="card-tools">
                               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                              <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
                            </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                            <div class="row">
+                              
                            </div>
                            <div class="row">
+
                               <div class="col-md-3">
                                  <!-- /.form-group -->
                                  <div class="form-group">
                                     <label>Rut</label>
                                     <div class="form-group">
-                                       <input type="text" class="form-control" placeholder="Ingrese" id="codigoservicio_filtro" format="y-m-d">
+                                       <select name="rutpersonal" id="rutpersonal" style="width: 100%; height: 60%">
+                                       <?php
+                                          foreach($lista_personal as $i){
+                                             echo '<option value="'.$i->rut.'">'. $i->rut .'</option>';
+                                             }
+                                             ?>
+                                       </select>
                                     </div>
                                  </div>
                                  <!-- /.form-group -->
@@ -241,7 +237,7 @@
                                  <!-- /.form-group -->
                                  <div class="form-group">
                                     <label>Fecha</label>
-                                    <input type="date" class="form-control datetimepicker-input" data-target="#reservationdate" id="fecha_filtro"/>
+                                    <input type="text" id="date_range" name="date_range" class="form-control">
                                  </div>
                                  <!-- /.form-group -->
                               </div>
@@ -249,25 +245,27 @@
                                  <!-- /.form-group -->
                                  <div class="form-group">
                                     <label class="invisible">Graficar</label>
-                                    <button type="button" class="btn btn-block btn-primary">Listar</button>
+                                    <button type="button" id="boton-filtrohorasextras" class="btn btn-block btn-primary">Listar</button>
                                  </div>
-                                 <!-- /.form-group -->
                               </div>
                               <!-- /.col -->
+                           </div>
+                           <div class="card-body" id="horas-extras">
                            </div>
                            <!-- /.row -->
                         </div>
                      </div>
                   </div>
                   <div class="container">
-                     <div class="row">
-                        <div class="col-6">
-                           <div class="card">
-                              <div class="card-body">
-                                 <div id="gh" align="center">
-                                    <canvas id="myChart" width="100" height="100"></canvas>
-                                 </div>
-                              </div>
+                     <div class="card">
+                        <div class="card-header border-0">
+                           <div class="d-flex justify-content-between">
+                              <h3 class="card-title">Horas extras</h3>
+                           </div>
+                        </div>
+                        <div class="card-body">
+                           <div class="position-relative mb-4" id="gh">
+                              <canvas id="myChart" height="200"></canvas>
                            </div>
                         </div>
                      </div>
@@ -279,26 +277,20 @@
       </div>
    </div>
 </div>
-
-
-   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-   <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js" integrity="sha512-zO8oeHCxetPn1Hd9PdDleg5Tw1bAaP0YmNvPY8CwcRyUk7d7/+nyElmFrB6f7vg4f7Fv4sui1mcep8RIEShczg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js" integrity="sha512-SuxO9djzjML6b9w9/I07IWnLnQhgyYVSpHZx0JV97kGBfTIsUYlWflyuW4ypnvhBrslz1yJ3R+S14fdCWmSmSA==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js" integrity="sha512-hZf9Qhp3rlDJBvAKvmiG+goaaKRZA6LKUO35oK6EsM0/kjPK32Yw7URqrq3Q+Nvbbt8Usss+IekL7CRn83dYmw==" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.js" integrity="sha512-W76C8qrNYavcaycIH9EijxRuswoS+LCqA1+hq+ECrmjzAbe/SHhTgrwA1uc84husS/Gz50mxOEHPzrcd3sxBqQ==" crossorigin="anonymous"></script>
 <script type="text/javascript">
+   var today = new Date();
+   var dd = String(today.getDate()).padStart(2, '0');
+   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+   var yyyy = today.getFullYear();
+   var date = dd+mm+yyyy;
    $(function () {
    $('#date_range').daterangepicker({
      "locale": {
-         "format": "YYYY-MM-DD",
+         "format": "DD-MM-YYYY",
          "separator": " - ",
          "applyLabel": "Guardar",
          "cancelLabel": "Cancelar",
@@ -330,13 +322,20 @@
          ],
          "firstDay": 1
      },
-     "startDate": "2020-11-01",
-     "endDate": "2020-11-30",
+     "startDate": date,
      "opens": "center"
    });
    });
 </script>
 <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+   integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js" integrity="sha512-zO8oeHCxetPn1Hd9PdDleg5Tw1bAaP0YmNvPY8CwcRyUk7d7/+nyElmFrB6f7vg4f7Fv4sui1mcep8RIEShczg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js" integrity="sha512-SuxO9djzjML6b9w9/I07IWnLnQhgyYVSpHZx0JV97kGBfTIsUYlWflyuW4ypnvhBrslz1yJ3R+S14fdCWmSmSA==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js" integrity="sha512-hZf9Qhp3rlDJBvAKvmiG+goaaKRZA6LKUO35oK6EsM0/kjPK32Yw7URqrq3Q+Nvbbt8Usss+IekL7CRn83dYmw==" crossorigin="anonymous"></script>
 <script src="<?php echo base_url()?>assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script>var base_url = '<?php echo base_url();?>';</script>
 <script src="<?php echo base_url();?>assets/js/Asistencia/asistencia.js"></script>
@@ -349,21 +348,31 @@
          },
        "processing": true,
        "serverSide": true, 
-       "ajax":{url:"<?php echo base_url('Asistencia/obtenerAsistencia'); ?>",
+       "ajax":{url:"<?php echo base_url('CAsistencia/obtenerAsistencia'); ?>",
        type: "POST"
      },
        "columnDefs":[
          {
-             "targets": [1,2,3],
+             "targets": [1,2,3,4,5],
          }
        ]
      });
-
+   
      $("input[data-bootstrap-switch]").each(function(){
       $(this).bootstrapSwitch('state', $(this).prop('checked'));
     });
    });
 </script>
+<script type="text/javascript">
+   //mostrar tipoproducto
+   $(document).ready(function(){
+     $('#rutpersonal').select2({
+       theme: "bootstrap"
+     });   
+   });
+   
+   
+</script> 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="<?php echo base_url();?>assets/js/sweetAlert.js"></script>
 <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>

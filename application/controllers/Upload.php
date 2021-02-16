@@ -7,6 +7,7 @@ class Upload extends CI_Controller{
 		parent::__construct();
 		$this->load->model('pic_model');
 		$this->load->model('CotizacionesModel');
+		$this->load->helper(array('form', 'url'));
 		//$this->load->library('form_validation');
 		
 		//$this->load->view('header');
@@ -26,7 +27,7 @@ class Upload extends CI_Controller{
 			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 			$config = [
 				"upload_path" => APPPATH. '../ArchivosSubidos/',
-				'allowed_types' => "jpg|png|pdf|docx|jepg"
+				'allowed_types' => "*"
 			];
 
 			$this->load->library("upload",$config);
@@ -54,7 +55,7 @@ class Upload extends CI_Controller{
 			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 			$config = [
 				"upload_path" => APPPATH. '../ArchivosSubidos/',
-				'allowed_types' => "jpg|png|pdf|docx|jepg"
+				'allowed_types' => "*"
 			];
 
 			$this->load->library("upload",$config);
@@ -83,7 +84,7 @@ class Upload extends CI_Controller{
 			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 			$config = [
 				"upload_path" => APPPATH. '../ArchivosSubidos/',
-				'allowed_types' => "jpg|png|pdf|docx|jepg"
+				'allowed_types' => "*"
 			];
 
 			$this->load->library("upload",$config);
@@ -103,24 +104,26 @@ class Upload extends CI_Controller{
 		}
 	}
 
-	public function subirCotizaciones(){
+	public function updateDocumentacionActualizable(){
 		//El metodo is_ajax_request() de la libreria input permite verificar
 		//si se esta accediendo mediante el metodo AJAX 
 		if ($this->input->is_ajax_request()) {
-			$proveedor = $this->input->post("proveedor");
-			$fecha = $this->input->post("fecha");
-			$nrocotizacion = $this->input->post("nrocotizacion");
-
+			$nombredocumento = $this->input->post("nombre-documento");
+			$fechalimite = $this->input->post("fecha-limite");
+			$iddoc = $this->input->post("id-doc");
+			
+			
 			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 			$config = [
 				"upload_path" => APPPATH. '../ArchivosSubidos/',
-				'allowed_types' => "jpg|png|pdf|docx|jepg"
+				'allowed_types' => "*"
 			];
 
 			$this->load->library("upload",$config);
-			if ($this->upload->do_upload('pic_file')) {
+
+			if ($this->upload->do_upload('pic_file_update')) {
 				$data = array("upload_data" => $this->upload->data());
-				if($this->CotizacionesModel->subirCotizacion($data,$proveedor,$fecha,$nrocotizacion)==true){
+				if($this->pic_model->updateDocumentacionActualizable($data,$nombredocumento,$fechalimite,$iddoc)==true){
 					echo "exito";
 				}else{
 					echo "error";
@@ -128,9 +131,6 @@ class Upload extends CI_Controller{
 			}else{
 				echo $this->upload->display_errors();
 			}
-
-
-
 		}else{
 			show_404();
 		}
@@ -147,7 +147,7 @@ class Upload extends CI_Controller{
 			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 			$config = [
 				"upload_path" => APPPATH. '../ArchivosSubidos/',
-				'allowed_types' => "jpg|png|pdf|docx|jepg"
+				'allowed_types' => "*"
 			];
 
 			$this->load->library("upload",$config);
@@ -179,7 +179,7 @@ class Upload extends CI_Controller{
 			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 			$config = [
 				"upload_path" => APPPATH. '../ArchivosSubidos/',
-				'allowed_types' => "jpg|png|pdf|docx|jepg"
+				'allowed_types' => "*"
 			];
 
 			$this->load->library("upload",$config);

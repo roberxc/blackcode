@@ -9,7 +9,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Registro vehiculas</h1>
+                        <h1>Registro Vehicular</h1>
                     </div>
 
                 </div>
@@ -38,12 +38,14 @@
 
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
-                                        <b>Existencia total</b> <a class="float-right"><?php if(isset($total_vehiculos)){ echo $total_vehiculos[0]['total'];}else{echo"0";}?></a>
+                                        <b>Existencia total</b> <a
+                                            class="float-right"><?php if(isset($total_vehiculos)){ echo $total_vehiculos[0]['total'];}else{echo"0";}?></a>
                                     </li>
                                 </ul>
 
 
-                                <button type="button" onclick="document.location.reload();" class="btn btn-outline-info btn-block">Actualizar</button>
+                                <button type="button" onclick="document.location.reload();"
+                                    class="btn btn-outline-info btn-block">Actualizar</button>
 
                             </div>
                             <!-- /.card-body -->
@@ -83,9 +85,9 @@
                                                 <div class="col-sm-10">
                                                     <select id="tipo" class="form-control">
                                                         <option selected>Seleccione</option>
-                                                        <option>Camión</option>
-                                                        <option>Camioneta</option>
                                                         <option>Automovil</option>
+                                                        <option>Camioneta</option>
+                                                        <option>Camion</option>
                                                         <option>Otro</option>
 
                                                     </select>
@@ -151,7 +153,7 @@
                                                         <option>Bencinero</option>
                                                         <option>Diesel</option>
                                                         <option>Eléctrico</option>
-                                                        <option>Otro</option>
+                                                        <option>Otro tipo</option>
 
                                                     </select>
 

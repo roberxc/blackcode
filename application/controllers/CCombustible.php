@@ -50,4 +50,3 @@ class CCombustible extends CI_Controller {
 		
     }
 }
-

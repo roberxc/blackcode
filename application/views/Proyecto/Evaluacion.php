@@ -117,27 +117,21 @@
          <div class="container">
             <div class="row pad-top-bottom  move-me">
                <div class="col-lg-5 col-md-5 col-sm-5 text-center">
-                  <form id="fromProyecto">
-                     <label>Nombre Proyecto</label>
-                     <div class="form-group">
-                        <input type="text" class="form-control" id="nombreProyecto" required="required"  />
-                     </div>
-                     <label>Fecha de inicio</label>
-                     <div class="form-group">
-                        <input type="date" class="form-control" id="fechaInicio" required="required"  />
-                     </div>
-                     <label>Fecha de termino</label>
-                     <div class="form-group">
-                        <input type="date" class="form-control" id="fechaTermino" required="required"  />
-                     </div>
-                     <label>Monto total del proyecto</label>
-                     <div class="form-group">
-                        <input type="number" class="form-control" id="monto" required="required" />
-                     </div>
-                     <div class="form-group">
-                        <button type="button" id="addProyecto"  class="btn custom-btn-one">Guardar</button>
-                     </div>
-                  </form>
+
+               <label for="cars" >Seleccione Partidas del proyecto:</label>
+                  <select class="form-control select2bs4" name="partidas3" onchange="actualizarResumen()" id="partidas3" style="width: 100%; height: 60%">
+                  <option value="0" selected>Seleccione</option>
+                  <?php
+                     
+                     foreach($partidas as $i){
+                        echo '<option value="'. $i->id_partidas .'">'. $i->nombre .'</option>';
+                     }
+                     ?>
+                  </select>
+                  
+                 
+                  <div class="modal-body" id="resumen-proyecto">
+                  </div>
                </div>
                <div class="col-lg-2 col-md-2 col-sm-2 text-center  ">
                   <a href="<?php echo base_url(); ?> nicio" data-toggle="modal" data-target="#modal-lg" class="small-box-footer" class="wow bounceIn animated" data-wow-duration="1s" data-wow-delay=".1s">
@@ -165,26 +159,19 @@
                      <i class="fa fa-briefcase icon-round "></i>
                      <h4 class="wow bounceIn animated" data-wow-duration="1s" data-wow-delay=".6s">Configuración</h4>
                   </a>
-                  <a href="<?php echo base_url(); ?> nicio" data-toggle="modal" data-target="#modal-lg3" class="small-box-footer" class="wow bounceIn animated" data-wow-duration="1s" data-wow-delay=".7s">
+                  <a href="<?php echo base_url(); ?> nicio" data-toggle="modal" data-target="#fleteTraslado" class="small-box-footer" class="wow bounceIn animated" data-wow-duration="1s" data-wow-delay=".5s">
+                     <i class="fa fa-briefcase icon-round "></i>
+                     <h4 class="wow bounceIn animated" data-wow-duration="1s" data-wow-delay=".6s">Flete traslado</h4>
+                  </a>
+                  <a href="<?php echo base_url() ?>Inicio" class="nav-link"  class="small-box-footer" class="wow bounceIn animated" data-wow-duration="1s" data-wow-delay=".7s">
                      <i class="fa fa-paper-plane-o icon-round"></i>
                      <h4 class="wow bounceIn animated" data-wow-duration="1s" data-wow-delay=".12s">Salir</h4>
                   </a>
                </div>
-               <div class="col-lg-5 col-md-5 col-sm-5 text-center">
-                  <label for="cars" >Seleccione Partidas del proyecto:</label>
-                  <select class="form-control select2bs4" name="partidas3" onchange="actualizarResumen()" id="partidas3" style="width: 100%; height: 60%">
-                  <option value="0" selected>Seleccione</option>
-                  <?php
-                     
-                     foreach($partidas as $i){
-                        echo '<option value="'. $i->id_partidas .'">'. $i->nombre .'</option>';
-                     }
-                     ?>
-                  </select>
-                  
-                 
-                  <div class="modal-body" id="resumen-proyecto">
+               <div class="col-lg-4 col-md-4 col-sm-4 text-center">
+               <div class="modal-body" id="precioSugeridoProyecto">
                   </div>
+                  
             </div>
 
                   
@@ -210,6 +197,15 @@
                      <div class="row">
                         <div class="col-md-5">
                            <div class="form-group">
+                           
+                           <label>Nombre de Partida</label>
+                        <select class="form-control select2bs4" name="partidas5" id="partidas5" style="width: 100%; height: 60%">
+                        <?php
+                           foreach($partidas as $i){
+                              echo '<option value="'. $i->id_partidas .'">'. $i->nombre .'</option>';
+                           }
+                           ?>
+                        </select>
                               <label>Valor total según días de instalación:</label>
                               <div class="form-group">
                                  <input type="number" id="numdias" class="form-control" required="required"  />
@@ -265,11 +261,23 @@
                   <div class="card-body">
                      <div class="row">
                         <div class="col-md-5">
+                        
                            <div class="form-group">
+                           <label>Nombre de Partida</label>
+                        <select class="form-control select2bs4" name="partidas4" id="partidas4" style="width: 100%; height: 60%">
+                        <?php
+                           foreach($partidas as $i){
+                              echo '<option value="'. $i->id_partidas .'">'. $i->nombre .'</option>';
+                           }
+                           ?>
+                        </select>                   
                               <label>Valor total según días de supervisión:</label>
+                              
                               <div class="form-group">
+                              
                                  <input type="number" id="diasSuper" class="form-control" required="required"  />
                                  <input type="text" id="tipoSuper" value="Supervision" class="form-control" style="visibility:hidden"/>
+                                 
                               </div>
                            </div>
                            <!-- /.form-group -->
@@ -340,7 +348,7 @@
       </div>
       <!-- /.modal-dialog -->
    </div>
-   <!--------------------------------------------Registrar etapas de las partidas--------------------->
+   <!--------------------------------------------Registrar etapas--------------------->
    <!-- /.modal -->
    <div class="modal fade" id="etapas">
       <div class="modal-dialog modal-lg">
@@ -363,7 +371,7 @@
                            }
                            ?>
                         </select>
-                        <input type="text" id="estado" value="Sin registro"class="form-control" style="visibility:hidden" />
+                        <input type="text" id="estado" value="0"class="form-control" style="visibility:hidden" />
                      </div>
                      <!-- /.form-group -->
                      <!-- /.form-group -->
@@ -540,33 +548,83 @@
             </div>
             <div class="modal-body">
                <div class="row">
+               <label>Nombre de Partida</label>
+                        <select class="form-control select2bs4" name="partidas6" id="partidas6" style="width: 100%; height: 60%">
+                        <?php
+                           foreach($partidas as $i){
+                              echo '<option value="'. $i->id_partidas .'">'. $i->nombre .'</option>';
+                           }
+                           ?>
+                        </select>
                   <div class="col-lg-10" id="divFletes">
                      <form id="fromPorcentaje">
                      <label>Imprevistos %</label>
                      <div class="form-group">
-                        <input type="text" class="form-control"id="imprevisto" required="required"  />
+                        <input type="number" class="form-control"id="imprevisto" required="required"  />
                      </div>
                      <label>Gastos generales %</label>
                      <div class="form-group">
-                        <input type="text" class="form-control" id="generales" required="required"  />
+                        <input type="number" class="form-control" id="generales" required="required"  />
                      </div>
                      <label>Comisiones %</label>
                      <div class="form-group">
-                        <input type="text" class="form-control" id="comision" required="required"  />
+                        <input type="number" class="form-control" id="comision" required="required"  />
                      </div>
                      <label>Ingeniería %</label>
                      <div class="form-group">
-                        <input type="text" class="form-control" id="ingenieria" required="required"  />
+                        <input type="number" class="form-control" id="ingenieria" required="required"  />
                      </div>
                      <label>Utilidades %</label>
                      <div class="form-group">
-                        <input type="text" class="form-control" id="utilidades" required="required"  />
+                        <input type="number" class="form-control" id="utilidades" required="required"  />
                      </div>
                   </div>
                </div>
             </div>
             <div class="modal-footer justify-content-between">
                <button type="button" id="addPorcentaje" class="btn btn-primary">Guardar</button>
+            </div>
+            </from>
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!----------------------Registro Flete Traslado --------------------------------->
+   <div class="modal fade" id="fleteTraslado">
+      <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h4 class="modal-title">Registrar flete traslado</h4>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <div class="row">
+               <div class="col-lg-4">
+               <label>Nombre de Partida</label>
+                        <select class="form-control select2bs4" name="partidas7" id="partidas7" style="width: 100%; height: 60%">
+                        <?php
+                           foreach($partidas as $i){
+                              echo '<option value="'. $i->id_partidas .'">'. $i->nombre .'</option>';
+                           }
+                           ?>
+                        </select>
+                        
+                        </div>
+                        
+                  <div class="col-lg-6" id="divFletes">
+                     <form id="fromPorcentaje">
+                     <label>Ingresar Flete traslado</label>
+                     <div class="form-group">
+                        <input type="number" class="form-control"id="flete_Traslado" required="required"  />
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+               <button type="button" id="addfleteTraslado" class="btn btn-primary">Guardar</button>
             </div>
             </from>
          </div>
@@ -588,6 +646,26 @@
          });
          $(document).ready(function(){
            $('#partidas3').select2({
+             theme: "bootstrap"
+           });
+         });
+         $(document).ready(function(){
+           $('#partidas4').select2({
+             theme: "bootstrap"
+           });
+         });
+         $(document).ready(function(){
+           $('#partidas5').select2({
+             theme: "bootstrap"
+           });
+         });
+         $(document).ready(function(){
+           $('#partidas6').select2({
+             theme: "bootstrap"
+           });
+         });
+         $(document).ready(function(){
+           $('#partidas7').select2({
              theme: "bootstrap"
            });
          });

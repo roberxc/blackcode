@@ -26,6 +26,8 @@ class Mantencion extends CI_Model{
         return true;
     }
 
+      /////////////////////////////////////////////
+    //ESTE ES EL SELECT DE LA TABLA MANTENCIONES//
 
     var $select_column = array("mantencion.id_mantencion",  "vehiculo.patente", "mantencion.fecha", "personaltrabajo.nombrecompleto", "mantencion.taller", "mantencion.mecanico", "mantencion.total_m", "mantencion.detalle");  
     var $table = array("mantencion","personaltrabajo", "vehiculo");  
@@ -74,7 +76,7 @@ class Mantencion extends CI_Model{
        $this->db->where("mantencion.id_personal =  personaltrabajo.id_personaltrabajo AND mantencion.id_vehiculo = vehiculo.id_vehiculo");
        return $this->db->count_all_results();  
   }  
-//////////////////////////////////
+//ESTE ES EL SELECT COUNT PARA TENER LOS TOTALES DE LOS ID Y SABER CUANTOS REGISTROS HAY//
   public function ObtenerVehiculos(){
     $query = $this->db
             ->select("id_vehiculo,patente") # También puedes poner * si quieres seleccionar todo

@@ -38,9 +38,36 @@ if (isset($set_data['nombre_completo'])) {
               </p>
             </a>
           </li>
+
+          <li class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 11)){echo "menu-open"; }?>">
+            <a href="#" class="nav-link <?php if(isset($activomenu) && ($activomenu == 11)){echo "active"; }?>">
+              <i class="nav-icon fas fa-book-open"></i>
+              <p>
+                Registro
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url();?>Vacaciones" class="nav-link <?php if(isset($activo) && ($activo == 122)){echo "active"; }?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Vacaciones</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url();?>Permisos" class="nav-link <?php if(isset($activo) && ($activo == 123)){echo "active"; }?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Permisos</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
           <li class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 4)){echo "menu-open"; }?>">
             <a href="#" class="nav-link <?php if(isset($activomenu) && ($activomenu == 4)){echo "active"; }?>">
-              <i class="nav-icon fas fa-hammer"></i>
+              <i class="nav-icon 	fas fa-book-reader"></i>
               <p>
                 Asistencia
                 <i class="fas fa-angle-left right"></i>
@@ -48,15 +75,9 @@ if (isset($set_data['nombre_completo'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url();?>Asistencia" class="nav-link <?php if(isset($activo) && ($activo == 5)){echo "active"; }?>">
+                <a href="<?php echo base_url();?>CAsistencia" class="nav-link <?php if(isset($activo) && ($activo == 55)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ingresar asistencia</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo base_url();?>Asistencia/AsistenciaEspera" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Asistencia en espera</p>
                 </a>
               </li>
             </ul>

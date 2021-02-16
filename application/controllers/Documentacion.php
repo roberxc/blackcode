@@ -13,12 +13,32 @@ class Documentacion extends CI_Controller {
 
 	}
 
+	public function setNotificaciones(){
+		$data ['expiracion'] = 0;
+		$lista_fecha = $this->DocumentacionModel->ObtenerFechaDocActualizable();
+		$fechaactual = date("d-m-Y");
+		$data ['totaldocumentos'] = 0;
+		foreach($lista_fecha as $row){
+			//Paso de string a fecha
+			$d1 = new DateTime($row->fechalimite);
+			$d2 = new DateTime($fechaactual);
+			$interval = $d1->diff($d2);
+			$diasTotales    = $interval->d; 
+			if($diasTotales == 3){
+				$data ['lista_nrodocactualizables'] = $this->DocumentacionModel->ObtenerNroDocActualizable($row->fechalimite);
+				$data ['expiracion'] = 1;
+				$data ['totaldocumentos'] = $data ['totaldocumentos'] + 1;
+			}
+		}
+		$this->load->view('layout/nav',$data);
+	}
+
 	public function Permamente()
 	{
 		$data ['documentos_permamentes'] = $this->DocumentacionModel->ObtenerDocumentosPermamentes();
 		$data ['activomenu'] = 11;
 		$data ['activo'] = 8;
-		$this->load->view('layout/nav');
+		$this->setNotificaciones();
      	$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/documentacionPermamente',$data);
 		$this->load->view('layout/footer');
@@ -29,7 +49,7 @@ class Documentacion extends CI_Controller {
 		$data ['documentos_actualizables'] = $this->DocumentacionModel->ObtenerDocumentosActualizables();
 		$data ['activomenu'] = 11;
 		$data ['activo'] = 12;
-		$this->load->view('layout/nav');
+		$this->setNotificaciones();
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/documentacionActualizable',$data);
 		$this->load->view('layout/footer');
@@ -49,5 +69,72 @@ class Documentacion extends CI_Controller {
 
 		$resultado = $this->DocumentacionModel->FiltroDocumentacionActualizable($nombre,$fecha);
 		echo json_encode($resultado);
+	}
+
+	public function obtenerDocumentacion($tipo)
+    {
+        $fetch_data = $this->DocumentacionModel->make_datatables_documentacion($tipo);
+        $data = array();
+        foreach ($fetch_data as $value){
+            $sub_array = array();
+			$sub_array[] = $value->id;
+			$sub_array[] = $value->nombre;
+			//Si es igual a 0 es porque es documentacion permamente
+			if($tipo == 0){
+				$sub_array[] = $value->fecha;
+				$sub_array[] = '<button class="btn btn-success btn-sm" data-toggle="modal" id="estado-orden" data-target="#modal-estado-orden" onclick="descargarDocumento(this)"><i class="fas fa-download"></i></button>';
+			}
+			//Si es igual a 1 es porque es documentacion actualizable
+			if($tipo == 1){
+				$sub_array[] = $value->fechalimite;
+				$sub_array[] = '<button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-editardocumento" onclick="editarDocumento(this)"><i class="fas fa-edit"></i></button><button class="btn btn-success btn-sm" data-toggle="modal" id="estado-orden" data-target="#modal-estado-orden" onclick="descargarDocumento(this)"><i class="fas fa-download"></i></button>';
+			}
+            $data[] = $sub_array;
+        }
+
+        $output = array(
+            "draw" => intval($_POST["draw"]) ,
+            "recordsTotal" => $this->DocumentacionModel->get_all_data_documentacion($tipo) ,
+            "recordsFiltered" => $this->DocumentacionModel->get_filtered_data_documentacion($tipo) ,
+            "data" => $data
+        );
+        echo json_encode($output);
+
+	}
+
+	public function download($id){
+        if(!empty($id)){
+            //load download helper
+            $this->load->helper('download');
+            
+            //get file info from database
+			$fileInfo = $this->DocumentacionModel->getRows(array('id' => $id));
+            
+            //file path
+			$file ='ArchivosSubidos/'.$fileInfo['ubicacion'];
+		
+            
+            //download file from directory
+            force_download($file, NULL);
+        }
+	}
+	
+	public function obtenerDetalleDocumento(){
+		$ajax_data = $this->input->post(); //Datos que vienen por POST
+		
+		$horas_extras = $this->DocumentacionModel->ObtenerDetalleDocActualizable($ajax_data['iditem']);
+		$response = "<div class='form-group'>";
+		$response .= "<label for='exampleInputEmail1'>Nombre del documento</label>";
+		$response .= "<input type='text' class='form-control' id='nombre-documento' name='nombre-documento' placeholder='Ingrese'>";
+		$response .= "</div>";
+		$response .= "<div class='form-group'>";
+		$response .= "<label for='exampleInputEmail1'>Fecha limite</label>";
+		$response .= "<input type='date' class='form-control' id='fecha-limite' name='fecha-limite' format='d/m/y'>";
+		$response .= "</div>";
+
+		$data = array('response' => 'success', 'detalle' => $response);
+
+
+		echo json_encode($data);
 	}
 }

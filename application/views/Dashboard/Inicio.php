@@ -1,4 +1,9 @@
 <!-- Content Wrapper. Contains page content -->
+<head>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+</head>
+
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -14,7 +19,7 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
+    <input type="hidden" id="estado-alerta" value="<?php if(isset($expiracion)){echo$expiracion;}else{ echo 0;}?>">
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -225,4 +230,22 @@
    </div>
 </section>
 </body>
+<!-- ESTE PARA LAS ALERTAS --->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="<?php echo base_url();?>assets/js/sweetAlert.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.jqueryui.min.js"></script>
+<script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+   integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script type="text/javascript">
+    var lista_nrodoc = <?php echo json_encode($lista_nrodocactualizables); ?>;
+</script>
+<script>var base_url = '<?php echo base_url();?>';</script>
+<script src="<?php echo base_url();?>assets/js/Administracion/inicio.js"></script>
 </html>

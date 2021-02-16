@@ -9,7 +9,28 @@ class Factura extends CI_Controller
         parent::__construct(); // you have missed this line.
         $this->load->model('FacturasModel');
         $this->load->model('OrdenesModel');
+        $this->load->model('DocumentacionModel');
     }
+
+    public function setNotificaciones(){
+		$data ['expiracion'] = 0;
+		$lista_fecha = $this->DocumentacionModel->ObtenerFechaDocActualizable();
+		$fechaactual = date("d-m-Y");
+		$data ['totaldocumentos'] = 0;
+		foreach($lista_fecha as $row){
+			//Paso de string a fecha
+			$d1 = new DateTime($row->fechalimite);
+			$d2 = new DateTime($fechaactual);
+			$interval = $d1->diff($d2);
+			$diasTotales    = $interval->d; 
+			if($diasTotales == 3){
+				$data ['lista_nrodocactualizables'] = $this->DocumentacionModel->ObtenerNroDocActualizable($row->fechalimite);
+				$data ['expiracion'] = 1;
+				$data ['totaldocumentos'] = $data ['totaldocumentos'] + 1;
+			}
+		}
+		$this->load->view('layout/nav',$data);
+	}
 
     public function obtenerFacturas()
     {
@@ -40,7 +61,7 @@ class Factura extends CI_Controller
         $data['lista_ordenes'] = $this->OrdenesModel->listaOrdenes();
         $data['activomenu'] = 15;
         $data['activo'] = 18;
-        $this->load->view('layout/nav');
+        $this->setNotificaciones();
         $this->load->view('menu/menu_supremo', $data);
         $this->load->view('Administracion/Facturas',$data);
         $this->load->view('layout/footer');

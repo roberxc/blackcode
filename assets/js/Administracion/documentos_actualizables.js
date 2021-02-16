@@ -1,3 +1,8 @@
+function descargarDocumento(table){
+    var iddocumento = table.parentNode.parentNode.cells[0].textContent;
+    window.location.href = base_url + "Documentacion/download/"+iddocumento;
+}
+
 $("#listar").on('click', function(event) {
     $('#tabla_documentacion_actualizable tbody').html('');
     var fecha = $('#fecha_filtro').val();
@@ -22,6 +27,30 @@ $("#listar").on('click', function(event) {
             });
             $('#tabla_documentacion_actualizable tbody').append(output);
         });
+});
+
+//Actualizar documentacion actualizable
+$("#form-update-archivos-actualizable").submit(function (event){
+    event.preventDefault();
+    var formData = new FormData($("#form-update-archivos-actualizable")[0]);
+    $.ajax({
+        url: base_url+"Upload/updateDocumentacionActualizable",
+        type:$("form").attr("method"),
+        data:formData,
+        cache:false,
+        contentType:false,
+        processData:false,
+        success:function(respuesta){
+            if (respuesta==="exito") {
+                //$("#msg-error").hide();
+                window.location.href = base_url+"Documentacion/Actualizable";
+                generarAvisoExitoso('Archivo actualizado correctamente!');
+            }
+            else if(respuesta==="error"){
+                generarAvisoError('Error al subir el archivo');
+            }
+        }
+    });
 });
 
 $("#form-subir-archivos-actualizable").submit(function (event){
@@ -93,3 +122,33 @@ function generarAvisoExitoso($mensaje){
     }
 }
 
+var iddoc = 0;
+
+function setIdDocInput(table){
+    var iditem = table.parentNode.parentNode.cells[0].textContent;
+    return iditem;
+}
+
+function editarDocumento(table){
+    var iditem = table.parentNode.parentNode.cells[0].textContent;
+    document.getElementById('id-doc').value = setIdDocInput(table);
+
+    $.ajax({
+        url: base_url+"Documentacion/obtenerDetalleDocumento",
+        type: "post",
+        dataType: "json",
+        data: {
+            iditem: iditem,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                // Add response in Modal body
+                $('#detalle-documentos').html(data.detalle);
+                // Display Modal
+                 //$('#detalle-trabajo').modal('show');
+            } else {
+                
+            }
+        }
+    });
+}

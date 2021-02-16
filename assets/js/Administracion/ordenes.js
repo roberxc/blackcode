@@ -1,9 +1,3 @@
-
-$(function () {
-    cargarTabla()
-});
-
-
 var i=1;
 
 $("#añadir-orden").on('click', function(event) {
@@ -89,6 +83,57 @@ function setTablaDetalle(table){
     });
 }
 
+function setNumeroOrdenInput(table){
+    var iditem = table.parentNode.parentNode.cells[0].textContent;
+    return iditem;
+}
+
+//Llenar tabla de estado de orden al hacer click en editar
+var nroorden = 0;
+function setTablaEstado(table){
+    nroorden = setNumeroOrdenInput(table);
+    $.ajax({
+        url: base_url+"Ordenes/obtenerEstadoOrden",
+        type: "post",
+        dataType: "json",
+        data: {
+            iditem: nroorden,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                // Add response in Modal body
+                $('#estado-ordenes').html(data.detalle);
+                // Display Modal
+                 //$('#detalle-trabajo').modal('show');
+            } else {
+                
+            }
+        }
+    });
+}
+
+function setEstadoOrden(){
+    var iditem = nroorden;
+    var estado = $('#estado_orden').val();
+    $.ajax({
+        url: base_url+"Ordenes/actualizarEstadoOrden",
+        type: "post",
+        dataType: "json",
+        data: {
+            nroorden: iditem,
+            estado: estado,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                generarAvisoExitoso(data.message);
+                window.location.href = "Ordenes";
+            } else {
+                
+            }
+        }
+    });
+}
+
 function calculfac() {
     //Establecer el resumen de total y subtotal
     setTotal();
@@ -122,37 +167,31 @@ function setTotal() {
 
 $("#añadir-nuevaorden").on('click', function(event) {
     item_producto = [];
-    $('#productos_orden').find("td.item").each(function(index,elem){
+    $('#productos_cotizacion').find("td.item_material").each(function(index,elem){
          /* do something */ 
          item_producto.push($(elem).text());
     });
     
-    item_iva = [];
-    $('#productos_iva').find("td.iva").each(function(index,elem){
-         /* do something */ 
-         item_iva.push($(elem).text());
-    });
-    
     item_importe = [];
-    $('#productos_orden').find("td.importe").each(function(index,elem){
+    $('#productos_cotizacion').find("td.importe").each(function(index,elem){
          /* do something */ 
          item_importe.push($(elem).text());
     });
     
     item_cantidad = [];
-    $('#productos_orden').find("td.cantidad").each(function(index,elem){
+    $('#productos_cotizacion').find("td.cantidad").each(function(index,elem){
          /* do something */ 
          item_cantidad.push(parseInt($(elem).text()));
     });
     
     item_valor = [];
-    $('#productos_orden').find("td.precio").each(function(index,elem){
+    $('#productos_cotizacion').find("td.precio").each(function(index,elem){
          /* do something */ 
          item_valor.push(parseInt($(elem).text()));
     });
 
     item_idmaterial = [];
-    $('#productos_orden').find("td.item").each(function(index,elem){
+    $('#productos_cotizacion').find("td.item").each(function(index,elem){
          /* do something */ 
          item_idmaterial.push(parseInt($(elem).text()));
     });
@@ -178,7 +217,6 @@ $("#añadir-nuevaorden").on('click', function(event) {
             lista_item: item_producto,
             lista_importe: item_importe,
             lista_cantidad: item_cantidad,
-            lista_iva: item_iva,
             lista_valor: item_valor,
             nrocotizacion: nrocotizacion,
             idbodega: idbodega,
@@ -245,115 +283,23 @@ function generarAvisoExitoso($mensaje) {
     }
 }
 
-
-var dataTablee;
-function verMas(id){
-    $('#myModalVerMas').modal('show')
-    dataTable = $('#table_vermas_reajustar_stock').DataTable({
-        aLengthMenu: [
-            [15, 30, 50, 100, -1],
-            [15, 30, 50, 100, "All"],
-        ],
-        "processing": true,
-        "serverSide": true,
-        "order": [],
-        "ajax": {
-            url: base_url+"Ordenes/fetch_vermas_data",
-            type: "GET",
-            data : { id : id},
+function obtenerCotizacion(){
+    var idcotizacion = $("#nrocotizacion").val();
+    $.ajax({
+        url: base_url+"Cotizacion/obtenerDetalleCotizacion",
+        type: "post",
+        dataType: "json",
+        data: {
+            id_cotizacion: idcotizacion,
         },
-        "columnDefs": [
-            {
-                "targets": [ 0, 1, 2],  // elementos de la tabla table_reajustar_stock 0 1 2 3 -> el 4 estaba dando drama de stilo
-                'className': 'vcenter',
+        success: function(data) {
+            if (data.response == "success") {
+                // Add response in Modal body
+                generarAvisoExitoso("Actualizando cotizacion...");
+                $('#detalle-cotizacion').html(data.detalle);
+                // Display Modal
+                 //$('#detalle-trabajo').modal('show');
             }
-        ],
-        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-
-        }
-    });
-    /*$.ajax({
-    url: base_url+"Ordenes/fetch_vermas_data",
-    type: "GET",
-    dataType: "json",
-    data: {
-        id: id,
-    },
-
-        success : function(response) {
-           console.log(response);
-           $('#table_vermas_reajustar_stock > tbody').empty()
-           $('#table_vermas_reajustar_stock > tbody').append("<tr><td>"+response.nroorden+"</td><td>"+response.nombre+"</td><td>"+response.cantidad+"</td><td>"+response.preciounitario+"</td></tr>");
-        },
-    
-        error : function(xhr, status) {
-           console.log(xhr)
-        },
-    
-        complete : function(xhr, status) {
-    
-        }
-    });*/
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var dataTable;
-cargarTabla = function () {
-    dataTable = $('#table_vermas_reajustar_stock').DataTable({
-        aLengthMenu: [
-            [15, 30, 50, 100, -1],
-            [15, 30, 50, 100, "All"],
-        ],
-        "processing": true,
-        "serverSide": true,
-        "order": [],
-        "ajax": {
-            url: base_url+"Ordenes/fetch_vermas_data",
-            type: "GET",
-            data : { id : id},
-        },
-        "columnDefs": [
-            {
-                "targets": [ 0, 1, 2, 3],  // elementos de la tabla table_reajustar_stock 0 1 2 3 -> el 4 estaba dando drama de stilo
-                'className': 'vcenter',
-            }
-        ],
-        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-
         }
     });
 }

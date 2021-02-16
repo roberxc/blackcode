@@ -2,7 +2,7 @@
 <!-- FOOTER 
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 -->
-<?php if(isset($activo) && ($activo != 10) && ($activo != 30)){?>
+<?php if(isset($activo) && ($activo != 10) && ($activo != 30) && ($activo != 55) && ($activo != 6) && ($activo != 122) && ($activo != 123)){?>
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 <?php }?>
 <!-- jQuery UI 1.11.4 -->

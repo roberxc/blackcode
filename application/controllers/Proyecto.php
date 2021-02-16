@@ -28,11 +28,13 @@ class Proyecto extends CI_Controller
 		$this->load->view('Proyecto/ProyectoE');
 		$this->load->view('layout/footer');
     }
-    public function Planilla_Proyecto()
+    public function Planilla_Proyecto($idproyecto)
     {
         $data ['activo'] = 4;
+        $data ['codigo'] = $idproyecto;
+        //$data['Listado_materiales'] = $this->Proyecto_model->obtenrmateriales();
         $this->load->view('menu/menu_proyecto',$data);
-		$this->load->view('Proyecto/PlanillasPro');
+		$this->load->view('Proyecto/PlanillasPro',$data);
 		$this->load->view('layout/footer');
     }
     public function Evaluacion_proyecto()
@@ -46,7 +48,14 @@ class Proyecto extends CI_Controller
 		$this->load->view('Proyecto/Evaluacion');
         $this->load->view('layout/footer');
     }
-
+    public function Registro_proyecto()
+    {      
+        $data ['activo'] = 4;
+        //$this->load->view('layout/nav');
+        $this->load->view('menu/menu_proyecto',$data);
+		$this->load->view('Proyecto/RegistroProyecto');
+        $this->load->view('layout/footer');
+    }
     public function obtenerDetalleDespiece(){
 		$ajax_data = $this->input->post(); //Datos que vienen por POST
 		$lista_etapas = $this->Proyecto_model->MostrarpartidasEtapas($ajax_data['id_partida']);
@@ -78,8 +87,12 @@ class Proyecto extends CI_Controller
 			$response .= "<td>";
 			$response .= $row->nombreetapa;
 			$response .= "</td>";
-			$response .= "<td>";
-			$response .= $row->estado;
+            $response .= "<td>";
+            if($row->estado == 0){
+                $response .= '<span class="badge badge-danger">No registrado</span>';
+            }else{
+                $response .= '<span class="badge badge-success">Registrado</span>';
+            }
 			$response .= "</td>";
 			$response .= "<td>";
 			$response .= "<button type='button' name='add' onclick='setId(this)' data-toggle='modal' data-target='#registro_despiece' class='btn btn-success'>+</button>";
@@ -106,25 +119,59 @@ class Proyecto extends CI_Controller
    {
        $this->load->model('Proyecto_model', 'proyecto_modal');
 
-       $fetch_data = $this->proyecto_modal->make_datatables_estado();
+       $fetch_data = $this->proyecto_modal->make_datatables_EstadoProyecto();
        $data = array();
        foreach ($fetch_data as $value) {
 
            $sub_array      = array();
            $sub_array[]    = $value->id_proyecto;
            $sub_array[]    = $value->nombreproyecto;
-           $sub_array[]    = $value->montototal;
-           $sub_array[]    = $value->Fecha_inicio;
-           $sub_array[]	   = $value->Fecha_termino;
-           $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" >';
+           $sub_array[]    = $value->nombreusuario;
+           $sub_array[]    = $value->fecha_inicio;
+           $sub_array[]	   = $value->fecha_termino;
+           if($value->estado == 0){
+            $sub_array[]= '<span class="badge badge-danger">En proceso</span>';
+        }else{
+            $sub_array[]= '<span class="badge badge-success">Terminado</span>';
+        }
            $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" >';
           
            $data[]         = $sub_array;
        }
        $output = array(
            "draw"                =>     intval($_POST["draw"]),
-         //"recordsTotal"        =>     $this->proyecto_estado->get_all_data_estado(),
-          // "recordsFiltered"     =>     $this->proyecto_estado->get_filtered_data_estado(),
+            "recordsTotal"        =>     $this->Proyecto_model->get_all_data_EstadoProyecto(),
+          "recordsFiltered"     =>     $this->Proyecto_model->get_filtered_data_EstadoProyecto(),
+           "data"                =>     $data
+       );
+       echo json_encode($output);  
+   }
+   public function fetch_ProyectoEjecutados()
+   {
+       $this->load->model('Proyecto_model', 'proyecto_modal');
+
+       $fetch_data = $this->proyecto_modal->make_datatables_ProyectoEjecutados();
+       $data = array();
+       foreach ($fetch_data as $value) {
+
+           $sub_array      = array();
+           $sub_array[]    = $value->id_proyecto;
+           $sub_array[]    = $value->nombreproyecto;
+           $sub_array[]    = $value->fecha_inicio;
+           $sub_array[]	   = $value->fecha_termino;
+           if($value->estado == 0){
+            $sub_array[]= '<span class="badge badge-danger">En proceso</span>';
+        }else{
+            $sub_array[]= '<span class="badge badge-success">Terminado</span>';
+        }
+           $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" onclick="detalleProyecto(this)" >';
+           $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" >';
+           $data[]         = $sub_array;
+       }
+       $output = array(
+           "draw"                =>     intval($_POST["draw"]),
+            "recordsTotal"        =>     $this->Proyecto_model->get_all_data_EstadoProyecto(),
+          "recordsFiltered"     =>     $this->Proyecto_model->get_filtered_data_EstadoProyecto(),
            "data"                =>     $data
        );
        echo json_encode($output);  
@@ -192,11 +239,13 @@ public function GuardarPorcentaje(){
     }
 }
 
-public function registroInstalacion(){
+
+
+public function registroSupervision(){
 		
     if ($this->input->is_ajax_request()) {
         $ajax_data = $this->input->post();
-        $res = $this->Proyecto_model->ingresarEvaluacion($ajax_data);
+        $res = $this->Proyecto_model->ingresarSupervision($ajax_data);
         if ($res) {
             $data = array('response' => "success", 'message' => "Guardado exitosamente!");
         }else{
@@ -207,12 +256,11 @@ public function registroInstalacion(){
         echo "'No direct script access allowed'";
     }
 }
-
-public function registroSupervision(){
+public function registroInstalacion(){
 		
     if ($this->input->is_ajax_request()) {
         $ajax_data = $this->input->post();
-        $res = $this->Proyecto_model->ingresarEvaluacion($ajax_data);
+        $res = $this->Proyecto_model->ingresarInstalacion($ajax_data);
         if ($res) {
             $data = array('response' => "success", 'message' => "Guardado exitosamente!");
         }else{
@@ -282,65 +330,127 @@ public function Guardarflete(){
     }
 
 }
+public function GuardarFleteTraslado(){
+    if ($this->input->is_ajax_request()) {
+        $ajax_data = $this->input->post();
+        $res = $this->Proyecto_model->ingresoFleteTraslado($ajax_data);
+        if ($res) {
+            $data = array('response' => "success", 'message' => $res);
+           
+        }else{
+            $data = array('response' => "error", 'message' => "ERRRROR!");
+        }
+        echo json_encode($data);
+    } else {
+        echo "'No direct script access allowed'";
+    }
+}
+
 
 public function obtenerResumenProyecto(){
         $ajax_data = $this->input->post(); //Datos que vienen por POST
-		$lista_etapas = $this->Proyecto_model->obtenerResumen($ajax_data);
-		$response ="<TABLE BORDER class='table table-bordered'>";
+        $lista_etapas = $this->Proyecto_model->obtenerResumen($ajax_data);
+        $lista_imprevistos = $this->Proyecto_model->obtenerImprevisto($ajax_data);
+        $lista_instalacion = $this->Proyecto_model->obtenerInstalacion($ajax_data);
+        $lista_supervision = $this->Proyecto_model->obtenerSupervision($ajax_data);
+        $lista_porcentaje = $this->Proyecto_model->obtenerPorcentaje($ajax_data);
+        $lista_fletetraslado = $this->Proyecto_model->obtenerFleteTraslado($ajax_data);
+        $lista_gastoGeneral = $this->Proyecto_model->totalGastoGeneral($ajax_data);
+        $lista_comisiones = $this->Proyecto_model->totalComisiones($ajax_data);
+        $lista_ingenieria = $this->Proyecto_model->totalIngenieria($ajax_data);
+        $lista_utilidades = $this->Proyecto_model->totalUtilidades($ajax_data);
+        $response ="<TABLE BORDER class='table table-bordered'>";
+        $subtotal = 0;
         foreach($lista_etapas as $row){
+            $subtotal = intval($row->SubTotal);
             $response .="<TR>";
             $response .="<TH>Subtotal por partida</TH>";
-            $response .="<TD>".$row->SubTotal."</TD>";
+            $response .="<TD>$".$subtotal."</TD>";
+        }
             $response .="</TR>";
+        $imprevisto = 0;
+        foreach($lista_imprevistos as $row){
+            $imprevisto = $subtotal * (float)$row->imprevisto;
             $response .="<TR>";
             $response .="<TH>Imprevistos</TH>";
-            $response .="<TD></TD>";
-            $response .="</TR>";
-            $response .="<TR>";
-            $response .="<TH>Costo materiales</TH>";
-            $response .="<TD></TD>";
-            $response .="</TR>";
-            $response .="<TR>";
-            $response .="<TH>Instalación</TH>";
-            $response .="<TD></TD>";
-            $response .="</TR>";
-            $response .="<TR>";
-            $response .="<TH>Supervisión</TH>";
-            $response .="<TD></TD>";
-            $response .="</TR>";
-            $response .="<TR>";
-            $response .="<TH>Valor equipamiento instalado</TH>";
-            $response .="<TD></TD>";
-            $response .="</TR>";
-            $response .="<TR>";
-            $response .="<TH>Supervisión</TH>";
-            $response .="<TD></TD>";
-            $response .="</TR>";
-            $response .="<TR>";
-            $response .="<TH>Flete traslado </TH>";
-            $response .="<TD></TD>";
-            $response .="</TR>";
-            $response .="<TR>";
-            $response .="<TH>Gastos generales </TH>";
-            $response .="<TD></TD>";
-            $response .="</TR>";
-            $response .="<TR>";
-            $response .="<TH>Comisiones </TH>";
-            $response .="<TD></TD>";
-            $response .="</TR>";
-            $response .="<TR>";
-            $response .="<TH>Ingeniería </TH>";
-            $response .="<TD></TD>";
-            $response .="</TR>";
-            $response .="<TR>";
-            $response .="<TH>Utilidades </TH>";
-            $response .="<TD></TD>";
-            $response .="</TR>";
-            $response .="<TR>";
-            $response .="<TH>Precio sugerido venta </TH>";
-            $response .="<TD></TD>";
+            $response .="<TD>$".$imprevisto."</TD>";
             $response .="</TR>";
         }
+
+        $costomaterial = intval($subtotal)+intval($imprevisto);
+            $response .="<TR>";
+            $response .="<TH>Costo materiales</TH>";
+            $response .="<TD>$".$costomaterial."</TD>";
+            $response .="</TR>";
+
+        $instalacion=0;
+        foreach($lista_instalacion as $row){
+            $instalacion = $row->instalacion;
+            $response .="<TR>";
+            $response .="<TH>Instalación</TH>";
+            $response .="<TD>$".$row->instalacion."</TD>";
+            $response .="</TR>";
+        }
+        $supervision=0;
+        foreach($lista_supervision as $row){
+            $supervision = $row->supervision;
+            $response .="<TR>";
+            $response .="<TH>Supervisión</TH>";
+            $response .="<TD>$".$row->supervision."</TD>";
+            $response .="</TR>";
+        }
+        //echo"Costo material: ".$costomaterial."\n";
+        //echo"Instalacion: ".$instalacion."\n";
+        //echo"Supervision: ".$supervision."\n";
+
+        $valorEquipamiento = intval($costomaterial)+intval($instalacion)+intval($supervision);
+
+            $response .="<TR>";
+            $response .="<TH>Valor equipamiento instalado</TH>";
+            $response .="<TD>$".$valorEquipamiento."</TD>";
+            $response .="</TR>";
+        
+        $valor=0;
+        foreach($lista_fletetraslado as $row){
+            $valor=intval($row->valor);
+            $response .="<TR>";
+            $response .="<TH>Flete traslado </TH>";
+            $response .="<TD>$".$row->valor."</TD>";
+            $response .="</TR>";
+        }
+            $response .="<TR>";
+            $response .="<TH>Gastos generales </TH>";
+            $response .="<TD>$".$lista_gastoGeneral."</TD>";
+            $response .="</TR>";
+        $comisiones=0;
+        
+            $response .="<TR>";
+            $response .="<TH>Comisiones </TH>";
+            $response .="<TD>$".$lista_comisiones."</TD>";
+            $response .="</TR>";
+        $ingenieria=0;
+        
+           
+            $response .="<TR>";
+            $response .="<TH>Ingeniería </TH>";
+            $response .="<TD>$".$lista_ingenieria."</TD>";
+            $response .="</TR>";
+            
+        
+        $utilidades=0;
+            
+            $response .="<TR>";
+            $response .="<TH>Utilidades </TH>";
+            $response .="<TD>$".$lista_utilidades."</TD>";
+            $response .="</TR>";
+            
+    
+        $Preciosugerido = intval($valorEquipamiento)+intval($valor)+(float)$lista_gastoGeneral+(float)$lista_comisiones+(float)$lista_ingenieria+(float)$lista_utilidades;  
+            $response .="<TR>";
+            $response .="<TH>Precio sugerido venta </TH>";
+            $response .="<TD>$".$Preciosugerido."</TD>";
+            $response .="</TR>";
+        
         $response .="</TABLE>";
 		$data = array('response' => 'success', 'detalle' => $response);
 
@@ -349,7 +459,26 @@ public function obtenerResumenProyecto(){
    
 
 }
-   
+public function obtenerPrecioVenta(){
 
+    $PreciosugeridoVenta = $this->Proyecto_model->obtenerPrecioSugeridoProyecto();
+
+    $response ="<TABLE BORDER class='table table-bordered'>";
+    $response .="<TR>";
+    $response .="<TD class='bg-info'><h5>Precio sugerido Proyecto</h5></TD>"; 
+    $response .="</TR>";
+
+
+    foreach($PreciosugeridoVenta as $row){
+    $response .="<TR>";
+    $response .="<TD scope='col'>$".$row->PrecioSugerido."</TD>"; 
+    $response .="</TR>";
+    }
+    $response .="</TABLE>";
+    
+    $data = array('response' => 'success', 'detalle' => $response);
+
+    echo json_encode($data);
+}
 
 }

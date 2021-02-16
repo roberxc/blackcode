@@ -9,8 +9,7 @@ class AsistenciaModel extends CI_Model
         parent::__construct();
     }
 
-    public function registrarAsistenciaPersonal($data)
-    {
+    public function registrarAsistenciaPersonal($data){
         $rut_personal = $data['rut'];
         $nombre_completo = $data['nombrecompleto'];
         //Registro de personal
@@ -19,12 +18,8 @@ class AsistenciaModel extends CI_Model
             'nombrecompleto' => $nombre_completo,
         );
 
-        $this
-            ->db
-            ->insert('personal', $datapersonal);
-        $id_personal = $this
-            ->db
-            ->insert_id();
+        $this->db->insert('personal', $datapersonal);
+        $id_personal = $this->db->insert_id();
 
         //Hora de entrada en la mañana
         $asistencia_mentrada = $data['horallegadam'];
@@ -48,8 +43,15 @@ class AsistenciaModel extends CI_Model
         $mihora->modify('-10 hours');
         $horaextras = $mihora->format('H:i');
         //Si no hay horas extras
-        if (($horaextras == '00:00'))
-        {
+        //echo("1) HORAS EXTRAS CON MINUTOS: ".$horaextras."\n");
+
+        //Verificar si siguen siendo 9 horas de trabajo
+        $mihora = new DateTime($horaextras);
+        $minutostotales = $mihora->format('i');
+        //echo("2) HORAS EXTRAS MINUTOS: ".$minutostotales."\n");
+
+        if (($horaextras == '00:00') && (intval($minutostotales <30))){
+            //echo("3) SIN HORAS EXTRAS PERRITO\n");
             //No hay horas extras
             $insert_data = array(
                 'fecha_asistencia' => $fecha_asistencia,
@@ -62,20 +64,20 @@ class AsistenciaModel extends CI_Model
                 'horasextras' => 0,
                 'estado' => $estado_asistencia,
             );
-        }
-        else
-        {
-            //Si hay diferencias de horas
-            $fechaactual = date("d/m/y");
-            //Horas totales trabajadas
-            $mihora = new DateTime($horaextras);
-            $mihora->modify('+9 hours');
-            $horastotales = $mihora->format('H:i');
-            if (strtotime($horastotales) < strtotime('09:00'))
-            {
-                //No hay horas extras
-                $horaInicio = new DateTime($asistencia_mentrada);
-                $horaTermino = new DateTime($asistencia_tsalida);
+        }else{
+            //Si son 30 minutos se le suma 0.5 a la hora extra
+            $horaextraminutos = 0;
+            if((intval($minutostotales) > 0) && (intval($minutostotales) <= 59)){
+                $mihora = new DateTime($horaextras);
+                $horatotal = $mihora->format('H');
+                $horaextraminutos = (float)0.5 + (float)$horatotal;
+                //echo ("4) HORAS EXTRAS A LOS 30 MINUTOS: ".$horaextraminutos."\n");
+
+                //Horas totales trabajadas
+				$mihoratotal = new DateTime($horaextras);
+				$mihoratotal->modify('+9 hours');
+				$horastotales = $mihoratotal->format('H');
+
                 $insert_data = array(
                     'fecha_asistencia' => $fecha_asistencia,
                     'horallegadam' => $asistencia_mentrada,
@@ -84,15 +86,20 @@ class AsistenciaModel extends CI_Model
                     'horasalidat' => $asistencia_tsalida,
                     'id_personal' => $id_personal,
                     'horastrabajadas' => $horastotales,
-                    'horasextras' => 0,
+                    'horasextras' => $horaextraminutos,
                     'estado' => $estado_asistencia,
                 );
-            }
-            else
-            {
-                //Si hay horas extras
-                $timestamp = strtotime($horaextras);
-                $mihoraextra = date('h', $timestamp);
+            }else{
+                //Sin son mas de 30 minutos se le suma la hora extra
+                $mihora = new DateTime($horaextras);
+                $mihoraextra = $mihora->format('H');
+                //echo ("5) HORAS EXTRAS PERROTE: ".$mihoraextra."\n");
+
+                //Horas totales trabajadas
+				$mihoratotal = new DateTime($horaextras);
+				$mihoratotal->modify('+9 hours');
+				$horastotales = $mihoratotal->format('H');
+
                 $insert_data = array(
                     'fecha_asistencia' => $fecha_asistencia,
                     'horallegadam' => $asistencia_mentrada,
@@ -108,13 +115,10 @@ class AsistenciaModel extends CI_Model
 
         }
 
-        return $this
-            ->db
-            ->insert('asistencia_personal', $insert_data);
+        return $this->db->insert('asistencia_personal', $insert_data);
     }
 
-    function make_datatables_asistencia()
-    {
+    function make_datatables_asistencia(){
         $this->make_query_stock();
         if ($_POST["length"] != - 1){
             $this->db->limit($_POST['length'], $_POST['start']);
@@ -194,7 +198,210 @@ class AsistenciaModel extends CI_Model
 				->get();
 		
 		return $query->result();
+    }
+    
+    public function listaPersonal(){
+		$query = $this->db
+				->select("id_personal,rut") # También puedes poner * si quieres seleccionar todo
+                ->from("personal")
+                ->group_by("rut")
+				->get();
+		
+		return $query->result();
+    }
+
+    //Horas extras personal
+    public function ObtenerhorasextrasSegunFecha($rutpersonal,$fecha){
+		$query = $this->db
+				->select("SUM(a.horasextras) AS TotalHoras, p.nombrecompleto AS Nombre") # También puedes poner * si quieres seleccionar todo
+				->from("asistencia_personal a")
+				->join("personal p", "a.id_personal = p.id_personal")
+				->where('DATE(a.fecha_asistencia) IN ('.$fecha.')')
+				->where("p.rut", $rutpersonal)
+				->get();
+
+		return $query->result();
+    }
+    
+    public function Obtenerhorasextras($rutpersonal,$fechainicial,$fechatermino){
+		// Declare an empty array 
+        $arraydias = array();
+		$pos = strpos($fechainicial, $fechatermino);
+		if($pos === false){
+			// Variable that store the date interval 
+			// of period 1 day 
+			$interval = new DateInterval('P1D'); 
+			$realEnd = new DateTime($fechatermino); 
+			$realEnd->add($interval); 
+			$period = new DatePeriod(new DateTime($fechainicial), $interval, $realEnd); 
+			// Use loop to store date into array 
+			$format = 'Y-m-d';
+			foreach($period as $date) {                  
+				$fecha = $date->format($format);
+				$arraydias [] = $fecha;
+			} 
+   
+            $week_array_ = $arraydias; 
+			//$week_array_ = ["2020-07-06","2020-07-07"]
+			$string = "'" . implode("','", $arraydias) . "'";
+			//string = "'2020-07-01','2020-07-02','2020-07-03','2020-07-04'"...
+			
+		}else{
+			$string = "";
+		}
+		
+		$data  = $this->ObtenerhorasextrasSegunFecha($rutpersonal,$string);
+		return $data;
+    }
+
+    //Metodos para el grafico
+    public function ObtenerHorasExtrasSegunFechaGraph($fecha,$rutpersonal){
+		$query = $this->db
+				->select("MONTHNAME(a.fecha_asistencia) AS month, SUM(a.horasextras) AS total") # También puedes poner * si quieres seleccionar todo
+				->from("asistencia_personal a")
+				->join("personal p", "a.id_personal = p.id_personal")
+                ->where('DATE(a.fecha_asistencia) IN ('.$fecha.')')
+                ->where('p.rut',$rutpersonal)
+				->group_by('month')
+				->order_by('FIELD(MONTH(a.fecha_asistencia),"JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER")')
+				->get();
+        
+        //SELECT MONTHNAME(a.fecha_asistencia) AS month, SUM(a.horasextras) AS total 
+        //from asistencia_personal a, personal p
+        //WHERE a.id_personal = p.id_personal AND DATE(a.fecha_asistencia) IN 
+        //('2021-02-01','2021-02-02','2021-02-03','2021-02-04','2021-02-05','2021-02-06',
+        //'2021-02-07','2021-02-08','2021-02-09','2021-02-10','2021-02-11','2021-02-12',
+        //'2021-02-13','2021-02-14','2021-02-15','2021-02-16','2021-02-17','2021-02-18',
+        //'2021-02-19','2021-02-20','2021-02-21','2021-02-22','2021-02-23','2021-02-24',
+        //'2021-02-25','2021-02-26','2021-02-27','2021-02-28','2021-03-01','2021-03-02',
+        //'2021-03-03','2021-03-04','2021-03-05') GROUP BY month
+
+		return $query->result_array();
 	}
+    
+    public function generarEstadisticasHorasExtras($fechainicial,$fechatermino,$rutpersonal){
+        // Declare an empty array 
+        $arraydias = array(); 
+        $pos = strpos($fechainicial, $fechatermino);
+        if($pos === false){
+            // Variable that store the date interval 
+            // of period 1 day 
+            $interval = new DateInterval('P1D'); 
+        
+            $realEnd = new DateTime($fechatermino); 
+            $realEnd->add($interval); 
+        
+            $period = new DatePeriod(new DateTime($fechainicial), $interval, $realEnd); 
+            
+            // Use loop to store date into array 
+            $format = 'Y-m-d';
+            foreach($period as $date) {                  
+                $fecha = $date->format($format);
+                $arraydias [] = $fecha;
+            } 
+   
+            $week_array_ = $arraydias; 
+            //$week_array_ = ["2020-07-06","2020-07-07"]
+            $string = "'" . implode("','", $arraydias) . "'";
+            //string = "'2020-07-01','2020-07-02','2020-07-03','2020-07-04'"...
+            
+        }else{
+            $string = "";
+        }
+        
+        $data  = $this->ObtenerHorasExtrasSegunFechaGraph($string,$rutpersonal);
+        $arraydata = array(); 
+        $arrayempty = array(); 
+   
+        if(count($data)>0){
+            $diasespañol = array();
+            $montodata = array();
+            foreach($data as $value){
+                switch($value['month']){
+                    case 'January':{
+                        $diasespañol = ('Enero');
+                        $montodata = $value['total'];
+                    break;
+                    }
+                    case 'February':{
+                        $diasespañol = ('Febrero');
+                        $montodata = $value['total'];
+                    break;
+                    }
+                    case 'March':{
+                        $diasespañol = ('Marzo');
+                        $montodata = $value['total'];
+                        break;
+                    }
+                    case 'April':{
+                        $diasespañol = ('Abril');
+                        $montodata = $value['total'];
+                        break;
+                    }
+                    case 'May':{
+                        $diasespañol = ('Mayo');
+                        $montodata = $value['total'];
+                        break;
+                    }
+                    case 'June':{
+                        $diasespañol = ('Junio');
+                        $montodata = $value['total'];
+                        break;
+                    }
+                    case 'July':{
+                        $diasespañol = ('Julio');
+                        $montodata = $value['total'];
+                        break;
+                    }
+                    case 'Agust':{
+                        $diasespañol = ('Agosto');
+                        $montodata = $value['total'];
+                        break;
+                    }
+                    case 'September':{
+                        $diasespañol = ('Septiembre');
+                        $montodata = $value['total'];
+                        break;
+                    }
+                    case 'October':{
+                        $diasespañol = ('Octubre');
+                        $montodata = $value['total'];
+                        break;
+                    }
+                    case 'November':{
+                        $diasespañol = ('Noviembre');
+                        $montodata = $value['total'];
+                        break;
+                    }
+                    case 'December':{
+                        $diasespañol = ('Diciembre');
+                        $montodata = $value['total'];
+                        break;
+                    }
+                }
+                $arraydata[] = array(
+                    "mes" => $diasespañol,
+                    "total" => $montodata,
+                );
+            }
+            echo json_encode($arraydata);
+   
+        }else{
+            $dias= array ('Enero','Febrero', 'Marzo');
+            $monto = array(0,0,0);
+            $size = sizeof($dias);
+            
+            for($i=0;$i<$size;$i++){
+                $arrayempty[] = array(
+                    "mes" => $dias[$i],
+                    "total" => $monto[$i],
+                    
+                );
+            }
+            echo json_encode($arrayempty);
+            
+        }
+    }
 }
 
 ?>

@@ -2,8 +2,7 @@ $("#asistencia-modal").on('click', function(event){
     event.stopPropagation();
     event.stopImmediatePropagation();
     var codigo = $("#codigo_servicio").val();
-    var tipo = '1';
-    window.location.href = base_url+"Asistencia/"+codigo+"/"+tipo;
+    window.location.href = base_url+"Asistencia/"+codigo;
 });
 
 function getParameterByName(name) {

@@ -33,9 +33,9 @@
               <a href="<?php echo base_url();?>Proyecto/Estado_proyecto" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-            <!-- ./col ------------------------------------------------------->
+            <!-- ./col ------------------------------------------------
           <div class="col-lg-3 col-6">
-            <!-- small box -->
+            
             <div class="small-box bg-success">
               <div class="inner">
                 <p>Cotización</p>
@@ -47,7 +47,7 @@
               Ingresar <i class="fas fa-arrow-circle-right"></i></a>
               
             </div>
-          </div>
+          </div>------->
           <!-- ./col ------------------------------------------------------->
           <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -71,7 +71,7 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="<?php echo base_url();?>Proyecto/Evaluacion_proyecto" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?php echo base_url();?>Proyecto/Registro_proyecto" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
             <!-- ./col ------------------------------------------------------->
