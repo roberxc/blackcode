@@ -9,23 +9,17 @@ class AsistenciaTrabajador extends CI_Controller {
 		
 	 }
 
-	public function Inicio($codigo){
+	public function Inicio($codigo,$tipo){
 		$data ['activo'] = 2;
 		$data ['codigo'] = $codigo;
 		$data ['lista_personal'] = $this->OperacionesModel->ObtenerListaPersonal($data['codigo']);
-		//Obtener estado de asistencia, si tipo es 1 = UPDATE si es 2 = REGISTRO
-		$tipo = $this->OperacionesModel->obtenerEstadoPlantilla($data['codigo']);
-		if(is_array($tipo)){
-			foreach($tipo as $row){ 
-				if($row->asistencia == 0){
-					$this->load->view('Trabajador/Asistencia',$data);
-				}else if($row->asistencia == 1){
-					$data ['update'] = '1';
-					$this->load->view('Trabajador/Asistencia',$data);
-				}
-			}
-		}
 		
+		if($tipo == '0'){
+			$this->load->view('Trabajador/Asistencia',$data);
+		}else if($tipo == '1'){
+			$data ['update'] = '1';
+			$this->load->view('Trabajador/Asistencia',$data);
+		}
 	}
 
 	public function ingresarAsistencia(){

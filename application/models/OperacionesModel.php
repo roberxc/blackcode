@@ -34,20 +34,19 @@ class OperacionesModel extends CI_Model {
 
 	public function ObtenerTiposCombustibles(){
 		$names = array('Bencina', 'Petroleo');
-		$this->db->select('nombretipogasto, id_tipogasto');
-		$this->db->where_in('nombretipogasto',$names);
+		$this->db->select('nombreTipoGasto, ID_TipoGasto');
+		$this->db->where_in('nombreTipoGasto',$names);
 		$query = $this->db->get('tipogasto');
 		return $query->result();
 	}
 
 	public function ObtenerListaPersonal($codigo){
 		$query = $this->db
-				->select("p.id_personal as ID, p.nombrecompleto AS nombre,p.rut AS rut") # También puedes poner * si quieres seleccionar todo
-				->from("personal p")
-				->join("personal_trabajo pt", "pt.id_personal = p.id_personal")
-				->join("trabajodiario t", "pt.id_trabajodiario = t.id_trabajodiario")
-				->join("codigoservicio c", "c.id_codigo = t.id_codigo")
+				->select("p.id_personaltrabajo as ID, p.nombrecompleto AS nombre,p.rut AS rut") # También puedes poner * si quieres seleccionar todo
+				->from("codigoservicio c")
 				->where('c.codigoservicio', $codigo)
+				->join("trabajodiario t", "c.id_codigo = t.id_codigo")
+				->join("personaltrabajo p", "p.id_trabajodiario = t.id_trabajodiario")
 				->get();
     	return $query->result();
 	}
@@ -75,7 +74,7 @@ class OperacionesModel extends CI_Model {
 	}
 
 	public function getTipoGasto($nombre){
-		$this->db->select('id_tipogasto')
+		$this->db->select('ID_TipoGasto')
 				->from('tipogasto')
 				->where('nombreTipoGasto',$nombre)
 				->limit(1);
@@ -101,29 +100,26 @@ class OperacionesModel extends CI_Model {
 		$idtrabajodiario = $idtipotrabajo[0]['id_trabajodiario'];
 
 		//Array con las id de los gastos viaticos
-		$gastosviaticos = array('Almuerzo','Cena','Agua','Alojamiento','Desayuno');
+		$gastosviaticos = array(1,2,3,4,5);
 
-		$this->db->select_sum('g.Valor');
-		$this->db->from("gastos g");
-		$this->db->join("tipogasto gc", "gc.id_tipogasto = g.id_tipogasto");
-		$this->db->where('g.id_trabajodiario',$idtrabajodiario);
-		$this->db->where_in('gc.nombretipogasto',$gastosviaticos);
-		$query = $this->db->get();
+		$this->db->select_sum('Valor');
+		$this->db->where('id_trabajodiario',$idtrabajodiario);
+		$this->db->where_in('ID_TipoGasto',$gastosviaticos);
+		$query = $this->db->get('gastos');
 		
 		return $query->result();
 	}
 
 	public function obtenerEstadoPlantilla($codigo){
-		if($codigo){
-			$idcodigoservicio = $this->getIDcodigoservicio($codigo);
-			//var_dump('DATITOS ID: '. $idtipotrabajo[0]['id_tipotrabajo']);
-			$miidservicio = $idcodigoservicio[0]['id_codigo'];
-			$this->db->where('id_codigo',$miidservicio);
-			$this->db->limit(1);
-			$query = $this->db->get('planillaestado');
 
-			return $query->result();
-		}
+		$idcodigoservicio = $this->getIDcodigoservicio($codigo);
+		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['id_tipotrabajo']);
+		$miidservicio = $idcodigoservicio[0]['id_codigo'];
+		$this->db->where('id_codigo',$miidservicio);
+		$this->db->limit(1);
+		$query = $this->db->get('planillaestado');
+
+		return $query->result();
 	}
 
 	//Se obtiene el la id del trabajo diario segun el codigo de servicio 
@@ -210,8 +206,8 @@ class OperacionesModel extends CI_Model {
 		$query = $this->db
 		->select("g.ID_Gasto AS ID, g.Valor AS Valor,t.nombreTipoGasto AS nombre") # También puedes poner * si quieres seleccionar todo
 		->from("gastos g")
-		->join("tipogasto t", "t.id_tipogasto = g.id_tipogasto")
-		->where_in('g.id_tipogasto',$gastosviaticos)
+		->join("tipogasto t", "t.ID_TipoGasto = g.ID_TipoGasto")
+		->where_in('g.ID_TipoGasto',$gastosviaticos)
 		->where('g.id_trabajodiario',$idtrabajodiario)
 		->get();
 
@@ -230,7 +226,7 @@ class OperacionesModel extends CI_Model {
 		$query = $this->db
 		->select("g.ID_Gasto AS ID, g.Valor AS Valor,t.nombreTipoGasto AS nombre") # También puedes poner * si quieres seleccionar todo
 		->from("gastos g")
-		->join("tipogasto t", "t.id_tipogasto = g.id_tipogasto")
+		->join("tipogasto t", "t.ID_TipoGasto = g.ID_TipoGasto")
 		->where_in('t.nombreTipoGasto',$gastosvarios)
 		->where('g.id_trabajodiario',$idtrabajodiario)
 		->get();
@@ -264,8 +260,8 @@ class OperacionesModel extends CI_Model {
 		$query = $this->db
 		->select("g.Valor AS Valor,t.nombreTipoGasto AS nombre") # También puedes poner * si quieres seleccionar todo
 		->from("gastos g")
-		->join("tipogasto t", "t.id_tipogasto = g.id_tipogasto")
-		->where_in('g.id_tipogasto',$gastosviaticos)
+		->join("tipogasto t", "t.ID_TipoGasto = g.ID_TipoGasto")
+		->where_in('g.ID_TipoGasto',$gastosviaticos)
 		->where('g.id_trabajodiario',$idtrabajodiario)
 		->get();
 		return $query->result();
@@ -283,32 +279,32 @@ class OperacionesModel extends CI_Model {
 			array(
 			   'Valor' => $ajax_data['valmuerzo'],
 			   'Cantidad' => 0,  
-			   'id_tipogasto' => $this->getTipoGasto('Almuerzo')[0]['id_tipogasto'],
+			   'ID_TipoGasto' => $this->getTipoGasto('Almuerzo')[0]['ID_TipoGasto'],
 			   'id_trabajodiario' => $idtrabajodiario
 			),
 			array(
 				'Valor' => $ajax_data['vcena'],
 				'Cantidad' => 0,
-				'id_tipogasto' => $this->getTipoGasto('Cena')[0]['id_tipogasto'],
+				'ID_TipoGasto' => $this->getTipoGasto('Cena')[0]['ID_TipoGasto'],
 				'id_trabajodiario' => $idtrabajodiario
 			 ),
 			 array(
 				'Valor' => $ajax_data['vagua'],
 				'Cantidad' => 0,
-				'id_tipogasto' => $this->getTipoGasto('Agua')[0]['id_tipogasto'],
+				'ID_TipoGasto' => $this->getTipoGasto('Agua')[0]['ID_TipoGasto'],
 				'id_trabajodiario' => $idtrabajodiario
 			 ),
 			 array(
 				'Valor' => $ajax_data['valojamiento'],
 				'Cantidad' => 0,
-				'id_tipogasto' => $this->getTipoGasto('Alojamiento')[0]['id_tipogasto'],
+				'ID_TipoGasto' => $this->getTipoGasto('Alojamiento')[0]['ID_TipoGasto'],
 				'id_trabajodiario' => $idtrabajodiario
 			 ),
 
 			 array(
 				'Valor' => $ajax_data['vdesayuno'],
 				'Cantidad' => 0,
-				'id_tipogasto' => $this->getTipoGasto('Desayuno')[0]['id_tipogasto'],
+				'ID_TipoGasto' => $this->getTipoGasto('Desayuno')[0]['ID_TipoGasto'],
 				'id_trabajodiario' => $idtrabajodiario
 			 )
 		 );
@@ -382,14 +378,6 @@ class OperacionesModel extends CI_Model {
 		return $query->result_array();
 	}
 
-	public function obtenerIDPersonal(string $rut){
-		$this->db->select('id_personal')
-		->from('personal')
-		->where('rut',$rut);
-		$query = $this->db->get();
-		return $query->result_array();
-	}
-
 	public function registrarTrabajoDiario($data){
 		//Cadena de codigo sin el numero
 		
@@ -453,23 +441,6 @@ class OperacionesModel extends CI_Model {
 		$lista_rut = $data["lista_rut"];
 		$lista_nombres = $data["lista_nombre"];
 		$query = '';
-
-
-		for($count = 0; $count<count($lista_rut); $count++){
-			$rut = $lista_rut[$count];
-			$nombre = $lista_nombres[$count];
-
-			if(!empty($rut) && !empty($nombre)){
-				//$query .= 'INSERT INTO personal (rut,nombrecompleto,id_trabajodiario) VALUES ("'.$rut.'", "'.$nombre.'", "'.$id_trabajodiario.'");';
-				$insert_datapersonal[] = array(
-					'rut' => $rut,
-					'nombrecompleto'=> $nombre,
-				  );
-			}
-			
-		}
-		$this->db->insert_batch('personal',$insert_datapersonal);
-
 		//var_dump($listadopersonal);
 
 		for($count = 0; $count<count($lista_rut); $count++){
@@ -477,20 +448,20 @@ class OperacionesModel extends CI_Model {
 			$nombre = $lista_nombres[$count];
 
 			if(!empty($rut) && !empty($nombre)){
-				$idpersonal = $this->obtenerIDPersonal($rut);
+
 
 				//$query .= 'INSERT INTO personal (rut,nombrecompleto,id_trabajodiario) VALUES ("'.$rut.'", "'.$nombre.'", "'.$id_trabajodiario.'");';
 				$insert_data[] = array(
-					'id_personal' => $idpersonal[0]['id_personal'],
+					'rut' => $rut,
+					'nombrecompleto'=> $nombre,
 					'id_trabajodiario'=> $id_trabajodiario,
-					'fecha'=> $data['fecha_trabajo'],
 				  );
 			}
 			
 		}
 		
 
-		return  $this->db->insert_batch('personal_trabajo',$insert_data);
+		return  $this->db->insert_batch('personaltrabajo',$insert_data);
 	}
 
 	public function siExistePersonal($rut){
@@ -532,76 +503,57 @@ class OperacionesModel extends CI_Model {
 				//Resto de hora colacion mas horas totales
 				$mihora->modify('-10 hours');
 				$horaextras = $mihora->format('H:i');
-
-				//Verificar si siguen siendo 9 horas de trabajo
-				$mihora = new DateTime($horaextras);
-				$minutostotales = $mihora->format('i');
 				//Si no hay horas extras
-				if (($horaextras == '00:00') && (intval($minutostotales <30))){
+				if(($horaextras == '00:00')){
 					//No hay horas extras
 					$fechaactual = date("d/m/y");
-					$insert_data [] = array(
+					$insert_data[] = array(
 						'fecha_asistencia' => $fechaactual,
-						'horallegadam' => $asistencia_mentrada,
-						'horasalidam' => $asistencia_msalida,
-						'horallegadat' => $asistencia_tentrada,
-						'horasalidat' => $asistencia_tsalida,
-						'id_personal' => intval($asistencia_idpersonal),
-						'horastrabajadas' => 9,
-						'horasextras' => 0,
-						'estado' => 1,
+						'horallegadam'=> $asistencia_mentrada,
+						'horasalidam'=> $asistencia_msalida,
+						'horallegadat'=> $asistencia_tentrada,
+						'horasalidat'=> $asistencia_tsalida,
+						'id_personaltrabajo'=> $asistencia_idpersonal,
+						'horastrabajadas'=> 9,
+						'horasextras'=> 0,
 					);
 				}else{
-					//--------------------------------------------
+					
+					//Si hay diferencias de horas
 					$fechaactual = date("d/m/y");
-					//Si son 30 minutos se le suma 0.5 a la hora extra
-					$horaextraminutos = 0;
-					if((intval($minutostotales) > 0) && (intval($minutostotales) <= 59)){
-						$mihora = new DateTime($horaextras);
-						$horatotal = $mihora->format('H');
-						$horaextraminutos = (float)0.5 + (float)$horatotal;
-						//echo ("4) HORAS EXTRAS A LOS 30 MINUTOS: ".$horaextraminutos."\n");
-		
-						//Horas totales trabajadas
-						$mihoratotal = new DateTime($horaextras);
-						$mihoratotal->modify('+9 hours');
-						$horastotales = $mihoratotal->format('H');
-		
-						$insert_data [] = array(
+					//Horas totales trabajadas
+					$mihora = new DateTime($horaextras);
+					$mihora->modify('+9 hours');
+					$horastotales = $mihora->format('H:i');
+					if(strtotime($horastotales)<strtotime('09:00')) {
+						//No hay horas extras
+						$horaInicio = new DateTime($asistencia_mentrada);
+						$horaTermino = new DateTime($asistencia_tsalida);
+						$insert_data[] = array(
 							'fecha_asistencia' => $fechaactual,
-							'horallegadam' => $asistencia_mentrada,
-							'horasalidam' => $asistencia_msalida,
-							'horallegadat' => $asistencia_tentrada,
-							'horasalidat' => $asistencia_tsalida,
-							'id_personal' => intval($asistencia_idpersonal),
-							'horastrabajadas' => $horastotales,
-							'horasextras' => $horaextraminutos,
-							'estado' => 1,
+							'horallegadam'=> $asistencia_mentrada,
+							'horasalidam'=> $asistencia_msalida,
+							'horallegadat'=> $asistencia_tentrada,
+							'horasalidat'=> $asistencia_tsalida,
+							'id_personaltrabajo'=> $asistencia_idpersonal,
+							'horastrabajadas'=> $horastotales,
+							'horasextras'=> 0,
 						);
 					}else{
-						//Sin son mas de 30 minutos se le suma la hora extra
-						$mihora = new DateTime($horaextras);
-						$mihoraextra = $mihora->format('H');
-						//echo ("5) HORAS EXTRAS PERROTE: ".$mihoraextra."\n");
-		
-						//Horas totales trabajadas
-						$mihoratotal = new DateTime($horaextras);
-						$mihoratotal->modify('+9 hours');
-						$horastotales = $mihoratotal->format('H');
-		
-						$insert_data [] = array(
+						//Si hay horas extras	
+						$timestamp = strtotime($horaextras);
+						$mihoraextra = date('h', $timestamp);
+						$insert_data[] = array(
 							'fecha_asistencia' => $fechaactual,
-							'horallegadam' => $asistencia_mentrada,
-							'horasalidam' => $asistencia_msalida,
-							'horallegadat' => $asistencia_tentrada,
-							'horasalidat' => $asistencia_tsalida,
-							'id_personal' => intval($asistencia_idpersonal),
-							'horastrabajadas' => $horastotales,
-							'horasextras' => $mihoraextra,
-							'estado' => 1,
+							'horallegadam'=> $asistencia_mentrada,
+							'horasalidam'=> $asistencia_msalida,
+							'horallegadat'=> $asistencia_tentrada,
+							'horasalidat'=> $asistencia_tsalida,
+							'id_personaltrabajo'=> $asistencia_idpersonal,
+							'horastrabajadas'=> $horastotales,
+							'horasextras'=> $mihoraextra,
 						);
 					}
-					//--------------------------------------------
 				}
 			}
 		}
@@ -613,112 +565,7 @@ class OperacionesModel extends CI_Model {
 		$this->db->where('id_codigo', $idcodigoservicio[0]['id_codigo']);
 		$this->db->update('planillaestado');
 
-		return  $this->db->insert_batch('asistencia_personal',$insert_data);
-	}
-
-	public function updateAsistenciaPersonal($data){
-		//Registro  de asistencia
-		$asistencia_manana_entrada = $data["lista_entradam"];
-		$asistencia_manana_salida = $data["lista_salidam"];
-		$asistencia_tarde_entrada = $data["lista_entradat"];
-		$asistencia_tarde_salida = $data["lista_salidat"];
-		//rut de personal
-		$asistencia_rut = $data["lista_id"];
-		for($count = 0; $count<count($asistencia_rut); $count++){
-			//Asistencia de mañana
-			$asistencia_mentrada = $asistencia_manana_entrada[$count];
-			$asistencia_msalida = $asistencia_manana_salida[$count];
-			//Asistencia de tarde
-			$asistencia_tentrada = $asistencia_tarde_entrada[$count];
-			$asistencia_tsalida = $asistencia_tarde_salida[$count];
-			//ID Personal
-			$asistencia_idpersonal = $asistencia_rut[$count];
-			if(!empty($asistencia_mentrada) && !empty($asistencia_msalida)
-			 && !empty($asistencia_tentrada) && !empty($asistencia_tsalida)){
-				$horaInicio = new DateTime($asistencia_mentrada);
-				$horaTermino = new DateTime($asistencia_tsalida);
-				$interval = $horaInicio->diff($horaTermino);
-				$asd = $interval->format('%H:%i');
-			
-				$mihora = new DateTime($asd);
-				//Resto de hora colacion mas horas totales
-				$mihora->modify('-10 hours');
-				$horaextras = $mihora->format('H:i');
-
-				//Verificar si siguen siendo 9 horas de trabajo
-				$mihora = new DateTime($horaextras);
-				$minutostotales = $mihora->format('i');
-				//Si no hay horas extras
-				if (($horaextras == '00:00') && (intval($minutostotales <30))){
-					//No hay horas extras
-					$fechaactual = date("d/m/y");
-					$insert_data [] = array(
-						'fecha_asistencia' => $fechaactual,
-						'horallegadam' => $asistencia_mentrada,
-						'horasalidam' => $asistencia_msalida,
-						'horallegadat' => $asistencia_tentrada,
-						'horasalidat' => $asistencia_tsalida,
-						'id_personal' => intval($asistencia_idpersonal),
-						'horastrabajadas' => 9,
-						'horasextras' => 0,
-						'estado' => 1,
-					);
-				}else{
-					//--------------------------------------------
-					$fechaactual = date("d/m/y");
-					//Si son 30 minutos se le suma 0.5 a la hora extra
-					$horaextraminutos = 0;
-					if((intval($minutostotales) > 0) && (intval($minutostotales) <= 59)){
-						$mihora = new DateTime($horaextras);
-						$horatotal = $mihora->format('H');
-						$horaextraminutos = (float)0.5 + (float)$horatotal;
-						//echo ("4) HORAS EXTRAS A LOS 30 MINUTOS: ".$horaextraminutos."\n");
-		
-						//Horas totales trabajadas
-						$mihoratotal = new DateTime($horaextras);
-						$mihoratotal->modify('+9 hours');
-						$horastotales = $mihoratotal->format('H');
-		
-						$insert_data [] = array(
-							'fecha_asistencia' => $fechaactual,
-							'horallegadam' => $asistencia_mentrada,
-							'horasalidam' => $asistencia_msalida,
-							'horallegadat' => $asistencia_tentrada,
-							'horasalidat' => $asistencia_tsalida,
-							'id_personal' => intval($asistencia_idpersonal),
-							'horastrabajadas' => $horastotales,
-							'horasextras' => $horaextraminutos,
-							'estado' => 1,
-						);
-					}else{
-						//Sin son mas de 30 minutos se le suma la hora extra
-						$mihora = new DateTime($horaextras);
-						$mihoraextra = $mihora->format('H');
-						//echo ("5) HORAS EXTRAS PERROTE: ".$mihoraextra."\n");
-		
-						//Horas totales trabajadas
-						$mihoratotal = new DateTime($horaextras);
-						$mihoratotal->modify('+9 hours');
-						$horastotales = $mihoratotal->format('H');
-		
-						$insert_data [] = array(
-							'fecha_asistencia' => $fechaactual,
-							'horallegadam' => $asistencia_mentrada,
-							'horasalidam' => $asistencia_msalida,
-							'horallegadat' => $asistencia_tentrada,
-							'horasalidat' => $asistencia_tsalida,
-							'id_personal' => intval($asistencia_idpersonal),
-							'horastrabajadas' => $horastotales,
-							'horasextras' => $mihoraextra,
-							'estado' => 1,
-						);
-					}
-					//--------------------------------------------
-				}
-			}
-		}
-		
-		return $this->db->update_batch('asistencia_personal', $insert_data, 'id_personal');
+		return  $this->db->insert_batch('asistencia_trabajo',$insert_data);
 	}
 
 	public function consultarcodigoservicio(string $codigo_servicio){
@@ -892,13 +739,13 @@ class OperacionesModel extends CI_Model {
 			array(
 			   'Valor' => $ajax_data['gasto_peaje'],
 			   'Cantidad' => 0,
-			   'id_tipogasto' => $idtipogastopeaje[0]['id_tipogasto'],
+			   'ID_TipoGasto' => $idtipogastopeaje[0]['ID_TipoGasto'],
 			   'id_trabajodiario' => $idtrabajodiario
 			),
 			array(
 				'Valor' => $ajax_data['gasto_estacionamiento'],
 				'Cantidad' => 0,
-				'id_tipogasto' => $idtipogastoestacionamiento[0]['id_tipogasto'],
+				'ID_TipoGasto' => $idtipogastoestacionamiento[0]['ID_TipoGasto'],
 				'id_trabajodiario' => $idtrabajodiario
 			 ),
 		 );
@@ -922,7 +769,7 @@ class OperacionesModel extends CI_Model {
 		$datagastocombustible = array(
 			'Valor' => $ajax_data['gasto_combustible'],
 			'Cantidad' => 0,
-			'id_tipogasto' => $ajax_data['id_gasto'],
+			'ID_TipoGasto' => $ajax_data['id_gasto'],
 			'id_trabajodiario' => $idtrabajodiario,
 		);
 
@@ -946,8 +793,8 @@ class OperacionesModel extends CI_Model {
 
 		$this->db->set("g.Valor",$ajax_data['gasto_combustible']); # También puedes poner * si quieres seleccionar todo
 		$this->db->from("gastos g");
-		$this->db->join("tipogasto t", "t.id_tipogasto = g.id_tipogasto");
-		$this->db->where('g.id_tipogasto',$ajax_data['id_gasto']);
+		$this->db->join("tipogasto t", "t.ID_TipoGasto = g.ID_TipoGasto");
+		$this->db->where('g.ID_TipoGasto',$ajax_data['id_gasto']);
 
 		return $this->db->update('gastos g');
 	}
@@ -988,6 +835,90 @@ class OperacionesModel extends CI_Model {
 				->get();
 		
 		return $query->result();
+	}
+
+	public function updateAsistenciaPersonal($data){
+		//Registro  de asistencia
+		$asistencia_manana_entrada = $data["lista_entradam"];
+		$asistencia_manana_salida = $data["lista_salidam"];
+		$asistencia_tarde_entrada = $data["lista_entradat"];
+		$asistencia_tarde_salida = $data["lista_salidat"];
+		//rut de personal
+		$asistencia_rut = $data["lista_id"];
+		for($count = 0; $count<count($asistencia_rut); $count++){
+			//Asistencia de mañana
+			$asistencia_mentrada = $asistencia_manana_entrada[$count];
+			$asistencia_msalida = $asistencia_manana_salida[$count];
+			//Asistencia de tarde
+			$asistencia_tentrada = $asistencia_tarde_entrada[$count];
+			$asistencia_tsalida = $asistencia_tarde_salida[$count];
+			//ID Personal
+			$asistencia_idpersonal = $asistencia_rut[$count];
+			if(!empty($asistencia_mentrada) && !empty($asistencia_msalida)
+			 && !empty($asistencia_tentrada) && !empty($asistencia_tsalida)){
+				$horaInicio = new DateTime($asistencia_mentrada);
+				$horaTermino = new DateTime($asistencia_tsalida);
+				$interval = $horaInicio->diff($horaTermino);
+				$asd = $interval->format('%H:%i');
+			
+				$mihora = new DateTime($asd);
+				//Resto de hora colacion mas horas totales
+				$mihora->modify('-10 hours');
+				$horaextras = $mihora->format('H:i');
+				//Si no hay horas extras
+				if(($horaextras == '00:00')){
+					//No hay horas extras
+					$fechaactual = date("d/m/y");
+					$insert_data[] = array(
+						'fecha_asistencia' => $fechaactual,
+						'horallegadam'=> $asistencia_mentrada,
+						'horasalidam'=> $asistencia_msalida,
+						'horallegadat'=> $asistencia_tentrada,
+						'horasalidat'=> $asistencia_tsalida,
+						'id_personaltrabajo'=> $asistencia_idpersonal,
+						'horastrabajadas'=> 9,
+						'horasextras'=> 0,
+					);
+				}else{
+					
+					//Si hay diferencias de horas
+					$fechaactual = date("d/m/y");
+					//Horas totales trabajadas
+					$mihora = new DateTime($horaextras);
+					$mihora->modify('+9 hours');
+					$horastotales = $mihora->format('H:i');
+					if(strtotime($horastotales)<strtotime('09:00')) {
+						//No hay horas extras
+						$horaInicio = new DateTime($asistencia_mentrada);
+						$horaTermino = new DateTime($asistencia_tsalida);
+						$insert_data[] = array(
+							'fecha_asistencia' => $fechaactual,
+							'horallegadam'=> $asistencia_mentrada,
+							'horasalidam'=> $asistencia_msalida,
+							'horallegadat'=> $asistencia_tentrada,
+							'horasalidat'=> $asistencia_tsalida,
+							'id_personaltrabajo'=> $asistencia_idpersonal,
+							'horastrabajadas'=> $horastotales,
+							'horasextras'=> 0,
+						);
+					}else{
+						//Si hay horas extras	
+						$insert_data[] = array(
+							'fecha_asistencia' => $fechaactual,
+							'horallegadam'=> $asistencia_mentrada,
+							'horasalidam'=> $asistencia_msalida,
+							'horallegadat'=> $asistencia_tentrada,
+							'horasalidat'=> $asistencia_tsalida,
+							'id_personaltrabajo'=> $asistencia_idpersonal,
+							'horastrabajadas'=> $horastotales,
+							'horasextras'=> $horaextras,
+						);
+					}
+				}
+			}
+		}
+
+		return $this->db->update_batch('asistencia', $insert_data, 'id_personaltrabajo');
 	}
 
 	//Metodo para obtener los materiales comprados durante el trabajo
@@ -1197,9 +1128,8 @@ class OperacionesModel extends CI_Model {
 				->select("p.rut AS rut,a.fecha_asistencia AS Fecha, a.horallegadam AS LlegadaM, a.horasalidam AS SalidaM, a.horallegadat AS LlegadaT, a.horasalidat AS SalidaT, p.nombrecompleto AS NombreCompleto, a.horastrabajadas AS HorasTrabajadas, a.horasextras AS HorasExtras") # También puedes poner * si quieres seleccionar todo
 				->from("trabajodiario t")
 				->join("codigoservicio c", "c.id_codigo = t.id_codigo")
-				->join("personal_trabajo pt", "pt.id_trabajodiario = t.id_trabajodiario")
-				->join("personal p", "p.id_personal = pt.id_personal")
-				->join("asistencia_personal a", "a.id_personal = p.id_personal")
+				->join("personaltrabajo p", "p.id_trabajodiario = t.id_trabajodiario")
+				->join("asistencia_trabajo a", "a.id_personaltrabajo = p.id_personaltrabajo")
 				->where("c.codigoservicio", $codigoservicio)
 				->get();
 		
@@ -1215,9 +1145,9 @@ class OperacionesModel extends CI_Model {
 		//Array con las id de los gastos viaticos
 		$gastosvarios = array('Bencina','Petroleo');
 		$query = $this->db
-		->select("g.id_gasto AS id, g.valor AS valor,t.nombretipogasto AS nombre") # También puedes poner * si quieres seleccionar todo
+		->select("g.id_gasto AS ID, g.valor AS Valor,t.nombreTipoGasto AS nombre") # También puedes poner * si quieres seleccionar todo
 		->from("gastos g")
-		->join("tipogasto t", "t.id_tipogasto = g.id_tipogasto")
+		->join("tipogasto t", "t.id_tipoGasto = g.id_tipoGasto")
 		->where_in('t.nombretipoGasto',$gastosvarios)
 		->where('g.id_trabajodiario',$idtrabajodiario)
 		->get();
@@ -1251,8 +1181,8 @@ class OperacionesModel extends CI_Model {
 	public function Obtenerhorasextrass($rutpersonal,$fechainicio,$fechafin){
 		$query = $this->db
 				->select("p.rut AS rut, p.nombrecompleto AS nombre, a.horasextras AS horasextras") # También puedes poner * si quieres seleccionar todo
-				->from("asistencia_personal a")
-				->join("personal p", "a.id_personal = p.id_personal")
+				->from("asistencia_trabajo a")
+				->join("personaltrabajo p", "a.id_personaltrabajo = p.id_personaltrabajo")
 				->where("p.rut", $rutpersonal)
 				->get();
 		
@@ -1263,8 +1193,8 @@ class OperacionesModel extends CI_Model {
 		
 		$query = $this->db
 				->select("SUM(a.horasextras) AS TotalHoras,p.rut AS Rut, p.nombrecompleto AS Nombre") # También puedes poner * si quieres seleccionar todo
-				->from("asistencia_personal a")
-				->join("personal p", "a.id_personal = p.id_personal")
+				->from("asistencia_trabajo a")
+				->join("personaltrabajo p", "a.id_personaltrabajo = p.id_personaltrabajo")
 				->where('DATE(a.fecha_asistencia) IN ('.$fecha.')')
 				->where("p.rut", $rutpersonal)
 				->get();

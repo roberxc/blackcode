@@ -42,38 +42,65 @@ if (isset($set_data['nombre_completo'])) {
             <a href="#" class="nav-link <?php if(isset($activomenu) && ($activomenu == 1)){echo "active"; }?>">
               <i class="nav-icon fas fa-hammer"></i>
               <p>
-                Proyectos
+                Operaciones
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url();?>Proyecto/Registro_proyecto" class="nav-link <?php if(isset($activo) && ($activo == 8)){echo "active"; }?>">
+                <a href="<?php echo base_url();?>Operacion" class="nav-link <?php if(isset($activo) && ($activo == 8)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Evaluar Proyecto</p>
+                  <p>Ingresar trabajo</p>
                 </a>
               </li>
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url();?>Proyecto/Estado_proyecto"  class="nav-link <?php if(isset($activo) && ($activo == 10)){echo "active"; }?>">
+                <a href="<?php echo base_url();?>PlantillaOperaciones/ModificacionPlanillaInicio" class="nav-link <?php if(isset($activo) && ($activo == 10)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Estado del proyecto </p>
-                </a>
-              </li>
-            </ul>
-         
-          <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo base_url();?>Proyecto/Proyecto_ejecucion" class="nav-link <?php if(isset($activo) && ($activo == 11)){echo "active"; }?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Proyecto ejecutados </p>
+                  <p>Modificacion planilla</p>
                 </a>
               </li>
             </ul>
           </li>
 
+          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 9)){echo "menu-open"; }?>">
+            <a href="#" class="nav-link <?php if(isset($activo) && ($activo == 9)){echo "active"; }?>">
+              <i class="nav-icon fas fa-building"></i>
+              <p>
+                Bodega
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url()?>Stock/stockTrabajador" class="nav-link <?php if(isset($activo) && ($activo == 9)){echo "active"; }?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Productos</p>
+                </a>
+              </li>
+            </ul>
+          </li>
 
+          <li class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 2)){echo "menu-open"; }?>">
+            <a href="#" class="nav-link <?php if(isset($activomenu) && ($activomenu == 2)){echo "active"; }?>">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Sistema
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+              <a href="<?php echo base_url()?>Perfil" class="nav-link <?php if(isset($activo) && ($activo == 7)){echo "active"; }?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Modificar mi perfil</p>
+                </a>
+              </li>
+            
+            </ul>
+          </li>
 
 
         </ul>

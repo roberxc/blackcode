@@ -96,7 +96,7 @@
                               { ?>
                            <li class="media">
                               <i class="fas <?php if($row->Valor>0){ echo 'fa-check';}else{ echo 'fa-times';}?>"></i>
-                              <div class="media-body"><?php echo $row->nombre;?></div>
+                              <div class="media-body"><?php echo $row->Nombre;?></div>
                            </li>
                            <?php }?>
                         </ul>
@@ -168,7 +168,7 @@
                               <div class="form-group">
                                  <input type="hidden" class="form-control-input" id="gastosid_update" value="<?php echo $row->ID?>">
                                  <input type="number" class="form-control-input" id="gastos_update" value="<?php echo $row->Valor?>">
-                                 <label class="label-control" for="cname"><?php echo $row->nombre?></label>
+                                 <label class="label-control" for="cname"><?php echo $row->Nombre?></label>
                                  <div class="help-block with-errors"></div>
                               </div>
                               <?php }
@@ -261,7 +261,7 @@
                               <?php 
                                  foreach($tipos_combustible as $row)
                                  { ?>
-                              <option value="<?php echo $row->id_tipogasto?>"><?php echo $row->nombretipogasto?></option>
+                              <option value="<?php echo $row->ID_TipoGasto?>"><?php echo $row->NombreTipoGasto?></option>
                               <?php }?>
                            </select>
                         </div>
@@ -296,7 +296,7 @@
                         <div class="form-group">
                            <input type="hidden" class="form-control-input" id="item_gastovariosid" value="<?php echo $row->ID;?>">
                            <input type="text" class="form-control-input" id="item_gastovarios" value="<?php echo $row->Valor;?>" required>
-                           <label class="label-control" for="cemail"><?php echo $row->nombre;?></label>
+                           <label class="label-control" for="cemail"><?php echo $row->Nombre;?></label>
                            <div class="help-block with-errors"></div>
                         </div>
                         <?php } 
@@ -446,7 +446,7 @@
                         </TR>
                         <TR>
                            <TH>Material</TH>
-                           <TD><input type="text" id="item_material_update" value="<?php echo $row->nombre;?>" class="form-control" /></TD>
+                           <TD><input type="text" id="item_material_update" value="<?php echo $row->Nombre;?>" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Cantidad</TH>
@@ -532,7 +532,7 @@
                         </TR>
                         <TR>
                            <TH>Material</TH>
-                           <TD><input type="text" id="item_material2_update" value="<?php echo $row->nombre;?>" class="form-control" /></TD>
+                           <TD><input type="text" id="item_material2_update" value="<?php echo $row->Nombre;?>" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Cantidad</TH>
@@ -615,7 +615,7 @@
                         </TR>
                         <TR>
                            <TH>Material</TH>
-                           <TD><input type="text" id="item_materialbodega_nombre_update" value="<?php echo $row->nombre;?>" class="form-control" /></TD>
+                           <TD><input type="text" id="item_materialbodega_nombre_update" value="<?php echo $row->Nombre;?>" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Cantidad</TH>

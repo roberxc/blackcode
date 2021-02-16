@@ -12,36 +12,15 @@ class Administracion extends CI_Controller {
 		$this->load->model('Combustible');
 		$this->load->model('Mantencion');
 		$this->load->model('OperacionesModel');
-		$this->load->model('AdministracionModel');
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('Users');
-		$this->load->model('DocumentacionModel');
-	}
-
-	public function setNotificaciones(){
-		$data ['expiracion'] = 0;
-		$lista_fecha = $this->DocumentacionModel->ObtenerFechaDocActualizable();
-		$fechaactual = date("d-m-Y");
-		$data ['totaldocumentos'] = 0;
-		foreach($lista_fecha as $row){
-			//Paso de string a fecha
-			$d1 = new DateTime($row->fechalimite);
-			$d2 = new DateTime($fechaactual);
-			$interval = $d1->diff($d2);
-			$diasTotales    = $interval->d; 
-			if($diasTotales == 3){
-				$data ['lista_nrodocactualizables'] = $this->DocumentacionModel->ObtenerNroDocActualizable($row->fechalimite);
-				$data ['expiracion'] = 1;
-				$data ['totaldocumentos'] = $data ['totaldocumentos'] + 1;
-			}
-		}
-		$this->load->view('layout/nav',$data);
+		
 	}
 
 	public function informeEgresos(){
 		
 		$data ['activo'] = 10;
-		$this->setNotificaciones();
+		$this->load->view('layout/nav');
      	$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/InformeEgresos');
 		$this->load->view('layout/footer');
@@ -50,18 +29,17 @@ class Administracion extends CI_Controller {
 	public function CostosFijos(){
 		$data ['activomenu'] = 5;
 		$data ['activo'] = 6;
-		$data['lista_tipocostos'] = $this->AdministracionModel->listaTipoCostos();
-		$this->setNotificaciones();
+		$this->load->view('layout/nav');
      	$this->load->view('menu/menu_supremo',$data);
-		$this->load->view('Administracion/CostosFijos',$data);
+		$this->load->view('Administracion/CostosFijos');
 		$this->load->view('layout/footer');
 	}
 
 	public function CajaEgreso()
 	{
-		$data ['activomenu'] = 5;
+		
 		$data ['activo'] = 5;
-		$this->setNotificaciones();
+		$this->load->view('layout/nav');
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/Egreso');
 		$this->load->view('layout/footer');
@@ -69,20 +47,19 @@ class Administracion extends CI_Controller {
 
 	public function CajaIngreso()
 	{
-		$data ['activomenu'] = 5;
+		
 		$data ['activo'] = 5;
 		$data['include_css'] = array("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css");
-		$this->setNotificaciones();
+		$this->load->view('layout/nav');
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/Ingreso',$data);
 		$this->load->view('layout/footer');
 	}
 	public function MenuCaja()
 	{
-		$data ['activomenu'] = 5;
 		$data ['activo'] = 5;
 		$data ['totalcajachica'] = $this->CajaChicaModel->obtenerTotalCajaChica();
-		$this->setNotificaciones();
+		$this->load->view('layout/nav');
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/CajaChica');
 		$this->load->view('layout/footer');
@@ -90,7 +67,7 @@ class Administracion extends CI_Controller {
 	public function vueltocaja()
 	{
 		$data ['activo'] = 5;
-		$this->setNotificaciones();
+		$this->load->view('layout/nav');
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/Vuelto');
 		$this->load->view('layout/footer');
@@ -98,7 +75,7 @@ class Administracion extends CI_Controller {
 	public function registroTrabajador(){
 		$data ['activo'] = 6;
 		$data ['activomenu'] = 2;
-		$this->setNotificaciones();
+		$this->load->view('layout/nav');
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/GestionCuentas');
 		$this->load->view('layout/footer');
@@ -396,125 +373,6 @@ class Administracion extends CI_Controller {
 		$texto = $this->input->post('texto');
 		$resultado = $this->OperacionesModel->ObtenerPlanillasRealizadas($texto);
 		echo json_encode($resultado);
-	}
-
-	public function registrarTipoCosto(){
-		if ($this->input->is_ajax_request()) {
-			//Validaciones
-			$this->form_validation->set_rules('nombre', 'Nombre', 'required');
-
-			if ($this->form_validation->run() == FALSE) {
-				$data = array('response' => "error", 'message' => validation_errors());
-			} else {
-				$ajax_data = $this->input->post();
-
-				if ($this->AdministracionModel->registroTipoCostoFijo($ajax_data)) {
-					$data = array('response' => "success", 'message' => "Producto ingresado correctamente!");
-				} else {
-					$data = array('response' => "error", 'message' => "Falló el ingreso");
-				}
-			}
-
-			echo json_encode($data);
-		} else {
-			echo "'No direct script access allowed'";
-		}
-
-	}
-	
-	public function registrarNuevoCostoFijo(){
-		if ($this->input->is_ajax_request()) {
-			//Validaciones
-			$this->form_validation->set_rules('fecha', 'Fecha', 'required');
-			$this->form_validation->set_rules('valor', 'Valor', 'required');
-			$this->form_validation->set_rules('id_tipo', 'Tipo', 'required');
-
-			if ($this->form_validation->run() == FALSE) {
-				$data = array('response' => "error", 'message' => validation_errors());
-			} else {
-				$ajax_data = $this->input->post();
-
-				if ($this->AdministracionModel->registroCostoFijo($ajax_data)) {
-					$data = array('response' => "success", 'message' => "Producto ingresado correctamente!");
-				} else {
-					$data = array('response' => "error", 'message' => "Falló el ingreso");
-				}
-			}
-
-			echo json_encode($data);
-		} else {
-			echo "'No direct script access allowed'";
-		}
-
-	}
-	
-	public function obtenerCostosFijos()
-    {
-        $fetch_data = $this->AdministracionModel->make_datatables_costosfijos();
-        $data = array();
-        foreach ($fetch_data as $value){
-            $sub_array = array();
-			$sub_array[] = $value->id_costofijos;
-            $sub_array[] = $value->fecha;
-            $sub_array[] = $value->valor;
-			$sub_array[] = $value->tipo;
-			$sub_array[] = $value->detalle;
-            $sub_array[] = '<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="setIDCosto(this)"><i class="fa fa-trash"></i></button>';
-            $data[] = $sub_array;
-        }
-
-        $output = array(
-            "draw" => intval($_POST["draw"]) ,
-            "recordsTotal" => $this->AdministracionModel->get_all_data_costosfijos() ,
-            "recordsFiltered" => $this->AdministracionModel->get_filtered_data_costosfijos() ,
-            "data" => $data
-        );
-        echo json_encode($output);
-
-	}
-	
-	public function graficarCostosFijos(){
-		if ($this->input->is_ajax_request()) {
-			//Validaciones
-			$this->form_validation->set_rules('fecha_inicial', 'Fecha', 'required');
-			$this->form_validation->set_rules('fecha_termino', 'Fecha', 'required');
-
-			if ($this->form_validation->run() == FALSE) {
-				$data = array('response' => "error", 'message' => validation_errors());
-				echo json_encode($data);
-			} else {
-				$ajax_data = $this->input->post();
-				$fechainicio = $ajax_data['fecha_inicial'];
-                $fechatermino = $ajax_data['fecha_termino'];
-				$res = $this->AdministracionModel->generarEstadisticasCostosFijos($fechainicio,$fechatermino);
-                if($res){
-                    $data = array('response' => 'success', 'message' => 'Exito');
-                }else{
-                    $data = array('response' => 'error', 'message' => $res);
-                }
-                
-                
-            
-            
-            }
-		} else {
-			echo "'No direct script access allowed'";
-		}
-
-	}
-
-	//Eliminar costos fijos cambiando su estado
-	public function cambiarEstadoCostoFijo(){
-		$ajax_data = $this->input->post();
-		$nrocosto = $ajax_data['nro_costo'];
-		$res = $this->AdministracionModel->actualizarEstadoCostoFijo($nrocosto);
-        if($res){
-            $data = array('response' => 'success', 'message' => 'Exito');
-        }else{
-            $data = array('response' => 'error', 'message' => $res);
-        }
-		echo json_encode($data);
-
 	}
 }
 

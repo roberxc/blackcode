@@ -355,7 +355,7 @@ $("#asistencia-modal").on('click', function(event){
     event.stopPropagation();
     event.stopImmediatePropagation();
     var codigo = $("#codigo_servicio").val();
-    window.location.href = base_url+"Asistencia/"+codigo;
+    window.location.href = base_url+"Asistencia/"+codigo+"/"+"0";
 });
 
 //Ingreso de gastos varios

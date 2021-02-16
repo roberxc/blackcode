@@ -1,10 +1,32 @@
-function descargarDocumento(table){
-    var iddocumento = table.parentNode.parentNode.cells[0].textContent;
-    window.location.href = base_url + "Documentacion/download/"+iddocumento;
-}
+$("#listar").on('click', function(event) {
+    $('#tabla_documentacion_permamente tbody').html('');
+    var fecha = $('#fecha_filtro').val();
+    var nombre = $('#nombre_filtro').val();
+
+    $.post(base_url + "Documentacion/filtrarDocumentacionPermamente", {
+            fecha: fecha,
+            nombre: nombre,
+        },
+        function(data) {
+            var obj = JSON.parse(data);
+            var output = '';
+            $.each(obj, function(i, item) {
+                output +=
+                    '<tr>' +
+                    '   <td style="display:none;">' + item.iddocumentacion + '</td>' +
+                    '   <td>' + item.nombre + '</td>' +
+                    '   <td>' + item.fechasubida + '</td>' +
+                    '   <td><button class="btn btn-primary btn-sm" id="detalle_trabajo" data-toggle="modal" data-target="#modal-detalle"><i class="far fa-eye"></i></button>' +
+                    '       <button class="btn btn-info btn-sm" id="detalle_archivos" data-toggle="modal" data-target="#modal-archivos"><i class="fas fa-upload"></i></button>' +
+                    '</tr>';
+            });
+            $('#tabla_documentacion_permamente tbody').append(output);
+        });
+});
 
 $("#form-subir-archivos-permamente").submit(function(event) {
     event.preventDefault();
+    var namedocumento = $("#nombre-documento").val();
     var formData = new FormData($("#form-subir-archivos-permamente")[0]);
     $.ajax({
         url: $("form").attr("action"),

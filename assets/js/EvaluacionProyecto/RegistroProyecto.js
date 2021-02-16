@@ -22,10 +22,9 @@ $(document).on('click', '#addProyecto', function(e) {
         },
         success: function(data) {
             if (data.response == "success") {
-                generarAvisoExitoso('Proyecto registrado correctamente!');
-                window.location.href = base_url+"Proyecto/Evaluacion_proyecto";
+                $("#fromProyecto")[0].reset();
                 
-
+                generarAvisoExitoso('Proyecto registrado correctamente!');
             } else if(data.response == "error"){
                 generarAvisoError('Error al registrar el proyecto');
                 
@@ -51,12 +50,25 @@ $(document).on('click', '#addpartidas', function(e) {
         nombre_partida.push($(this).val());
     });
 
+    //Cantidad
+  /*  $('input[id="item_cantidad"]').each(function(){
+        item_cantidad.push($(this).val());
+    });
+
+    //Valor total 
+    $('input[id="item_valortotal"]').each(function(){
+        item_valortotal.push($(this).val());
+    });*/
+
     $.ajax({
         url: base_url+"Proyecto/registroPartidas",
         type: "post",
         dataType: "json",
         data: {
             lista_partida: nombre_partida,
+           /* lista_cantidad: item_cantidad,
+            lista_valores: item_valortotal,
+            codigo_servicio: codigoservicio,*/
         },
         success: function(data) {
             if (data.response == "success") {
@@ -73,7 +85,7 @@ $(document).on('click', '#addpartidas', function(e) {
 //Registro Porcentaje
 $(document).on('click', '#addPorcentaje', function(e) {
     e.preventDefault();
-    var partidas6 = $("#partidas6").val();
+
     var imprevisto = $("#imprevisto").val();
     var generales = $("#generales").val();
     var comision = $("#comision").val();
@@ -87,7 +99,6 @@ $(document).on('click', '#addPorcentaje', function(e) {
         type: "post",
         dataType: "json",
         data: {
-            partidas6:partidas6,
             imprevisto: imprevisto,
             generales: generales,
             comision: comision,
@@ -117,7 +128,6 @@ $(document).on('click', '#addPorcentaje', function(e) {
 //Registrar Instalacion
 $(document).on('click', '#addInstalacion', function(e) {
     e.preventDefault();
-    var partidas5 = $("#partidas5").val();
     var tipo = $("#tipoInsta").val();
     var dias = $("#numdias").val();
     var numCantidadIns = [];
@@ -144,7 +154,7 @@ $(document).on('click', '#addInstalacion', function(e) {
         type: "post",
         dataType: "json",
         data: {
-            partidas5:partidas5,
+            
             tipo:tipo,
             dias: dias,
             lista_cantidad: numCantidadIns,
@@ -167,7 +177,6 @@ $(document).on('click', '#addInstalacion', function(e) {
 //Registro supervision
 $(document).on('click', '#addSupervision', function(e) {
     e.preventDefault();
-    var partidas4 = $("#partidas4").val();
     var tipo = $("#tipoSuper").val();
     var dias = $("#diasSuper").val();
     var numCantidadSup = [];
@@ -190,11 +199,10 @@ $(document).on('click', '#addSupervision', function(e) {
     });
 
     $.ajax({
-        url: base_url+"Proyecto/registroSupervision",
+        url: base_url+"Proyecto/registroInstalacion",
         type: "post",
         dataType: "json",
         data: {
-            partidas4:partidas4,
             tipo:tipo,
             dias: dias,
             lista_cantidad: numCantidadSup,
@@ -336,44 +344,6 @@ $(document).on('click', '#addflete', function(e) {
 
 
 });
-//Registro Flete Traslado
-$(document).on('click', '#addfleteTraslado', function(e) {
-    e.preventDefault();
-    var partidas7 = $("#partidas7").val();
-    var flete_Traslado = $("#flete_Traslado").val();
- 
-
-
-    $.ajax({
-        url: base_url + "Proyecto/GuardarFleteTraslado",
-        type: "post",
-        dataType: "json",
-        data: {
-            partidas7:partidas7,
-            flete_Traslado: flete_Traslado,
-           
-
-        },
-        success: function(data) {
-            if (data.response == "success") {
-               
-                window.location.href = base_url+"Proyecto/Evaluacion_proyecto";
-                generarAvisoExitoso('Porcentaje registrado correctamente!');
-            } else if(data.response == "error"){
-                
-                generarAvisoError('Error al registrar el Flete traslado');
-                
-            }
-            else{
-                //$("#msg-error").show();
-                generarAvisoError(response);
-            }
-        }
-    });
-
-
-});
-
 
 function generarAvisoError($mensaje){
     Command: toastr["error"]($mensaje,'Error')
@@ -438,27 +408,3 @@ function actualizarResumen(){
     });
     
 }
-function preciosujerido(){
-   
-    $.ajax({
-        url: base_url+"Proyecto/obtenerPrecioVenta",
-        type: "post",
-        dataType: "json",
-        data: {
-            
-       
-        },
-        success: function(data) {
-            if (data.response == "success") {
-
-                
-                $('#precioSugeridoProyecto').html(data.detalle);
-            } else {
-                generarAvisoError(data.message);
-            }
-        }
-    });
-    
-}
-
-preciosujerido();

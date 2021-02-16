@@ -3,30 +3,35 @@ class Combustible extends CI_Model{
     function __construct(){
         $this->load->database();
     }
+
     public function create($datos){
-        $datos = array(       
+        $datos = array(
+            
           'id_vehiculo' => $datos['id_vehiculo'],
           'fecha' => $datos['fecha'],
-          'conductor' => $datos['conductor'],
-          'estacion' => $datos['estacion'],
-          'litros' => $datos['litros'],
-          'valor' => $datos['valor'],
-          'doc_ad' => $datos['doc_ad'],
+            'conductor' => $datos['conductor'],
+            'estacion' => $datos['estacion'],
+            'litros' => $datos['litros'],
+            'valor' => $datos['valor'],
+            'doc_ad' => $datos['doc_ad'],
+         
+          
         );
-
         if(!$this->db->insert('combustible', $datos)){
             return false;
         }
         return true;
     }
-     ///////////////////////////////////////////////////////////
-    //ESTE ES EL SELECT DE LA TABLA REGISTRO GASTO COMBUSTIBLE//
+
+
 
     var $select_column = array("combustible.id_combustible", "combustible.fecha", "vehiculo.patente", "combustible.conductor", "combustible.estacion", "combustible.litros", "combustible.valor");  
     var $table = array("combustible", "vehiculo");  
     var $wheree = "combustible.id_vehiculo = vehiculo.id_vehiculo";
     var $order_column = array("combustible.id_combustible", "combustible.fecha", "vehiculo.patente", "combustible.conductor", "combustible.estacion", "combustible.litros", "combustible.valor");  
  
+
+  
     function make_query_cvehiculo()  
   {  
        $this->db->select($this->select_column);  
@@ -46,7 +51,6 @@ class Combustible extends CI_Model{
 
        }  
   }  
- 
   function make_datatables_cvehiculo(){  
        $this->make_query_cvehiculo();  
        if ($_POST["length"] != -1) {
@@ -70,7 +74,7 @@ class Combustible extends CI_Model{
   }  
 
 
-//ESTE ES EL SELECT COUNT PARA TENER LOS TOTALES DE LOS ID Y SABER CUANTOS REGISTROS HAY//
+  ///////////////////////////////////////////////
   public function Obtener_BoletasC(){
      $query = $this->db
              ->select("COUNT(id_combustible) as total") # También puedes poner * si quieres seleccionar todo
@@ -83,3 +87,5 @@ class Combustible extends CI_Model{
 }
 
     
+
+

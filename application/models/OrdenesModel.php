@@ -27,6 +27,7 @@ class OrdenesModel extends CI_Model {
 
     public function registrarOrdenes($data){
         $idordenquery = $this->getNroOrden($data['nroorden']);
+        $idcotizacionquery = $this->getIdCotizacion($data['nrocotizacion']);
         //Si existe la orden
         if(count($idordenquery) == 0){
             //Registro de la tabla ordenes
@@ -36,7 +37,6 @@ class OrdenesModel extends CI_Model {
             $nroorden = $data["nroorden"];
             $iva = 19;
             $total = $data["total"];
-            $idproyecto = $data["proyecto"];
             $fecha = date("d/m/Y");
 
             $dataordenes = array(
@@ -46,7 +46,6 @@ class OrdenesModel extends CI_Model {
                 'fecha' => $fecha,
                 'estado' => $estado,
                 'id_tipobodega' => $bodega,
-                'id_proyecto' => $idproyecto,
             );
 
             $this->db->insert('ordenes', $dataordenes);
@@ -55,7 +54,7 @@ class OrdenesModel extends CI_Model {
             //ordenes_cotizaciones
             $dataordenes_cotizaciones = array(
                 'id_orden' => $id_orden,
-                'id_cotizacion' =>  $data['nrocotizacion'],
+                'id_cotizacion' =>  $idcotizacionquery[0]['id_cotizacion'],
                 'fecha' => $fecha,
             );
 
@@ -65,19 +64,16 @@ class OrdenesModel extends CI_Model {
             $idmateriales = $data["lista_iditem"];
             $valores = $data["lista_valor"];
             $cantidad = $data["lista_cantidad"];
-            $importe = $data["lista_importe"];
             for($count = 0; $count<count($idmateriales); $count++){
                 $materialesid_limpio = $idmateriales[$count];
                 $valores_limpio = $valores[$count];
                 $cantidad_limpio = $cantidad[$count];
-                $importe_limpio = $importe[$count];
                 if(!empty($materialesid_limpio)){
                     $insert_data_ordenesmateriales[] = array(
                         'id_orden' => $id_orden,
                         'id_material' => $materialesid_limpio,
                         'preciounitario' => $valores_limpio,
                         'cantidad' => $cantidad_limpio,
-                        'importe' => $importe_limpio,
                     );
                 }
             }
@@ -100,12 +96,6 @@ class OrdenesModel extends CI_Model {
 		);
 
 		return $this->db->insert('proveedores',$dataproveedores);
-    }
-
-    public function actualizarEstadoOrden($estado,$nroorden){
-		$this->db->set('estado', $estado, FALSE);
-        $this->db->where('nroorden', $nroorden);
-		return $this->db->update('ordenes');
     }
 
 	public function registrarNuevoProducto($ajax_data){
@@ -240,6 +230,8 @@ class OrdenesModel extends CI_Model {
         "ordenes_cotizaciones.fecha",
         "estado",
         "proveedores.nombre",
+        "proveedores.rut",
+        "cotizaciones.id_cotizacion",
     );
 
     var $order_columna_ordenes = array(
@@ -264,7 +256,7 @@ class OrdenesModel extends CI_Model {
             $this->db->order_by($this->order_columna_ordenes[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
         
         }else{
-            $this->db->order_by('id_orden', 'ASC');
+            $this->db->order_by('nroorden', 'ASC');
         }
     }
 
@@ -285,7 +277,7 @@ class OrdenesModel extends CI_Model {
 
     public function ObtenerDetalleOrden($idorden){
 		$query = $this->db
-				->select("m.id_material as idmaterial, o.nroorden as numero, m.nombre as nombre, om.cantidad as cantidad, om.preciounitario as valor, om.importe as importe") # También puedes poner * si quieres seleccionar todo
+				->select("o.nroorden as numero, m.nombre as nombre, om.cantidad as cantidad, om.preciounitario as valor") # También puedes poner * si quieres seleccionar todo
 				->from("ordenes_materiales om")
 				->join("ordenes o", "om.id_orden = o.id_orden")
 				->join("materiales_comprados m", "om.id_material = m.id_material")
@@ -296,16 +288,45 @@ class OrdenesModel extends CI_Model {
         // }
     }
     
-    public function ObtenerEstadoOrden($idorden){
-		$query = $this->db
-				->select("estado") # También puedes poner * si quieres seleccionar todo
-				->from("ordenes")
-				->where("nroorden",$idorden)
-				->get();
-        // if (count($query->result()) > 0) {
-        return $query->result();
-        // }
-	}
+
+
+
+
+
+    /////////////////xddddddddddddddd ESTO ES UNA PRUEBA PARA EL DETALLE ORDEN DE COMPRA
+    var $order_columna_ordenesss = array(
+        "nroorden",
+		"nombre",
+    );
+
+    function make_query_vermas($IDENTRADA = '0')
+    {
+        $this->db->SELECT('nroorden, nombre, cantidad, preciounitario');
+        $this->db->from('ordenes_materiales, ordenes, materiales_comprados ');
+        $this->db->where('ordenes.id_orden = ordenes_materiales.id_orden AND materiales_comprados.id_material = ordenes_materiales.id_material AND ordenes.nroorden =',$IDENTRADA);
+    }
+
+    function make_model_vermas($IDENTRADA = '0')
+    {
+        $this->make_query_vermas($IDENTRADA);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    function get_filtered_data_vermas()
+    {
+        $this->make_query_vermas($IDENTRADA = '0');
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+    function get_all_data_vermas()
+    {
+        $this->db->SELECT('nroorden, nombre,cantidad , preciounitario ');
+        $this->db->from('ordenes_materiales, ordenes, materiales_comprados ');
+        $this->db->where('ordenes.id_orden = ordenes_materiales.id_orden AND materiales_comprados.id_material = ordenes_materiales.id_material');
+        return $this->db->count_all_results();
+    }
+
+
 
 }
 
