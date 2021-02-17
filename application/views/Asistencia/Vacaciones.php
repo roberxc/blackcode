@@ -74,7 +74,7 @@
                            <!-- /.form-group -->
                            <div class="form-group">
                               <label>Fecha inicio trabajo</label>
-                              <input type="date" id="fecha_iniciotrabajo" name="date_range" class="form-control">
+                              <input type="date" id="fecha_contrato" name="fecha_contrato" class="form-control">
                            </div>
                            <!-- /.form-group -->
                         </div>
@@ -82,7 +82,7 @@
                            <!-- /.form-group -->
                            <div class="form-group">
                               <label>Fecha solicitud</label>
-                              <input type="date" id="fecha_terminotrabajo" name="fecha_termino" class="form-control">
+                              <input type="date" id="fecha_solicitud" name="fecha_solicitud" class="form-control">
                            </div>
                            <!-- /.form-group -->
                         </div>
@@ -170,92 +170,6 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.js" integrity="sha512-W76C8qrNYavcaycIH9EijxRuswoS+LCqA1+hq+ECrmjzAbe/SHhTgrwA1uc84husS/Gz50mxOEHPzrcd3sxBqQ==" crossorigin="anonymous"></script>
-<script type="text/javascript">
-   var today = new Date();
-   var dd = String(today.getDate()).padStart(2, '0');
-   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-   var yyyy = today.getFullYear();
-   var date = dd+mm+yyyy;
-   $(function () {
-      $('#date_range').daterangepicker({
-      "locale": {
-            "format": "DD-MM-YYYY",
-            "separator": " - ",
-            "applyLabel": "Guardar",
-            "cancelLabel": "Cancelar",
-            "fromLabel": "Desde",
-            "toLabel": "Hasta",
-            "customRangeLabel": "Personalizar",
-            "daysOfWeek": [
-               "Do",
-               "Lu",
-               "Ma",
-               "Mi",
-               "Ju",
-               "Vi",
-               "Sa"
-            ],
-            "monthNames": [
-               "Enero",
-               "Febrero",
-               "Marzo",
-               "Abril",
-               "Mayo",
-               "Junio",
-               "Julio",
-               "Agosto",
-               "Setiembre",
-               "Octubre",
-               "Noviembre",
-               "Diciembre"
-            ],
-            "firstDay": 1
-      },
-      "startDate": date,
-      "opens": "center"
-      });
-   });
-
-   $(function () {
-      $('#fecha_termino').daterangepicker({
-      "locale": {
-            "format": "DD-MM-YYYY",
-            "separator": " - ",
-            "applyLabel": "Guardar",
-            "cancelLabel": "Cancelar",
-            "fromLabel": "Desde",
-            "toLabel": "Hasta",
-            "customRangeLabel": "Personalizar",
-            "daysOfWeek": [
-               "Do",
-               "Lu",
-               "Ma",
-               "Mi",
-               "Ju",
-               "Vi",
-               "Sa"
-            ],
-            "monthNames": [
-               "Enero",
-               "Febrero",
-               "Marzo",
-               "Abril",
-               "Mayo",
-               "Junio",
-               "Julio",
-               "Agosto",
-               "Setiembre",
-               "Octubre",
-               "Noviembre",
-               "Diciembre"
-            ],
-            "firstDay": 1
-      },
-      "startDate": date,
-      "opens": "center"
-      });
-   });
-</script>
 <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

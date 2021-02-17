@@ -153,32 +153,36 @@ class Vacaciones extends CI_Controller
 		$ajax_data = $this->input->post(); //Datos que vienen por POST
 
         $diaspedidos = $ajax_data['dias_pedidos'];
-        $fechainiciotrabajo = $ajax_data['fecha_iniciotrabajo'];
-        $fechaterminotrabajo = $ajax_data['fecha_terminotrabajo'];
+        $fechainiciotrabajo = $ajax_data['fecha_contrato'];
+        $fechasolicitud = $ajax_data['fecha_solicitud'];
 
         //echo"INICIO TRABAJO: ".$fechainiciotrabajo."\n";
         //echo"TERMINO TRABAJO: ".$fechaterminotrabajo."\n";
         
         //Paso de string a fecha
         $d1 = new DateTime($fechainiciotrabajo);
-        $d2 = new DateTime($fechaterminotrabajo);
+        $d2 = new DateTime($fechasolicitud);
 
         $interval = $d1->diff($d2);
 
         $diasTotales    = $interval->d; 
         $mesesTotales  = $interval->m;
-        if($mesesTotales>0){
+        $añosTotales  = $interval->y;
+        if($añosTotales > 0){
+
+            $diaslegales = 15 * $añosTotales; //Vacaciones legales
+            //echo "Tienes: ".$añosTotales;
             //echo"Dias totales: ".$diasTotales."\n";
             //echo"Meses totales: ".$mesesTotales."\n";
 
-            $diashabiles = 15/12; //1,25
-            $diashabiles2 = ($diashabiles / 30) * $diasTotales; //0,04167
+            //$diashabiles = 15/12; //1,25
+            //$diashabiles2 = ($diashabiles / 30) * $diasTotales; //0,04167
             //echo"DIAS HABILES: ".$diashabiles2."\n";
 
-            $diasmeses = (float)$diashabiles * $mesesTotales; //7,5
+            //$diasmeses = (float)$diashabiles * $mesesTotales; //7,5
 
-            $diasindemnizar = (float)$diasmeses + (float) $diashabiles2;
-            $diasindemnizarround = round($diasindemnizar);
+            //$diasindemnizar = (float)$diasmeses + (float) $diashabiles2;
+            //$diasindemnizarround = round($diasindemnizar);
             //echo"Dias indemnizar ROUND: ".$diasindemnizarround."\n";
             
 
@@ -192,14 +196,14 @@ class Vacaciones extends CI_Controller
 
 
             //Sumar 1 dia a la fecha de termino de contrato
-            $fechaterminomasdia = date('d-m-Y', strtotime($fechaterminotrabajo . ' +1 day'));
+            $fechasolicitudmasdia = date('d-m-Y', strtotime($fechasolicitud . ' +30 day'));
             //echo"FECHA TERMINO MAS DIA: ".$fechaterminomasdia."\n";
 
             //Conteo de dias totales sin contar sabados y domingos
-            $d = new DateTime( $fechaterminomasdia );
+            $d = new DateTime( $fechasolicitudmasdia );
             $t = $d->getTimestamp();
 
-            // loop for X days
+            /* FOR PARA RECORRER DIAS SIN CONTAR LOS SABADOS NI DOMINGOS
             for($i=0; $i<$diasindemnizarround; $i++){
                 // add 1 day to timestamp
                 $addDay = 86400;
@@ -214,12 +218,13 @@ class Vacaciones extends CI_Controller
 
                 // modify timestamp, add 1 day
                 $t = $t+$addDay;
-            }
+            }*/
 
+            /*
             $d->setTimestamp($t);
             $fechafinal = $d->format( 'd-m-Y' );
             //----------------------------------------------------------------------
-            $datepartida = new DateTime($fechaterminomasdia); //Inicio de conteo
+            $datepartida = new DateTime($fechasolicitudmasdia); //Inicio de conteo
             $datetermino = new DateTime($fechafinal); //Termino de conteo
 
             //Calculo de domingos
@@ -236,12 +241,13 @@ class Vacaciones extends CI_Controller
 
             $diasaindemnizar = $diasindemnizarround + intval($sundays) + intval($saturdays);
             //echo"Dias indemnizar total: ".$diasaindemnizar."\n";
+            */
 
             //Resumen
-            $diaslegales = 15; //Vacaciones legales
+            
             $diasprogresivos = 0;
             $subtotalacumulado = intval($diaslegales) + intval($diasprogresivos);
-            $totalvacacionespendientes = (float)$subtotalacumulado+(float)$diasaindemnizar;
+            $totalvacacionespendientes = (float)$subtotalacumulado;
             $saldoremamentefecha = (float)$totalvacacionespendientes - $diaspedidos;
 
 
@@ -274,27 +280,24 @@ class Vacaciones extends CI_Controller
             $response .="<TABLE BORDER class='table table-bordered' id='tabla_vacaciones'>";
             $response .="<TR>";
             $response .="<TD>Vacaciones legales acumuladas:</TD>";
-            $response .="<TH><input name='col1[]' style='border:0;outline:0;display:inline-block' value=".$diaslegales."></TH>";
+            $response .="<TH><input name='col1[]' id='diaslegales' style='border:0;outline:0;display:inline-block' value=".$diaslegales."></TH>";
             $response .="</TR>";
             $response .="<TR>";
             $response .="<TD>Dias progresivos pendientes</TD>";
-            $response .="<TH><input name='col2[]' style='border:0;outline:0;display:inline-block' value=".$diasprogresivos."></TH>";
+            $response .="<TH><input name='col2[]' id='diasprogresivos' style='border:0;outline:0;display:inline-block' value=".$diasprogresivos."></TH>";
             $response .="</TR>";
             $response .="<TR>";
             $response .="<TD>Subtotal vacaciones acumuladas</TD>";
             $response .="<TH><input name='col3[]' style='border:0;outline:0;display:inline-block' value=".$subtotalacumulado."></TH>";
             $response .="</TR>";
             $response .="<TR>";
-            $response .="<TD>Dias proporcionales a la fecha</TD>";
-            $response .="<TH><input name='col4[]' style='border:0;outline:0;display:inline-block' value=".$diasaindemnizar."></TH>";
-            $response .="</TR>";
             $response .="<TR>";
             $response .="<TD>Total vacaciones pendientes</TD>";
             $response .="<TH><input name='col5[]' style='border:0;outline:0;display:inline-block' value=".$totalvacacionespendientes."></TH>";
             $response .="</TR>";
             $response .="<TR>";
             $response .="<TD>Dias normales a usar</TD>";
-            $response .="<TH><input name='col6[]' style='border:0;outline:0;display:inline-block' value=".$diaspedidos."></TH>";
+            $response .="<TH><input name='col6[]' id='diaspedidostable' style='border:0;outline:0;display:inline-block' value=".$diaspedidos."></TH>";
             $response .="</TR>";
             $response .="<TR>";
             $response .="<TD>Saldo remamente a la fecha</TD>";
@@ -325,7 +328,7 @@ class Vacaciones extends CI_Controller
     public function ingresoVacaciones(){
         if ($this->input->is_ajax_request()){
             $ajax_data = $this->input->post();
-            $fechainicio = $ajax_data['fecha_terminotrabajo'];
+            $fechainicio = $ajax_data['fecha_solicitud'];
             $lista_diasusar = $ajax_data['diasusar'];
             $diasusar_limpio = 0;
             for($count = 0; $count<count($lista_diasusar); $count++){
@@ -333,7 +336,7 @@ class Vacaciones extends CI_Controller
             
             }
 
-            $fechainiciomasdia = date('d-m-Y', strtotime($fechainicio . ' +1 day'));
+            $fechainiciomasdia = date('d-m-Y', strtotime($fechainicio . ' +30 day'));
             //Conteo de dias totales sin contar sabados y domingos
             $d = new DateTime($fechainiciomasdia);
             $t = $d->getTimestamp();
