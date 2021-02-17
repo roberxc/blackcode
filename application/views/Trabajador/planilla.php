@@ -23,13 +23,7 @@
             <div class="bounce3"></div>
          </div>
       </div>
-      <!-- end of preloader -->
-      <!-- Navigation -->
       <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-         <!-- Text Logo - Use this if you don't have a graphic logo -->
-         <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Evolo</a> -->
-         <!-- Image Logo -->
-         <!-- Mobile Menu Toggle Button -->
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-awesome fas fa-bars"></span>
          <span class="navbar-toggler-awesome fas fa-times"></span>
@@ -43,24 +37,21 @@
             </ul>
          </div>
       </nav>
-      <!-- end of navbar -->
-      <!-- end of navigation -->
-      <!-- Pricing -->
       <div id="pricing" class="cards-2">
          <div class="container">
             <div class="row">
                <div class="col-lg-12">
                   <h2>Completar planilla de Trabajos Diarios</h2>
                   <div class="col-lg-2">
-                     <input type="text" class="form-control-input" id="codigo_servicio" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" disabled> <br>
+                     <input type="hidden" class="form-control-input" id="codigo_servicio" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" disabled> <br>
                   </div>
                </div>
-               <!-- end of col -->
             </div>
             <!-- end of row -->
             <div class="row">
                <div class="col-lg-12">
                   <!-- Card-->
+                  <!-- INGRESO DE ASISTENCIA -->
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Marcar Asistencia</div>
@@ -78,9 +69,7 @@
                         <hr class="cell-divide-hr">
                      </div>
                   </div>
-                  <!-- end of card -->
-                  <!-- end of card -->
-                  <!-- Card-->
+                  <!-- GASTO DE VIATICOS -->
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Gasto de Viaticos</div>
@@ -183,7 +172,7 @@
                      </div>
                      <!-- end of container -->
                   </div>
-                  <!-- Termino de actualizar -->
+                  <!-- MATERIALES COMPRADOS DURANTE EL TRABAJO -->
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Materiales comprados durante el trabajo</div>
@@ -197,9 +186,7 @@
                         </div>
                      </div>
                   </div>
-                  <!-- end of card -->
-                  <!-- end of card -->
-                  <!-- Card-->
+                  <!-- MATERIALES COMPRADOS ANTES DE LOS TRABAJOS -->
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Materiales comprados antes de los trabajos</div>
@@ -220,6 +207,7 @@
                         </div>
                      </div>
                   </div>
+                  <!-- MATERIALES DE BODEGA -->
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Materiales de bodega</div>
@@ -241,6 +229,7 @@
                         </div>
                      </div>
                   </div>
+                  <!-- GASTO DE COMBUSTIBLE -->
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Combustible</div>
@@ -276,8 +265,7 @@
                         </div>
                      </div>
                   </div>
-                  <!-- end of card -->
-                  <!-- end of card -->
+                  <!-- GASTOS VARIOS -->
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Gastos Varios</div>
@@ -319,19 +307,19 @@
                      </div>
                   </div>
                   <!-- end of card -->
-                  <!-- end of card -->
                </div>
                <!-- end of col -->
             </div>
             <!-- end of row -->
          </div>
          <!-- end of container -->
+         <!-- SUBIR FOTOGRAFIAS -->
          <div class="card">
             <div class="card-body">
                <div class="card-title">Subir Fotografias</div>
                <hr class="cell-divide-hr">
                </br></br>
-               <div class="card-subtitle">Registrar fotografias que verifique el trabajo realizado</div>
+               <div class="card-subtitle">Registrar fotografias que compruebe el trabajo realizado</div>
                <hr class="cell-divide-hr">
                <div class="button-wrapper">
                   <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#documentosubir">Ingresar</a>
@@ -380,7 +368,7 @@
       </div>
       <!-- Ingreso de materiales comprados durante -->
       <div id="duranteTrab" class="lightbox-basic zoom-anim-dialog mfp-hide">
-      <form id="form-subir-archivos" style="padding:0px 15px;" class="form-horizontal" role="form" action="<?php echo base_url();?>Upload/subirDocumentoCompra" method="POST" >
+      <form id="form-subir-documentocompra" style="padding:0px 15px;" class="form-horizontal" role="form" action="<?php echo base_url();?>Upload/subirDocumentoCompra" method="POST" >
          <div class="container">
             <div class="row">
                <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
@@ -401,11 +389,11 @@
                               </div>
                               <div class="form-group">
                                  <label for="pic_file">Monto total:</label>
-                                 <input type="text" name="pic_file" class="form-control"  id="pic_file">
+                                 <input type="text" name="montototal" class="form-control"  id="montototal">
                               </div>
                               <div class="form-group">
                                  <label for="pic_file">Detalle:</label>
-                                 <input type="text" name="pic_file" class="form-control"  id="pic_file">
+                                 <input type="text" name="detalle" class="form-control"  id="detalle">
                               </div>
                               <div class="form-group">
                                  <label for="pic_file">Ingresar:</label>
@@ -416,18 +404,16 @@
                               </div>
                            </div>
                         </div>
-                     
                      <hr class="cell-divide-hr">
                      <div class="button-wrapper">
                      </div>
                   </div>
-                  
                </div>
                <!-- end of card -->
             </div>
             <!-- end of col -->
             <div class="form-group">
-               <button type="submit" class="btn-solid-reg" id="addmaterial1">Guardar</button></br> </br>
+               <button type="button" onclick="subirDocumentoCompra()" class="btn-solid-reg">Guardar</button></br> </br>
             </div>
          </div>
       </form>
@@ -600,6 +586,7 @@
          <!-- end of row -->
       </div>
       <!-- end of container -->
+      <!-- SUBIR FOTOGRAFIAS -->
       <div id="documentosubir" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
             <div class="row">
@@ -628,6 +615,7 @@
             </div>
          </div>
       </div>
+      <!-- ARCHIVOS SUBIDOS -->
       <div id="archivosubidos" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
             <div class="row">
@@ -666,6 +654,7 @@
          </div>
          <!-- end of row -->
       </div>
+
       <!-- end of container -->
       <div class="error"></div>
       <!-- end of details lightbox 1 -->

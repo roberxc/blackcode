@@ -82,9 +82,9 @@
                                     foreach($trabajos_realizados as $row){
                                  ?>
                            <tr>
-                              <td><?php echo $row->CodigoServicio?></td>
-                              <td><?php echo $row->FechaTrabajo?></td>
-                              <td><?php echo $row->NombreProyecto?></td>
+                              <td><?php echo $row->codigoservicio?></td>
+                              <td><?php echo $row->fechatrabajo?></td>
+                              <td><?php echo $row->nombreproyecto?></td>
                            </tr>
                            </tr>
                               <?php }

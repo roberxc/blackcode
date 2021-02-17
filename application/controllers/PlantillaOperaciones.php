@@ -64,7 +64,6 @@ class PlantillaOperaciones extends CI_Controller {
 		$data ['gastosvarios_registrados'] = $this->OperacionesModel->ObtenerGastosVarios($codigo);
 
 		//Materiales comprados
-		$data ['materiales_durante'] = $this->OperacionesModel->ObtenerMaterialesDurante($codigo);
 		$data ['materiales_antes'] = $this->OperacionesModel->ObtenerMaterialesAntes($codigo);
 		//Materiales bodega
 		$data ['materiales_bodega'] = $this->OperacionesModel->ObtenerMaterialesBodega($codigo);
@@ -80,7 +79,6 @@ class PlantillaOperaciones extends CI_Controller {
 
 	public function ModificacionPlanillaInicio(){
 		$data ['activo'] = 2;
-		$data ['codigo'] = 'MN001';
 		$set_data = $this->session->all_userdata();
 		
 		$data ['trabajos_realizados'] = $this->OperacionesModel->ObtenerPlanillaPorTrabajador($set_data['ID_Usuario']);

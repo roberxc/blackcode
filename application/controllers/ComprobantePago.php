@@ -33,6 +33,46 @@ class ComprobantePago extends CI_Controller
 		$this->load->view('layout/nav',$data);
 	}
 
+	public function subirDocumentoPago(){
+		//El metodo is_ajax_request() de la libreria input permite verificar
+		//si se esta accediendo mediante el metodo AJAX 
+		if ($this->input->is_ajax_request()) {
+			$this->form_validation->set_rules('nrofactura', 'Numero factura', 'required');
+			$this->form_validation->set_rules('nrodocumento', 'Numero documento', 'required');
+			$this->form_validation->set_rules('fecha', 'Fecha', 'required');
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+			}else{
+				$fecha = $this->input->post("fecha");
+				$detalle = $this->input->post("detalle");
+				$nrodocumento = $this->input->post("nrodocumento");
+				$nrofactura = $this->input->post("nrofactura");
+
+				$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+				$config = [
+					"upload_path" => APPPATH. '../ArchivosSubidos/',
+					'allowed_types' => "*"
+				];
+
+				$this->load->library("upload",$config);
+
+				if ($this->upload->do_upload('pic_file')) {
+					$data = array("upload_data" => $this->upload->data());
+					if($this->ComprobantePagoModel->subirComprobante($data,$fecha,$detalle,$nrodocumento,$nrofactura)==true){
+						$data = array('response' => "success", 'message' => "Comprobante ingresado correctamente!");
+					}else{
+						$data = array('response' => "error", 'message' => "Error al subir");
+					}
+				}else{
+					$data = array('response' => "error", 'message' => $this->upload->display_errors());
+				}
+			}
+			echo json_encode($data);
+		}else{
+			show_404();
+		}
+	}
+
     public function index(){
         $data['lista_facturas'] = $this->FacturasModel->listaFacturas();
         $data['activomenu'] = 15;
@@ -51,7 +91,9 @@ class ComprobantePago extends CI_Controller
             $sub_array = array();
             $sub_array[] = $value->nrodocumento;
             $sub_array[] = $value->fecha;
-            $sub_array[] = $value->nrofactura;
+			$sub_array[] = $value->nrocotizacion;
+			$sub_array[] = $value->nroorden;
+			$sub_array[] = $value->nrofactura;
             $sub_array[] = $value->detalle;
             $sub_array[] = '<a href="#" class="fas fa-eye" id="detalle_archivos" data-toggle="modal"data-target="#modal-archivos" onclick="listaDocumentos(this)">';
             $data[] = $sub_array;

@@ -54,7 +54,7 @@ class Ordenes extends CI_Controller
 				$sub_array[] = '<span class="badge badge-success">Pagada</span>';
 			}
 			
-            $sub_array[] = '<a href="#" class="fas fa-eye" data-toggle="modal" id="eyedetalle-orden" data-target="#modal-detalle-orden" onclick="setTablaDetalle(this)"></a><a href="#" class="fas fa-edit" data-toggle="modal" data-target="#modal-estado-orden" onclick="setTablaEstado(this)"></a>';
+			$sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-detalle-orden" onclick="setTablaDetalle(this)"><i class="far fa-eye"></i></button><button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-estado-orden" onclick="setTablaEstado(this)"><i class="far fa-edit"></i></button>';
 			//$sub_array[] = '<a href="#"  class="fas fa-eye" data-toggle="modal" onclick="verMas('.$value->nroorden.');">';
 			$data[] = $sub_array;
         }

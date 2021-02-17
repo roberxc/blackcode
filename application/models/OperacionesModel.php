@@ -172,7 +172,7 @@ class OperacionesModel extends CI_Model {
 	//Planillas realizadas por trabajador
 	public function ObtenerPlanillaPorTrabajador($idusuario){
 		$query = $this->db
-				->select("p.nombreProyecto AS nombreProyecto, c.codigoservicio AS codigoservicio, i.FechaAsignacion AS FechaTrabajo, t.PersonalCargo AS PersonalCargo, t.Detalle AS Detalle, t.ValorAsignado AS ValorAsignado") # También puedes poner * si quieres seleccionar todo
+				->select("p.nombreProyecto AS nombreproyecto, c.codigoservicio AS codigoservicio, i.fechaasignacion AS fechatrabajo, t.personalCargo AS personalcargo, t.detalle AS detalle, t.valorasignado AS valorasignado") # También puedes poner * si quieres seleccionar todo
 				->from("trabajodiario t")
 				->join("codigoservicio c", "c.id_codigo = t.id_codigo")
 				->join("proyecto p", "p.ID_Proyecto = t.ID_Proyecto")
@@ -206,12 +206,12 @@ class OperacionesModel extends CI_Model {
 		$idtrabajodiario = $idtipotrabajo[0]['id_trabajodiario'];
 
 		//Array con las id de los gastos viaticos
-		$gastosviaticos = array(1,2,3,4,5);
+		$gastosviaticos = array('Almuerzo','Cena','Agua','Alojamiento','Desayuno');
 		$query = $this->db
 		->select("g.ID_Gasto AS ID, g.Valor AS Valor,t.nombreTipoGasto AS nombre") # También puedes poner * si quieres seleccionar todo
 		->from("gastos g")
 		->join("tipogasto t", "t.id_tipogasto = g.id_tipogasto")
-		->where_in('g.id_tipogasto',$gastosviaticos)
+		->where_in('t.nombretipogasto',$gastosviaticos)
 		->where('g.id_trabajodiario',$idtrabajodiario)
 		->get();
 
@@ -260,12 +260,12 @@ class OperacionesModel extends CI_Model {
 		$idtrabajodiario = $idtipotrabajo[0]['id_trabajodiario'];
 
 		//Array con las id de los gastos viaticos
-		$gastosviaticos = array(1,2,3,4,5);
+		$gastosviaticos = array('Almuerzo','Agua','Cena','Alojamiento','Desayuno');
 		$query = $this->db
 		->select("g.Valor AS Valor,t.nombreTipoGasto AS nombre") # También puedes poner * si quieres seleccionar todo
 		->from("gastos g")
 		->join("tipogasto t", "t.id_tipogasto = g.id_tipogasto")
-		->where_in('g.id_tipogasto',$gastosviaticos)
+		->where_in('t.nombretipogasto',$gastosviaticos)
 		->where('g.id_trabajodiario',$idtrabajodiario)
 		->get();
 		return $query->result();

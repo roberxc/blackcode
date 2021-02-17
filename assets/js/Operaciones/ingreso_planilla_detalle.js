@@ -471,6 +471,35 @@ $("#form-subir-archivos").submit(function (event){
     });
 });
 
+function subirDocumentoCompra(){
+    var codigoservicio = $("#codigo_servicio").val();
+    var formData = new FormData($("#form-subir-documentocompra")[0]);
+    $.ajax({
+        url:base_url+"Factura/subirFacturaCompraMateriales",
+        type:$("form").attr("method"),
+        data:formData,
+        cache:false,
+        contentType:false,
+        processData:false,
+        success:function(respuesta){
+            if (respuesta==="exito") {
+                //$("#msg-error").hide();
+                $("#form-subir-archivos")[0].reset();
+                window.location.href = base_url+"DetalleOperaciones/"+codigoservicio;
+                generarAvisoExitoso('Archivo subido correctamente!');
+            }
+            else if(respuesta==="error"){
+                generarAvisoError('Error al subir el archivo');
+            }
+            else{
+                //$("#msg-error").show();
+                generarAvisoError(respuesta);
+            }
+        }
+    });
+
+}
+
 function generarAvisoError($mensaje){
     Command: toastr["error"]($mensaje,'Error')
     toastr.options = {

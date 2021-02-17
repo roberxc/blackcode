@@ -98,9 +98,9 @@ class FacturasModel extends CI_Model {
     
     function getRows($params = array()){
         $this->db->select('ubicaciondocumento');
-        $this->db->from('cotizaciones');
+        $this->db->from('facturas');
         if(!empty($params['id'])){
-            $this->db->where('id_cotizacion',$params['id']);
+            $this->db->where('id_facturas',$params['id']);
             //get records
             $query = $this->db->get();
             $result = ($query->num_rows() > 0)?$query->row_array():FALSE;
@@ -138,7 +138,46 @@ class FacturasModel extends CI_Model {
             "detalle" => $detalle,
             "id_trabajodiario" => $idtrabajodiario[0]['ID'],
         );
-		return $this->db->insert("detalletrabajodiario", $data);
+		return $this->db->insert("factura_trabajo", $data);
+	}
+
+    //Obtener id de orden
+	public function getIdOrden($nroorden){
+		$query = $this->db->select("id_orden") # También puedes poner * si quieres seleccionar todo
+				->from("ordenes")
+				->where('nroorden', $nroorden);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+    function subirFactura($data,$fecha,$nroorden,$nrofactura,$montototal,$detalle){
+		$idordenquery = $this->getIdOrden($nroorden);
+		$data = array(
+			"fecha" => $fecha,
+			"nrofactura" => $nrofactura,
+            "montototal" =>$montototal,
+            "detalle" =>$detalle,
+			"ubicaciondocumento" => $data['upload_data']['file_name'],
+			"id_orden" => $idordenquery[0]['id_orden'],
+		);
+		return $this->db->insert("facturas", $data);
+	}
+
+	function siExisteFactura($ajax_data){
+		$nrofactura = $ajax_data["nrofactura"];
+        $nrofacturaquery = $this->siExisteNroFactura($nrofactura);
+		if(count($nrofacturaquery) == 0){
+            return true;
+		}
+		return false;
+	}
+
+    public function siExisteNroFactura($nrofactura){
+		$query = $this->db->select("nrofactura") # También puedes poner * si quieres seleccionar todo
+				->from("facturas")
+				->where('nrofactura', $nrofactura);
+		$query = $this->db->get();
+		return $query->result();
 	}
 }
 

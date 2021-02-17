@@ -23,9 +23,14 @@ class ComprobantePagoModel extends CI_Model {
     var $tablaaa = array(
         "facturas f",
         "documento_pago d",
+        "ordenes o",
+        "ordenes_cotizaciones oc",
+        "cotizaciones c",
     );
     var $select_columnaaa = array(
         "f.nrofactura",
+        "o.nroorden",
+        "c.nrocotizacion",
         "d.nrodocumento",
         "d.fecha",
         "d.detalle",
@@ -34,7 +39,7 @@ class ComprobantePagoModel extends CI_Model {
     var $order_columnaaa = array(
         "nrodocumento",
     );
-    var $whereee = "f.id_facturas = d.id_factura";
+    var $whereee = "f.id_facturas = d.id_factura AND f.id_orden = o.id_orden AND oc.id_orden = o.id_orden AND oc.id_cotizacion = c.id_cotizacion";
 
     function make_query_comprobante(){
         $this->db->select($this->select_columnaaa);
@@ -76,6 +81,17 @@ class ComprobantePagoModel extends CI_Model {
 
 		return $query->result();
     }
+
+    function subirComprobante($data,$fecha,$detalle,$nrodocumento,$nrofactura){
+		$data = array(
+			"nrodocumento" => $nrodocumento,
+			"fecha" => $fecha,
+			"detalle" => $detalle,
+			"ubicaciondocumento" => $data['upload_data']['file_name'],
+			"id_factura" => $nrofactura,
+		);
+		return $this->db->insert("documento_pago", $data);
+	}
     
     function getRows($params = array()){
         $this->db->select('ubicaciondocumento');

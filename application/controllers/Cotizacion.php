@@ -90,7 +90,7 @@ class Cotizacion extends CI_Controller
             $sub_array[] = $value->nrocotizacion;
             $sub_array[] = $value->nombre;
             $sub_array[] = $value->fecha;
-            $sub_array[] = '<a href="#" class="fas fa-eye" id="detalle_archivos" data-toggle="modal"data-target="#modal-archivos" onclick="listaDocumentos(this)">';
+			$sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-archivos" onclick="listaDocumentos(this)"><i class="far fa-eye"></i></button>';
             $data[] = $sub_array;
         }
         $output = array(

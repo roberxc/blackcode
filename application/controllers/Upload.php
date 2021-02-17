@@ -20,36 +20,6 @@ class Upload extends CI_Controller{
 		//$this->load->view('footer');
 	}
 
-	public function subirDocumentoCompra(){
-		//El metodo is_ajax_request() de la libreria input permite verificar
-		//si se esta accediendo mediante el metodo AJAX 
-		if ($this->input->is_ajax_request()) {
-			$codigoservicio = $this->input->post("codigo1");
-			$monto = $this->input->post("monto");
-			$detalle = $this->input->post("detalle");
-			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-			$config = [
-				"upload_path" => APPPATH. '../ArchivosSubidos/',
-				'allowed_types' => "*"
-			];
-
-			$this->load->library("upload",$config);
-
-			if ($this->upload->do_upload('pic_file')) {
-				$data = array("upload_data" => $this->upload->data());
-				if($this->FacturasModel->subirFacturaCompraMateriales($data,$codigoservicio,$monto,$detalle)==true){
-					echo "exito";
-				}else{
-					echo "error";
-				}
-			}else{
-				echo $this->upload->display_errors();
-			}
-		}else{
-			show_404();
-		}
-	}
-
 	public function subirArchivo(){
 		//El metodo is_ajax_request() de la libreria input permite verificar
 		//si se esta accediendo mediante el metodo AJAX 
@@ -155,69 +125,6 @@ class Upload extends CI_Controller{
 			if ($this->upload->do_upload('pic_file_update')) {
 				$data = array("upload_data" => $this->upload->data());
 				if($this->pic_model->updateDocumentacionActualizable($data,$nombredocumento,$fechalimite,$iddoc)==true){
-					echo "exito";
-				}else{
-					echo "error";
-				}
-			}else{
-				echo $this->upload->display_errors();
-			}
-		}else{
-			show_404();
-		}
-	}
-
-	public function subirFacturas(){
-		//El metodo is_ajax_request() de la libreria input permite verificar
-		//si se esta accediendo mediante el metodo AJAX 
-		if ($this->input->is_ajax_request()) {
-			$fecha = $this->input->post("fecha");
-			$nroorden = $this->input->post("nroorden");
-			$nrofactura = $this->input->post("nrofactura");
-
-			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-			$config = [
-				"upload_path" => APPPATH. '../ArchivosSubidos/',
-				'allowed_types' => "*"
-			];
-
-			$this->load->library("upload",$config);
-
-			if ($this->upload->do_upload('pic_file')) {
-				$data = array("upload_data" => $this->upload->data());
-				if($this->pic_model->subirFactura($data,$fecha,$nroorden,$nrofactura)==true){
-					echo "exito";
-				}else{
-					echo "error";
-				}
-			}else{
-				echo $this->upload->display_errors();
-			}
-		}else{
-			show_404();
-		}
-	}
-
-	public function subirDocumentoPago(){
-		//El metodo is_ajax_request() de la libreria input permite verificar
-		//si se esta accediendo mediante el metodo AJAX 
-		if ($this->input->is_ajax_request()) {
-			$fecha = $this->input->post("fecha");
-			$detalle = $this->input->post("detalle");
-			$nrodocumento = $this->input->post("nrodocumento");
-			$nrofactura = $this->input->post("nrofactura");
-
-			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-			$config = [
-				"upload_path" => APPPATH. '../ArchivosSubidos/',
-				'allowed_types' => "*"
-			];
-
-			$this->load->library("upload",$config);
-
-			if ($this->upload->do_upload('pic_file')) {
-				$data = array("upload_data" => $this->upload->data());
-				if($this->pic_model->subirComprobante($data,$fecha,$detalle,$nrodocumento,$nrofactura)==true){
 					echo "exito";
 				}else{
 					echo "error";

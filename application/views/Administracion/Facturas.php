@@ -40,7 +40,7 @@
          <div class="box box-info ">
             <div class="box-body">
                <div class="table-responsive">
-                  <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
+                  <table id="tabla_facturas" name="tabla_facturas" class="table table-bordered table-striped" style="width: 100%;">
                      <thead>
                         <tr>
                            <th>Numero</th>
@@ -71,7 +71,7 @@
                   <button type="button" class="close-white" data-dismiss="modal">&times;</button>
                </div>
                <div class="modal-body">
-                  <form id="form-subir-facturas" style="padding:0px 15px;" class="form-horizontal" role="form" action="<?php echo base_url();?>Upload/subirFacturas" method="POST">
+                  <form id="form-subir-facturas" style="padding:0px 15px;" class="form-horizontal" role="form" action="<?php echo base_url();?>Factura/subirFacturas" method="POST">
                      <div class="row">
                         <div class="col-md-4">
                            <div class="form-group">
@@ -87,8 +87,21 @@
                         </div>
                         <div class="col-md-4">
                            <div class="form-group">
+                              <label for="recipient-tipo" class="col-form-label">Monto total </label>
+                              <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" id="montototal" name="montototal"/>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              <label for="recipient-tipo" class="col-form-label">Detalle </label>
+                              <textarea type="text" class="form-control" placeholder="Ingrese" id="detalle" name="detalle"></textarea>
+                           </div>
+                        </div>
+                        <div class="col-md-4">
+                           <div class="form-group">
                               <label class="col-form-label">Numero de orden</label>
                               <select name="nroorden" id="nroorden" style="width: 100%; height: 60%">
+                              <option value="" selected>Seleccione</option>
                               <?php
                               
                                  foreach($lista_ordenes as $i){
@@ -155,7 +168,18 @@
 <script>
    //Mostrar tabla principal
    $(document).ready(function(){
-     $('#example1').DataTable({
+     $('#tabla_facturas').DataTable({
+      dom: 'Bfrtip',
+        buttons: [
+            {
+            extend:        'colvis',
+            text:          '<i class="fas fa-eye"></i>',
+            className:     'btn btn-outline-info btn-lg',
+            titleAttr:     'Visualizar columnas',
+            collectionLayout: 'fixed three-column',
+            postfixButtons: [ 'colvisRestore' ]   
+            },
+        ],
        "language": {
          "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
          },
@@ -166,12 +190,18 @@
      },
        "columnDefs":[
          {
-             "targets": [1,2],
+             "targets": [0,1,3,4,5,6],
+             "visible": true
+         },
+         {
+            "targets": [2,6],
+             "visible": false,
+             "searchable": false
          }
        ]
      });
+
    
-     
    });
 </script>
 <script type="text/javascript">
@@ -211,3 +241,19 @@
 
 <script>var base_url = '<?php echo base_url();?>';</script>
 <script src="<?php echo base_url();?>assets/js/Administracion/facturas.js"></script>
+
+<!-- PDF EXCEL ETC. --->
+
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.23/b-1.6.5/b-flash-1.6.5/b-html5-1.6.5/b-print-1.6.5/datatables.min.js" defer ></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+
+
+
+<!-- COLUMN --->
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.colVis.min.js" defer></script>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">

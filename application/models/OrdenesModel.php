@@ -309,6 +309,39 @@ class OrdenesModel extends CI_Model {
         // }
 	}
 
+    /////////////////xddddddddddddddd ESTO ES UNA PRUEBA PARA EL DETALLE ORDEN DE COMPRA
+    var $order_columna_ordenesss = array(
+        "nroorden",
+		"nombre",
+    );
+
+    function make_query_vermas($IDENTRADA = '0')
+    {
+        $this->db->SELECT('nroorden, nombre, cantidad, preciounitario');
+        $this->db->from('ordenes_materiales, ordenes, materiales_comprados ');
+        $this->db->where('ordenes.id_orden = ordenes_materiales.id_orden AND materiales_comprados.id_material = ordenes_materiales.id_material AND ordenes.nroorden =',$IDENTRADA);
+    }
+
+    function make_model_vermas($IDENTRADA = '0')
+    {
+        $this->make_query_vermas($IDENTRADA);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    function get_filtered_data_vermas()
+    {
+        $this->make_query_vermas($IDENTRADA = '0');
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+    function get_all_data_vermas()
+    {
+        $this->db->SELECT('nroorden, nombre,cantidad , preciounitario ');
+        $this->db->from('ordenes_materiales, ordenes, materiales_comprados ');
+        $this->db->where('ordenes.id_orden = ordenes_materiales.id_orden AND materiales_comprados.id_material = ordenes_materiales.id_material');
+        return $this->db->count_all_results();
+    }
+
 }
 
 ?>
