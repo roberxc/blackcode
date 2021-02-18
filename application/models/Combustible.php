@@ -3,7 +3,7 @@ class Combustible extends CI_Model{
     function __construct(){
         $this->load->database();
     }
-    public function create($datos){
+    public function create($datos,$datadoc){
         $datos = array(       
           'id_vehiculo' => $datos['id_vehiculo'],
           'fecha' => $datos['fecha'],
@@ -11,7 +11,7 @@ class Combustible extends CI_Model{
           'estacion' => $datos['estacion'],
           'litros' => $datos['litros'],
           'valor' => $datos['valor'],
-          'doc_ad' => $datos['doc_ad'],
+          'doc_adj' => $datadoc['upload_data']['file_name'],
         );
 
         if(!$this->db->insert('combustible', $datos)){
@@ -79,6 +79,31 @@ class Combustible extends CI_Model{
      
      return $query->result_array();
  }
+
+ //Este es para obtener el archivo que se descargara de la bd osea se obtiene el nombre mas que nada
+//El archivo de libro de combustible
+function getRows($params = array()){
+     $this->db->select('doc_adj');
+     $this->db->from('combustible');
+     if(!empty($params['id'])){
+         $this->db->where('id_combustible',$params['id']);
+         //get records
+         $query = $this->db->get();
+         $result = ($query->num_rows() > 0)?$query->row_array():FALSE;
+     }else{
+         //set start and limit
+         if(array_key_exists("start",$params) && array_key_exists("limit",$params)){
+             $this->db->limit($params['limit'],$params['start']);
+         }elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){
+             $this->db->limit($params['limit']);
+         }
+         //get records
+         $query = $this->db->get();
+         $result = ($query->num_rows() > 0)?$query->result_array():FALSE;
+     }
+     //return fetched data
+     return $result;
+  }
 
 }
 

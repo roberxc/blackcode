@@ -4,7 +4,7 @@ class Mantencion extends CI_Model{
         $this->load->database();
     }
 
-    public function create($datos){
+    public function create($datos,$datadoc){
         
         $datos = array(
             
@@ -16,7 +16,7 @@ class Mantencion extends CI_Model{
             'mecanico' => $datos['mecanico'],
             'taller' => $datos['taller'],
             'detalle' => $datos['detalle'],
-            'doc_adj' => $datos['doc_adj'],
+            'doc_adj' => $datadoc['upload_data']['file_name'],
             'total_m' => $datos['total_m'],
           
         );
@@ -101,5 +101,29 @@ public function ObtenerListaMantenciones(){
      
      return $query->result_array();
  }
+//Este es para obtener el archivo que se descargara de la bd osea se obtiene el nombre mas que nada
+//El archivo de libro de mantenciones
+ function getRows($params = array()){
+     $this->db->select('doc_adj');
+     $this->db->from('mantencion');
+     if(!empty($params['id'])){
+         $this->db->where('id_mantencion',$params['id']);
+         //get records
+         $query = $this->db->get();
+         $result = ($query->num_rows() > 0)?$query->row_array():FALSE;
+     }else{
+         //set start and limit
+         if(array_key_exists("start",$params) && array_key_exists("limit",$params)){
+             $this->db->limit($params['limit'],$params['start']);
+         }elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){
+             $this->db->limit($params['limit']);
+         }
+         //get records
+         $query = $this->db->get();
+         $result = ($query->num_rows() > 0)?$query->result_array():FALSE;
+     }
+     //return fetched data
+     return $result;
+  }
 }
     

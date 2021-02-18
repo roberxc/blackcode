@@ -1,76 +1,63 @@
-$(document).on('click', '#addcombustible', function(e) {
-    e.preventDefault();
-
-    var fecha = $("#fecha").val();
-    var patente = $("#id_vehiculo").val();
-    var conductor = $("#conductor").val();
-    var estacion = $("#estacion").val();
-    var litros = $("#litros").val();
-    var valor = $("#valor").val();
-    var doc_ad = $("#doc_ad").val();
-
-
+$("#form-subir-formcombustible").submit(function (event){
+    event.preventDefault();
+    var formData = new FormData($("#form-subir-formcombustible")[0]);
     $.ajax({
-        url: base_url + "Administracion/registroCombustible",
-        type: "post",
+        url:$("form").attr("action"),
+        type:$("form").attr("method"),
+        data:formData,
         dataType: "json",
-        data: {
-            fecha: fecha,
-            id_vehiculo: patente,
-            conductor: conductor,
-            estacion: estacion,
-            litros: litros,
-            valor: valor,
-            doc_ad: doc_ad,
-
-
-        },
-        success: function(data) {
-            if (data.response == "success") {
-
-                $("#formcombustible")[0].reset();
-                Command: toastr["success"](data.message)
-
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
-            } else {
-                Command: toastr["error"](data.message)
-
-                    toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
+        cache:false,
+        contentType:false,
+        processData:false,
+        success:function(data){
+            if (data.response === "success") {
+                generarAvisoExitoso(data.message);
+                $("#form-subir-formcombustible")[0].reset();
+            } else if(data.response === "error") {
+                generarAvisoError(data.message);
             }
         }
     });
-
-
 });
+
+function generarAvisoError($mensaje) {
+    Command: toastr["error"]($mensaje, 'Error')
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+}
+
+function generarAvisoExitoso($mensaje) {
+    Command: toastr["success"]($mensaje, 'Correcto')
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+}
