@@ -45,9 +45,8 @@ class CMantencion extends CI_Controller {
 			$sub_array[]    = $value->mecanico;
 			$sub_array[]    = $value->total_m;
 			$sub_array[]    = $value->detalle;
-		
+			$sub_array[] = '<button class="btn btn-primary btn-sm" onclick="descargarDocumento(this)"><i class="fas fa-download"></i></button>';
 
-			
 			//$sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" onclick="vermas('.$value['id_material'].');" ></a>';
            // <a href="#" class="fas fa-edit" style="font-size: 20px;"></a> EN CASO DE QUERER EDITAR LOS REGISTROS
             $data[]         = $sub_array;
@@ -61,4 +60,21 @@ class CMantencion extends CI_Controller {
 		echo json_encode($output);
 		
     }
+
+	public function descargaDocMantencion($id){
+        if(!empty($id)){
+            //load download helper
+            $this->load->helper('download');
+            
+            //get file info from database
+			$fileInfo = $this->Mantencion->getRows(array('id' => $id));
+            
+            //file path
+			$file ='ArchivosSubidos/'.$fileInfo['doc_adj'];
+		
+            
+            //download file from directory
+            force_download($file, NULL);
+        }
+	}
 }

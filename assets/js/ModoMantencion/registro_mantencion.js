@@ -1,87 +1,64 @@
-$(document).on('click', '#addmantencion', function(e) {
-    e.preventDefault();
-
-    var fecha = $("#fecha").val();
-    var id_vehiculo = $("#id_vehiculo").val();
-    var kilometraje = $("#kilometraje").val();
-    var servicio = $("#servicio").val();
-    var id_personal = $("#id_personal").val();
-    var mecanico = $("#mecanico").val();
-    var taller = $("#taller").val();
-    var detalle = $("#detalle").val();
-    var doc_adj = $("#doc_adj").val();
-    var total_m = $("#total_m").val();
-
-
-
-
-
-
-
+$("#form-subir-formmantencion").submit(function (event){
+    event.preventDefault();
+    var formData = new FormData($("#form-subir-formmantencion")[0]);
     $.ajax({
-        url: base_url + "Administracion/registroMantencion",
-        type: "post",
+        url:$("form").attr("action"),
+        type:$("form").attr("method"),
+        data:formData,
         dataType: "json",
-        data: {
-            fecha: fecha,
-            id_vehiculo: id_vehiculo,
-            kilometraje: kilometraje,
-            servicio: servicio,
-            id_personal: id_personal,
-            mecanico: mecanico,
-            taller: taller,
-            detalle: detalle,
-            doc_adj: doc_adj,
-            total_m: total_m,
+        cache:false,
+        contentType:false,
+        processData:false,
+        success:function(data){
+            if (data.response === "success") {
+                generarAvisoExitoso(data.message);
+                $("#form-subir-formmantencion")[0].reset();
+            } else if(data.response === "error") {
+                generarAvisoError(data.message);
 
-
-        },
-        success: function(data) {
-            if (data.response == "success") {
-
-                $("#formmantencion")[0].reset();
-                Command: toastr["success"](data.message)
-
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
-            } else {
-                Command: toastr["error"](data.message)
-
-                    toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
             }
         }
     });
-
-
 });
+
+function generarAvisoError($mensaje) {
+    Command: toastr["error"]($mensaje, 'Error')
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+}
+
+function generarAvisoExitoso($mensaje) {
+    Command: toastr["success"]($mensaje, 'Correcto')
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+}

@@ -38,6 +38,7 @@ class CRCombustible extends CI_Controller {
             $sub_array[]    = $value->estacion;
             $sub_array[]    = $value->litros;
 			$sub_array[]    = $value->valor;
+            $sub_array[] = '<button class="btn btn-primary btn-sm" onclick="descargarDocumento(this)"><i class="fas fa-download"></i></button>';
            
 			//$sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" onclick="vermas('.$value['id_material'].');" ></a>';
            // <a href="#" class="fas fa-edit" style="font-size: 20px;"></a> EN CASO DE QUERER EDITAR LOS REGISTROS
@@ -52,4 +53,21 @@ class CRCombustible extends CI_Controller {
 		echo json_encode($output);
 		
     }
+
+    public function descargaDocCombustible($id){
+        if(!empty($id)){
+            //load download helper
+            $this->load->helper('download');
+            
+            //get file info from database
+			$fileInfo = $this->Combustible->getRows(array('id' => $id));
+            
+            //file path
+			$file ='ArchivosSubidos/'.$fileInfo['doc_adj'];
+		
+            
+            //download file from directory
+            force_download($file, NULL);
+        }
+	}
 }

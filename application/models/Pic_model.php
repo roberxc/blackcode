@@ -84,42 +84,6 @@ class Pic_model extends CI_Model{
 
 	}
 
-	function subirFactura($data,$fecha,$nroorden,$nrofactura){
-		$idordenquery = $this->getIdOrden($nroorden);
-		$data = array(
-			"fecha" => $fecha,
-			"nrofactura" => $nrofactura,
-			"ubicaciondocumento" => $data['upload_data']['file_name'],
-			"id_orden" => $idordenquery[0]['id_orden'],
-		);
-		return $this->db->insert("facturas", $data);
-	}
 
-	function subirComprobante($data,$fecha,$detalle,$nrodocumento,$nrofactura){
-		$data = array(
-			"nrodocumento" => $nrodocumento,
-			"fecha" => $fecha,
-			"detalle" => $detalle,
-			"ubicaciondocumento" => $data['upload_data']['file_name'],
-			"id_factura" => $nrofactura,
-		);
-		return $this->db->insert("documento_pago", $data);
-	}
-
-	//Obtener id de orden
-	public function getIdOrden($nroorden){
-		$query = $this->db->select("id_orden") # También puedes poner * si quieres seleccionar todo
-				->from("ordenes")
-				->where('nroorden', $nroorden);
-		$query = $this->db->get();
-		return $query->result_array();
-	}
 	
-	/*function store_pic_data($data){
-		$insert_data['pic_title'] = $data['pic_title'];
-		$insert_data['pic_desc'] = $data['pic_desc'];
-		$insert_data['pic_file'] = $data['pic_file'];
-
-		$query = $this->db->insert('pictures', $insert_data);
-	}*/
 }

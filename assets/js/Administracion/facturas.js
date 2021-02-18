@@ -5,21 +5,17 @@ $("#form-subir-facturas").submit(function (event){
         url:$("form").attr("action"),
         type:$("form").attr("method"),
         data:formData,
+        dataType: "json",
         cache:false,
         contentType:false,
         processData:false,
-        success:function(respuesta){
-            if (respuesta==="exito") {
-                //$("#msg-error").hide();
+        success:function(data){
+            if (data.response === "success") {
+                generarAvisoExitoso(data.message);
                 window.location.href = base_url+"Factura";
-                generarAvisoExitoso('Factura subida correctamente!');
-            }
-            else if(respuesta==="error"){
-                generarAvisoError('Error al subir la factura');
-            }
-            else{
-                //$("#msg-error").show();
-                generarAvisoError(respuesta);
+            } else if(data.response === "error") {
+                generarAvisoError(data.message);
+
             }
         }
     });

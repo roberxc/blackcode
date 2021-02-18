@@ -44,8 +44,8 @@ class Factura extends CI_Controller
             $sub_array[] = $value->fecha;
             $sub_array[] = $value->nrocotizacion;
             $sub_array[] = $value->nroorden;
-            $sub_array[] = '<a href="#" class="fas fa-eye" id="detalle_archivos" data-toggle="modal"data-target="#modal-archivos" onclick="listaDocumentos(this)">';
-            $data[] = $sub_array;
+            $sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-archivos" onclick="listaDocumentos(this)"><i class="far fa-eye"></i></button>';
+			$data[] = $sub_array;
         }
         $output = array(
             "draw" => intval($_POST["draw"]) ,
@@ -91,7 +91,7 @@ class Factura extends CI_Controller
 			$response .= "</td>";
 			$response .= "<td>";
 			$response .= "<div class='btn-group btn-group-sm' >";
-			$response .= "<a class='btn btn-info' href=".base_url().'Cotizacion/download/'.$row->ID."?><i class='fas fa-eye'></i></a>";
+			$response .= "<a class='btn btn-info' href=".base_url().'Factura/download/'.$row->ID."?><i class='fas fa-download'></i></a>";
 			$response .= "</div>";
 			$response .= "</td>";
 			$response .= "</tr>";
@@ -106,6 +106,98 @@ class Factura extends CI_Controller
 		echo json_encode($data);
 	}
 
-    
+	public function subirFacturaCompraMateriales(){
+		//El metodo is_ajax_request() de la libreria input permite verificar
+		//si se esta accediendo mediante el metodo AJAX 
+		if ($this->input->is_ajax_request()) {
+			$codigoservicio = $this->input->post("codigo1");
+			$monto = $this->input->post("montototal");
+			$detalle = $this->input->post("detalle");
+			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+			$config = [
+				"upload_path" => APPPATH. '../ArchivosSubidos/',
+				'allowed_types' => "*"
+			];
+
+			$this->load->library("upload",$config);
+
+			if ($this->upload->do_upload('pic_file')) {
+				$data = array("upload_data" => $this->upload->data());
+				if($this->FacturasModel->subirFacturaCompraMateriales($data,$codigoservicio,$monto,$detalle)==true){
+					echo "exito";
+				}else{
+					echo "error";
+				}
+			}else{
+				echo $this->upload->display_errors();
+			}
+		}else{
+			show_404();
+		}
+	}
+
+	public function subirFacturas(){
+		//El metodo is_ajax_request() de la libreria input permite verificar
+		//si se esta accediendo mediante el metodo AJAX 
+		if ($this->input->is_ajax_request()) {
+			$this->form_validation->set_rules('nrofactura', 'Numero factura', 'required');
+			$this->form_validation->set_rules('montototal', 'Monto total', 'required');
+			$this->form_validation->set_rules('fecha', 'Fecha', 'required');
+			$this->form_validation->set_rules('nroorden', 'Numero de orden', 'required');
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+			}else{
+				$ajax_data = $this->input->post();
+				$fecha = $this->input->post("fecha");
+				$nroorden = $this->input->post("nroorden");
+				$nrofactura = $this->input->post("nrofactura");
+				$detalle = $this->input->post("detalle");
+				$montototal = $this->input->post("montototal");
+
+				$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+				$config = [
+					"upload_path" => APPPATH. '../ArchivosSubidos/',
+					'allowed_types' => "*"
+				];
+
+				$this->load->library("upload",$config);
+				if($this->FacturasModel->siExisteFactura($ajax_data)){
+					if ($this->upload->do_upload('pic_file')) {
+						$data = array("upload_data" => $this->upload->data());
+						if($this->FacturasModel->subirFactura($data,$fecha,$nroorden,$nrofactura,$montototal,$detalle)==true){
+							$data = array('response' => "success", 'message' => "Factura ingresada correctamente!");
+						}else{
+							$data = array('response' => "error", 'message' => "Error al subir");
+						}
+					}else{
+						$data = array('response' => "error", 'message' => $this->upload->display_errors());
+					}
+				
+				}else{
+					$data = array('response' => "error", 'message' => "Numero de factura ya ingresada!");
+				}
+			}
+			echo json_encode($data);
+		}else{
+			show_404();
+		}
+	}
+
+    public function download($id){
+        if(!empty($id)){
+            //load download helper
+            $this->load->helper('download');
+            
+            //get file info from database
+			$fileInfo = $this->FacturasModel->getRows(array('id' => $id));
+            
+            //file path
+			$file ='ArchivosSubidos/'.$fileInfo['ubicaciondocumento'];
+		
+            
+            //download file from directory
+            force_download($file, NULL);
+        }
+    }
 }
 

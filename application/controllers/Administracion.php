@@ -230,17 +230,24 @@ class Administracion extends CI_Controller {
 			$this->form_validation->set_rules('estacion', 'estacion', 'required');
 			$this->form_validation->set_rules('litros', 'litros', 'required');
 			$this->form_validation->set_rules('valor', 'valor', 'required');
-			$this->form_validation->set_rules('doc_ad', 'doc_ad', 'required');
-
 			if ($this->form_validation->run() == FALSE) {
 				$data = array('response' => "error", 'message' => validation_errors());
 			} else {
 				$ajax_data = $this->input->post();
-				
-				if (!$this->Combustible->create($ajax_data)) {
-					$data = array('response' => "error", 'message' => "Falló el registro");
+				$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+				$config = [
+					"upload_path" => APPPATH. '../ArchivosSubidos/',
+					'allowed_types' => "*"
+				];
+				$this->load->library("upload",$config);
+				if ($this->upload->do_upload('pic_file')) {
+					$data = array("upload_data" => $this->upload->data());
+					$res = $this->Combustible->create($ajax_data,$data);
+					if($res){
+						$data = array('response' => "success", 'message' => "Gasto registrado correctamente!");
+					}
 				}else{
-					$data = array('response' => "success", 'message' => "Gasto registrado correctamente!");
+					$data = array('response' => "error", 'message' => $this->upload->display_errors());
 				}
 
 			}
@@ -250,44 +257,44 @@ class Administracion extends CI_Controller {
 			echo "'No direct script access allowed'";
 		}	
 	}
-		public function registroMantencion(){
-			if ($this->input->is_ajax_request()) {
-				//Validaciones
-				$this->form_validation->set_rules('fecha', 'fecha', 'required');
-				$this->form_validation->set_rules('id_vehiculo', 'id_vehiculo', 'required');
-				$this->form_validation->set_rules('kilometraje', 'kilometraje', 'required');
-				$this->form_validation->set_rules('servicio', 'servicio', 'required');
-				$this->form_validation->set_rules('id_personal', 'id_personal', 'required');
-				$this->form_validation->set_rules('mecanico', 'mecanico', 'required');
-				$this->form_validation->set_rules('taller', 'taller', 'required');
-				$this->form_validation->set_rules('detalle', 'detalle', 'required');
-				$this->form_validation->set_rules('total_m', 'total_m', 'required');
-				$this->form_validation->set_rules('doc_adj', 'doc_adj', 'required');
-
-				
-				
-	
-				if ($this->form_validation->run() == FALSE) {
-					$data = array('response' => "error", 'message' => validation_errors());
-				} else {
-					$ajax_data = $this->input->post();
-					
-					
-					if (!$this->Mantencion->create($ajax_data)) {
-						$data = array('response' => "error", 'message' => "Falló el registro de mantencion");
-					}else{
+	public function registroMantencion(){
+		if ($this->input->is_ajax_request()) {
+			//Validaciones
+			$this->form_validation->set_rules('fecha', 'fecha', 'required');
+			$this->form_validation->set_rules('id_vehiculo', 'Vehiculo', 'required');
+			$this->form_validation->set_rules('kilometraje', 'kilometraje', 'required');
+			$this->form_validation->set_rules('servicio', 'servicio', 'required');
+			$this->form_validation->set_rules('id_personal', 'Personal', 'required');
+			$this->form_validation->set_rules('mecanico', 'Mecanico', 'required');
+			$this->form_validation->set_rules('taller', 'Taller', 'required');
+			$this->form_validation->set_rules('detalle', 'Detalle', 'required');
+			$this->form_validation->set_rules('total_m', 'Total', 'required');
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+			} else {
+				$ajax_data = $this->input->post();
+				$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+				$config = [
+					"upload_path" => APPPATH. '../ArchivosSubidos/',
+					'allowed_types' => "*"
+				];
+				$this->load->library("upload",$config);
+				if ($this->upload->do_upload('pic_file')) {
+					$data = array("upload_data" => $this->upload->data());
+					$res = $this->Mantencion->create($ajax_data,$data);
+					if($res){
 						$data = array('response' => "success", 'message' => "Mantencion registrada correctamente!");
 					}
-	
+				}else{
+					$data = array('response' => "error", 'message' => $this->upload->display_errors());
 				}
-	
-				echo json_encode($data);
-			} else {
-				echo "'No direct script access allowed'";
 			}
-
-
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
 	}
+
 	public function registroVehiculo(){
 		if ($this->input->is_ajax_request()) {
 			//Validaciones

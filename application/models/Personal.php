@@ -7,7 +7,7 @@ class Personal extends CI_Model{
   public function ObtenerListaPersonal(){
     $query = $this->db
             ->select("*") # También puedes poner * si quieres seleccionar todo
-            ->from("personaltrabajo")
+            ->from("personal")
             ->get();
     
     return $query->result();
