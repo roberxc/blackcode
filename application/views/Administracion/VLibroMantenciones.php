@@ -51,6 +51,8 @@
                                 <!-- 6 --->
                                 <th>Detalle</th>
                                 <!-- 7 --->
+                                <th>Ver</th>
+                                <!-- 8 --->
                             </tr>
                         </thead>
                     </table>
@@ -147,7 +149,7 @@ $(document).ready(function() {
             type: "POST"
         },
         "columnDefs": [{
-            "targets": [1, 2, 3, 4, 5, 6, 7],
+            "targets": [1, 2, 3, 4, 5, 6, 7, 8],
         }]
     });
 });

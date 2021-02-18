@@ -49,6 +49,8 @@
                                 <!-- 5 --->
                                 <th>Total</th>
                                 <!-- 6 --->
+                                <th>Ver</th>
+                                <!-- 6 --->
 
 
 
@@ -151,7 +153,7 @@ $(document).ready(function() {
         },
         "columnDefs": [{
 
-            "targets": [1, 2, 3, 4, 5, 6],
+            "targets": [1, 2, 3, 4, 5, 6, 7],
 
         }]
     });
