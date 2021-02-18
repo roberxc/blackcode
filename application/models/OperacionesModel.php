@@ -13,6 +13,12 @@ class OperacionesModel extends CI_Model {
     	return $query->result();
 	}
 
+	public function ObtenerProyectos(){
+		$this->db->select('id_proyecto,nombreproyecto');
+		$query = $this->db->get('proyecto');
+    	return $query->result();
+	}
+
 	public function getPersonal($rut){
 		$this->db->like('rut', $rut, 'BOTH');
 		return $this->db->get('personal')->result();
@@ -416,18 +422,11 @@ class OperacionesModel extends CI_Model {
 		);
 		$this->db->insert('planillaestado', $dataplanilla);
 
-		$dataproyecto = array(
-			'nombreProyecto' => $data['nombre_proyecto'],
-		);
-
-		$this->db->insert('proyecto', $dataproyecto);
-		$id_proyecto = $this->db->insert_id();
-
 		$datatrabajodiario = array(
 			'PersonalCargo' => $data['persona_cargo'],
 			'Detalle' => $data['detalle_trabajo'],
 			'ValorAsignado' => $data['suma_asignada'],
-			'ID_Proyecto' => $id_proyecto,
+			'ID_Proyecto' => $data['id_proyecto'],
 			'id_codigo' => $id_codigo,
 		);
 

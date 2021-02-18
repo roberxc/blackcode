@@ -37,7 +37,7 @@ class Operacion extends CI_Controller {
 
 		$data ['dispositivo'] = 'Mobil';
 		$data ['tipos_trabajos'] = $this->OperacionesModel->ObtenerTipostrabajos();
-		
+		$data ['lista_proyectos'] = $this->OperacionesModel->ObtenerProyectos();
 		
 		$this->load->view('Trabajador/index',$data);
 
@@ -170,7 +170,7 @@ class Operacion extends CI_Controller {
 			//Validaciones
 			
 			$this->form_validation->set_rules('fecha_trabajo', '"Fecha trabajo"', 'required');
-			$this->form_validation->set_rules('nombre_proyecto', '"Nombre proyecto"', 'required');
+			$this->form_validation->set_rules('id_proyecto', '"Nombre proyecto"', 'required');
 			$this->form_validation->set_rules('persona_cargo', '"Persona a cargo"', 'required');
 			$this->form_validation->set_rules('suma_asignada', '"Suma asignada"', 'numeric|greater_than[0]|required');
 			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');

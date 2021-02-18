@@ -20,6 +20,12 @@
       <meta property="og:url" content="" />
       <!-- where do you want your post to link to -->
       <meta property="og:type" content="article" />
+      <!-- SELECT CON BUSCADOR -->
+   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" rel="stylesheet" />
+   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
       <!-- Website Title -->
       <title>Bienvenido</title>
       <link rel="stylesheet" href="<?php echo base_url();?>assets/js/test/css/jquery-ui.css"/>
@@ -143,8 +149,16 @@ if (isset($set_data['nombre_completo'])) {
                         <div class="help-block with-errors"></div>
                      </div>
                      <div class="form-group">
-                        <input type="text" class="form-control-input" id="nombre_proyecto" name="nombre_proyecto" required>
-                        <label class="label-control" for="cemail">Proyecto/Cliente</label>
+                     <label for="cars">Proyecto</label>
+                        <select name="id_proyecto" class="form-control-input" id="id_proyecto">
+                           <option value="" selected>Seleccione</option>
+                           <?php
+                              foreach($lista_proyectos as $i){
+                                 echo '<option value="'. $i->id_proyecto.'">'. $i->nombreproyecto .'</option>';
+                                 }
+                                 ?>
+                           </select>
+                           
                         <div class="help-block with-errors"></div>
                      </div>
                      <div class="form-group">
@@ -272,5 +286,15 @@ if (isset($set_data['nombre_completo'])) {
             });
          });
    </script>
+   <script type="text/javascript">
+   //mostrar tipoproducto
+   $(document).ready(function(){
+     $('#proyecto').select2({
+       theme: "bootstrap"
+     });
+   });
+   
+   
+</script> 
    </body>
 </html>

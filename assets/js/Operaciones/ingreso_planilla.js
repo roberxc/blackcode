@@ -28,7 +28,7 @@ $(".reg-trabajo").on('click', function(event){
     event.stopImmediatePropagation();
     var fechatrabajo = $("#fecha_trabajo").val();
     var personacargo = $("#personacargo").val();
-    var nombreproyecto = $("#nombre_proyecto").val();
+    var idproyecto = $("#id_proyecto").val();
     var sumaasignada = $("#suma_asignada").val();
     var detalletrabajo = $("#detalle_trabajo").val();
     var codigoservicio = $("#codigo_servicio").val();
@@ -50,7 +50,7 @@ $(".reg-trabajo").on('click', function(event){
         dataType: "json",
         data: {
             codigo_servicio: codigoservicio,
-            nombre_proyecto: nombreproyecto,
+            id_proyecto: idproyecto,
             persona_cargo: personacargo,
             detalle_trabajo: detalletrabajo,
             suma_asignada: sumaasignada,
@@ -75,7 +75,7 @@ $("#validar-iniciotrabajo").on('click', function(event){
     event.stopImmediatePropagation();
     var fechatrabajo = $("#fecha_trabajo").val();
     var personacargo = $("#personacargo").val();
-    var nombreproyecto = $("#nombre_proyecto").val();
+    var idproyecto = $("#id_proyecto").val();
     var sumaasignada = $("#suma_asignada").val();
     $.ajax({
         url: "Operacion/validarTrabajoDiario",
@@ -83,7 +83,7 @@ $("#validar-iniciotrabajo").on('click', function(event){
         dataType: "json",
         data: {
             fecha_trabajo: fechatrabajo,
-            nombre_proyecto: nombreproyecto,
+            id_proyecto: idproyecto,
             persona_cargo: personacargo,
             suma_asignada: sumaasignada,
         },
