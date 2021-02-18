@@ -29,8 +29,8 @@ class Mantencion extends CI_Model{
       /////////////////////////////////////////////
     //ESTE ES EL SELECT DE LA TABLA MANTENCIONES//
 
-    var $select_column = array("mantencion.id_mantencion",  "vehiculo.patente", "mantencion.fecha", "personal.nombrecompleto", "mantencion.taller", "mantencion.mecanico", "mantencion.total_m", "mantencion.detalle");  
-    var $table = array("mantencion","personal", "vehiculo");  
+    var $select_column = array("mantencion.id_mantencion", "vehiculo.patente", "mantencion.fecha", "personal.nombrecompleto", "mantencion.taller", "mantencion.mecanico", "mantencion.total_m", "mantencion.detalle");  
+    var $table = array("mantencion","personal","vehiculo");  
     var $wheree = "mantencion.id_personal =  personal.id_personal AND mantencion.id_vehiculo = vehiculo.id_vehiculo";
     var $order_column = array("mantencion.id_mantencion",  "vehiculo.patente", "mantencion.fecha", "mantencion.nombrecompleto", "mantencion.taller", "mantencion.mecanico", "mantencion.total_m", "mantencion.detalle");  
  

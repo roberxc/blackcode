@@ -151,7 +151,7 @@
                                                             style="width: 100%; height: 60%">
                                                             <?php
                                  foreach($lista_personal as $i){
-                                   echo '<option value="'. $i->id_personaltrabajo .'">'. $i->nombrecompleto .'</option>';
+                                   echo '<option value="'. $i->id_personal .'">'. $i->nombrecompleto .'</option>';
                                  }
                                  ?>
                                                         </select>
