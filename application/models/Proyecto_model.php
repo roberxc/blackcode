@@ -899,7 +899,6 @@ function make_datatables_ProyectoEjecutados(){
  }
 /* ----------------------------------Fin Tabla ejecutados--------------------------------*/
 public function obtenerTotalFactura($codigo){
-     echo"codigo: ".$codigo;
     
     $query = $this->db->SELECT('SUM(f.montototal)AS totalMonto')
     ->from('trabajodiario t ')
@@ -918,6 +917,27 @@ public function obtenerTotalPresupuesto($codigo){
    ->get();
    return $query->result();
 }
+public function TotalBalance($codigo){
+
+    $totalMonto =$this->obtenerTotalFactura($codigo);
+    $totalPresupuesto=$this-> obtenerTotalPresupuesto($codigo);
+
+    $totalMonto_limpio = 0;
+    $totalPresupuesto_limpio = 0;
+
+    foreach($totalMonto as $row){
+        $totalMonto_limpio = $row->totalMonto; //0.2
+     }
+ 
+     foreach($totalPresupuesto as $row){
+        $totalPresupuesto_limpio = $row->totalpresupuesto; //20
+     }
+
+    $totalBalance = intval($totalMonto_limpio) - intval($totalPresupuesto_limpio); 
+    $convertirPositivo=intval($totalBalance)* (-1);
+
+    return $convertirPositivo;
+}
 
 public function obtenerTrabajoDiario($codigo){
     $query = $this->db->SELECT('fecha_inicio, detalle, codigoservicio')
@@ -928,6 +948,47 @@ public function obtenerTrabajoDiario($codigo){
     ->get();
     return $query->result();
  }
+ public function obtenerMontoProyecto($codigo){
+    $query = $this->db->SELECT('montototal')
+    ->from('proyecto p ')
+    ->where('p.id_proyecto' ,$codigo)
+    ->get();
+    return $query->result();
+ }
+
+ public function MostrarMaterialesProyecto($codigo){
+    
+    $query = $this->db->SELECT('f.montototal as monto,t.valorasignado as presupuesto,t.detalle as detalle')
+    ->from('trabajodiario t ')
+    ->join("proyecto pr", "pr.id_proyecto = t.id_proyecto")
+    ->join("factura_trabajo f", "t.id_trabajodiario=f.id_trabajodiario ")
+    ->where('pr.id_proyecto' ,$codigo)
+    ->get();
+    return $query->result();
+}
+public function MostrarPresupuesto($codigo){
+    
+    $query = $this->db->SELECT('t.valorasignado as presupuesto')
+    ->from('trabajodiario t ')
+    ->join("proyecto pr", "pr.id_proyecto = t.id_proyecto")
+    ->join("factura_trabajo f", "t.id_trabajodiario=f.id_trabajodiario ")
+    ->where('pr.id_proyecto' ,$codigo)
+    ->get();
+    return $query->result();
+}
+public function MostrarDetallleTrabajo($codigo){
+    
+    $query = $this->db->SELECT('t.detalle as detalle')
+    ->from('trabajodiario t ')
+    ->join("proyecto pr", "pr.id_proyecto = t.id_proyecto")
+    ->join("factura_trabajo f", "t.id_trabajodiario=f.id_trabajodiario ")
+    ->where('pr.id_proyecto' ,$codigo)
+    ->get();
+    return $query->result();
+}
+
+
+
 
 
 }

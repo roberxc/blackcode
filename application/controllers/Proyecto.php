@@ -33,9 +33,10 @@ class Proyecto extends CI_Controller
         $data ['activo'] = 4;
         $data ['codigo'] = $idproyecto;
 
-       // $data ['Monto_total'] = $this->Proyecto_model->obtenerTotalFactura($data['codigo']);
-
-        //$data['Listado_materiales'] = $this->Proyecto_model->obtenrmateriales();
+       $data ['Monto_total'] = $this->Proyecto_model->obtenerTotalFactura($data['codigo']);
+       $data ['Monto_presupuesto'] = $this->Proyecto_model->obtenerTotalPresupuesto($data['codigo']);
+       $data ['Monto_balance'] = $this->Proyecto_model->TotalBalance($data['codigo']);
+        $data['Monto_proyecto'] = $this->Proyecto_model->obtenerMontoProyecto($data['codigo']);
         $this->load->view('menu/menu_proyecto',$data);
 		$this->load->view('Proyecto/PlanillasPro',$data);
 		$this->load->view('layout/footer');
@@ -484,35 +485,152 @@ public function obtenerPrecioVenta(){
     echo json_encode($data);
 }
 
-public function obtenerRegistroInsumo(){
+public function obtenerTrabajoDiario(){
 
     //$PreciosugeridoVenta = $this->Proyecto_model->obtenerPrecioSugeridoProyecto();
     
-  
-    $response .="<h3><b>Registro compras materiales</b></h3>";
-    $response .="<TD class='bg-info'><h5>Precio sugerido Proyecto</h5></TD>"; 
-    $response .="<div class='gr-line'></div>";
+    $response ="<table id='example1' class='table table-bordered table-striped'>";
+    $response .=" <thead>";
+    $response .=" <tr>"; 
+    $response .="<th>Fecha</th>";
+    $response .=" <th>Detalle</th>";
+    $response .="<th>Codigo de servicio</th>"; 
+    $response .="<th>Personal</th>";
+    $response .="<th>Registro fotográfico</th>";
+    $response .="</tr>";
+    $response .="</thead>";
+    $response .="<tbody>";
+    $response .="<tr>";
+    $response .="<td>04/10/2020</td>";
+    $response .="<td>Se trabaja en armado</td>";
+    $response .="<td>Pr0001</td>";
+    $response .="<td> <a class='btn btn-block btn-primary'  data-toggle='modal' data-target='#personal'>Personal</a></td>";
+    $response .="<td> <a class='btn btn-block btn-primary'  data-toggle='modal' data-target='#modal-lg'>Descargar</a></td>";
+    $response .=" </tr>";
+    $response .="</tfoot>";
+    $response .=" </table>";
 
-    $response .="<div >Total monto <b class='text-gr'>$20000</b></div>";
-    
-    $response .="<div class='gr-line'></div>"; 
-    
-    $response .="<div>Total Presupuesto <b class='text-gr'>$150.000 </b></div>";
-    
-    $response .="<div class='gr-line'></div>";
-    
-    $response .="<div>Total Balance <b class='text-gr'>$50.000</b> </div>";
-    
-    $response .="<br>";
-    $response .="<button class='btn btn-banner' href='<?php echo base_url()?>Inicio' data-toggle='modal'";
-    $response .="data-target='#materiales'>Ver detalles</button>";
-    $response .="</div>";
 
     $data = array('response' => 'success', 'detalle' => $response);
 
     echo json_encode($data);
 
+}
+
+public function obtenerRegistroMaterial(){
+
+    $ajax_data = $this->input->post();
+    $codigo = $ajax_data['codigo'];
+
+    $lista_monto = $this->Proyecto_model->MostrarMaterialesProyecto($codigo);
+    //$lista_detalle = $this->Proyecto_model->MostrarDetallleTrabajo($codigo);
+    //$lista_presupuesto = $this->Proyecto_model->MostrarPresupuesto($codigo);
+
+    $response ="<table id='example1' class='table table-bordered table-striped'>";
+    $response .=" <thead>";
+    $response .=" <tr>"; 
+    $response .="<th>Compras</th>";
+    $response .=" <th>Monto</th>";
+    $response .="<th>Detalle</th>"; 
+    $response .=" <th>Presupuesto</th>";
+    $response .="<th>Balance por item</th>";
+    $response .="</tr>";
+    $response .="</thead>";
+    $response .="<tbody>";
+    $response .="<tr>";
+    $response .="<td>Factura N°XX</td>";
+
+    $balance=0;
+    foreach($lista_monto as $row){
+    $balance = intval($row->monto)-intval($row->$presupuesto);
+        $response .="<td> </td>";
+        $response .="<td>$".$row->$monto."</td>";
+        
+        $response .="<td>".$row->$detalle."</td>";
+        $response .="<td>".$row->$presupuesto."</td>";
+        $response .="<td>".$balance."</td>";
+    }
+    
+    $response .=" </tr>";
+    $response .="</tfoot>";
+    $response .="<tr>";
+    $response .="<th>Total: </th>";
+    $response .="<th>200000</th>";
+    $response .="<th></th>";
+    $response .="<th> 100000</th>";
+    $response .="<th> 50000</th>";
+    $response .=" </tr>";
+    $response .="</tfoot>";
+    $response .=" </table>";
+
+
+    $data = array('response' => 'success', 'detalle' => $response);
+
+    echo json_encode($data);
 
 }
 
+public function obtenerManoDeObra(){
+
+    //$PreciosugeridoVenta = $this->Proyecto_model->obtenerPrecioSugeridoProyecto();
+    
+    $response ="<table id='example1' class='table table-bordered table-striped'>";
+    $response .=" <thead>";
+    $response .=" <tr>"; 
+    $response .="<th>Total mano de obra</th>";
+    $response .=" <th>Total horas</th>";
+    $response .="<th>Hora trabajador</th>"; 
+    $response .="<th>Costo total</th>";
+    $response .="</tr>";
+    $response .="</thead>";
+    $response .="<tbody>";
+    $response .="<tr>";
+    $response .="<td>Jose</td>";
+    $response .="<td>16</td>";
+    $response .="<td>20000</td>";
+    $response .="<td>320000</td>";
+    $response .=" </tr>";
+    $response .="<tr>";
+    $response .="<th></th>";
+    $response .="<th></th>";
+    $response .="<th>Total: </th>";
+    $response .="<th> 50000</th>";
+    $response .=" </tr>";
+    $response .="</tfoot>";
+    $response .=" </table>";
+
+
+    $data = array('response' => 'success', 'detalle' => $response);
+
+    echo json_encode($data);
+
+    
+}
+
+public function obtenerPersonalQueAsiste(){
+
+    //$PreciosugeridoVenta = $this->Proyecto_model->obtenerPrecioSugeridoProyecto();
+    
+    $response ="<table id='example1' class='table table-bordered table-striped'>";
+    $response .=" <thead>";
+    $response .=" <tr>"; 
+    $response .="<th>Personal</th>";
+    $response .="<th>Horas</th>";
+    $response .="</tr>";
+    $response .="</thead>";
+    $response .="<tbody>";
+    $response .="<tr>";
+    $response .="<td>Jorge</td>";
+    $response .="<td>7</td>";
+    $response .=" </tr>";
+    $response .="</tfoot>";
+    $response .=" </table>";
+
+
+    $data = array('response' => 'success', 'detalle' => $response);
+
+    echo json_encode($data);
+    
+}
+  
 }

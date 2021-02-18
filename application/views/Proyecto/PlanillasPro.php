@@ -31,6 +31,7 @@
       <link rel="stylesheet" href="<?php echo base_url();?>assets/css/animate.css" />
    </head>
    <body class="sidebar-mini layout-fixed sidebar-collapse">
+   <input type="text" id="codigoproyecto" value="<?php echo$codigo;?>" class="form-control" />
       <?php $set_data = $this->session->all_userdata(); 
          if (isset($set_data['nombre_completo'])) {
            $nombre = $set_data['nombre_completo'];
@@ -115,7 +116,7 @@
                <h2><b>Monto total</b></h2>
             </div>
             <div class="text-center animate-box">
-               <h3>$10000</h3>
+               <h3>$ <?php if(isset($Monto_proyecto)){if($Monto_proyecto[0]->montototal>0){echo $Monto_proyecto[0]->montototal;}else{ echo '0';}}else{ echo '0';}?></h3>
             </div>
             <div class="heading animate-box">
                <h2><b>Balance Proyecto</b></h2>
@@ -129,27 +130,24 @@
                   <div class="price-box-dark animate-box">
                      <h3><b>Registro compras materiales</b></h3>
                      <div class="gr-line"></div>
-                     <div >Total monto <b class="text-gr" id="MontoTotal"><!--<?php if(isset($Monto_total)){if($Monto_total[0]->Valor>0){echo $Monto_total[0]->Valor;}else{ echo '0';}}else{ echo '0';}?>--></b></div>
+                     <div >Total monto <b class="text-gr" id="MontoTotal">$ <?php if(isset($Monto_total)){if($Monto_total[0]->totalMonto>0){echo $Monto_total[0]->totalMonto;}else{ echo '0';}}else{ echo '0';}?></b></div>
                      <div class="gr-line"></div>
-                     <div>Total Presupuesto <b class="text-gr" id="presupuesto" >$150.000 </b></div>
+                     <div>Total Presupuesto <b class="text-gr" id="presupuesto" >$ <?php if(isset($Monto_presupuesto)){if($Monto_presupuesto[0]->totalpresupuesto>0){echo $Monto_presupuesto[0]->totalpresupuesto;}else{ echo '0';}}else{ echo '0';}?></b></div>
                      <div class="gr-line"></div>
-                     <div>Total Balance <b class="text-gr" id="balance" >$50.000</b> </div>
+                     <div>Total Balance <b class="text-gr" id="balance" >$ <?php if(isset($Monto_balance)){ echo $Monto_balance;}else{echo 'Error';}?></b></b> </div>
                      <br>
-                     <button class="btn btn-banner" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                     <button type="button" class="btn btn-banner" onclick="generarTablaRegistroMaterial()" data-toggle="modal"
                         data-target="#materiales">Ver detalles</button>
                   </div>
                </div>
                <div class="col-sm-4">
                   <div class="price-box-dark animate-box">
                      <h3><b>Registro trabajo diarios</b></h3>
-                     <!--<h3><b>PER MONTH</b></h3>
-                        <div class="gr-line"></div>
-                        <div>50 GB DISK SPACE</div>-->
                      <div class="gr-line"></div>
                      <div>Registro mano de obra</div>
                      <div class="gr-line"></div>
                      <br>
-                     <button class="btn btn-banner" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                     <button class="btn btn-banner" onclick="generarTablaTrabajoDiario()" data-toggle="modal"
                         data-target="#trabajoDiario">Ver detalles </button>
                   </div>
                </div>
@@ -160,7 +158,7 @@
                      <div>Total Proyecto <b class="text-gr">$520.000</b></div>
                      <div class="gr-line"></div>
                      <br>
-                     <button class="btn btn-banner" href="<?php echo base_url()?>Inicio" data-toggle="modal"
+                     <button class="btn btn-banner" onclick="generarTablaManoDeObra()" data-toggle="modal"
                         data-target="#mano_obra">Ver detalles</button>
                   </div>
                </div>
@@ -177,46 +175,10 @@
                   <span aria-hidden="true">&times;</span>
                   </button>
                </div>
-               <div class="modal-body">
-                  <table id="example1" class="table table-bordered table-striped">
-                     <thead>
-                        <tr>
-                           <th>Fecha</th>
-                           <th>Detalle</th>
-                           <th>Codigo de servicio</th>
-                           <th>Personal</th>
-                           <th>Registro fotográfico</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <td>04/10/2020</td>
-                           <td>Se trabaja en armado</td>
-                           <td>Pr0001</td>
-                           <td> <a class="btn btn-block btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                              data-target="#personal">Personal</a></td>
-                           <td> <a class="btn btn-block btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                              data-target="#modal-lg">Descargar</a></td>
-                        </tr>
-                        <tr>
-                           <td>05/10/2020</td>
-                           <td>Se trabaja en instalación</td>
-                           <td>Pr0002</td>
-                           <td> <a class="btn btn-block btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                              data-target="#personal">Personal</a></td>
-                           <td> <a class="btn btn-block btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                              data-target="#modal-lg">Descargar</a></td>
-                        </tr>
-                        <tr>
-                           <td>06/10/2020</td>
-                           <td>Se trabaja en inspección</td>
-                           <td>Pr0003</td>
-                           <td> <a class="btn btn-block btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                              data-target="#personal">Personal</a></td>
-                           <td> <a class="btn btn-block btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
-                              data-target="#modal-lg">Descagar</a></td>
-                        </tr>
-                  </table>
+               <div class="modal-body" id="RegistroTrabajoDiario">
+
+                 <!--Se mostra los datos de la tabla en el controlador Proyecto -->
+               
                </div>
                <div class="modal-footer justify-content-between">
                   <button type="button" class="btn btn-primary">Aceptar</button>
@@ -237,24 +199,10 @@
                   <span aria-hidden="true">&times;</span>
                   </button>
                </div>
-               <div class="modal-body">
-                  <table id="example1" class="table table-bordered table-striped">
-                     <thead>
-                        <tr>
-                           <th>Personal</th>
-                           <th>Horas</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <td>Jorge</td>
-                           <td>7</td>
-                        </tr>
-                        <tr>
-                           <td>Omar</td>
-                           <td>7</td>
-                        </tr>
-                  </table>
+               <div class="modal-body"id="MostrarPersonalAsiste">
+                  
+                  <!--Se mostra los datos de la tabla en el controlador Proyecto -->
+
                </div>
                <div class="modal-footer justify-content-between">
                   <button type="button" class="btn btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
@@ -276,38 +224,10 @@
                   <span aria-hidden="true">&times;</span>
                   </button>
                </div>
-               <div class="modal-body">
-                  <table id="example1" class="table table-bordered table-striped">
-                     <thead>
-                        <tr>
-                           <th>Total mano de obra</th>
-                           <th>Total horas</th>
-                           <th>Hora trabajador</th>
-                           <th>Costo total</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <td>Jose</td>
-                           <td>16</td>
-                           <td>20000</td>
-                           <td>320000</td>
-                        </tr>
-                        <tr>
-                           <td>Omar</td>
-                           <td>10</td>
-                           <td>20000</td>
-                           <td>320000</td>
-                        </tr>
-                     <tfoot>
-                        <tr>
-                           <th>Total:</th>
-                           <th></th>
-                           <th></th>
-                           <th>520000</th>
-                        </tr>
-                     </tfoot>
-                  </table>
+               <div class="modal-body" id ="MostrarManoDeObra">
+                  
+                     <!--Se mostra los datos de la tabla en el controlador Proyecto -->
+
                </div>
                <div class="modal-footer justify-content-between">
                   <button type="button" class="btn btn-primary">Aceptar</button>
@@ -328,42 +248,10 @@
                   <span aria-hidden="true">&times;</span>
                   </button>
                </div>
-               <div class="modal-body">
-                  <table id="example1" class="table table-bordered table-striped">
-                     <thead>
-                        <tr>
-                           <th>Compras</th>
-                           <th>Monto</th>
-                           <th>Detalle</th>
-                           <th>Presupuesto</th>
-                           <th>Balance por item</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <td>Factura N°XX</td>
-                           <td>50000</td>
-                           <td>Armado estructura</td>
-                           <td>100000</td>
-                           <td>50000</td>
-                        </tr>
-                        <tr>
-                           <td>Factura N°YY</td>
-                           <td>150000</td>
-                           <td>Armado </td>
-                           <td>50000</td>
-                           <td>100000</td>
-                        </tr>
-                     <tfoot>
-                        <tr>
-                           <th>Total:</th>
-                           <th>200000</th>
-                           <th></th>
-                           <th>150000</th>
-                           <th>50000</th>
-                        </tr>
-                     </tfoot>
-                  </table>
+               <div class="modal-body" id="MostrarRegistroMaterial">
+
+                  <!--Se mostra los datos de la tabla en el controlador Proyecto -->
+  
                </div>
                <div class="modal-footer justify-content-between">
                   <button type="button" class="btn btn-primary">Aceptar</button>
@@ -375,4 +263,18 @@
       </div>
       <!-- Fin dialog -->
       </body>
+      <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+   <!--Script alarma  -->
+   <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+   <!--Script alarma  -->
+   <script>
+      var base_url = '<?php echo base_url();?>';
+   </script>
+   <script src="<?php echo base_url();?>assets/js/EvaluacionProyecto/ProyectoEjecutado.js"></script>
 </html>
