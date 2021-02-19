@@ -35,16 +35,20 @@ class Cotizacion extends CI_Controller
 	}
 
     public function index(){
+		$set_data = $this->session->all_userdata();
+
 		if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 5) {
+
 			$data['activomenu'] = 15;
 			$data['activo'] = 19;
 			$data['lista_proveedores'] = $this->ProveedoresModel->listaProveedores();
 			$data['lista_materiales'] = $this->OrdenesModel->listaMateriales();
 			$this->setNotificaciones();
-			$this->load->view('menu/menu_supremo', $data);
-			$this->load->view('Administracion/Cotizacion', $data);
+			$this->load->view('menu/menu_proyecto',$data);
+			$this->load->view('Administracion/Proveedores');
 			$this->load->view('layout/footer');
 		}else if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
+
 			$data['activomenu'] = 15;
 			$data['activo'] = 19;
 			$data['lista_proveedores'] = $this->ProveedoresModel->listaProveedores();

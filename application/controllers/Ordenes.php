@@ -16,6 +16,8 @@ class Ordenes extends CI_Controller
     }
 
     public function index(){
+		$set_data = $this->session->all_userdata();
+
 		if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 5) {
 		$data['lista_materiales'] = $this->OrdenesModel->listaMateriales();
         $data['lista_cotizaciones'] = $this->CotizacionesModel->listaCotizaciones();
@@ -23,11 +25,12 @@ class Ordenes extends CI_Controller
         $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
         $data ['activomenu'] = 15;
 		$data ['activo'] = 15;
-		$this->load->view('layout/nav');
-     	$this->load->view('menu/menu_supremo',$data);
-		$this->load->view('Administracion/Ordenes',$data);
+		$this->load->view('menu/menu_proyecto',$data);
+		$this->load->view('Administracion/Proveedores');
 		$this->load->view('layout/footer');
+
 		}else if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
+
 		$data['lista_materiales'] = $this->OrdenesModel->listaMateriales();
         $data['lista_cotizaciones'] = $this->CotizacionesModel->listaCotizaciones();
         $data['lista_bodegas'] = $this->OrdenesModel->listaBodegas();
