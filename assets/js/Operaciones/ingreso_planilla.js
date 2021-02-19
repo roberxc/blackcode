@@ -150,8 +150,8 @@ function setNombrePersonal(){
         if(rut){
             count = count + 1;
             var html_code = "<tr class='nm' id='row"+count+"'>";
-            html_code += "<td><input type='text' id='item_rut' value="+rut+" class='form-control'/></td>";
-            html_code += "<td><input type='text' id='item_nombre' value="+nombrecompleto+" class='form-control' /></td>";
+            html_code += "<td><input type='text' id='item_rut' value="+rut+" class='form-control' disabled/></td>";
+            html_code += "<td><input type='text' id='item_nombre' value="+nombrecompleto+" class='form-control' disabled/></td>";
             html_code += "<td><button type='button' name='remove' data-row='row"+count+"' class='btn btn-danger btn-xs remove'>-</button></td>";   
             html_code += "</tr>";
             $('#tabla_personal').append(html_code);
