@@ -34,6 +34,8 @@ class Proyecto extends CI_Controller
         $data ['codigo'] = $idproyecto;
 
        $data ['Monto_total'] = $this->Proyecto_model->obtenerTotalFactura($data['codigo']);
+       $data ['Monto_balanceProyecto'] = $this->Proyecto_model->TotalBalanceProyecto($data['codigo']);
+       $data ['Monto_TotalProyecto'] = $this->Proyecto_model->MostrarTotalProyecto($data['codigo']);
        $data ['Monto_presupuesto'] = $this->Proyecto_model->obtenerTotalPresupuesto($data['codigo']);
        $data ['Monto_balance'] = $this->Proyecto_model->TotalBalance($data['codigo']);
         $data['Monto_proyecto'] = $this->Proyecto_model->obtenerMontoProyecto($data['codigo']);
@@ -510,8 +512,8 @@ public function obtenerTrabajoDiario(){
     $response .="<td>".$row->fecha_inicio."</td>";
     $response .="<td>".$row->detalle."</td>";
     $response .="<td>".$row->codigoservicio."</td>";
-    $response .="<td> <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#personal' onclick='generarTablaManoDeObra(this)'><i class='far fa-eye'></i></button></td>";
-    $response .="<td> <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#modal-detalle-orden' onclick='setTablaFacturas(this)'><i class='far fa-eye'></i></button></td>";
+    $response .="<td> <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#personal' onclick='generarTablaPersonalQueAsiste(this)'><i class='far fa-eye'></i></button></td>";
+    $response .="<td> <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#modal-detalle-orden' onclick=''><i class='far fa-eye'></i></button></td>";
     $response .=" </tr>";
     }
     $response .="</tfoot>";
@@ -564,15 +566,15 @@ public function obtenerRegistroMaterial(){
     $factura=0;
     foreach($lista_factura as $row){
         $factura= $row->totalMonto;
-         $response .="<th>".$factura."</th>";
+         $response .="<th>$".$factura."</th>";
     }
     $response .="<th></th>";
     $presupuesto=0;
     foreach($lista_presupuesto as $row){
         $presupuesto=$row->totalpresupuesto;
-        $response .="<th>".$presupuesto."</th>";
+        $response .="<th>$ ".$presupuesto."</th>";
     }
-    $response .="<th>".$lista_balance."</th>";
+    $response .="<th>$ ".$lista_balance."</th>";
     $response .=" </tr>";
     $response .="</tfoot>";
     $response .=" </table>";
@@ -586,28 +588,41 @@ public function obtenerRegistroMaterial(){
 public function obtenerManoDeObra(){
 
     //$PreciosugeridoVenta = $this->Proyecto_model->obtenerPrecioSugeridoProyecto();
+    $ajax_data = $this->input->post();
+    $codigo = $ajax_data['codigo'];
+    $lista_monto = $this->Proyecto_model->MostrarTotalManoObra($codigo);
     
     $response ="<table id='example1' class='table table-bordered table-striped'>";
     $response .=" <thead>";
     $response .=" <tr>"; 
-    $response .="<th>Total mano de obra</th>";
+    $response .="<th>Rut</th>";
+    $response .="<th>Nombre Completo</th>";
     $response .=" <th>Total horas</th>";
     $response .="<th>Hora trabajador</th>"; 
     $response .="<th>Costo total</th>";
     $response .="</tr>";
     $response .="</thead>";
     $response .="<tbody>";
+    $valorhora = 20000;
+    $totalhora = 0;
+    $totalproyecto = 0;
+    foreach($lista_monto as $row){
+        $totalhora = intval($row->horastrabajadas) * $valorhora;
+        $response .="<tr>";
+        $response .="<td>".$row->rut."</td>";
+        $response .="<td>".$row->nombrecompleto."</td>";
+        $response .="<td>".$row->horastrabajadas."</td>";
+        $response .="<td>".$valorhora."</td>";
+        $response .="<td>".$totalhora."</td>";
+        $response .="</tr>";
+        $totalproyecto += $totalhora;
+    }
     $response .="<tr>";
-    $response .="<td>Jose</td>";
-    $response .="<td>16</td>";
-    $response .="<td>20000</td>";
-    $response .="<td>320000</td>";
-    $response .=" </tr>";
-    $response .="<tr>";
+    $response .="<th></th>";
     $response .="<th></th>";
     $response .="<th></th>";
     $response .="<th>Total: </th>";
-    $response .="<th> 50000</th>";
+    $response .="<th>".$totalproyecto."</th>";
     $response .=" </tr>";
     $response .="</tfoot>";
     $response .=" </table>";
@@ -622,7 +637,7 @@ public function obtenerManoDeObra(){
 
 public function obtenerPersonalQueAsiste(){
     $ajax_data = $this->input->post();
-    $codigo = $ajax_data['idtrabajodiario'];
+    $codigo = $ajax_data['codigo'];
     $lista_personal = $this->Proyecto_model->MostrarPersonal($codigo);
     
     $response ="<table id='example1' class='table table-bordered table-striped'>";
@@ -657,6 +672,7 @@ public function obtenerFacturas(){
     $response ="<table id='' class='table table-bordered table-striped'>";
     $response .=" <thead>";
     $response .=" <tr>"; 
+    $response .="<th>Nro Factura</th>";
     $response .="<th>Nombre Factura</th>";
     $response .="<th>Descargar</th>";
     $response .="</tr>";
@@ -664,8 +680,9 @@ public function obtenerFacturas(){
     $response .="<tbody>";
     foreach($lista_documento as $row){
     $response .="<tr>";
+    $response .="<td>".$row->id."</td>";
     $response .="<td>".$row->documento."</td>";
-    $response .="<td><button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#modal-detalle-orden' onclick=''><i class='far fa-eye'></i></button></td>";
+    $response .="<td><button class='btn btn-primary btn-sm' onclick='descargarFactura(this)'><i class='fas fa-download'></i></button></td>";
     $response .=" </tr>";
     }
     $response .="</tfoot>";
@@ -677,5 +694,20 @@ public function obtenerFacturas(){
     echo json_encode($data);
     
 }
-  
+public function descargaFactura($id){
+    if(!empty($id)){
+        //load download helper
+        $this->load->helper('download');
+        
+        //get file info from database
+        $fileInfo = $this->Proyecto_model->getRows(array('id' => $id));
+        
+        //file path
+        $file ='ArchivosSubidos/'.$fileInfo['ubicaciondocumento'];
+    
+        
+        //download file from directory
+        force_download($file, NULL);
+    }
+}
 }

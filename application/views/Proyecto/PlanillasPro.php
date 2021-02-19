@@ -31,7 +31,7 @@
       <link rel="stylesheet" href="<?php echo base_url();?>assets/css/animate.css" />
    </head>
    <body class="sidebar-mini layout-fixed sidebar-collapse">
-   <input type="text" id="codigoproyecto" value="<?php echo$codigo;?>" class="form-control" />
+      <input type="text" id="codigoproyecto" value="<?php echo$codigo;?>" class="form-control" />
       <?php $set_data = $this->session->all_userdata(); 
          if (isset($set_data['nombre_completo'])) {
            $nombre = $set_data['nombre_completo'];
@@ -122,7 +122,7 @@
                <h2><b>Balance Proyecto</b></h2>
             </div>
             <div class="text-center animate-box">
-               <h3>$99.280.000</h3>
+               <h3>$ <?php if(isset($Monto_balanceProyecto)){echo $Monto_balanceProyecto;}else{ echo '0';}?></h3>
             </div>
             <br><br>
             <div class="row">
@@ -155,7 +155,7 @@
                   <div class="price-box-dark animate-box" data-animate-effect="fadeInRight">
                      <h3><b>Planilla mano de obra</b></h3>
                      <div class="gr-line"></div>
-                     <div>Total Proyecto <b class="text-gr">$520.000</b></div>
+                     <div>Total Proyecto <b class="text-gr">$ <?php if(isset($Monto_TotalProyecto)){if($Monto_TotalProyecto[0]->Total>0){echo $Monto_TotalProyecto[0]->Total;}else{ echo '0';}}else{ echo '0';}?></b></div>
                      <div class="gr-line"></div>
                      <br>
                      <button class="btn btn-banner" onclick="generarTablaManoDeObra()" data-toggle="modal"
@@ -176,9 +176,7 @@
                   </button>
                </div>
                <div class="modal-body" id="RegistroTrabajoDiario">
-
-                 <!--Se mostra los datos de la tabla en el controlador Proyecto -->
-               
+                  <!--Se mostra los datos de la tabla en el controlador Proyecto -->
                </div>
                <div class="modal-footer justify-content-between">
                   <button type="button" class="btn btn-primary">Aceptar</button>
@@ -189,6 +187,28 @@
          <!-- /.modal-dialog -->
       </div>
       <!-- Fin dialog -->
+      <div class="modal fade" id="MostrarFacturas">
+         <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h4 class="modal-title">Personal que asiste</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body"id="mostrar-factura">
+                  <!--Se mostra los datos de la tabla en el controlador Proyecto -->
+               </div>
+               <div class="modal-footer justify-content-between">
+                  <button type="button" class="btn btn-primary" onclick="generarTablaRegistroMaterial()" data-toggle="modal"
+                        data-target="#materiales">Atras</button>
+                  </tr>
+               </div>
+            </div>
+            <!-- /.modal-content -->
+         </div>
+         <!-- /.modal-dialog -->
+      </div>
       <!-- /.modal -->
       <div class="modal fade" id="personal">
          <div class="modal-dialog modal-lg">
@@ -200,9 +220,7 @@
                   </button>
                </div>
                <div class="modal-body"id="MostrarPersonalAsiste">
-                  
                   <!--Se mostra los datos de la tabla en el controlador Proyecto -->
-
                </div>
                <div class="modal-footer justify-content-between">
                   <button type="button" class="btn btn-primary" href="<?php echo base_url()?>Inicio" data-toggle="modal"
@@ -225,32 +243,7 @@
                   </button>
                </div>
                <div class="modal-body" id ="MostrarManoDeObra">
-                  
-                     <!--Se mostra los datos de la tabla en el controlador Proyecto -->
-
-               </div>
-               <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-primary">Aceptar</button>
-               </div>
-            </div>
-            <!-- /.modal-content -->
-         </div>
-         <!-- /.modal-dialog -->
-      </div>
-      <!-- Fin dialog -->
-      <div class="modal fade" id="MostrarFacturas">
-         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <h4 class="modal-title">Facturas</h4>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                  </button>
-               </div>
-               <div class="modal-body" id ="mostrar-factura">
-                  
-                     <!--Se mostra los datos de la tabla en el controlador Proyecto -->
-
+                  <!--Se mostra los datos de la tabla en el controlador Proyecto -->
                </div>
                <div class="modal-footer justify-content-between">
                   <button type="button" class="btn btn-primary">Aceptar</button>
@@ -272,9 +265,7 @@
                   </button>
                </div>
                <div class="modal-body" id="MostrarRegistroMaterial">
-
                   <!--Se mostra los datos de la tabla en el controlador Proyecto -->
-  
                </div>
                <div class="modal-footer justify-content-between">
                   <button type="button" class="btn btn-primary">Aceptar</button>
@@ -285,8 +276,8 @@
          <!-- /.modal-dialog -->
       </div>
       <!-- Fin dialog -->
-      </body>
-      <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+   </body>
+   <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
    <!--Script alarma  -->
    <script src="https://code.jquery.com/jquery-3.5.1.min.js"

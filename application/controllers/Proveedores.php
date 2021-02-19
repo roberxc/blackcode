@@ -33,12 +33,23 @@ class Proveedores extends CI_Controller
 	}
 
     public function index(){
-        $data ['activomenu'] = 15;
-		$data ['activo'] = 16;
-		$this->setNotificaciones();
-     	$this->load->view('menu/menu_supremo',$data);
-		$this->load->view('Administracion/Proveedores');
-		$this->load->view('layout/footer');
+		$set_data = $this->session->all_userdata();
+        if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 5) {
+			$data ['activomenu'] = 15;
+			$data ['activo'] = 16;
+			$this->setNotificaciones();
+			$this->load->view('menu/menu_proyecto',$data);
+			$this->load->view('Administracion/Proveedores');
+			$this->load->view('layout/footer');
+		}else if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
+			$data ['activomenu'] = 15;
+			$data ['activo'] = 16;
+			$this->setNotificaciones();
+			$this->load->view('menu/menu_supremo',$data);
+			$this->load->view('Administracion/Proveedores');
+			$this->load->view('layout/footer');
+		
+		}
     }
 
     public function ingresoProveedores(){

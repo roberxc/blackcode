@@ -934,7 +934,7 @@ public function TotalBalance($codigo){
      }
 
     $totalBalance = intval($totalMonto_limpio) - intval($totalPresupuesto_limpio); 
-    $convertirPositivo=intval($totalBalance)* (-1);
+    $convertirPositivo=intval($totalBalance);
 
     return $convertirPositivo;
 }
@@ -980,7 +980,7 @@ public function MostrarPersonal($codigo){
 }
 public function MostrarDocumento($codigo){
     
-    $query = $this->db->SELECT('f.ubicaciondocumento as documento')
+    $query = $this->db->SELECT('f.id_facturatrabajo as id,f.ubicaciondocumento as documento')
     ->from('trabajodiario t ')
     ->join("factura_trabajo f", "t.id_trabajodiario=f.id_trabajodiario ")
     ->where('f.id_trabajodiario' ,$codigo)
@@ -988,9 +988,82 @@ public function MostrarDocumento($codigo){
     return $query->result();
 }
 
+//Este es para obtener el archivo que se descargara de la bd osea se obtiene el nombre mas que nada
+//El archivo de libro de mantenciones
+function getRows($params = array()){
+    $this->db->select('ubicaciondocumento');
+    $this->db->from('factura_trabajo');
+    if(!empty($params['id'])){
+        $this->db->where('id_facturatrabajo',$params['id']);
+        //get records
+        $query = $this->db->get();
+        $result = ($query->num_rows() > 0)?$query->row_array():FALSE;
+    }else{
+        //set start and limit
+        if(array_key_exists("start",$params) && array_key_exists("limit",$params)){
+            $this->db->limit($params['limit'],$params['start']);
+        }elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){
+            $this->db->limit($params['limit']);
+        }
+        //get records
+        $query = $this->db->get();
+        $result = ($query->num_rows() > 0)?$query->result_array():FALSE;
+    }
+    //return fetched data
+    return $result;
+ }
 
+public function MostrarTotalManoObra($codigo){
+    
+    $query = $this->db->SELECT('pl.rut as rut,pl.nombrecompleto,SUM(ap.horastrabajadas) as horastrabajadas')
+    ->from('trabajodiario td ')
+    ->join("proyecto pr", "pr.id_proyecto = td.id_proyecto")
+    ->join("personal_trabajo pt", "pt.id_trabajodiario=td.id_trabajodiario")
+    ->join("personal pl", "pt.id_personal=pl.id_personal")
+    ->join("asistencia_personal ap", "ap.id_personal=pl.id_personal")
+    ->where('pr.id_proyecto' ,$codigo)
+    ->group_by('rut')
+    ->get();
+    return $query->result();
+}
+public function MostrarTotalProyecto($codigo){
+    
+    $query = $this->db->SELECT('SUM(ap.horastrabajadas) * 20000 as Total')
+    ->from('trabajodiario td ')
+    ->join("proyecto pr", "pr.id_proyecto = td.id_proyecto")
+    ->join("personal_trabajo pt", "pt.id_trabajodiario=td.id_trabajodiario")
+    ->join("personal pl", "pt.id_personal=pl.id_personal")
+    ->join("asistencia_personal ap", "ap.id_personal=pl.id_personal")
+    ->where('pr.id_proyecto' ,$codigo)
+    ->get();
+    return $query->result();
+}
 
+public function TotalBalanceProyecto($codigo){
 
+    $totalMonto =$this->obtenerTotalFactura($codigo);
+    $totalProyecto=$this-> MostrarTotalProyecto($codigo);
+    $totalMontoProyecto=$this-> obtenerMontoProyecto($codigo);
+
+    $totalMonto_limpio = 0;
+    $totalProyecto_limpio = 0;
+    $MontoProyecto_limpio = 0;
+
+    foreach($totalMonto as $row){
+        $totalMonto_limpio = $row->totalMonto; //0.2
+     }
+ 
+     foreach($totalProyecto as $row){
+        $totalProyecto_limpio = $row->Total; //20
+     }
+
+     foreach($totalMontoProyecto as $row){
+        $MontoProyecto_limpio = $row->montototal; //20
+     }
+    $totalBalanceProyecto = intval($MontoProyecto_limpio) - (intval($totalProyecto_limpio)+intval($totalMonto_limpio)); 
+   
+    return $totalBalanceProyecto;
+}
 
 }
 ?>

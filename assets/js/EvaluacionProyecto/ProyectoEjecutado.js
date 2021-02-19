@@ -25,6 +25,7 @@ function generarTablaTrabajoDiario(){
 
 function generarTablaRegistroMaterial(){
     var codigo = $("#codigoproyecto").val();
+    $('#MostrarFacturas').modal('hide');
     $.ajax({
         url: base_url+"Proyecto/obtenerRegistroMaterial",
         type: "post",
@@ -46,23 +47,19 @@ function generarTablaRegistroMaterial(){
     });
     
 }
-function generarTablaManoDeObra(table){
-    var idtrabajodiario = table.parentNode.parentNode.cells[0].textContent;
-    //alert(idtrabajodiario);
+function generarTablaManoDeObra(){
+    var codigo = $("#codigoproyecto").val();
 
     $.ajax({
-        url: base_url+"Proyecto/obtenerPersonalQueAsiste",
+        url: base_url+"Proyecto/obtenerManoDeObra",
         type: "post",
         dataType: "json",
         data: {
-
-            idtrabajodiario:idtrabajodiario,
+            codigo:codigo,
         },
         success: function(data) {
             if (data.response == "success") {
-
-                
-                $('#MostrarPersonalAsiste').html(data.detalle);
+                $('#MostrarManoDeObra').html(data.detalle);
             } else {
                 generarAvisoError(data.message);
                 alert("Error")
@@ -71,15 +68,16 @@ function generarTablaManoDeObra(table){
     });
     
 }
-function generarTablaPersonalQueAsiste(){
-    var codigo = $("#codigoproyecto").val();
+function generarTablaPersonalQueAsiste(table){
+    var idtrabajodiario = table.parentNode.parentNode.cells[0].textContent;
+
     $.ajax({
         url: base_url+"Proyecto/obtenerPersonalQueAsiste",
         type: "post",
         dataType: "json",
         data: {
 
-            codigo:codigo,
+            codigo:idtrabajodiario,
         },
         success: function(data) {
             if (data.response == "success") {
@@ -97,6 +95,8 @@ function generarTablaPersonalQueAsiste(){
 
 function setTablaFacturas(table){
     var idtrabajodiario = table.parentNode.parentNode.cells[0].textContent;
+    $('#materiales').modal('hide');
+    
     //window.location.href = base_url + "CMantencion/descargaDocMantencion/"+iddocumento;
     $.ajax({
         url: base_url+"Proyecto/obtenerFacturas",
@@ -119,3 +119,7 @@ function setTablaFacturas(table){
     });
 }
 
+function descargarFactura(table){
+    var iddocumento = table.parentNode.parentNode.cells[0].textContent;
+    window.location.href = base_url + "Proyecto/descargaFactura/"+iddocumento;
+}
