@@ -22,6 +22,7 @@ class OperacionesModel extends CI_Model {
 	public function ObtenerPersonal(){
 		$this->db->select('id_personal,rut,nombrecompleto');
 		$query = $this->db->get('personal');
+		
     	return $query->result();
 	}
 
