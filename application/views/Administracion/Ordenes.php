@@ -46,12 +46,13 @@
                   <table id="ordenes_principales" name="ordenes_principales" class="table table-bordered table-striped" style="width: 100%;">
                      <thead>
                         <tr>
-                           <th>Numero</th>
+                           <th>N° de Orden</th>
                            <th>Fecha</th>
                            <th>Rut</th>
                            <th>Proveedor</th>
                            <th>Total</th>
                            <th>Estado</th>
+                           <th>N° de Cotizacion</th>
                            <th>Accion</th>
                         </tr>
                      </thead>
@@ -285,7 +286,7 @@
      },
        "columnDefs":[
          {
-             "targets": [0,1,3,4,5,6],
+             "targets": [0,1,3,4,5,7],
              "visible": true
          },
          {
