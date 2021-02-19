@@ -145,14 +145,6 @@
       dom: 'Bfrtip',
         buttons: [
             {
-            extend:        'colvis',
-            text:          '<i class="fas fa-eye"></i>',
-            className:     'btn btn-outline-info btn-lg',
-            titleAttr:     'Visualizar columnas',
-            collectionLayout: 'fixed three-column',
-            postfixButtons: [ 'colvisRestore' ]   
-            },
-            {
                extend:     'pdfHtml5',
                text:       '<i class="fas fa-file-pdf"></i>',
                titleAttr:  'Exportar a PDF',
@@ -245,7 +237,7 @@
    src="<?php echo base_url()?>assets/js/ModoCombustible/vlibro_combustible.js"></script>
 
 
-      <!-- PDF EXCEL ETC. --->
+  <!-- PDF EXCEL ETC. --->
 
  
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
@@ -253,10 +245,3 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.23/b-1.6.5/b-flash-1.6.5/b-html5-1.6.5/b-print-1.6.5/datatables.min.js" defer ></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
 
-
-
-<!-- COLUMN --->
-<script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.colVis.min.js" defer></script>
-
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
