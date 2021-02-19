@@ -19,6 +19,12 @@ class OperacionesModel extends CI_Model {
     	return $query->result();
 	}
 
+	public function ObtenerPersonal(){
+		$this->db->select('id_personal,rut,nombrecompleto');
+		$query = $this->db->get('personal');
+    	return $query->result();
+	}
+
 	public function getPersonal($rut){
 		$this->db->like('rut', $rut, 'BOTH');
 		return $this->db->get('personal')->result();
@@ -452,22 +458,6 @@ class OperacionesModel extends CI_Model {
 		$lista_rut = $data["lista_rut"];
 		$lista_nombres = $data["lista_nombre"];
 		$query = '';
-
-
-		for($count = 0; $count<count($lista_rut); $count++){
-			$rut = $lista_rut[$count];
-			$nombre = $lista_nombres[$count];
-
-			if(!empty($rut) && !empty($nombre)){
-				//$query .= 'INSERT INTO personal (rut,nombrecompleto,id_trabajodiario) VALUES ("'.$rut.'", "'.$nombre.'", "'.$id_trabajodiario.'");';
-				$insert_datapersonal[] = array(
-					'rut' => $rut,
-					'nombrecompleto'=> $nombre,
-				  );
-			}
-			
-		}
-		$this->db->insert_batch('personal',$insert_datapersonal);
 
 		//var_dump($listadopersonal);
 

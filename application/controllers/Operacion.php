@@ -38,7 +38,7 @@ class Operacion extends CI_Controller {
 		$data ['dispositivo'] = 'Mobil';
 		$data ['tipos_trabajos'] = $this->OperacionesModel->ObtenerTipostrabajos();
 		$data ['lista_proyectos'] = $this->OperacionesModel->ObtenerProyectos();
-		
+		$data ['lista_personal'] = $this->OperacionesModel->ObtenerPersonal();
 		$this->load->view('Trabajador/index',$data);
 
 				/*
