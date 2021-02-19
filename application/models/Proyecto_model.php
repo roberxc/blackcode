@@ -940,7 +940,7 @@ public function TotalBalance($codigo){
 }
 
 public function obtenerTrabajoDiario($codigo){
-    $query = $this->db->SELECT('fecha_inicio, detalle, codigoservicio')
+    $query = $this->db->SELECT('t.id_trabajodiario as id, fecha_inicio, detalle, codigoservicio')
     ->from('trabajodiario t ')
     ->join("proyecto pr", "pr.id_proyecto = t.id_proyecto")
     ->join("codigoservicio c","t.id_codigo=c.id_codigo")
@@ -958,31 +958,32 @@ public function obtenerTrabajoDiario($codigo){
 
  public function MostrarMaterialesProyecto($codigo){
     
-    $query = $this->db->SELECT('f.montototal as monto,t.valorasignado as presupuesto,t.detalle as detalle')
+    $query = $this->db->SELECT('t.id_trabajodiario as id,f.montototal as monto,t.valorasignado as presupuesto,t.detalle as detalle')
     ->from('trabajodiario t ')
     ->join("proyecto pr", "pr.id_proyecto = t.id_proyecto")
     ->join("factura_trabajo f", "t.id_trabajodiario=f.id_trabajodiario ")
-    ->where('pr.id_proyecto' ,$codigo)
+    ->where('t.id_proyecto' ,$codigo)
     ->get();
     return $query->result();
 }
-public function MostrarPresupuesto($codigo){
+public function MostrarPersonal($codigo){
     
-    $query = $this->db->SELECT('t.valorasignado as presupuesto')
-    ->from('trabajodiario t ')
-    ->join("proyecto pr", "pr.id_proyecto = t.id_proyecto")
-    ->join("factura_trabajo f", "t.id_trabajodiario=f.id_trabajodiario ")
-    ->where('pr.id_proyecto' ,$codigo)
+    $query = $this->db->SELECT(' pl.nombrecompleto as nombre,ap.horastrabajadas as hora ')
+    ->from('trabajodiario td ')
+    //->join("proyecto pr", "pr.id_proyecto = td.id_proyecto")
+    ->join("personal_trabajo pt", "pt.id_trabajodiario=td.id_trabajodiario")
+    ->join("personal pl", "pt.id_personal=pl.id_personal")
+    ->join("asistencia_personal ap", "ap.id_personal=pl.id_personal")
+    ->where('td.id_trabajodiario' ,$codigo)
     ->get();
     return $query->result();
 }
-public function MostrarDetallleTrabajo($codigo){
+public function MostrarDocumento($codigo){
     
-    $query = $this->db->SELECT('t.detalle as detalle')
+    $query = $this->db->SELECT('f.ubicaciondocumento as documento')
     ->from('trabajodiario t ')
-    ->join("proyecto pr", "pr.id_proyecto = t.id_proyecto")
     ->join("factura_trabajo f", "t.id_trabajodiario=f.id_trabajodiario ")
-    ->where('pr.id_proyecto' ,$codigo)
+    ->where('f.id_trabajodiario' ,$codigo)
     ->get();
     return $query->result();
 }

@@ -487,11 +487,14 @@ public function obtenerPrecioVenta(){
 
 public function obtenerTrabajoDiario(){
 
-    //$PreciosugeridoVenta = $this->Proyecto_model->obtenerPrecioSugeridoProyecto();
+    $ajax_data = $this->input->post();
+    $codigo = $ajax_data['codigo'];
+    $lista_trabajo = $this->Proyecto_model->obtenerTrabajoDiario($codigo);
     
     $response ="<table id='example1' class='table table-bordered table-striped'>";
     $response .=" <thead>";
     $response .=" <tr>"; 
+    $response .="<th>ID</th>";
     $response .="<th>Fecha</th>";
     $response .=" <th>Detalle</th>";
     $response .="<th>Codigo de servicio</th>"; 
@@ -500,13 +503,17 @@ public function obtenerTrabajoDiario(){
     $response .="</tr>";
     $response .="</thead>";
     $response .="<tbody>";
+
+    foreach($lista_trabajo as $row){
     $response .="<tr>";
-    $response .="<td>04/10/2020</td>";
-    $response .="<td>Se trabaja en armado</td>";
-    $response .="<td>Pr0001</td>";
-    $response .="<td> <a class='btn btn-block btn-primary'  data-toggle='modal' data-target='#personal'>Personal</a></td>";
-    $response .="<td> <a class='btn btn-block btn-primary'  data-toggle='modal' data-target='#modal-lg'>Descargar</a></td>";
+    $response .="<td>".$row->id."</td>";
+    $response .="<td>".$row->fecha_inicio."</td>";
+    $response .="<td>".$row->detalle."</td>";
+    $response .="<td>".$row->codigoservicio."</td>";
+    $response .="<td> <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#personal' onclick='generarTablaManoDeObra(this)'><i class='far fa-eye'></i></button></td>";
+    $response .="<td> <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#modal-detalle-orden' onclick='setTablaFacturas(this)'><i class='far fa-eye'></i></button></td>";
     $response .=" </tr>";
+    }
     $response .="</tfoot>";
     $response .=" </table>";
 
@@ -523,46 +530,52 @@ public function obtenerRegistroMaterial(){
     $codigo = $ajax_data['codigo'];
 
     $lista_monto = $this->Proyecto_model->MostrarMaterialesProyecto($codigo);
-    //$lista_detalle = $this->Proyecto_model->MostrarDetallleTrabajo($codigo);
-    //$lista_presupuesto = $this->Proyecto_model->MostrarPresupuesto($codigo);
+    $lista_factura = $this->Proyecto_model-> obtenerTotalFactura($codigo);
+    $lista_presupuesto = $this->Proyecto_model->obtenerTotalPresupuesto($codigo);
+    $lista_balance = $this->Proyecto_model->TotalBalance($codigo);
 
     $response ="<table id='example1' class='table table-bordered table-striped'>";
     $response .=" <thead>";
     $response .=" <tr>"; 
-    $response .="<th>Compras</th>";
+    $response .="<th>ID</th>";
     $response .=" <th>Monto</th>";
     $response .="<th>Detalle</th>"; 
     $response .=" <th>Presupuesto</th>";
     $response .="<th>Balance por item</th>";
+    $response .="<th>Facturas</th>";
     $response .="</tr>";
     $response .="</thead>";
     $response .="<tbody>";
-    $response .="<tr>";
-    $response .="<td>Factura N°XX</td>";
-
     $balance=0;
     foreach($lista_monto as $row){
-    $balance = intval($row->monto)-intval($row->$presupuesto);
-        $response .="<td> </td>";
-        $response .="<td>$".$row->$monto."</td>";
-        
-        $response .="<td>".$row->$detalle."</td>";
-        $response .="<td>".$row->$presupuesto."</td>";
-        $response .="<td>".$balance."</td>";
+    $balance = intval($row->monto)-intval($row->presupuesto);
+        $response .="<tr>";
+        $response .="<td>".$row->id."</td>";
+        $response .="<td>$".$row->monto."</td>";
+        $response .="<td>".$row->detalle."</td>";
+        $response .="<td>$".$row->presupuesto."</td>";
+        $response .="<td>$".$balance."</td>";
+        $response .="<td> <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#MostrarFacturas' onclick='setTablaFacturas(this)'><i class='fas fa-download'></i></button></td>";
+        $response .=" </tr>";
     }
-    
-    $response .=" </tr>";
     $response .="</tfoot>";
     $response .="<tr>";
     $response .="<th>Total: </th>";
-    $response .="<th>200000</th>";
+    $factura=0;
+    foreach($lista_factura as $row){
+        $factura= $row->totalMonto;
+         $response .="<th>".$factura."</th>";
+    }
     $response .="<th></th>";
-    $response .="<th> 100000</th>";
-    $response .="<th> 50000</th>";
+    $presupuesto=0;
+    foreach($lista_presupuesto as $row){
+        $presupuesto=$row->totalpresupuesto;
+        $response .="<th>".$presupuesto."</th>";
+    }
+    $response .="<th>".$lista_balance."</th>";
     $response .=" </tr>";
     $response .="</tfoot>";
     $response .=" </table>";
-
 
     $data = array('response' => 'success', 'detalle' => $response);
 
@@ -608,8 +621,9 @@ public function obtenerManoDeObra(){
 }
 
 public function obtenerPersonalQueAsiste(){
-
-    //$PreciosugeridoVenta = $this->Proyecto_model->obtenerPrecioSugeridoProyecto();
+    $ajax_data = $this->input->post();
+    $codigo = $ajax_data['idtrabajodiario'];
+    $lista_personal = $this->Proyecto_model->MostrarPersonal($codigo);
     
     $response ="<table id='example1' class='table table-bordered table-striped'>";
     $response .=" <thead>";
@@ -619,10 +633,41 @@ public function obtenerPersonalQueAsiste(){
     $response .="</tr>";
     $response .="</thead>";
     $response .="<tbody>";
+    foreach($lista_personal as $row){
     $response .="<tr>";
-    $response .="<td>Jorge</td>";
-    $response .="<td>7</td>";
+    $response .="<td>".$row->nombre."</td>";
+    $response .="<td>".$row->hora."</td>";
     $response .=" </tr>";
+    }
+    $response .="</tfoot>";
+    $response .=" </table>";
+
+
+    $data = array('response' => 'success', 'detalle' => $response);
+
+    echo json_encode($data);
+    
+}
+public function obtenerFacturas(){
+    $ajax_data = $this->input->post();
+    $codigo = $ajax_data['idtrabajodiario'];
+    
+    $lista_documento = $this->Proyecto_model->MostrarDocumento($codigo);
+    
+    $response ="<table id='' class='table table-bordered table-striped'>";
+    $response .=" <thead>";
+    $response .=" <tr>"; 
+    $response .="<th>Nombre Factura</th>";
+    $response .="<th>Descargar</th>";
+    $response .="</tr>";
+    $response .="</thead>";
+    $response .="<tbody>";
+    foreach($lista_documento as $row){
+    $response .="<tr>";
+    $response .="<td>".$row->documento."</td>";
+    $response .="<td><button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#modal-detalle-orden' onclick=''><i class='far fa-eye'></i></button></td>";
+    $response .=" </tr>";
+    }
     $response .="</tfoot>";
     $response .=" </table>";
 

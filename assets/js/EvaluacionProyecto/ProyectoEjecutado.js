@@ -46,21 +46,23 @@ function generarTablaRegistroMaterial(){
     });
     
 }
-function generarTablaManoDeObra(){
-    var codigo = $("#codigoproyecto").val();
+function generarTablaManoDeObra(table){
+    var idtrabajodiario = table.parentNode.parentNode.cells[0].textContent;
+    //alert(idtrabajodiario);
+
     $.ajax({
-        url: base_url+"Proyecto/obtenerManoDeObra",
+        url: base_url+"Proyecto/obtenerPersonalQueAsiste",
         type: "post",
         dataType: "json",
         data: {
 
-            codigo:codigo,
+            idtrabajodiario:idtrabajodiario,
         },
         success: function(data) {
             if (data.response == "success") {
 
                 
-                $('#MostrarManoDeObra').html(data.detalle);
+                $('#MostrarPersonalAsiste').html(data.detalle);
             } else {
                 generarAvisoError(data.message);
                 alert("Error")
@@ -93,4 +95,27 @@ function generarTablaPersonalQueAsiste(){
     
 }
 
+function setTablaFacturas(table){
+    var idtrabajodiario = table.parentNode.parentNode.cells[0].textContent;
+    //window.location.href = base_url + "CMantencion/descargaDocMantencion/"+iddocumento;
+    $.ajax({
+        url: base_url+"Proyecto/obtenerFacturas",
+        type: "post",
+        dataType: "json",
+        data: {
+
+            idtrabajodiario:idtrabajodiario,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+
+                
+                $('#mostrar-factura').html(data.detalle);
+            } else {
+                generarAvisoError(data.message);
+                alert("Error")
+            }
+        }
+    });
+}
 
