@@ -46,6 +46,14 @@ class AdministracionModel extends CI_Model
 				->get();
     	return $query->result();
 	}
+
+    public function listaTipoUsuarios(){
+		$query = $this->db
+				->select("id_tipousuario,rol") # También puedes poner * si quieres seleccionar todo
+				->from("tipousuario")
+				->get();
+    	return $query->result();
+	}
 	
 	//Tabla de costos fijos
 	function make_datatables_costosfijos(){

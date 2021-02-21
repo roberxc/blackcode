@@ -90,10 +90,12 @@
                            <div class="form-group">
                               <label for="exampleInputEmail1">Tipo de usuario</label>
                               <select class="form-control" name="cars" id="tipo">
-                                 <option value="select" selected>Seleccionar</option>
-                                 <option value="3">Bodeguero</option>
-                                 <option value="1">Administracion</option>
-                                 <option value="2">Trabajador</option>
+
+                                 <option value="" selected>Seleccionar</option>
+                                 <?php
+                              foreach($lista_tipousuarios as $i){?>
+                                 <option value="<?php echo$i->id_tipousuario;?>"><?php echo$i->rol;?></option>
+                                 <?php }?>
                               </select>
                            </div>
                            <!-- /.input group -->

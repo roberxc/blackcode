@@ -99,6 +99,7 @@ class Administracion extends CI_Controller {
 		$data ['activo'] = 6;
 		$data ['activomenu'] = 2;
 		$this->setNotificaciones();
+		$data['lista_tipousuarios'] = $this->AdministracionModel->listaTipoUsuarios();
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/GestionCuentas');
 		$this->load->view('layout/footer');
