@@ -7,10 +7,39 @@ class Auth extends CI_Model {
     * por que estoy trabajando con array solo por eso para que no mande un monton de registrso xD
    */
     public function login($usuario, $password) {
-        $data = $this->db->get_where('usuario', array('correo' => $usuario, 'contrasena' => $password),1);
-        if(!$data->result()){
-            return false;
+        
+        $querypass = $this->db->select("contrasena") # También puedes poner * si quieres seleccionar todo
+				->from("usuario")
+				->where('correo', $usuario)
+                ->get()
+                ->result_array();
+        if(count($querypass) > 0){
+            if(password_verify($password,$querypass[0]['contrasena'])){
+                $data = $this->db->get_where('usuario', array('correo' => $usuario),1);
+                return $data->row();
+            }else{
+                return false;
+            }
         }
-        return $data->row();
+        return false;
+
+    }
+
+    public function getCurrentPassword($correo,$password) {
+        
+        $querypass = $this->db->select("contrasena") # También puedes poner * si quieres seleccionar todo
+				->from("usuario")
+				->where('correo', $correo)
+                ->get()
+                ->result_array();
+        if(count($querypass) > 0){
+            if(password_verify($password,$querypass[0]['contrasena'])){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
+
     }
 }

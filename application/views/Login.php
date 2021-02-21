@@ -68,7 +68,6 @@
       <!--===============================================================================================-->
       <script src="<?php echo base_url()?>assets/lib/particles/particles.js"></script>
       <script src="<?php echo base_url()?>assets/lib/particles/demo/js/app.js"></script>
-      <script src="<?=base_url('assets/js/auth/login.js')?>"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="<?=base_url('assets/js/auth/login.js')?>"></script>
    </body>

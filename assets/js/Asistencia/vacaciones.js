@@ -128,3 +128,28 @@ $(document).on('click', '#boton-filtrodetallevacaciones', function(e) {
     });
 });
 
+var nroreg = 0;
+function setIDVacaciones(table){
+    var idvacaciones = table.parentNode.parentNode.cells[0].textContent;
+    nroreg= idvacaciones;
+}
+
+function deleteVacaciones(){
+
+    $.ajax({
+        url: base_url+"Vacaciones/deleteRegVacaciones",
+        type: "post",
+        dataType: "json",
+        data: {
+            id_vacaciones: nroreg,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                generarAvisoExitoso(data.message);
+                window.location.href =  base_url+"Vacaciones";
+            } else if (data.response == "error") {
+                generarAvisoError(data.message);
+            }
+        }
+    });
+}

@@ -206,15 +206,19 @@ class Administracion extends CI_Controller {
 				$data = array('response' => "error", 'message' => validation_errors());
 			} else {
 				$ajax_data = $this->input->post();
-				
-				if (!$this->Users->create($ajax_data)) {
-					$data = array('response' => "error", 'message' => "Falló el registro");
+				$password1 = $ajax_data['password'];
+				$password2 = $ajax_data['password_confirm'];
+
+				if($password1 === $password2){
+					if (!$this->Users->create($ajax_data)) {
+						$data = array('response' => "error", 'message' => "Falló el registro");
+					}else{
+						$data = array('response' => "success", 'message' => "Cuenta creada correctamente!");
+					}
 				}else{
-					$data = array('response' => "success", 'message' => "Cuenta creada correctamente!");
+					$data = array('response' => "error", 'message' => "Las contraseñas ingresadas no son iguales");
 				}
-
 			}
-
 			echo json_encode($data);
 		} else {
 			echo "'No direct script access allowed'";

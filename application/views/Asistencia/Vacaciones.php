@@ -139,7 +139,7 @@
                                  <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                                     <thead>
                                        <tr>
-                                          <th></th>
+                                          <th>NroReg</th>
                                           <th>Rut</th>
                                           <!-- 0 ---> 
                                           <th>Nombre</th>
@@ -148,6 +148,7 @@
                                           <th>Fecha termino</th>
                                           <!-- 3 --->
                                           <th>Dias pedidos</th>
+                                          <th>Accion</th>
                                           <!-- 4 --->
                                           <!--<th>Accion</th>
                                              5 --->
@@ -162,6 +163,27 @@
                </div>
             </div>
          </div>
+
+         <div id="modal-confirmacion" class="modal fade bd-example-modal-sm" role="dialog">
+   <div class="modal-dialog modal-sm">
+         <!-- Contenido del modal -->
+         <div class="modal-content">
+            <div class="modal-header bg-red">
+               <H3>Confirmación</H3>
+               <button type="button" class="close-white" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+               <div class="modal-body">
+                    <p>Estás seguro que deseas eliminar este registro?</p>
+                </div>
+            </div>
+            <div class="modal-footer bg-white">
+               <input type="submit" class="btn btn-primary" value="Si" onclick="deleteVacaciones()">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            </div>
+         </div>
+   </div>
+</div>
          <!-- /.card -->
       </div>
    </div>

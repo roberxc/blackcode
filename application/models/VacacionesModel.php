@@ -25,6 +25,7 @@ class VacacionesModel extends CI_Model
         "personal p",
     );
     var $select_columnaaa = array(
+        "v.id_vacaciones",
         "p.id_personal",
         "p.rut",
         "p.nombrecompleto",
@@ -34,6 +35,7 @@ class VacacionesModel extends CI_Model
     );
 
     var $order_columnaaa = array(
+        "v.id_vacaciones",
         "p.id_personal",
         "p.rut",
         "p.nombrecompleto",
@@ -90,13 +92,16 @@ class VacacionesModel extends CI_Model
             $diaspedidos_limpio = $dias_pedidos_lista[$count];
         
         }
-        
+
+        $datestart = strtotime($fechainicio); 
+        $dateend = strtotime($fechatermino); 
+
         $insert_data = array(
             'diasacumulados' => $diasacumulados_limpio,
             'diasprogresivos' => $diasprogresivos_limpio,
             'diasausar' => $diaspedidos_limpio,
-            'fechainicio' => $fechainicio,
-            'fechatermino' => $fechatermino,
+            'fechainicio' => date('Y-m-d', $datestart),
+            'fechatermino' => date('Y-m-d', $dateend),
             'id_personal' => $id_personal,
         );
        
@@ -105,6 +110,23 @@ class VacacionesModel extends CI_Model
 
         return $this->db->insert('vacaciones', $insert_data);
     }
+
+    public function deleteRegVacaciones($nroreg){
+        $this->db->where('id_vacaciones', $nroreg);
+         
+		return $this->db->delete('vacaciones');
+    }
+
+    public function obtenerDiasUsados($idpersonal,$periodoanterior){
+		$query = $this->db
+				->select("diasausar") # También puedes poner * si quieres seleccionar todo
+				->from("vacaciones v")
+				->join("personal p", "p.id_personal = v.id_personal")
+				->where("p.id_personal", $idpersonal)
+                ->where("YEAR(v.fechainicio)", $periodoanterior)
+				->get();
+    	return $query->result_array();
+	}
 
 }
 
