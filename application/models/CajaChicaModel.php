@@ -60,32 +60,131 @@ class CajaChicaModel extends CI_Model {
 		return $this->db->where('Nombre', $destinatario);
 	}
 
-
-	public function obtenerIngresos(){		
-		$query = $this->db
-				->select("i.FechaIngreso AS FechaIngreso, i.MontoIngreso AS MontoIngreso") # También puedes poner * si quieres seleccionar todo
-				->from("ingresocaja i")
-				->join("cajachica c", "c.ID_CajaChica = i.ID_CajaChica")
-				->get();
-        // if (count($query->result()) > 0) {
+    /* DATATABLE DE INGRESOS CAJA CHICA */
+    function make_datatables_cajaingresos(){
+        $this->make_query_cajaingresos();
+        if ($_POST["length"] != - 1){
+            $this->db->limit($_POST['length'], $_POST['start']);
+        }
+        $query = $this->db->get();
         return $query->result();
-        // }
-	}
-	
-	public function obtenerEgresos(){
-		$query = $this->db
-				->select("ci.FechaEgreso AS FechaEgreso, ci.MontoEgreso AS MontoEgreso, t.NombreDestinatario AS NombreDestinatario,ci.Detalle AS Detalle,ci.Estado AS Estado") # También puedes poner * si quieres seleccionar todo
-				->from("destinatario t")
-				->join("egresocaja ci", "ci.ID_Destinatario = t.ID_Destinatario")
-				->join("cajachica c", "c.ID_CajaChica = ci.ID_CajaChica")
-				->where("ci.Estado",1)
-				->get();
 
+    }
 
-        // if (count($query->result()) > 0) {
+    var $tablacajaingresos = array(
+        "ingresocaja i",
+        "cajachica c",
+    );
+    var $select_columna_cajaingresos = array(
+		"i.id_ingresocaja as id",
+		"i.fechaingreso as fechaingreso",
+        "i.montoingreso as montoingreso",
+    );
+
+    var $order_columna_cajaingresos = array(
+        "i.id_ingresocaja",
+		"i.fechaingreso",
+        "i.montoingreso",
+    );
+
+    var $where_cajaingresos = "c.id_cajachica = i.id_cajachica";
+
+    function make_query_cajaingresos(){
+        $this->db->select($this->select_columna_cajaingresos);
+        $this->db->from($this->tablacajaingresos);
+        $this->db->where($this->where_cajaingresos);
+
+        if (isset($_POST["search"]["value"]) && $_POST["search"]["value"] != ''){
+            $this->db->like("i.fechaingreso", $_POST["search"]["value"]);
+        }
+        if (isset($_POST["order"])){
+            $this->db->order_by($this->order_columna_cajaingresos[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        
+        }else{
+            $this->db->order_by('i.id_ingresocaja', 'ASC');
+        }
+    }
+
+    function get_all_data_cajaingresos(){
+        $this->db->select($this->select_columna_cajaingresos);
+        $this->db->from($this->tablacajaingresos);
+        return $this->db->count_all_results();
+    }
+
+    function get_filtered_data_cajaingresos(){
+        $this->make_query_cajaingresos();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+    /*---------------------------------------------------------*/
+
+    /* DATATABLE DE EGRESOS CAJA CHICA */
+    function make_datatables_cajaegresos(){
+        $this->make_query_cajaegresos();
+        if ($_POST["length"] != - 1){
+            $this->db->limit($_POST['length'], $_POST['start']);
+        }
+        $query = $this->db->get();
         return $query->result();
-        // }
-	}
+
+    }
+
+    var $tablacajaegresos = array(
+        "egresocaja ci",
+        "cajachica c",
+        "destinatario t",
+    );
+    var $select_columna_cajaegresos = array(
+        "t.id_destinatario as iddestinatario",
+        "ci.id_egresocaja as id",
+		"ci.fechaegreso as fechaegreso",
+		"ci.montoegreso as montoegreso",
+        "t.nombredestinatario as destinatario",
+        "ci.detalle as detalle",
+        "ci.estado as estado",
+    );
+
+    var $order_columna_cajaegresos = array(
+		"ci.fechaegreso",
+		"ci.MontoEgreso",
+        "t.nombredestinatario",
+        "ci.detalle",
+        "ci.estado",
+    );
+
+    var $where_cajaegresos = "ci.ID_Destinatario = t.ID_Destinatario AND c.ID_CajaChica = ci.ID_CajaChica AND ci.estadoreg = 0";
+
+    function make_query_cajaegresos(){
+        $this->db->select($this->select_columna_cajaegresos);
+        $this->db->from($this->tablacajaegresos);
+        $this->db->where($this->where_cajaegresos);
+
+        if (isset($_POST["search"]["value"]) && $_POST["search"]["value"] != ''){
+            $this->db->group_start();
+            $this->db->like("t.nombredestinatario", $_POST["search"]["value"]);
+            $this->db->or_like("ci.fechaegreso", $_POST["search"]["value"]);
+            $this->db->group_end();
+        }
+        if (isset($_POST["order"])){
+            $this->db->order_by($this->order_columna_cajaegresos[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        
+        }else{
+            $this->db->order_by('id_orden', 'ASC');
+        }
+    }
+
+    function get_all_data_cajaegresos(){
+        $this->db->select($this->select_columna_cajaegresos);
+        $this->db->from($this->tablacajaegresos);
+        return $this->db->count_all_results();
+    }
+
+    function get_filtered_data_cajaegresos(){
+        $this->make_query_cajaegresos();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+    /*---------------------------------------------------------*/
 	
 	public function obtenerVueltos(string $fecha){
 		$query = $this->db

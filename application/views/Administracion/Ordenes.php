@@ -286,11 +286,11 @@
      },
        "columnDefs":[
          {
-             "targets": [0,1,3,4,5,7],
+             "targets": [0,1,2,3,4,5,6],
              "visible": true
          },
          {
-            "targets": [2,6],
+            "targets": [0,1,2,3,4,5,6],
              "visible": false,
              "searchable": false
          }

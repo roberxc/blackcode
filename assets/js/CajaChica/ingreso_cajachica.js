@@ -19,11 +19,79 @@ $(document).on('click', '#add', function(e) {
         },
         success: function(data) {
             if (data.response == "success") {
-                fetch();
+                
                 $('#exampleModal').modal('hide')
                 $("#form")[0].reset();
                 Command: toastr["success"](data.message)
 
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+
+                window.location.href = base_url + "Administracion/CajaIngreso";
+            } else {
+                Command: toastr["error"](data.message)
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            }
+        }
+    });
+
+});
+
+$(document).on('click', '#back', function(e) {
+
+    e.preventDefault();
+    window.location.href = "MenuCaja";
+});
+
+function updateCajaChica(){
+    var idcaja = $("#id_cajachica").val();
+    var monto = $("#monto").val();
+    var fecha = $("#fecha").val();
+    $.ajax({
+        url: "actualizarCajaChica",
+        type: "post",
+        dataType: "json",
+        data: {
+            id_caja: idcaja,
+            fecha: fecha,
+            monto: monto,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                window.location.href = base_url + "Administracion/CajaIngreso";
+                Command: toastr["success"](data.message)
                 toastr.options = {
                     "closeButton": false,
                     "debug": false,
@@ -64,40 +132,6 @@ $(document).on('click', '#add', function(e) {
             }
         }
     });
-
-});
-
-$(document).on('click', '#back', function(e) {
-
-    e.preventDefault();
-    window.location.href = "MenuCaja";
-});
-
-function fetch() {
-    $.ajax({
-        url: "obtenerIngresosCajaChica",
-        type: "get",
-        dataType: "json",
-        success: function(data) {
-            var i = 1;
-            var tbody = "";
-            for (var key in data) {
-                tbody += "<tr>";
-                tbody += "<td>" + data[key]['FechaIngreso'] + "</td>";
-                tbody += "<td>" + data[key]['MontoIngreso'] + "</td>";
-                tbody += `<td>
-                            <a class="btn btn-info btn-sm" href="<?php echo base_url()?>ControladorAdmin/CajaIngreso" data-toggle="modal" data-target="#EditarIngreso" value="${data[key]['id']}">
-                                <i class="fas fa-pencil-alt">
-                                </i>
-                                Editar
-                            </a>
-                            </td>`;
-                tbody += "<tr>";
-            }
-
-            $("#tbody").html(tbody);
-        }
-    });
 }
 
-fetch();
+

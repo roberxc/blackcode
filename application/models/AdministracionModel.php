@@ -127,6 +127,7 @@ class AdministracionModel extends CI_Model
 				->from("costosfijos c")
 				->join("tipocostosfijos t", "c.id_tipo = t.id_tipo")
                 ->where('DATE(c.fecha) IN ('.$fecha.')')
+                ->where('c.estado',0)
                 //->where('p.rut',$rutpersonal)
 				->group_by('month')
 				->order_by('FIELD(MONTH(c.fecha),"JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER")')
@@ -271,6 +272,43 @@ class AdministracionModel extends CI_Model
             echo json_encode($arrayempty);
             
         }
+    }
+
+
+    public function updateCajaChica($data){
+
+        $datacajachica = array(
+            'montoingreso' => $data['monto'],
+            'fechaingreso' => $data['fecha'],
+        );
+        $this->db->where('id_ingresocaja', $data['id_caja']);
+		return $this->db->update('ingresocaja',$datacajachica);
+    }
+
+    public function updateCajaChicaEgreso($data){
+
+        $datadestinatario = array(
+            'nombredestinatario' => $data['destinatario'],
+        );
+        $this->db->where('id_destinatario', $data['id_destinatario']);
+		$this->db->update('destinatario',$datadestinatario);
+
+
+        $datacajachicaegreso = array(
+            'fechaegreso' => $data['fecha'],
+            'montoegreso' => $data['monto'],
+            'detalle' => $data['detalle'],
+        );
+        $this->db->where('id_egresocaja', $data['id_reg']);
+		return $this->db->update('egresocaja',$datacajachicaegreso);
+    }
+
+    public function deleteCajaChicaEgreso($data){
+        $datacajachicaegreso = array(
+            'estadoreg' => 1,
+        );
+        $this->db->where('id_egresocaja', $data['id_reg']);
+		return $this->db->update('egresocaja',$datacajachicaegreso);
     }
 
 }

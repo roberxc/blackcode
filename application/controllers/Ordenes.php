@@ -16,17 +16,6 @@ class Ordenes extends CI_Controller
     }
 
     public function index(){
-		$data['lista_materiales'] = $this->OrdenesModel->listaMateriales();
-        $data['lista_cotizaciones'] = $this->CotizacionesModel->listaCotizaciones();
-        $data['lista_bodegas'] = $this->OrdenesModel->listaBodegas();
-        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
-        $data ['activomenu'] = 15;
-		$data ['activo'] = 15;
-		$this->load->view('layout/nav');
-     	$this->load->view('menu/menu_supremo',$data);
-		$this->load->view('Administracion/Ordenes',$data);
-		$this->load->view('layout/footer');
-
 		$set_data = $this->session->all_userdata();
 		if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 5) {
 			$data['lista_materiales'] = $this->OrdenesModel->listaMateriales();
@@ -47,7 +36,7 @@ class Ordenes extends CI_Controller
 			$data ['activomenu'] = 15;
 			$data ['activo'] = 15;
 			$this->load->view('layout/nav');
-			 $this->load->view('menu/menu_supremo',$data);
+			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('Administracion/Ordenes',$data);
 			$this->load->view('layout/footer');
 		}
@@ -68,7 +57,7 @@ class Ordenes extends CI_Controller
 			
 
 			if($value->estado == 0){
-				$sub_array[] = 'Por aprobar';
+				$sub_array[] = '<span class="badge badge-warning">Por aprobar</span>';
 			}
 
 			if($value->estado == 1){
@@ -162,14 +151,25 @@ class Ordenes extends CI_Controller
     public function nuevaOrden(){
 		if ($this->input->is_ajax_request()) {
 			$ajax_data = $this->input->post();
-			$res = $this->OrdenesModel->registrarOrdenes($ajax_data); 
-			if ($res) {
-				$data = array('response' => "success", 'message' => "Orden ingresada correctamente!");
-			} 
+			$this->form_validation->set_rules('proyecto', 'Proyecto', 'required');
+			$this->form_validation->set_rules('idbodega', 'Bodega', 'required');
+			$this->form_validation->set_rules('nrocotizacion', 'Cotizacion', 'required');
+			$this->form_validation->set_rules('nroorden', 'Numero orden', 'required');
 			
-			if($res == null){
-				$data = array('response' => "error", 'message' => "Numero de orden existente");
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+			}else{
+				$res = $this->OrdenesModel->registrarOrdenes($ajax_data); 
+				if ($res) {
+					$data = array('response' => "success", 'message' => "Orden ingresada correctamente!");
+				} 
+				
+				if($res == null){
+					$data = array('response' => "error", 'message' => "Numero de orden existente");
+				}
+
 			}
+			
 
 			echo json_encode($data);
 		} else {

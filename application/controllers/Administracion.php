@@ -89,6 +89,7 @@ class Administracion extends CI_Controller {
 	}
 	public function vueltocaja()
 	{
+		$data ['activomenu'] = 5;
 		$data ['activo'] = 5;
 		$this->setNotificaciones();
 		$this->load->view('menu/menu_supremo',$data);
@@ -163,22 +164,53 @@ class Administracion extends CI_Controller {
 	}
 
 	public function obtenerIngresosCajaChica(){
-		if ($this->input->is_ajax_request()) {
-			$posts = $this->CajaChicaModel->obtenerIngresos();
-			echo json_encode($posts);
-		} else {
-			echo "'No direct script access allowed'";
-		}
+		$fetch_data = $this->CajaChicaModel->make_datatables_cajaingresos();
+        $data = array();
+        foreach ($fetch_data as $value){
+            $sub_array = array();
+            $sub_array[] = $value->fechaingreso;
+			$sub_array[] = $value->montoingreso;
+			$sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#EditarIngreso" id="id_cajachica" value='.$value->id.'><i class="far fa-edit"></i></button>';
+			$data[] = $sub_array;
+        }
+
+        $output = array(
+            "draw" => intval($_POST["draw"]) ,
+            "recordsTotal" => $this->CajaChicaModel->get_all_data_cajaingresos() ,
+            "recordsFiltered" => $this->CajaChicaModel->get_filtered_data_cajaingresos() ,
+            "data" => $data
+        );
+        echo json_encode($output);
 
 	}
 
 	public function obtenerEgresosCajaChica(){
-		if ($this->input->is_ajax_request()) {
-			$posts = $this->CajaChicaModel->obtenerEgresos();
-			echo json_encode($posts);
-		} else {
-			echo "'No direct script access allowed'";
-		}
+		$fetch_data = $this->CajaChicaModel->make_datatables_cajaegresos();
+        $data = array();
+        foreach ($fetch_data as $value){
+            $sub_array = array();
+            $sub_array[] = $value->fechaegreso;
+			$sub_array[] = $value->montoegreso;
+			$sub_array[] = $value->destinatario;
+			$sub_array[] = $value->detalle;
+			if($value->estado == 2){
+				$sub_array[] = '<span class="badge badge-success">Reingresado</span>';
+			}
+
+			if($value->estado == 1){
+				$sub_array[] = '<span class="badge badge-warning">Ingresado</span>';
+			}
+			$sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#EditarEgreso" id="id_egresoupdate" value='.$value->id.','.$value->iddestinatario.'><i class="far fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#EliminarEgreso" id="id_egresodelete" value='.$value->id.'><i class="fas fa-trash"></i></button>';
+			$data[] = $sub_array;
+        }
+
+        $output = array(
+            "draw" => intval($_POST["draw"]) ,
+            "recordsTotal" => $this->CajaChicaModel->get_all_data_cajaegresos() ,
+            "recordsFiltered" => $this->CajaChicaModel->get_filtered_data_cajaegresos() ,
+            "data" => $data
+        );
+        echo json_encode($output);
 	}
 
 	public function obtenerVueltosCajaChica(){
@@ -520,6 +552,45 @@ class Administracion extends CI_Controller {
 		$ajax_data = $this->input->post();
 		$nrocosto = $ajax_data['nro_costo'];
 		$res = $this->AdministracionModel->actualizarEstadoCostoFijo($nrocosto);
+        if($res){
+            $data = array('response' => 'success', 'message' => 'Exito');
+        }else{
+            $data = array('response' => 'error', 'message' => $res);
+        }
+		echo json_encode($data);
+
+	}
+
+	//Actualizar monto y fecha de caja chica
+	public function actualizarCajaChica(){
+		$ajax_data = $this->input->post();
+		$res = $this->AdministracionModel->updateCajaChica($ajax_data);
+        if($res){
+            $data = array('response' => 'success', 'message' => 'Exito');
+        }else{
+            $data = array('response' => 'error', 'message' => $res);
+        }
+		echo json_encode($data);
+
+	}
+
+	//Actualizar egreso de caja chica
+	public function actualizarCajaChicaEgreso(){
+		$ajax_data = $this->input->post();
+		$res = $this->AdministracionModel->updateCajaChicaEgreso($ajax_data);
+        if($res){
+            $data = array('response' => 'success', 'message' => 'Exito');
+        }else{
+            $data = array('response' => 'error', 'message' => $res);
+        }
+		echo json_encode($data);
+
+	}
+
+	//Eliminar el registro de egreso caja chica, cambiando estado
+	public function deleteCajaChicaEgreso(){
+		$ajax_data = $this->input->post();
+		$res = $this->AdministracionModel->deleteCajaChicaEgreso($ajax_data);
         if($res){
             $data = array('response' => 'success', 'message' => 'Exito');
         }else{

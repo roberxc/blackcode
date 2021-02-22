@@ -100,7 +100,7 @@ function generarGraficoInicio() {
 		data: {
 			labels: ['Meses'],
 			datasets: [{
-				label: 'Total horas extras',
+				label: 'Total costos fijos',
 				data: [0,0,0,0,0,0,0],
 				backgroundColor: [
 					'rgba(255, 99, 132, 0.2)',

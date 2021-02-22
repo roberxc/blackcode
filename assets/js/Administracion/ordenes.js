@@ -235,10 +235,6 @@ $("#añadir-nuevaorden").on('click', function(event) {
             }
         }
     }); 
-
-
-    
-
 });
 
 function generarAvisoError($mensaje) {
