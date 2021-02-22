@@ -54,10 +54,8 @@ class Ordenes extends CI_Controller
 			$sub_array[] = $value->rut;
 			$sub_array[] = $value->nombre;
 			$sub_array[] = $value->total;
-			
-
 			if($value->estado == 0){
-				$sub_array[] = '<span class="badge badge-warning">Por aprobar</span>';
+				$sub_array[] = '<span class="badge badge-warning">Cheque a 30 dias</span>';
 			}
 
 			if($value->estado == 1){
