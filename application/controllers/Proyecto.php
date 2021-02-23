@@ -11,7 +11,14 @@ class Proyecto extends CI_Controller
         $this->load->model('Proyecto_model');
         $this->load->helper(array('form', 'url'));
     }
-    
+    public function registroTrabajador(){
+		$data ['activo'] = 6;
+		$data ['activomenu'] = 2;
+		$this->load->view('layout/nav');
+		$this->load->view('menu/menu_proyecto',$data);
+		$this->load->view('Proyecto/GestionTrabajador');
+		$this->load->view('layout/footer');
+	}
     public function Estado_proyecto()
     {
         $data ['activo'] = 4;
@@ -22,7 +29,7 @@ class Proyecto extends CI_Controller
     }
     public function Proyecto_ejecucion()
     {
-        $data ['activo'] = 4;
+        $data ['activo'] = 5;
         $this->load->view('layout/nav');
         $this->load->view('menu/menu_proyecto',$data);
 		$this->load->view('Proyecto/ProyectoE');
@@ -30,7 +37,7 @@ class Proyecto extends CI_Controller
     }
     public function Planilla_Proyecto($idproyecto)
     {
-        $data ['activo'] = 4;
+        $data ['activo'] = 6;
         $data ['codigo'] = $idproyecto;
 
        $data ['Monto_total'] = $this->Proyecto_model->obtenerTotalFactura($data['codigo']);
@@ -43,13 +50,16 @@ class Proyecto extends CI_Controller
 		$this->load->view('Proyecto/PlanillasPro',$data);
 		$this->load->view('layout/footer');
     }
+
+    
+
     public function Evaluacion_proyecto()
     {
         // $data[ es lo que lleva en la vista foreach($partidas as $i)]combobox
         $data['partidas'] = $this->Proyecto_model->Mostrarpartidas();
-        
         $data ['activo'] = 4;
         $this->load->view('layout/nav-proyecto');
+        $this->load->view('menu/menu_proyecto',$data);
 		$this->load->view('Proyecto/Evaluacion');
         $this->load->view('layout/footer');
     }
@@ -210,6 +220,36 @@ public function GuardarProyectos(){
         echo "'No direct script access allowed'";
     }
 
+}
+
+public function registroPersonal(){
+    if ($this->input->is_ajax_request()) {
+        //Validaciones
+        echo "Llego aqui";
+        $this->form_validation->set_rules('name', 'Nombre completo', 'required');
+        $this->form_validation->set_rules('rut', 'Rut', 'required');
+        $this->form_validation->set_rules('telefono', 'Telefono', 'required');
+        $this->form_validation->set_rules('email', 'Correo', 'required|valid_email');
+        $this->form_validation->set_rules('cargo', 'Cargo', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data = array('response' => "error", 'message' => validation_errors());
+        } else {
+            $ajax_data = $this->input->post();
+            
+            if (!$this->Proyecto_model->registroPersonal($ajax_data)) {
+                $data = array('response' => "success", 'message' => "Proyecto Registrado");
+                
+            }else{
+                $data = array('response' => "error", 'message' => "Falló el registro");
+            }
+
+        }
+
+        echo json_encode($data);
+    } else {
+        echo "'No direct script access allowed'";
+    }	
 }
 
 public function registroPartidas(){
