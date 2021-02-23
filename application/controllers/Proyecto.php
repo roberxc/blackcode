@@ -49,15 +49,14 @@ class Proyecto extends CI_Controller
         $data['partidas'] = $this->Proyecto_model->Mostrarpartidas();
         
         $data ['activo'] = 4;
-        //$this->load->view('layout/nav');
-        $this->load->view('menu/menu_proyecto',$data);
+        $this->load->view('layout/nav-proyecto');
 		$this->load->view('Proyecto/Evaluacion');
         $this->load->view('layout/footer');
     }
     public function Registro_proyecto()
     {      
         $data ['activo'] = 4;
-        //$this->load->view('layout/nav');
+        $this->load->view('layout/nav-proyecto');
         $this->load->view('menu/menu_proyecto',$data);
 		$this->load->view('Proyecto/RegistroProyecto');
         $this->load->view('layout/footer');
