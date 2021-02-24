@@ -176,9 +176,34 @@ class Proyecto extends CI_Controller
            $sub_array[]	   = $value->fecha_termino;
            if($value->estado == 0){
             $sub_array[]= '<span class="badge badge-danger">En proceso</span>';
-        }else{
-            $sub_array[]= '<span class="badge badge-success">Terminado</span>';
-        }
+            }else{
+                $sub_array[]= '<span class="badge badge-success">Terminado</span>';
+            }
+
+            $hoy = date("Y-m-d");
+
+            //Paso de string a fecha
+            $d1 = new DateTime($value->fecha_inicio);
+            $d2 = new DateTime($value->fecha_termino);
+            $fechaactual = new DateTime($hoy);
+
+            //Dias totales del proyecto
+            $interval = $d1->diff($d2);
+            //Dias entre  la fecha actual y la fecha termino
+            $intervaluno = $fechaactual->diff($d2);
+
+
+            $diasTotales    = $interval->d; 
+            $diasFaltantes  = $intervaluno->d;
+
+            $porcentajefaltante = ($diasFaltantes * 100)/$diasTotales;
+            
+
+            //Dias totales entre las 2 fechas
+            $diasTotales    = $interval->d; 
+            $sub_array[]	   = '<td class="project_progress"><div class="progress progress-sm"><div class="progress-bar bg-green" role="progressbar" aria-volumenow="'.round($porcentajefaltante).'" aria-volumemin="0" aria-volumemax="100" style="width: '.round($porcentajefaltante).'%"></div></div><small>'.round($porcentajefaltante).'% Completado</small></td>';
+
+
            $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" onclick="detalleProyecto(this)" >';
            $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" >';
            $data[]         = $sub_array;
@@ -224,8 +249,6 @@ public function GuardarProyectos(){
 
 public function registroPersonal(){
     if ($this->input->is_ajax_request()) {
-        //Validaciones
-        echo "Llego aqui";
         $this->form_validation->set_rules('name', 'Nombre completo', 'required');
         $this->form_validation->set_rules('rut', 'Rut', 'required');
         $this->form_validation->set_rules('telefono', 'Telefono', 'required');

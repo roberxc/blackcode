@@ -45,6 +45,7 @@
                                <th>Fecha inicio</th> <!-- 3 --->
                                <th>Fecha termino</th> <!-- 4 --->
                                <th>Estado</th> <!-- 4 --->
+                               <th>Progreso</th> <!-- 4 --->
                                <th>Detallle</th> <!-- 5 --->
                                <th>Ver documentos</th> <!-- 6 --->
                           </tr>  
@@ -103,7 +104,7 @@
         },
           "columnDefs":[
             {
-                "targets": [1,2,3,4,5,6],
+                "targets": [1,2,3,4,5,6,7],
             }
           ]
         });
