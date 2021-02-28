@@ -56,7 +56,7 @@ if (isset($set_data['nombre_completo'])) {
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url();?>Proyecto/Estado_proyecto"  class="nav-link <?php if(isset($activo) && ($activo == 10)){echo "active"; }?>">
+                <a href="<?php echo base_url();?>Proyecto/Estado_proyecto"  class="nav-link <?php if(isset($activo) && ($activo == 4)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Estado del proyecto </p>
                 </a>
@@ -65,7 +65,7 @@ if (isset($set_data['nombre_completo'])) {
          
           <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url();?>Proyecto/Proyecto_ejecucion" class="nav-link <?php if(isset($activo) && ($activo == 11)){echo "active"; }?>">
+                <a href="<?php echo base_url();?>Proyecto/Proyecto_ejecucion" class="nav-link <?php if(isset($activo) && ($activo == 5)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Proyecto ejecutados </p>
                 </a>

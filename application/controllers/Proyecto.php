@@ -22,6 +22,7 @@ class Proyecto extends CI_Controller
     public function Estado_proyecto()
     {
         $data ['activo'] = 4;
+        $data ['activomenu'] = 1;
         $this->load->view('layout/nav');
         $this->load->view('menu/menu_proyecto',$data);
 		$this->load->view('Proyecto/Estado');
@@ -30,6 +31,7 @@ class Proyecto extends CI_Controller
     public function Proyecto_ejecucion()
     {
         $data ['activo'] = 5;
+        $data ['activomenu'] = 1;
         $this->load->view('layout/nav');
         $this->load->view('menu/menu_proyecto',$data);
 		$this->load->view('Proyecto/ProyectoE');
