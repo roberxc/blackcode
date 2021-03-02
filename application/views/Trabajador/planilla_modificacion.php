@@ -52,7 +52,7 @@
                <div class="col-lg-12">
                   <h2>Modificar planilla de trabajos diarios</h2>
                   <div class="col-lg-2">
-                     <input type="text" class="form-control-input" id="codigo_servicio" value="<?php echo$codigo;?>" disabled> <br>
+                     <input type="hidden" class="form-control-input" id="codigo_servicio" value="<?php echo$codigo;?>" disabled> <br>
                   </div>
                </div>
                <!-- end of col -->
@@ -60,7 +60,7 @@
             <!-- end of row -->
             <div class="row">
                <div class="col-lg-12">
-               
+               <!-- Detalle trabajo -->
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Detalle trabajo</div>
@@ -71,7 +71,7 @@
                         <hr class="cell-divide-hr">
                      </div>
                   </div>
-                  <!-- Card-->
+                  <!-- Marcar Asistencia-->
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Marcar Asistencia</div>
@@ -82,9 +82,7 @@
                         <hr class="cell-divide-hr">
                      </div>
                   </div>
-                  <!-- end of card -->
-                  <!-- end of card -->
-                  <!-- Card-->
+                  <!-- Gasto de Viaticos-->
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Gasto de Viaticos</div>
@@ -100,7 +98,7 @@
                               { ?>
                            <li class="media">
                               <i class="fas <?php if($row->Valor>0){ echo 'fa-check';}else{ echo 'fa-times';}?>"></i>
-                              <div class="media-body"><?php echo $row->Nombre;?></div>
+                              <div class="media-body"><?php echo $row->nombre;?></div>
                            </li>
                            <?php }?>
                         </ul>
@@ -123,7 +121,7 @@
                               <div class="form-group">
                                  <input type="hidden" class="form-control-input" id="gastosid_update" value="<?php echo $row->ID?>">
                                  <input type="number" class="form-control-input" id="gastos_update" value="<?php echo $row->Valor?>">
-                                 <label class="label-control" for="cname"><?php echo $row->Nombre?></label>
+                                 <label class="label-control" for="cname"><?php echo $row->nombre?></label>
                                  <div class="help-block with-errors"></div>
                               </div>
                               <?php }
@@ -148,13 +146,14 @@
                         </div>
                         <hr class="cell-divide-hr">
                         <div class="button-wrapper">
-                           <a class="btn-solid-reg popup-with-move-anim" href="#duranteTrab" id="in-mat1">Modificar</a>
+                           <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#documento-materialesdurante">Ingresar</a>
+                           <a class="btn-solid-reg popup-with-move-anim" type="submit" href="#duranteTrab">Archivos subidos</a>
                         </div>
                      </div>
                   </div>
                   <!-- end of card -->
                   <!-- end of card -->
-                  <!-- Card-->
+                  <!-- Materiales comprados antes de los trabajos -->
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Materiales comprados antes de los trabajos</div>
@@ -167,6 +166,7 @@
                         </div>
                      </div>
                   </div>
+                  <!-- Materiales de bodega -->
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Materiales de bodega</div>
@@ -179,6 +179,7 @@
                         </div>
                      </div>
                   </div>
+                  <!-- Combustible -->
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Combustible</div>
@@ -191,7 +192,7 @@
                               <?php 
                                  foreach($tipos_combustible as $row)
                                  { ?>
-                              <option value="<?php echo $row->ID_TipoGasto?>"><?php echo $row->NombreTipoGasto?></option>
+                              <option value="<?php echo $row->id_tipogasto?>"><?php echo $row->nombretipogasto?></option>
                               <?php }?>
                            </select>
                         </div>
@@ -207,7 +208,7 @@
                      </div>
                   </div>
                   <!-- end of card -->
-                  <!-- end of card -->
+                  <!-- Gastos Varios -->
                   <div class="card">
                      <div class="card-body">
                         <div class="card-title">Gastos Varios</div>
@@ -308,28 +309,21 @@
                <div class="col-lg-4">
                   <div class="card"></div>
                   <div class="card-body" id="dynamic_field" >
-                     <div class="card-title">Modificar materiales comprados durante el trabajo</div>
-                     <hr class="cell-divide-hr">
-                     <table class="table table-bordered" >
-                     <?php if(isset($materiales_durante) && (count($materiales_durante)>0)){
-                           foreach($materiales_durante as $row){ ?>
+                     <div class="card-title">Archivo subidos</div>
+                     <table class="table table-bordered">
                         <TR>
-                           <TD><input type="hidden" id="item_material_update_id" value="<?php echo $row->ID;?>" placeholder="Ingrese" class="form-control" /></TD>
+                           <td><label>Archivo</label></td>
+                           <td></td>
                         </TR>
-                        <TR>
-                           <TH>Material</TH>
-                           <TD><input type="text" id="item_material_update" value="<?php echo $row->Nombre;?>" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Cantidad</TH>
-                           <TD><input type="text" id="item_cantidad_update" value="<?php echo $row->Cantidad;?>" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-                        <TR>
-                           <TH>Total $</TH>
-                           <TD><input type="text" id="item_valortotal_update" value="<?php echo $row->Valor;?>" placeholder="Ingrese" class="form-control" /></TD>
-                        </TR>
-
-                           <?php }
+                        <?php if(isset($doc_materialesdurante) && (count($doc_materialesdurante)>0)){
+                           foreach($doc_materialesdurante as $row){ ?>
+                        <tr>
+                           <TD><input type="text" value="<?php echo$row->id;?>,<?php echo$row->documento;?>" id="iddocmaterialdurante" class="form-control name-file"g/></TD>
+                           <td class="project-actions text-right">
+                              <button class="btn btn-danger" onclick="deleteDocMaterialDurante()"><i class="fas fa-trash"></i></button>
+                           </td>
+                        </tr>
+                        <?php }
                            } ?>
                      </table>
                      <hr class="cell-divide-hr">
@@ -337,14 +331,11 @@
                      </div>
                   </div>
                </div>
-               <!-- end of card -->
-            </div>
-            <!-- end of col -->
-            <div class="form-group">
-               <button class="btn-solid-reg" id="update_material1">Guardar</button></br> </br>
             </div>
          </div>
-         <!-- end of row -->
+         <div class="form-group">
+            <button class="btn-solid-reg" id="update_material1">Guardar</button></br> </br>
+         </div>
       </div>
       <!-- Actualizar materiales comprados antes del trabajo -->
       <div id="antesTrab" class="lightbox-basic zoom-anim-dialog mfp-hide">
@@ -357,7 +348,7 @@
                      <div class="card-title">Modificar materiales comprados antes del trabajo</div>
                      <hr class="cell-divide-hr">
                      <table class="table table-bordered">
-                     <?php if(isset($materiales_antes) && (count($materiales_antes)>0)){
+                        <?php if(isset($materiales_antes) && (count($materiales_antes)>0)){
                            foreach($materiales_antes as $row){ ?>
                         <TR>
                            <TD><input type="hidden" id="item_material2_update_id" value="<?php echo $row->ID;?>" placeholder="Ingrese" class="form-control" /></TD>
@@ -391,7 +382,7 @@
          </div>
          <!-- end of row -->
       </div>
-      <!-- end of container -->
+      <!-- Subir fotografias -->
       <div id="documentosubir" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
             <div class="row">
@@ -403,8 +394,7 @@
                         <div class="card-title">Subir documentos</div>
                         <hr class="cell-divide-hr">
                         <div class="form-group">
-                           <label for="pic_title">codigo:</label>
-                           <input type="text" class="form-control" name="codigo1" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" id="codigo1">
+                           <input type="hidden" class="form-control" name="codigo1" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" id="codigo1">
                         </div>
                         <div class="form-group">
                            <label for="pic_file">Ingresar:</label>
@@ -419,11 +409,59 @@
                </form>
                <!-- end of card -->
             </div>
-            <!-- end of col -->
-            <!--<div class="form-group">
-               <a class="btn-solid-reg" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
-               </div>-->
          </div>
+      </div>
+      <!-- Subir documentos de compra de materiales durante -->
+      <div id="documento-materialesdurante" class="lightbox-basic zoom-anim-dialog mfp-hide">
+      <form id="form-subir-documentocompra" style="padding:0px 15px;" class="form-horizontal" role="form" method="POST" >
+            <div class="container">
+               <div class="row">
+                  <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
+                  <div class="col-lg-4">
+                     <div class="card"></div>
+                     
+                     <div class="card-body" id="dynamic_field" >
+                        <div class="card-title">Suba los documentos que verifiquen los materiales comprados</div>
+                        <hr class="cell-divide-hr">
+                        
+                           <div class="col-lg-4">
+                              <div class="card"></div>
+                              <div class="card-body" id="dynamic_field" >
+                                 <div class="card-title">Subir documentos</div>
+                                 <hr class="cell-divide-hr">
+                                 <div class="form-group">
+                                    <input type="hidden" class="form-control" name="codigo1" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" id="codigo1">
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="montototal">Monto total:</label>
+                                    <input type="text" name="montototal" class="form-control"  id="montototal">
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="detalle">Detalle:</label>
+                                    <input type="text" name="detalle" class="form-control"  id="detalle">
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="pic_file_doccompra">Ingresar:</label>
+                                    <input type="file" name="pic_file_doccompra" class="form-control"  id="pic_file_doccompra">
+                                 </div>
+                                 <hr class="cell-divide-hr">
+                                 <div class="button-wrapper">
+                                 </div>
+                              </div>
+                           </div>
+                        <hr class="cell-divide-hr">
+                        <div class="button-wrapper">
+                        </div>
+                     </div>
+                  </div>
+                  <!-- end of card -->
+               </div>
+               <!-- end of col -->
+               <div class="form-group">
+                  <button type="button" onclick="subirDocumentoCompra()" class="btn-solid-reg">Guardar</button></br> </br>
+               </div>
+            </div>
+         </form>
       </div>
       <div id="archivosubidos" class="lightbox-basic zoom-anim-dialog mfp-hide">
          <div class="container">
@@ -459,43 +497,42 @@
          </div>
          <!-- end of row -->
       </div>
-
+      <!-- Detalle trabajo -->
       <div id="detalle-trabajo" class="lightbox-basic zoom-anim-dialog mfp-hide">
-            <div class="container">
-               <div class="row">
-                  <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-                  <div class="col-lg-4">
-                  
-                     <div class="form-group">
-                        <input type="date" class="form-control-input" id="fecha_trabajo" name="fecha_trabajo" required>
-                        <label class="label-control" for="cname">Fecha</label>
-                        <div class="help-block with-errors"></div>
-                     </div>
-                     <div class="form-group">
-                        <input type="text" class="form-control-input" id="personacargo" name="persona_cargo" required>
-                        <label class="label-control" for="cemail">Persona a cargo</label>
-                        <div class="help-block with-errors"></div>
-                     </div>
-                     <div class="form-group">
-                        <input type="text" class="form-control-input" id="nombre_proyecto" name="nombre_proyecto" required>
-                        <label class="label-control" for="cemail">Proyecto/Cliente</label>
-                        <div class="help-block with-errors"></div>
-                     </div>
-                     <div class="form-group">
-                        <input type="text" class="form-control-input" id="suma_asignada" name="suma_asignada" required>
-                        <label class="label-control" for="cemail">Suma asignada</label>
-                        <div class="help-block with-errors"></div>
-                     </div>
-                     <div class="form-group">
-                        <a class="btn-solid-reg popup-with-move-anim" id="validar-iniciotrabajo" href="#detalleTrabajo">Siguiente</a></br> </br>
-                     </div>
+         <div class="container">
+            <div class="row">
+               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
+               <div class="col-lg-4">
+                  <div class="form-group">
+                     <input type="date" class="form-control-input" id="fecha_trabajo" name="fecha_trabajo" required>
+                     <label class="label-control" for="cname">Fecha</label>
+                     <div class="help-block with-errors"></div>
                   </div>
-                  <!-- end of col -->
+                  <div class="form-group">
+                     <input type="text" class="form-control-input" id="personacargo" name="persona_cargo" required>
+                     <label class="label-control" for="cemail">Persona a cargo</label>
+                     <div class="help-block with-errors"></div>
+                  </div>
+                  <div class="form-group">
+                     <input type="text" class="form-control-input" id="nombre_proyecto" name="nombre_proyecto" required>
+                     <label class="label-control" for="cemail">Proyecto/Cliente</label>
+                     <div class="help-block with-errors"></div>
+                  </div>
+                  <div class="form-group">
+                     <input type="text" class="form-control-input" id="suma_asignada" name="suma_asignada" required>
+                     <label class="label-control" for="cemail">Suma asignada</label>
+                     <div class="help-block with-errors"></div>
+                  </div>
+                  <div class="form-group">
+                     <a class="btn-solid-reg popup-with-move-anim" id="validar-iniciotrabajo" href="#detalleTrabajo">Siguiente</a></br> </br>
+                  </div>
                </div>
-               <!-- end of row -->
+               <!-- end of col -->
             </div>
-            <!-- end of container -->
+            <!-- end of row -->
          </div>
+         <!-- end of container -->
+      </div>
       <!-- end of container -->
       <div class="error"></div>
       <!-- end of details lightbox 1 -->

@@ -136,7 +136,7 @@ class Factura extends CI_Controller
 
 			$this->load->library("upload",$config);
 
-			if ($this->upload->do_upload('pic_file')) {
+			if ($this->upload->do_upload('pic_file_doccompra')) {
 				$data = array("upload_data" => $this->upload->data());
 				if($this->FacturasModel->subirFacturaCompraMateriales($data,$codigoservicio,$monto,$detalle)==true){
 					echo "exito";

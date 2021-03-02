@@ -311,6 +311,47 @@ class AdministracionModel extends CI_Model
 		return $this->db->update('egresocaja',$datacajachicaegreso);
     }
 
+    //Devuelve el total de usuarios registrados en el ssistema
+    public function totalUsuariosRegistrados(){
+		$query = $this->db
+				->select("COUNT(id_usuario) as total") # También puedes poner * si quieres seleccionar todo
+				->from("usuario")
+				->get();
+    	return $query->result_array();
+	}
+
+    public function registrarTarea($ajax_data){
+        $set_data = $this->session->all_userdata();
+        date_default_timezone_set("America/Santiago");
+        $fecha = date("Y-m-d G:i:s");
+
+        $datatarea = array(
+			'nombre' => $ajax_data['tarea'],
+			'fecha' => $fecha,
+            'estado' => 0,
+            'id_usuario' =>  $set_data['ID_Usuario'],
+		);
+
+		return $this->db->insert('tarea',$datatarea);
+	}
+
+    public function obtenerTareas(){
+		$query = $this->db
+				->select("*") # También puedes poner * si quieres seleccionar todo
+				->from("tarea")
+                ->where("estado",0)
+				->get();
+    	return $query->result();
+	}
+
+    public function updateTarea($data){
+        $datatarea = array(
+            'estado' => 1,
+        );
+        $this->db->where('id_tarea', $data['idtarea']);
+		return $this->db->update('tarea',$datatarea);
+    }
+
 }
 
 ?>

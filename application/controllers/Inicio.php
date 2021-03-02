@@ -8,6 +8,7 @@ class Inicio extends CI_Controller {
         parent::__construct(); // you have missed this line.
         //$this->load->model('FacturaModel');
         $this->load->model('DocumentacionModel');
+		$this->load->model('AdministracionModel');
     }
 
 	public function setNotificaciones(){
@@ -36,6 +37,8 @@ class Inicio extends CI_Controller {
 		if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
 			$data ['activo'] = 2;
 			$this->setNotificaciones();
+			$data ['total_registros'] = $this->AdministracionModel->totalUsuariosRegistrados();
+			$data ['tareas_registradas'] = $this->AdministracionModel->obtenerTareas();
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('Dashboard/Inicio',$data);
 			$this->load->view('layout/footer');

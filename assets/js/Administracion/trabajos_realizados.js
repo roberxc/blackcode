@@ -157,4 +157,8 @@ $(document).on('click', '#detalle_asistencia', function(e) {
 
 });
 
+function descargarDocumentoMateriales(){
+    var iddoc = $("#doc-materialesdurante").val();
+    window.location.href = base_url + "Operacion/descargarDocMaterialesDurante/"+iddoc;
 
+}

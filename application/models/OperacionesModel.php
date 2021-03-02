@@ -988,10 +988,11 @@ class OperacionesModel extends CI_Model {
 		$idtrabajodiario = $idtipotrabajo[0]['id_trabajodiario'];
 
 		$query = $this->db
-		->select("md.ID_MaterialesDurante AS ID, md.nombre AS nombre, md.Cantidad AS Cantidad, md.Valor AS Valor") # También puedes poner * si quieres seleccionar todo
-		->from("materialesdurante md")
-		->join("trabajodiario t", "t.id_trabajodiario = md.id_trabajodiario")
-		->where('md.id_trabajodiario',$idtrabajodiario)
+		->select("f.id_facturatrabajo as id, f.ubicaciondocumento as documento, f.montototal as monto, f.detalle") # También puedes poner * si quieres seleccionar todo
+		->from("factura_trabajo f")
+		->join("trabajodiario t", "t.id_trabajodiario = f.id_trabajodiario")
+		->where('f.id_trabajodiario',$idtrabajodiario)
+		->where('f.estado',0)
 		->get();
 
 		return $query->result();
@@ -1294,6 +1295,39 @@ class OperacionesModel extends CI_Model {
 		
 		$data  = $this->ObtenerhorasextrasSegunFecha($rutpersonal,$string);
 		return $data;
+	}
+
+	//Obtener informacion para descargar documentacion de materiales comprados durante
+	function getDocMaterialesDurante($params = array()){
+        $this->db->select('ubicaciondocumento');
+        $this->db->from('factura_trabajo');
+        if(!empty($params['id'])){
+            $this->db->where('id_facturatrabajo',$params['id']);
+            //get records
+            $query = $this->db->get();
+            $result = ($query->num_rows() > 0)?$query->row_array():FALSE;
+        }else{
+            //set start and limit
+            if(array_key_exists("start",$params) && array_key_exists("limit",$params)){
+                $this->db->limit($params['limit'],$params['start']);
+            }elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){
+                $this->db->limit($params['limit']);
+            }
+            //get records
+            $query = $this->db->get();
+            $result = ($query->num_rows() > 0)?$query->result_array():FALSE;
+        }
+        //return fetched data
+        return $result;
+	}
+
+	//Metodo para borrar un documento de compra de materiales durante
+	public function deleteDocCompraMaterialDurante($data){
+		$datadocumento = array(
+            'estado' => 1,
+        );
+        $this->db->where('id_facturatrabajo', $data['iddoc']);
+		return $this->db->update('factura_trabajo',$datadocumento);
 	}
 	
 

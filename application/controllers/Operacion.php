@@ -169,10 +169,10 @@ class Operacion extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 			//Validaciones
 			
-			$this->form_validation->set_rules('fecha_trabajo', '"Fecha trabajo"', 'required');
-			$this->form_validation->set_rules('id_proyecto', '"Nombre proyecto"', 'required');
-			$this->form_validation->set_rules('persona_cargo', '"Persona a cargo"', 'required');
-			$this->form_validation->set_rules('suma_asignada', '"Suma asignada"', 'numeric|greater_than[0]|required');
+			$this->form_validation->set_rules('fecha_trabajo', 'Fecha trabajo', 'required');
+			$this->form_validation->set_rules('id_proyecto', 'Nombre proyecto', 'required');
+			$this->form_validation->set_rules('persona_cargo', 'Persona a cargo', 'required');
+			$this->form_validation->set_rules('suma_asignada', 'Suma asignada', 'numeric|greater_than[0]|required');
 			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
 			if ($this->form_validation->run() == FALSE) {
@@ -255,17 +255,19 @@ class Operacion extends CI_Controller {
 		$response .= "<table class='table table-striped'>";
 		$response .= "<thead>";
 		$response .= "<tr>";
-		$response .= "<th>Material</th>";
-		$response .= "<th>Cantidad</th>";
-		$response .= "<th>Total $</th>";
+		$response .= "<th>Documento</th>";
+		$response .= "<th>Monto total $</th>";
+		$response .= "<th>Detalle</th>";
+		$response .= "<th>Accion</th>";
 		$response .= "</tr>";
 		$response .= "</thead>";
 		$response .= "<tbody>";
 		foreach($materiales_durante as $row){
 			$response .= "<tr>";
-			$response .= "<th>".$row->Nombre."</th>";
-			$response .= "<td>".$row->Cantidad."</td>";
-			$response .= "<td>".$row->Valor."</td>";
+			$response .= "<th>".$row->documento."</th>";
+			$response .= "<td>".$row->monto."</td>";
+			$response .= "<td>".$row->detalle."</td>";
+			$response .= "<td><button class='btn btn-primary btn-sm' onclick='descargarDocumentoMateriales()' id='doc-materialesdurante' value='".$row->id."'><i class='fas fa-download'></i></button>";
 			$response .= "</tr>";
 		}
 		$response .= "</tbody>";
@@ -335,8 +337,8 @@ class Operacion extends CI_Controller {
 		$response .= "<tbody>";
 		foreach($gastos_combustible as $row){
 			$response .= "<tr>";
-			$response .= "<th>".$row->Nombre."</th>";
-			$response .= "<td>".$row->Valor."</td>";
+			$response .= "<th>".$row->nombre."</th>";
+			$response .= "<td>".$row->valor."</td>";
 			$response .= "</tr>";
 		}
 		$response .= "</tbody>";
@@ -397,6 +399,23 @@ class Operacion extends CI_Controller {
 
 
 		echo json_encode($data);
+	}
+
+	public function descargarDocMaterialesDurante($id){
+        if(!empty($id)){
+            //load download helper
+            $this->load->helper('download');
+            
+            //get file info from database
+			$fileInfo = $this->OperacionesModel->getDocMaterialesDurante(array('id' => $id));
+            
+            //file path
+			$file ='ArchivosSubidos/'.$fileInfo['ubicaciondocumento'];
+		
+            
+            //download file from directory
+            force_download($file, NULL);
+        }
 	}
 
 	public function obtenerAsistenciaPlanilla(){

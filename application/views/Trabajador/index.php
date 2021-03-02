@@ -165,7 +165,7 @@
                      <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
-                     <a class="btn-solid-reg popup-with-move-anim" id="validar-iniciotrabajo" href="#detalleTrabajo">Siguiente</a></br> </br>
+                     <button class="btn-solid-reg popup-with-move-anim" id="validar-iniciotrabajo">Siguiente</button></br> </br>
                   </div>
                </div>
                <!-- end of col -->
@@ -259,7 +259,6 @@
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
       <!-- Scripts modal -->
       <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
       <script type="text/javascript">
          var lista_personal = <?php echo json_encode($lista_personal); ?>;
       </script>

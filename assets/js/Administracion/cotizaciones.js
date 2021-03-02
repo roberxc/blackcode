@@ -97,7 +97,7 @@ $("#añadir-orden").on('click', function(event) {
             '<td><input class="iditem" name="id[]" id="item_id" style="border:0;outline:0;display:inline-block" value='+id+'></td>'+
             '<td><input class="cantidad" name="cantidad[]" id="item_cantidad" style="border:0;outline:0;display:inline-block" onkeyup="calculfac()"></td>'+
             '<td><input class="precio" name="costo[]" id="item_precio" style="border:0;outline:0;display:inline-block" onkeyup="calculfac()" value='+valor+'></td>'+
-            '<td><input class="iva" name="iva[]" id="item_iva" style="border:0;outline:0;display:inline-block" onkeyup="calculfac()" value='+19+'></td>'+
+            '<td><input class="iva" name="iva[]" id="item_iva" style="border:0;outline:0;display:inline-block" onkeyup="calculfac()" value='+19+' disabled></td>'+
             '<td><input class="importe" name="importe[]" id="item_importe" style="border:0;outline:0;display:inline-block"></td>'+
             '<td><button type="button" class="btnremove btn btn-danger" onclick="deleteRow(this)">X</button></td>'+
         '</tr>' +
@@ -140,30 +140,31 @@ $("#añadir-producto").on('click', function(event) {
 });
 
 function deleteRow(btn) {
-    setTotal();
-    var row = btn.parentNode.parentNode;
-    row.parentNode.removeChild(row);
+    calculfac();
+    var row = btn.parentNode.parentNode.rowIndex;
+    document.getElementById("productos_orden").deleteRow(row);
 }
 
 function calculfac() {
     //Establecer el resumen de total y subtotal
-    setTotal();
+    
     $("tr.nm").each(function() {
        var amount= $(this).find("input.cantidad").val();
        var price= $(this).find("input.precio").val();
-       var iva = $(this).find("input.iva").val();
+       //var iva = $(this).find("input.iva").val();
        var total = amount * price;
-       var totaliva = (total * iva)/100;
-       var result = total + totaliva;
-       var resultado = Math.round(result).toFixed(0);
+       //var totaliva = (total * iva)/100;
+       //var result = total + totaliva;
+       var resultado = Math.round(total).toFixed(0);
        $(this).find("input.importe").val(resultado);
     });
+    setTotal();
 
  }
 
 item_valor = [];
 function setTotal() {
-    $('input[id="item_precio"]').each(function(){
+    $('input[id="item_importe"]').each(function(){
          /* do something */ 
          item_valor.push(parseInt($(this).val()));
     });
@@ -175,5 +176,7 @@ function setTotal() {
     document.getElementById("subtotal-txt").innerHTML = 'Subtotal: $' + subtotal;
     document.getElementById("iva-txt").innerHTML = 'IVA: $' + iva;
     document.getElementById("total-txt").innerHTML = 'Total: $' + total;
+    subtotal = 0;
+    item_valor = [];
 }
 

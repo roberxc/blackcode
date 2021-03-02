@@ -1,234 +1,138 @@
 <!-- Content Wrapper. Contains page content -->
 <head>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
-
-
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
+   <!-- Content Header (Page header) -->
+   <div class="content-header">
       <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Bienvenido <?php $set_data = $this->session->all_userdata(); 
-            if (isset($set_data['nombre_usuario'])) {
-              echo $set_data['nombre_usuario'];
-            }?></h1>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-    <input type="hidden" id="estado-alerta" value="<?php if(isset($expiracion)){echo$expiracion;}else{ echo 0;}?>">
-    <!-- Main content -->
-    <section class="content">
+         <div class="row mb-2">
+            <div class="col-sm-6">
+               <h1 class="m-0 text-dark">Bienvenido <?php $set_data = $this->session->all_userdata(); 
+                  if (isset($set_data['nombre_usuario'])) {
+                    echo $set_data['nombre_usuario'];
+                  }?></h1>
+            </div>
+            <!-- /.col -->
+         </div>
+         <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+   </div>
+   <!-- /.content-header -->
+   <input type="hidden" id="estado-alerta" value="<?php if(isset($expiracion)){echo$expiracion;}else{ echo 0;}?>">
+   <!-- Main content -->
+   <section class="content">
       <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-        <div class="col-lg-3 col-6">
-         <!-- small box -->
-         <div class="small-box bg-success">
-            <div class="inner">
-               <p>Administracion de oficina</p>
+         <!-- Info boxes -->
+         <div class="row">
+            <div class="col-12 col-sm-6 col-md-3">
+               <div class="info-box mb-3">
+                  <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+                  <div class="info-box-content">
+                     <span class="info-box-text">Usuarios registrados</span>
+                     <span class="info-box-number"><?php if(isset($total_registros)){echo$total_registros[0]['total'];}else{echo'0';}?></span>
+                  </div>
+                  <!-- /.info-box-content -->
+               </div>
+               <!-- /.info-box -->
             </div>
-            <div class="icon">
-               <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="<?php echo base_url()?>Inicio" class="small-box-footer" data-toggle="modal" 
-               data-target="#oficina1">Administrar <i class="fas fa-arrow-circle-right"></i></a>
          </div>
-      </div>
-
-      
-
-
-
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-         <!-- small box -->
-         <div class="small-box bg-warning">
-            <div class="inner">
-               <p>Administracion de trabajadores</p>
+         <!-- Small boxes (Stat box) -->
+         <div class="row">
+            <div class="col-lg-3 col-6">
+               <!-- small box -->
+               <div class="small-box bg-success">
+                  <div class="inner">
+                     <p>Administracion de oficina</p>
+                  </div>
+                  <div class="icon">
+                     <i class="ion ion-stats-bars"></i>
+                  </div>
+                  <a href="<?php echo base_url()?>Inicio" class="small-box-footer" data-toggle="modal" 
+                     data-target="#oficina1">Administrar <i class="fas fa-arrow-circle-right"></i></a>
+               </div>
             </div>
-            <div class="icon">
-               <i class="ion ion-person-add"></i>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+               <!-- small box -->
+               <div class="small-box bg-warning">
+                  <div class="inner">
+                     <p>Administracion de trabajadores</p>
+                  </div>
+                  <div class="icon">
+                     <i class="ion ion-person-add"></i>
+                  </div>
+                  <a href="<?php echo base_url()?>Administracion/registroTrabajador" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+               </div>
             </div>
-            <a href="<?php echo base_url()?>Administracion/registroTrabajador" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+               <!-- small box -->
+               <div class="small-box bg-danger">
+                  <div class="inner">
+                     <p>Trabajos Diarios</p>
+                  </div>
+                  <div class="icon">
+                     <i class="ion ion-pie-graph"></i>
+                  </div>
+                  <a href="<?php echo base_url()?>Operacion/trabajoDiario" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+               </div>
+            </div>
+            <!-- ./col -->
+            <!-- ./col -->
          </div>
-      </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-         <!-- small box -->
-         <div class="small-box bg-danger">
-            <div class="inner">
-               <p>Trabajos Diarios</p>
-            </div>
-            <div class="icon">
-               <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="<?php echo base_url()?>Operacion/trabajoDiario" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-         </div>
-      </div>
-          <!-- ./col -->
-
-          <!-- ./col -->
-        </div>
-        <!-- /.row -->
-        <!-- Main row -->
-        <div class="row">
+         <!-- /.row -->
+         <!-- /.row (main row) -->
+         <div class="row">
           <!-- Left col -->
           <section class="col-lg-7 connectedSortable">
+            <!-- TO DO List -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="ion ion-clipboard mr-1"></i>
+                  Lista de tareas
+                </h3>
 
+                <div class="card-tools">
+                  <ul class="pagination pagination-sm">
+                    <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
+                    <li class="page-item"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
+                  </ul>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <ul class="todo-list" data-widget="todo-list" id="lista_tareas">
+                  
+                </ul>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+              <input class="form-control form-control-lg border-0 add-todo-input bg-transparent rounded" type="text" placeholder="Ingrese nueva tarea" id="tareatxt">
+                <button type="button" class="btn btn-info float-right" onclick="agregarTarea()"><i class="fas fa-plus"></i> Agregar tarea</button>
+              </div>
+            </div>
+            <!-- /.card -->
           </section>
           <!-- /.Left col -->
+          <!-- right col (We are only adding the ID to make the widgets sortable)-->
+          <section class="col-lg-5 connectedSortable">
+            <!-- Calendar -->
+            <!-- /.card -->
+          </section>
           <!-- right col -->
         </div>
-        <!-- /.row (main row) -->
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-  </div>
-<!-- /.container-fluid -->
-<section class="content">
-   <!-- Modal administracion oficina -->
-   <div class="modal fade" id="oficina1">
-      <div class="modal-dialog modal-lg">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h4 class="modal-title"> Administración de costos de oficina</h4>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-               </button>
-            </div>
-            <div class="modal-body">
-               <div class="container-fluid">
-                  <!-- Small boxes (Stat box) -->
-                  <div class="row">
-                     <div class="col-lg-3 col-3">
-                        <!-- small box -->
-                        <div class="small-box bg-info">
-                           <div class="inner">
-                              <h4>Costos fijos </h4>
-                           </div>
-                           <div class="icon">
-                              <i class="ion ion-bag"></i>
-                           </div>
-                           <a href="<?php echo base_url()?>Inicio" class="small-box-footer" data-toggle="modal" 
-                              data-target="#costo-fijo">Administrar <i class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                     </div>
-                     <!-- ./col -->
-                     <div class="col-lg-3 col-3">
-                        <!-- small box -->
-                        <div class="small-box bg-success">
-                           <div class="inner">
-                              <h4>Caja Chica</h4>
-                           </div>
-                           <div class="icon">
-                              <i class="ion ion-stats-bars"></i>
-                           </div>
-                           <a href="<?php echo base_url()?>Administracion/MenuCaja" class="small-box-footer">Administrar <i class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <!-- /.container-fluid -->
-            </div>
-            <div class="modal-footer justify-content-between">
-               <button type="button" class="btn btn-primary">Aceptar</button>
-            </div>
-         </div>
-         <!-- /.modal-content -->
+         
       </div>
-      <!-- /.modal-dialog -->
-   </div>
-</section>
-<section class="content">
-   <!-- /.modal -->
-   <div class="modal fade" id="costo-fijo">
-      <div class="modal-dialog modal-lg">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h4 class="modal-title">Costo Fijo</h4>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-               </button>
-            </div>
-            <div class="modal-body">
-               <div class="card-body">
-                  <div class="row">
-                     <div class="col-md-3">
-                        <div class="form-group">
-                           <label>Seleccione un  Mes</label>
-                           <select class="form-control select2bs4" style="width: 100%;">
-                              <option selected="selected">Seleccione</option>
-                              <option>Enero</option>
-                              <option>Febrero</option>
-                              <option>Marzo</option>
-                              <option>Abril</option>
-                              <option>Mayo</option>
-                              <option>Junio</option>
-                              <option>Julio</option>
-                              <option>Agosto</option>
-                              <option>Septiembre</option>
-                              <option>Octubre</option>
-                              <option>Noviembre</option>
-                              <option>Diciembre</option>
-                           </select>
-                        </div>
-                        <!-- /.form-group -->
-                        <div class="form-group">
-                        </div>
-                        <!-- /.form-group -->
-                     </div>
-                     <!-- /.col -->
-                     <div class="col-md-2">
-                        <!-- /.form-group -->
-                        <div class="form-group">
-                           <label class="invisible">Buscar</label>
-                           <button type="button" class="btn btn-block btn-primary">Buscar</button>
-                        </div>
-                        <!-- /.form-group -->
-                     </div>
-                     <!-- /.col -->
-                  </div>
-                  <br></br>
-                  <table id="example1" class="table table-bordered table-striped">
-                     <thead>
-                        <tr>
-                           <th>Costo Fijo</th>
-                           <th>Enero</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <td>Pago de luz</td>
-                           <td>50.000</td>
-                        </tr>
-                        <tr>
-                           <td>Pago de agua</td>
-                           <td>50.000</td>
-                        </tr>
-                        <tr>
-                           <td>Mantenimiento de equipo</td>
-                           <td>50.000</td>
-                        </tr>
-                        <tr>
-                           <td>Telefono</td>
-                           <td>50.000</td>
-                        </tr>
-                  </table>
-               </div>
-               <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-primary">Aceptar</button>
-               </div>
-            </div>
-            <!-- /.modal-content -->
-         </div>
-         <!-- /.modal-dialog -->
-      </div>
-   </div>
-</section>
+      <!-- /.container-fluid -->
+   </section>
+   <!-- /.content -->
+</div>
 </body>
 <!-- ESTE PARA LAS ALERTAS --->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -244,7 +148,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script type="text/javascript">
-    var lista_nrodoc = <?php echo json_encode($lista_nrodocactualizables); ?>;
+   var lista_nrodoc = <?php echo json_encode($lista_nrodocactualizables); ?>;
 </script>
 <script>var base_url = '<?php echo base_url();?>';</script>
 <script src="<?php echo base_url();?>assets/js/Administracion/inicio.js"></script>

@@ -45,20 +45,27 @@
             </div>
          </div>
       </div>
-      <div class="container">
-         <div class="row">
-            <div class="col-12">
-               <div class="card">
-                  <div class="card-body">
-                     <div id="gh" align="center">
-                        <canvas id="myChart" width="100" height="100"></canvas>
-                     </div>
-                  </div>
-               </div>
+      <div class="col-12">
+     
+      <div class="card card-success">
+         <div class="card-header">
+            <h3 class="card-title">Promedio de egresos</h3>
+            <div class="card-tools">
+               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+               </button>
+               <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
             </div>
          </div>
+         <div class="card-body">
+            <div class="chart">
+               <canvas id="myChart" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
+            </div>
+         </div>
+         <!-- /.card-body -->
       </div>
       <!-- /.col -->
+   
+   </div>
    </div>
    <!-- ./wrapper -->
    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>

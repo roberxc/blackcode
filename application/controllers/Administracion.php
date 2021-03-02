@@ -599,6 +599,99 @@ class Administracion extends CI_Controller {
 		echo json_encode($data);
 
 	}
+
+	public function nuevaTarea(){
+		if ($this->input->is_ajax_request()) {
+			$ajax_data = $this->input->post();
+			$this->form_validation->set_rules('tarea', 'Tarea', 'required');
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+			}else{
+				$res = $this->AdministracionModel->registrarTarea($ajax_data); 
+				if ($res) {
+					$data = array('response' => "success", 'message' => "Tarea ingresada correctamente!");
+				} else{
+					$data = array('response' => "error", 'message' => $res);
+				}
+
+			}
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+    }
+
+	public function obtenerTareas(){
+		$ajax_data = $this->input->post(); //Datos que vienen por POST
+		$listatareas = $this->AdministracionModel->obtenerTareas();
+		$contador = 0;
+		$response = "<li>";
+		$response .= "</li>";
+
+		date_default_timezone_set("America/Santiago");
+        $fecha = date("Y-m-d G:i:s");
+
+		foreach($listatareas as $row){ 
+			$d1 = new DateTime($row->fecha);
+			$d2 = new DateTime($fecha);
+			$interval = $d1->diff($d2);
+			$minutos  = 0;
+			$segundos  = 0;
+			$diastotales = 0;
+
+			if($segundos <=59){
+				$segundos  = $interval->s;
+			}
+			$response .= "<li>";
+			$response .= "<span class='handle'>";
+			$response .= "<i class='fas fa-ellipsis-v'></i>";
+			$response .= "<i class='fas fa-ellipsis-v'></i>";
+			$response .= "</span>";
+			$response .= "<div  class='icheck-primary d-inline ml-2'>";
+			$response .= "<input type='checkbox' value='".$row->id_tarea."' name='todo".$row->id_tarea."' id='todoCheck".$row->id_tarea."' onchange='updateTarea(this)'>";
+			$response .= "<label for='todoCheck".$row->id_tarea."'></label>";
+			$response .= "</div>";
+			$response .= "<span class='text'>".$row->nombre."</span>";
+			if($minutos <=59){
+				$minutos  = $interval->i;
+				$response .= "<small class='badge badge-success'><i class='far fa-clock'></i> ".$minutos." min</small>";
+			}
+
+			if($diastotales >=1){
+				$diastotales = $interval->d;
+				$response .= "<small class='badge badge-danger'><i class='far fa-clock'></i> ".$diastotales." dias</small>";
+			}
+
+			$response .= "<div class='tools'>";
+			$response .= "<i class='fas fa-edit'></i>";
+			$response .= "<i class='fas fa-trash-o'></i>";
+			$response .= "</div>";
+			$response .= "</li>";
+			$contador +=1;
+		}
+
+        $data = array('response' => 'success', 'detalle' => $response);
+        
+
+		echo json_encode($data);
+    }
+
+	public function updateTarea(){
+		if ($this->input->is_ajax_request()) {
+			$ajax_data = $this->input->post();
+			$res = $this->AdministracionModel->updateTarea($ajax_data); 
+			if ($res) {
+				$data = array('response' => "success", 'message' => "Tarea finalizada correctamente!");
+			} else{
+				$data = array('response' => "error", 'message' => $res);
+			}
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+    }
 }
 
 ?>
