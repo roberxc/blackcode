@@ -86,7 +86,6 @@ function obtenerTareas(){
         dataType: "json",
         success: function(data) {
             if (data.response === "success") {
-                $('ul').empty();
                 $('#lista_tareas').append(data.detalle);
             } else if(data.response === "error") {
                 generarAvisoError(data.message);
