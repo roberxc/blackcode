@@ -86,6 +86,7 @@ function obtenerTareas(){
         dataType: "json",
         success: function(data) {
             if (data.response === "success") {
+                $('#lista_tareas').empty()
                 $('#lista_tareas').append(data.detalle);
             } else if(data.response === "error") {
                 generarAvisoError(data.message);
@@ -109,7 +110,7 @@ function updateTarea(check){
         success: function(data) {
             if (data.response === "success") {
                 generarAvisoExitoso(data.message);
-                $('ul').empty();
+                $('ul').empty()
                 obtenerTareas();
             } else if(data.response === "error") {
                 generarAvisoError(data.message);
