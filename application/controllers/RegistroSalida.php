@@ -32,6 +32,8 @@ class RegistroSalida extends CI_Controller
     public function registrarproductosalida(){
         if($_POST){
 			$this->Bodega->insertarSalidaProducto($_POST);
+            $ruta = base_url('RegistroSalida');
+            echo "<script>window.location = '{$ruta}'</script>";
 		}
 	}
 	

@@ -116,7 +116,7 @@
         
         <div class="modal-footer bg-white">
           
-          <input type="submit" class="btn btn-primary" value="Completar ingreso"  onclick="Success();" >
+          <input type="submit" class="btn btn-primary" value="Completar ingreso" >
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
           
         </div>
