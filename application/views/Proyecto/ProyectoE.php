@@ -67,7 +67,7 @@
    </section>
 </div>
   <!-- /.modal -->
-  <div class="modal fade" id="document">
+  <div id="modal" class="modal fade" id="document">
       <div class="modal-dialog modal-lg">
          <div class="modal-content">
             <div class="modal-header">
@@ -89,6 +89,29 @@
       <!-- /.modal-dialog -->
    </div>
    <!-- Fin dialog -->
+
+
+   <div id="modal-estado-orden" class="modal fade bd-example-modal-sm" role="dialog">
+      <div class="modal-dialog modal-sm">
+         <div class="table-responsive">
+            <!-- Contenido del modal -->
+            <div class="modal-content">
+               <div class="modal-header bg-blue">
+                  <H3>Estado de orden</H3>
+                  <button type="button" class="close-white" data-dismiss="modal">&times;</button>
+               </div>
+               <div class="modal-body">
+                  <div class="card-body" id="dynamic_field" >
+                     <div class="box-body">
+                        <div class="modal-body" id="estado-ordenes">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 
 <script>
       //Mostrar tabla principal

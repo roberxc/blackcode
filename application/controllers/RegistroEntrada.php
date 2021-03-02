@@ -30,15 +30,19 @@ class RegistroEntrada extends CI_Controller
     
     public function registrarproductoentrada(){
         if($_POST){
-            if($this->Bodega->insertarEntradaProducto($_POST))
-            $this->Bodega->insertarMaterial($_POST);   
+            $this->Bodega->insertarEntradaProducto($_POST);
+            $ruta = base_url('RegistroEntrada');
+            echo "<script>window.location = '{$ruta}'</script>";
 		}
+        
     }
     
     //REGISTRAR EN MODEL AGREGAR STOCK
     public function agregarstockaproducto(){
         if($_POST){
             $this->Bodega->actualizarStockProducto($_POST);
+            $ruta = base_url('RegistroEntrada');
+            echo "<script>window.location = '{$ruta}'</script>";
         }
     }
     
@@ -46,6 +50,8 @@ class RegistroEntrada extends CI_Controller
 	public function registrarCategoria(){
 		if($_POST){
 			$this->Bodega->registrarCateg($_POST);
+            $ruta = base_url('RegistroEntrada');
+            echo "<script>window.location = '{$ruta}'</script>";
 		}
 	}
 

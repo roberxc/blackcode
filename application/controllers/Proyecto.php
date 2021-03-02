@@ -207,7 +207,7 @@ class Proyecto extends CI_Controller
 
 
            $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" onclick="detalleProyecto(this)" >';
-           $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" >';
+           $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#modalDocumentos" >';
            $data[]         = $sub_array;
        }
        $output = array(

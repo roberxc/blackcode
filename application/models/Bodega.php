@@ -28,9 +28,6 @@ class Bodega extends CI_Model {
                $datosEntrada['id_proyecto'] = $post['centrocostos'];
                $datosEntrada['cantidadingresada'] = $post['cantidadentrada'];
                $this->db->insert('entrada', $datosEntrada);
-               $ruta = base_url('RegistroEntrada');
-               echo "<script>window.location = '{$ruta}';
-               </script>";
           }
     }
 
@@ -57,9 +54,6 @@ class Bodega extends CI_Model {
           $this->db->where('id_material', $post['material']);
           $this->db->update('material');
           
-          $ruta = base_url('RegistroEntrada');
-          echo "<script>window.location = '{$ruta}';
-          </script>";
      }
 }
 
@@ -67,7 +61,22 @@ class Bodega extends CI_Model {
     //INICIO DE SACAR UN MATERIAL ---- SALIDA
     function insertarSalidaProducto($post){
           $cantidadporsalir = $post['cantidadsalida'];
-          $this->db->set('stock', 'stock - '. (int) $cantidadporsalir,FALSE);
+          $this->db->select('stock');
+          $this->db->from('material');
+          $this->db->where('id_material', $post['material']);
+
+          $consulta = $this->db->get();
+          $resultado = $consulta->row()->stock;
+          //echo $cantidadporsalir;//echo "---";//print $resultado;
+
+
+          if($resultado < $cantidadporsalir){
+               //echo '<script>alert("La cantidad de stock que se desea retirar no se encuentra en bodega");</script>';
+               //alertify
+               return false;
+          }
+          else{
+               $this->db->set('stock', 'stock - '. (int) $cantidadporsalir,FALSE);
           $this->db->where('id_material', $post['material']);
           $verificacion = $this->db->update('material');
           $datosdetallesalida = Array();
@@ -81,10 +90,9 @@ class Bodega extends CI_Model {
                $datosSalida['id_proyecto'] = $post['centrocostos'];
                $datosSalida['cantidadsalida'] = $post['cantidadsalida'];
                $this->db->insert('salida', $datosSalida);
-               $ruta = base_url('RegistroSalida');
-               echo "<script>window.location = '{$ruta}';
-               </script>";
                }
+          }
+          
      }
 
 
@@ -97,9 +105,6 @@ class Bodega extends CI_Model {
      $datosCategoria = Array();
      $datosCategoria['nombretipomaterial'] = $post['nombrecategoria'];
      $this->db->insert('tipomaterial', $datosCategoria);
-     $ruta = base_url('RegistroEntrada');
-     echo "<script>window.location = '{$ruta}';
-     </script>";
      }   
 
 

@@ -59,7 +59,6 @@
                                <th>Cantidad Ingresada</th> <!-- 5 --->
                                <th>Bodega</th> <!-- 6 --->
                                <th>Glosa</th> <!-- 7 --->
-                               <!-- <th>Accion</th>   --->
                           </tr>  
                         </thead>  
                       </table>   
@@ -100,7 +99,7 @@
 
           <div class="form-group">
             <label for="recipient-nombre" class="col-form-label">Ingrese nombre del producto:</label>
-            <input type="text" class="form-control" name="nombreproducto" require>
+            <input type="text" class="form-control" name="nombreproducto" required>
           </div>
 
           <div class="form-group">
@@ -124,7 +123,7 @@
           
           <div class="form-group">
             <label for="recipient-cantidad" class="col-form-label">Ingrese cantidad ingresada: </label>
-            <input type="number" min="1" class="form-control" name="cantidadentrada" id="cantidadentrada" require>
+            <input type="number" min="1" class="form-control" name="cantidadentrada" id="cantidadentrada" required>
           </div>
 
           <div class="form-group">
@@ -141,7 +140,7 @@
 
           <div class="form-group">
             <label for="recipient-glosa" class="col-form-label">Glosa: </label><br>
-            <input type="text" class="form-control" name="glosa" id="glosa" require>
+            <input type="text" class="form-control" name="glosa" id="glosa" required>
           </div>
 
           
@@ -149,7 +148,7 @@
         
         <div class="modal-footer bg-white">
           
-          <input type="submit" class="btn btn-primary" value="Completar ingreso"  onclick="Success();" >
+          <input type="submit" class="btn btn-primary" value="Completar ingreso"  >
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
           
         </div>
@@ -203,13 +202,13 @@
 
           <div class="form-group">
             <label for="recipient-cantidad" class="col-form-label">Ingrese cantidad ingresada: </label>
-            <input type="number" min="1" class="form-control" name="cantidadentradaagregar" id="cantidadentradaagregar" require>
+            <input type="number" min="1" class="form-control" name="cantidadentradaagregar" id="cantidadentradaagregar" required>
           </div>
 
 
           <div class="form-group">
             <label for="recipient-glosa" class="col-form-label">Glosa: </label><br>
-            <input type="text" class="form-control" name="glosaactualizar" id="glosaactualizar" require>
+            <input type="text" class="form-control" name="glosaactualizar" id="glosaactualizar" required>
           </div>
 
           
@@ -217,7 +216,7 @@
         
         <div class="modal-footer bg-white">
           
-          <input type="submit" class="btn btn-primary" value="Completar ingreso"  onclick="Success();" >
+          <input type="submit" class="btn btn-primary" value="Completar ingreso" >
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
           
         </div>
@@ -246,7 +245,7 @@
               </div>
       </div>
       <div class="modal-footer bg-white">
-        <input type="submit" class="btn btn-primary" value="Completar ingreso"  onclick="Success();" >
+        <input type="submit" class="btn btn-primary" value="Completar ingreso"  >
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>
         </form>
@@ -397,6 +396,7 @@
  <!-- ESTE PARA LAS ALERTAS --->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="<?php echo base_url();?>assets/js/sweetAlert.js"></script>
+
 
 <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
