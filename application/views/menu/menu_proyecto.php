@@ -154,6 +154,20 @@ if (isset($set_data['nombre_completo'])) {
                                  <p>Registrar Trabajador</p>
                              </a>
                          </li>
+                         <li class="nav-item">
+                             <a href="<?php echo base_url()?>Proyecto/registroTrabajador"
+                                 class="nav-link <?php if(isset($activo) && ($activo == 7)){echo "active"; }?>">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Registrar tipo de trabajo</p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="<?php echo base_url()?>Proyecto/registroTrabajador"
+                                 class="nav-link <?php if(isset($activo) && ($activo == 7)){echo "active"; }?>">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Lista personal de trabajo</p>
+                             </a>
+                         </li>
 
                      </ul>
 
@@ -167,3 +181,23 @@ if (isset($set_data['nombre_completo'])) {
     </div>
     <!-- /.sidebar -->
   </aside>
+  <div class="modal fade" id="trabajoDiario">
+         <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h4 class="modal-title">Registro trabajos diarios proyecto</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body" id="RegistroTrabajoDiario">
+                  <!--Se mostra los datos de la tabla en el controlador Proyecto -->
+               </div>
+               <div class="modal-footer justify-content-between">
+                  <button type="button" class="btn btn-primary">Aceptar</button>
+               </div>
+            </div>
+            <!-- /.modal-content -->
+         </div>
+         <!-- /.modal-dialog -->
+      </div>
