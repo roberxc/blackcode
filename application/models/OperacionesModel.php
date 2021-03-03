@@ -79,7 +79,7 @@ class OperacionesModel extends CI_Model {
 		//WHERE tr.id_tipotrabajo = tb.id_tipotrabajo AND tb.codigoservicio = 'MN1' 
 		$query = $this->db
 				->select("tr.id_trabajodiario") # También puedes poner * si quieres seleccionar todo
-				->from("TrabajoDiario tr")
+				->from("trabajodiario tr")
 				->join("TipoTrabajo tb", "tr.id_tipotrabajo = tb.id_tipotrabajo")
 				->where('tb.codigoservicio', $codigoservicio)
 				->get();
@@ -100,7 +100,7 @@ class OperacionesModel extends CI_Model {
 	//Se obtiene el la id del trabajo diario segun el codigo de servicio 
 	public function getIDTrabajoDiarioCS($codigoservicio){
 		$query = $this->db->select("tr.id_trabajodiario") # También puedes poner * si quieres seleccionar todo
-				->from("TrabajoDiario tr")
+				->from("trabajodiario tr")
 				->join("codigoservicio c", "c.id_codigo = tr.id_codigo")
 				->where('c.codigoservicio', $codigoservicio);
 		$query = $this->db->get();
@@ -529,7 +529,8 @@ class OperacionesModel extends CI_Model {
 				//Si no hay horas extras
 				if (($horaextras == '00:00') && (intval($minutostotales <30))){
 					//No hay horas extras
-					$fechaactual = date("d/m/y");
+					date_default_timezone_set("America/Santiago");
+        			$fechaactual = date("Y-m-d");
 					$insert_data [] = array(
 						'fecha_asistencia' => $fechaactual,
 						'horallegadam' => $asistencia_mentrada,
@@ -543,7 +544,8 @@ class OperacionesModel extends CI_Model {
 					);
 				}else{
 					//--------------------------------------------
-					$fechaactual = date("d/m/y");
+					date_default_timezone_set("America/Santiago");
+        			$fechaactual = date("Y-m-d");
 					//Si son 30 minutos se le suma 0.5 a la hora extra
 					$horaextraminutos = 0;
 					if((intval($minutostotales) > 0) && (intval($minutostotales) <= 59)){
@@ -1184,6 +1186,10 @@ class OperacionesModel extends CI_Model {
 	}
 
 	public function ObtenerAsistenciaPlanilla($codigoservicio){
+		$idtipotrabajo = $this->getIDTrabajoDiarioCS($codigoservicio);
+		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['id_tipotrabajo']);
+		$idtrabajodiario = $idtipotrabajo[0]['id_trabajodiario'];
+
 		$query = $this->db
 				->select("p.rut AS rut,a.fecha_asistencia AS Fecha, a.horallegadam AS LlegadaM, a.horasalidam AS SalidaM, a.horallegadat AS LlegadaT, a.horasalidat AS SalidaT, p.nombrecompleto AS NombreCompleto, a.horastrabajadas AS HorasTrabajadas, a.horasextras AS HorasExtras") # También puedes poner * si quieres seleccionar todo
 				->from("trabajodiario t")
@@ -1192,6 +1198,8 @@ class OperacionesModel extends CI_Model {
 				->join("personal p", "p.id_personal = pt.id_personal")
 				->join("asistencia_personal a", "a.id_personal = p.id_personal")
 				->where("c.codigoservicio", $codigoservicio)
+				->where("t.id_Trabajodiario", $idtrabajodiario)
+				->group_by("NombreCompleto")
 				->get();
 		
 		return $query->result();
@@ -1263,7 +1271,7 @@ class OperacionesModel extends CI_Model {
 		return $query->result();
 	}
 
-	public function Obtenerhorasextras($rutpersonal,$fechainicial,$fechatermino){
+	public function ObtenerHorasExtras($rutpersonal,$fechainicial,$fechatermino){
 		// Declare an empty array 
 		$arraydias = array(); 
 		$pos = strpos($fechainicial, $fechatermino);
@@ -1278,7 +1286,7 @@ class OperacionesModel extends CI_Model {
 			$period = new DatePeriod(new DateTime($fechainicial), $interval, $realEnd); 
 			
 			// Use loop to store date into array 
-			$format = 'd-m-y';
+			$format = 'y-m-d';
 			foreach($period as $date) {                  
 				$fecha = $date->format($format);
 				$arraydias [] = $fecha;

@@ -9,10 +9,10 @@ class Pic_model extends CI_Model{
 
 	public function getIDTrabajoDiario($codigoservicio){
 		$query = $this->db
-				->select("tb.ID_TrabajoDiario AS ID")
-				->from("CodigoServicio c")
-				->join("TrabajoDiario tb", "tb.ID_Codigo = c.ID_Codigo")
-				->where("c.CodigoServicio",$codigoservicio)
+				->select("tb.id_trabajodiario AS ID")
+				->from("codigoservicio c")
+				->join("trabajodiario tb", "tb.id_codigo = c.id_codigo")
+				->where("c.codigoservicio",$codigoservicio)
 				->get();
 		return $query->result_array();
 
@@ -26,11 +26,10 @@ class Pic_model extends CI_Model{
 
 	//save picture data to db
 	function registro($data,$codigoservicio){
-		echo'Codigo S: '.$codigoservicio;
 		$idtrabajodiario = $this->getIDTrabajoDiario($codigoservicio);
 		$data = array(
-			'Imagen' => $data['pic_file'],
-			'ID_TrabajoDiario' => $idtrabajodiario[0]['ID'],
+			'imagen' => $data['pic_file'],
+			'id_trabajodiario' => $idtrabajodiario[0]['ID'],
 		);
 	
 		return $this->db->insert("detalletrabajodiario", $data);
@@ -39,8 +38,8 @@ class Pic_model extends CI_Model{
 	function subirArchivoBD($data,$codigoservicio){
 		$idtrabajodiario = $this->getIDTrabajoDiario($codigoservicio);
 		$data = array(
-			"ID_TrabajoDiario" => $idtrabajodiario[0]['ID'],
-			"Imagen" => $data['upload_data']['file_name'],
+			"id_trabajodiario" => $idtrabajodiario[0]['ID'],
+			"imagen" => $data['upload_data']['file_name'],
 		);
 		return $this->db->insert("detalletrabajodiario", $data);
 	}

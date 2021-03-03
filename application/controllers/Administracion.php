@@ -637,12 +637,11 @@ class Administracion extends CI_Controller {
 			$d2 = new DateTime($fecha);
 			$interval = $d1->diff($d2);
 			$minutos  = 0;
-			$segundos  = 0;
 			$diastotales = 0;
 
-			if($segundos <=59){
-				$segundos  = $interval->s;
-			}
+			$diastotales = $interval->d;
+			$minutos  = $interval->i;
+
 			$response .= "<li>";
 			$response .= "<span class='handle'>";
 			$response .= "<i class='fas fa-ellipsis-v'></i>";
@@ -653,14 +652,14 @@ class Administracion extends CI_Controller {
 			$response .= "<label for='todoCheck".$row->id_tarea."'></label>";
 			$response .= "</div>";
 			$response .= "<span class='text'>".$row->nombre."</span>";
-			if($minutos <=59){
-				$minutos  = $interval->i;
-				$response .= "<small class='badge badge-success'><i class='far fa-clock'></i> ".$minutos." min</small>";
-			}
+			
 
 			if($diastotales >=1){
-				$diastotales = $interval->d;
 				$response .= "<small class='badge badge-danger'><i class='far fa-clock'></i> ".$diastotales." dias</small>";
+			}else{
+				if($minutos <=59){
+					$response .= "<small class='badge badge-success'><i class='far fa-clock'></i> ".$minutos." min</small>";
+				}
 			}
 
 			$response .= "<div class='tools'>";
