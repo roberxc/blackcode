@@ -256,13 +256,13 @@
    var dd = String(today.getDate()).padStart(2, '0');
    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
    var yyyy = today.getFullYear();
-   var date = dd+mm+yyyy;
+   var date = yyyy+mm+dd;
 
 
    $(function () {
    $('#date_range').daterangepicker({
      "locale": {
-         "format": "DD-MM-YYYY",
+         "format": "YYYY-MM-DD",
          "separator": " - ",
          "applyLabel": "Guardar",
          "cancelLabel": "Cancelar",

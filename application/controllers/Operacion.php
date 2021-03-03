@@ -290,9 +290,9 @@ class Operacion extends CI_Controller {
 		$response .= "<tbody>";
 		foreach($materiales_antes as $row){
 			$response .= "<tr>";
-			$response .= "<th>".$row->Nombre."</th>";
-			$response .= "<td>".$row->Cantidad."</td>";
-			$response .= "<td>".$row->Valor."</td>";
+			$response .= "<th>".$row->nombre."</th>";
+			$response .= "<td>".$row->cantidad."</td>";
+			$response .= "<td>".$row->valor."</td>";
 			$response .= "</tr>";
 		}
 		$response .= "</tbody>";
@@ -314,8 +314,8 @@ class Operacion extends CI_Controller {
 		$response .= "<tbody>";
 		foreach($materiales_bodega as $row){
 			$response .= "<tr>";
-			$response .= "<th>".$row->Nombre."</th>";
-			$response .= "<td>".$row->Cantidad."</td>";
+			$response .= "<th>".$row->nombre."</th>";
+			$response .= "<td>".$row->cantidad."</td>";
 			$response .= "</tr>";
 		}
 		$response .= "</tbody>";
@@ -360,8 +360,8 @@ class Operacion extends CI_Controller {
 		$response .= "<tbody>";
 		foreach($gastosvarios_registrados as $row){ 
 			$response .= "<tr>";
-			$response .= "<th>".$row->Nombre."</th>";
-			$response .= "<td> $".$row->Valor."</td>";
+			$response .= "<th>".$row->nombre."</th>";
+			$response .= "<td> $".$row->valor."</td>";
 			$response .= "</tr>";
 		}
 

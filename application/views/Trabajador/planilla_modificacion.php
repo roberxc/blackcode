@@ -219,7 +219,7 @@
                         <div class="form-group">
                            <input type="hidden" class="form-control-input" id="item_gastovariosid" value="<?php echo $row->ID;?>">
                            <input type="text" class="form-control-input" id="item_gastovarios" value="<?php echo $row->Valor;?>" required>
-                           <label class="label-control" for="cemail"><?php echo $row->Nombre;?></label>
+                           <label class="label-control" for="cemail"><?php echo $row->nombre;?></label>
                            <div class="help-block with-errors"></div>
                         </div>
                         <?php } 

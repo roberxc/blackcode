@@ -31,7 +31,7 @@
             <div class="container-login100">
                <div class="wrap-login100">
                   <div class="login100-pic js-tilt" data-tilt>
-                     <img src="assets/imagen/logologin.png" alt="IMG">
+                     <img src="<?php echo base_url();?>assets/Imagen/logologin.png" alt="IMG">
                   </div>
                   <form action="<?= base_url('login/validate') ?>" method="POST" id="frm_login">
                      <span class="login100-form-title">

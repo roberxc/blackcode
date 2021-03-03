@@ -121,10 +121,10 @@ class FacturasModel extends CI_Model {
 
     public function getIDTrabajoDiario($codigoservicio){
 		$query = $this->db
-				->select("tb.ID_TrabajoDiario AS ID")
-				->from("CodigoServicio c")
-				->join("TrabajoDiario tb", "tb.ID_Codigo = c.ID_Codigo")
-				->where("c.CodigoServicio",$codigoservicio)
+				->select("tb.id_trabajodiario AS ID")
+				->from("codigoservicio c")
+				->join("trabajodiario tb", "tb.id_codigo = c.id_codigo")
+				->where("c.codigoservicio",$codigoservicio)
 				->get();
 		return $query->result_array();
 

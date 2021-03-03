@@ -82,8 +82,8 @@ $(document).on('click', '#boton-horasextras', function(e) {
 $(document).on('click', '#boton-filtrohorasextras', function(e) {
     e.preventDefault();
     var rutfiltro = $("#rut_filtro").val();
-    var startDate = $('#date_range').data('daterangepicker').startDate.format('DD-MM-YYYY');
-    var endDate = $('#date_range').data('daterangepicker').endDate.format('DD-MM-YYYY');
+    var startDate = $('#date_range').data('daterangepicker').startDate.format('YYYY-MM-DD');
+    var endDate = $('#date_range').data('daterangepicker').endDate.format('YYYY-MM-DD');
     $.ajax({
         url: base_url+"Operacion/obtenerHoraExtrasPersonal",
         type: "post",
