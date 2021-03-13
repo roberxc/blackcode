@@ -44,9 +44,6 @@
       <!-- end of preloader -->
       <!-- Navigation -->
       <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-         <!-- Text Logo - Use this if you don't have a graphic logo -->
-         <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Evolo</a> -->
-         <!-- Image Logo -->
          <!-- Mobile Menu Toggle Button -->
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-awesome fas fa-bars"></span>
@@ -71,7 +68,6 @@
                   <h2>Ingresar Asistencia del personal </h2>
                   <input type="hidden" id="codigo_servicio" value="<?php if(isset($codigo)){echo $codigo;}else{echo error;}?>"/>
                </div>
-               <!-- end of col -->
             </div>
             <!-- end of row -->
             <?php if (isset($lista_personal)){
@@ -112,12 +108,20 @@
                         <TH>Hora de salida:</TH>
                         <TD><input class="form-control" id="item_salidat" type="time" value="18:30"/></TD>
                      </TR>
+
+                     <TR>
+                     <TH><h6>Detalle cambio de hora</h6></TH>
+                     <TD>
+                  <textarea class="form-control-textarea" id="item_detalle" name="item_detalle" required></textarea>
+                           <div class="text-right"><span id="caracteres" class="valid-text pt-3" id="txaCount"></span></div></TD>
+                     </TR>
                   </table>
                   <hr class="cell-divide-hr">
                </div>
             </div>
             <?php }
                }?>
+
             <!-- end of card -->
             <!-- end of card -->
          </div>

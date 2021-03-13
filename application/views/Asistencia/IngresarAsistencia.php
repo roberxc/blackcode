@@ -46,15 +46,15 @@
                                     <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                                        <thead>
                                           <tr>
-                                             <th></th>
-                                             <th>Rut</th>
+                                             <th style="width: 3%;background-color: #006699; color: white;"></th>
+                                             <th style="width: 3%;background-color: #006699; color: white;">Rut</th>
                                              <!-- 0 ---> 
-                                             <th>Nombre</th>
+                                             <th style="width: 3%;background-color: #006699; color: white;">Nombre</th>
                                              <!-- 1 --->
-                                             <th>Fecha</th>
-                                             <th>Asistente</th>
+                                             <th style="width: 3%;background-color: #006699; color: white;">Fecha</th>
+                                             <th style="width: 3%;background-color: #006699; color: white;">Asistente</th>
                                              <!-- 3 --->
-                                             <th>Detalle</th>
+                                             <th style="width: 3%;background-color: #006699; color: white;">Detalle</th>
                                              <!-- 4 --->
                                              <!--<th>Accion</th>
                                                 5 --->

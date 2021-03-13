@@ -44,12 +44,12 @@
                            <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                               <thead>
                                  <tr>
-                                    <th>Nro</th>
-                                    <th>Documento</th>
+                                    <th style="width: 3%;background-color: #006699; color: white;">Nro</th>
+                                    <th style="width: 3%;background-color: #006699; color: white;">Documento</th>
                                     <!-- 0 ---> 
-                                    <th>Fecha limite</th>
+                                    <th style="width: 3%;background-color: #006699; color: white;">Fecha limite</th>
                                     <!-- 4 --->
-                                    <th>Accion</th>
+                                    <th style="width: 3%;background-color: #006699; color: white;">Accion</th>
                                     <!-- 5 --->
                                  </tr>
                               </thead>

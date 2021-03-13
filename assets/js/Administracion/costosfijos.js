@@ -248,3 +248,82 @@ function deleteCostoFijo(){
         }
     });
 }
+
+function graficoCircular(){
+    var startDate = $('#date_range').data('daterangepicker').startDate.format('YYYY-MM-DD');
+	var endDate = $('#date_range').data('daterangepicker').endDate.format('YYYY-MM-DD');
+	$.ajax({
+        url: base_url+"Administracion/graficarCostosFijos",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            fecha_inicial: startDate,
+            fecha_termino: endDate,
+        },
+        success: function(response) {
+            console.log(response);
+
+            //parse
+            var date = [];
+            var mont = [];
+            //Array para colores
+            var bgColor = [];
+            var bgBorder = [];
+
+            for (var i = 0; i < response.length; i++)
+            {
+                //Colores
+                var r = Math.random() * 255;
+                r = Math.round(r);
+                var g = Math.random() * 255;
+                g = Math.round(g);
+                var b = Math.random() * 255;
+                b = Math.round(b);
+                bgColor.push('rgba('+r+','+g+','+b+',0.2)');
+                bgBorder.push('rgba('+r+','+g+','+b+',1)');
+                mont.push(response[i]['total']);
+				date.push(response[i]['mes']);
+			}
+            //Se remueve el chart para limpiarlo
+            $('#myChart').remove();
+            var midiv = document.createElement("canvas");
+            midiv.setAttribute("id","myChart");
+            midiv.setAttribute("style","width: 300px; height: 100px;");
+            midiv.innerHTML = "";
+            document.getElementById('gh').appendChild(midiv);
+
+            ctx = document.getElementById('myChart');
+                myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: date, //Columnas
+                        datasets: [{
+                            label:'TOTAL',
+                            data: mont, //Datos para columnas
+                            backgroundColor: bgColor,
+                            borderColor: bgBorder,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Total costos fijos'
+                        },
+                    scales: {
+                        yAxes: [{
+                        ticks: {
+                            beginAtZero: true, 
+                            scaleBeginAtZero : true, 
+                        }
+                        }]
+                    }
+                    }
+                });
+                $('#div_dias').removeClass('hidden');
+        },
+        error: function(error) {
+            console.log(error);
+        },
+    });
+}

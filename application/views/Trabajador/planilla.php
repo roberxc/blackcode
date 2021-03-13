@@ -274,8 +274,8 @@
                         <?php if(isset($gastosvarios_registrados) && (count($gastosvarios_registrados)>0)){
                            foreach($gastosvarios_registrados as $row){ ?>
                         <div class="form-group">
-                           <input type="hidden" class="form-control-input" id="item_gastovariosid" value="<?php echo $row->ID;?>">
-                           <input type="text" class="form-control-input" id="item_gastovarios" value="<?php echo $row->Valor;?>" required>
+                           <input type="hidden" class="form-control-input" id="item_gastovariosid" value="<?php echo $row->id;?>">
+                           <input type="text" class="form-control-input" id="item_gastovarios" value="<?php echo $row->valor;?>" required>
                            <label class="label-control" for="cemail"><?php echo $row->nombre;?></label>
                            <div class="help-block with-errors"></div>
                         </div>
@@ -475,7 +475,7 @@
                      <?php if(isset($materiales_antes) && (count($materiales_antes)>0)){
                            foreach($materiales_antes as $row){ ?>
                         <TR>
-                           <TD><input type="hidden" id="item_material2_update_id" value="<?php echo $row->ID;?>" class="form-control" /></TD>
+                           <TD><input type="hidden" id="item_material2_update_id" value="<?php echo $row->id;?>" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Material</TH>
@@ -483,11 +483,11 @@
                         </TR>
                         <TR>
                            <TH>Cantidad</TH>
-                           <TD><input type="text" id="item_cantidad2_update" value="<?php echo $row->Cantidad;?>" class="form-control" /></TD>
+                           <TD><input type="text" id="item_cantidad2_update" value="<?php echo $row->cantidad;?>" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Total $</TH>
-                           <TD><input type="text" id="item_valortotal2_update" value="<?php echo $row->Valor;?>" class="form-control" /></TD>
+                           <TD><input type="text" id="item_valortotal2_update" value="<?php echo $row->valor;?>" class="form-control" /></TD>
                         </TR>
                         <?php }
                            }?>

@@ -1,4 +1,16 @@
 <!-- Content Wrapper. Contains page content -->
+<head>
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+   <!-- SELECT CON BUSCADOR -->
+   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" rel="stylesheet" />
+   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+   <!-- DataTables -->
+   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.jqueryui.min.css">
+</head>
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
 <div class="content-header">
@@ -21,118 +33,26 @@
    <!-- /.container-fluid -->
 </div>
 <!-- /.content-header -->
-<!-- Main content -->
-<div class="card-header">
-   <!-- SELECT2 EXAMPLE -->
-   <div class="card card-default">
-      <div class="card-header">
-         <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-         </div>
-      </div>
-      <!-- /.card-header -->
-      <div class="card-body">
-         <div class="row">
-            <div class="col-md-3">
-               <!-- /.form-group -->
-               <div class="form-group">
-                  <label>Codigo servicio</label>
-                  <div class="form-group">
-                     <input type="text" class="form-control" placeholder="Ingrese" id="codigoservicio_filtro" format="y-m-d">
-                  </div>
-               </div>
-               <!-- /.form-group -->
-            </div>
-            <div class="col-md-3">
-               <!-- /.form-group -->
-               <div class="form-group">
-                  <label>Fecha</label>
-                  <input type="date" class="form-control datetimepicker-input" data-target="#reservationdate" id="fecha_filtro"/>
-               </div>
-               <!-- /.form-group -->
-            </div>
-            <div class="col-md-2">
-               <!-- /.form-group -->
-               <div class="form-group">
-                  <label class="invisible">Listar</label>
-                  <button type="button" class="btn btn-block btn-primary" id="listar_trabajosrealizados">Listar</button>
-               </div>
-               <!-- /.form-group -->
-            </div>
-            <!-- /.col -->
-         </div>
-         <!-- /.row -->
-      </div>
-   </div>
-</div>
 <!-- Default box -->
-<section class="content">
+<div class="card-header">
    <div class="card">
       <div class="card-body p-0">
-         <table class="table table-striped projects" id="tabla_trabajosrealizados">
+         <table id="trabajos_diarios" name="trabajos_diarios" class="table table-bordered table-striped" style="width: 100%;">
             <thead>
                <tr>
-                  <th style="width: 15%">
-                     Codigo Servicio
-                  </th>
-                  <th style="width: 20%">
-                     Fecha
-                  </th>
-                  <th style="width: 20%">
-                     Proyecto/Cliente
-                  </th>
-                  <th style="width: 20%">
-                     Persona a cargo
-                  </th>
-                  <th style="width: 20%">
-                     Opciones
-                  </th>
+                  <th style="width: 3%;background-color: #006699; color: white;">Codigo servicio</th>
+                  <th style="width: 3%;background-color: #006699; color: white;">Fecha</th>
+                  <th style="width: 3%;background-color: #006699; color: white;">Proyecto/Cliente</th>
+                  <th style="width: 3%;background-color: #006699; color: white;">Persona a cargo</th>
+                  <th style="width: 3%;background-color: #006699; color: white;">Accion</th>
                </tr>
             </thead>
-            <tbody>
-               <?php 
-                  if($trabajos_realizados){
-                     foreach($trabajos_realizados as $row){
-                  ?>
-               <tr>
-                  <td>
-                     <input type="text" value="<?php echo $row->codigoservicio?>" class="form-control name-file" disabled/>
-                  </td>
-                  <td>
-                     <?php echo $row->FechaTrabajo?>
-                  </td>
-                  <td>
-                     <?php echo $row->NombreProyecto?>
-                  </td>
-                  <td>
-                     <?php echo $row->PersonalCargo?>
-                  </td>
-                  <td class="project-actions text-right">
-                     <button class="btn btn-primary btn-sm" id="detalle_trabajo" data-toggle="modal" data-target="#modal-detalle">
-                     <i class="far fa-eye">
-                     </i>
-                     </button>
-                     <button class="btn btn-info btn-sm" id="detalle_archivos" data-toggle="modal" data-target="#modal-archivos">
-                     <i class="fas fa-upload">
-                     </i>
-                     </button>
-                     <button class="btn btn-info btn-sm" id="detalle_asistencia" data-toggle="modal"data-target="#modal-asistencia">
-                     <i class="fas fa-book-open">
-                     </i>
-                     </button>
-                  </td>
-               </tr>
-               <?php }
-                  }?>
-            </tbody>
          </table>
       </div>
       <!-- /.card-body -->
    </div>
    <!-- /.card -->
-   <!-- /.container-fluid -->
-</section>
+</div>
 <!-- Asistencia -->
 <!-- Asistencia -->
 <div class="modal fade" id="modal-asistencia">
@@ -235,8 +155,9 @@
                      </div>
                   </div>
                </div>
-               <input type="hidden" id="rut_filtro" class="form-control"s>
-
+               <input type="hidden" id="rut_filtro" class="form-control">
+               <input type="hidden" id="codigoservicio" class="form-control">
+               <input type="hidden" id="fechatrabajo" class="form-control">
                <div class="modal-body" id="horas-extras">
                </div>
                <!-- /.card-body -->
@@ -247,6 +168,36 @@
    </div>
    <!-- /.modal-dialog -->
 </div>
+<script>
+   //Mostrar tabla principal
+   $(document).ready(function(){
+     $('#trabajos_diarios').DataTable({
+       "language": {
+         "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+         },
+       "processing": true,
+       "serverSide": true, 
+       "ajax":{url:"<?php echo base_url('Operacion/obtenerTrabajosDiarios');?>",
+       type: "POST"
+     },
+       "columnDefs":[
+         {
+             "targets": [1,2],
+         }
+       ]
+     });
+   
+     $("input[data-bootstrap-switch]").each(function(){
+      $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    });
+   });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="<?php echo base_url();?>assets/js/sweetAlert.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.jqueryui.min.js"></script>
+<script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -257,8 +208,8 @@
    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
    var yyyy = today.getFullYear();
    var date = yyyy+mm+dd;
-
-
+   
+   
    $(function () {
    $('#date_range').daterangepicker({
      "locale": {

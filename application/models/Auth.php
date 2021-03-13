@@ -16,6 +16,7 @@ class Auth extends CI_Model {
         if(count($querypass) > 0){
             if(password_verify($password,$querypass[0]['contrasena'])){
                 $data = $this->db->get_where('usuario', array('correo' => $usuario),1);
+
                 return $data->row();
             }else{
                 return false;

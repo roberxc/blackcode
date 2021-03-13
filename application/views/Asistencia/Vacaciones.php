@@ -139,16 +139,16 @@
                                  <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                                     <thead>
                                        <tr>
-                                          <th>NroReg</th>
-                                          <th>Rut</th>
+                                          <th style="width: 3%;background-color: #006699; color: white;">NroReg</th>
+                                          <th style="width: 3%;background-color: #006699; color: white;">Rut</th>
                                           <!-- 0 ---> 
-                                          <th>Nombre</th>
+                                          <th style="width: 3%;background-color: #006699; color: white;">Nombre</th>
                                           <!-- 1 --->
-                                          <th>Fecha inicio</th>
-                                          <th>Fecha termino</th>
+                                          <th style="width: 3%;background-color: #006699; color: white;">Fecha inicio</th>
+                                          <th style="width: 3%;background-color: #006699; color: white;">Fecha termino</th>
                                           <!-- 3 --->
-                                          <th>Dias pedidos</th>
-                                          <th>Accion</th>
+                                          <th style="width: 3%;background-color: #006699; color: white;">Dias pedidos</th>
+                                          <th style="width: 3%;background-color: #006699; color: white;">Accion</th>
                                           <!-- 4 --->
                                           <!--<th>Accion</th>
                                              5 --->
