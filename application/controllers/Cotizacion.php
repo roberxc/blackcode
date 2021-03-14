@@ -45,7 +45,7 @@ class Cotizacion extends CI_Controller
 			$data['lista_materiales'] = $this->OrdenesModel->listaMateriales();
 			$this->setNotificaciones();
 			$this->load->view('menu/menu_proyecto',$data);
-			$this->load->view('Administracion/Proveedores');
+			$this->load->view('Administracion/Cotizacion');
 			$this->load->view('layout/footer');
 		}else if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
 

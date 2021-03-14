@@ -33,8 +33,7 @@ class CAsistencia extends CI_Controller
     public function ingresoAsistencia(){
         if ($this->input->is_ajax_request()){
             //Validaciones
-            $this->form_validation->set_rules('rut', 'Rut', 'required');
-            $this->form_validation->set_rules('nombrecompleto', 'Nombre', 'required');
+            $this->form_validation->set_rules('idpersonal', 'Rut', 'required');
             $this->form_validation->set_rules('fecha', 'Fecha', 'required');
             $this->form_validation->set_rules('horallegadam', 'Hora llegada mañana', 'required');
             $this->form_validation->set_rules('horasalidam', 'Hora salida mañana', 'required');

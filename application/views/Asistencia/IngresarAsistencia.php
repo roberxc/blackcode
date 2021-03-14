@@ -46,15 +46,15 @@
                                     <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                                        <thead>
                                           <tr>
-                                             <th></th>
-                                             <th>Rut</th>
+                                             <th style="width: 3%;background-color: #006699; color: white;"></th>
+                                             <th style="width: 3%;background-color: #006699; color: white;">Rut</th>
                                              <!-- 0 ---> 
-                                             <th>Nombre</th>
+                                             <th style="width: 3%;background-color: #006699; color: white;">Nombre</th>
                                              <!-- 1 --->
-                                             <th>Fecha</th>
-                                             <th>Asistente</th>
+                                             <th style="width: 3%;background-color: #006699; color: white;">Fecha</th>
+                                             <th style="width: 3%;background-color: #006699; color: white;">Asistente</th>
                                              <!-- 3 --->
-                                             <th>Detalle</th>
+                                             <th style="width: 3%;background-color: #006699; color: white;">Detalle</th>
                                              <!-- 4 --->
                                              <!--<th>Accion</th>
                                                 5 --->
@@ -85,18 +85,25 @@
                                     <div class="col-md-6">
                                        <div class="form-group">
                                           <label>Rut</label>
-                                          <input type="text" class="form-control" placeholder="Ingrese" id="rut">
+                                          <select name="rut" id="rut" style="width: 100%; height: 60%" onchange="setNombrePersonal()">
+                                          <option value="">Seleccione</option>
+                                       <?php
+                                          foreach($lista_personal as $i){
+                                             echo '<option value="'.$i->id_personal.','.$i->nombrecompleto.'">'. $i->rut .'</option>';
+                                             }
+                                             ?>
+                                       </select>
                                        </div>
                                        <div class="form-group">
                                           <label>Fecha</label>
-                                          <input type="date" class="form-control" placeholder="Ingrese" id="fecha" format="d/m/y">
+                                          <input type="date" class="form-control" id="fecha" format="d/m/y">
                                        </div>
                                     </div>
                                     <!-- /.col -->
                                     <div class="col-md-6">
                                        <div class="form-group">
                                           <label>Nombre completo</label>
-                                          <input type="text" class="form-control" placeholder="Ingrese" id="nombrecompleto">
+                                          <input type="text" class="form-control" id="nombrecompleto" disabled>
                                        </div>
                                     </div>
                                     <!-- /.col -->
@@ -367,6 +374,12 @@
    //mostrar tipoproducto
    $(document).ready(function(){
      $('#rutpersonal').select2({
+       theme: "bootstrap"
+     });   
+   });
+
+   $(document).ready(function(){
+     $('#rut').select2({
        theme: "bootstrap"
      });   
    });

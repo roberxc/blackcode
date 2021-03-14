@@ -46,14 +46,14 @@
                   <table id="ordenes_principales" name="ordenes_principales" class="table table-bordered table-striped" style="width: 100%;">
                      <thead>
                         <tr>
-                           <th>N° de Orden</th>
-                           <th>Fecha</th>
-                           <th>Rut</th>
-                           <th>Proveedor</th>
-                           <th>Total</th>
-                           <th>Estado</th>
-                           <th>N° de Cotizacion</th>
-                           <th>Accion</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">N° de Orden</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Fecha</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Rut</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Proveedor</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Total</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Estado</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">N° de Cotizacion</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Accion</th>
                         </tr>
                      </thead>
                   </table>
@@ -115,7 +115,7 @@
                            <select name="estado" id="estado" style="width: 100%; height: 60%">
                               <option value="1" selected>Seleccione</option>
                               <option value="2">Pagada</option>
-                              <option value="1">Impagada</option>
+                              <option value="1">Por pagar</option>
                               <option value="0">Cheque a 30 dias</option>
                            </select>
                         </div>

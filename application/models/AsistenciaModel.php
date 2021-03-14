@@ -10,17 +10,7 @@ class AsistenciaModel extends CI_Model
     }
 
     public function registrarAsistenciaPersonal($data){
-        $rut_personal = $data['rut'];
         $nombre_completo = $data['nombrecompleto'];
-        //Registro de personal
-        $datapersonal = array(
-            'rut' => $rut_personal,
-            'nombrecompleto' => $nombre_completo,
-        );
-
-        $this->db->insert('personal', $datapersonal);
-        $id_personal = $this->db->insert_id();
-
         //Hora de entrada en la mañana
         $asistencia_mentrada = $data['horallegadam'];
         $asistencia_msalida = $data['horasalidam'];
@@ -59,7 +49,7 @@ class AsistenciaModel extends CI_Model
                 'horasalidam' => $asistencia_msalida,
                 'horallegadat' => $asistencia_tentrada,
                 'horasalidat' => $asistencia_tsalida,
-                'id_personal' => $id_personal,
+                'id_personal' => $data['idpersonal'],
                 'horastrabajadas' => 9,
                 'horasextras' => 0,
                 'estado' => $estado_asistencia,
@@ -84,7 +74,7 @@ class AsistenciaModel extends CI_Model
                     'horasalidam' => $asistencia_msalida,
                     'horallegadat' => $asistencia_tentrada,
                     'horasalidat' => $asistencia_tsalida,
-                    'id_personal' => $id_personal,
+                    'id_personal' => $data['idpersonal'],
                     'horastrabajadas' => $horastotales,
                     'horasextras' => $horaextraminutos,
                     'estado' => $estado_asistencia,
@@ -106,7 +96,7 @@ class AsistenciaModel extends CI_Model
                     'horasalidam' => $asistencia_msalida,
                     'horallegadat' => $asistencia_tentrada,
                     'horasalidat' => $asistencia_tsalida,
-                    'id_personal' => $id_personal,
+                    'id_personal' => $data['idpersonal'],
                     'horastrabajadas' => $horastotales,
                     'horasextras' => $mihoraextra,
                     'estado' => $estado_asistencia,
@@ -202,7 +192,7 @@ class AsistenciaModel extends CI_Model
     
     public function listaPersonal(){
 		$query = $this->db
-				->select("id_personal,rut") # También puedes poner * si quieres seleccionar todo
+				->select("id_personal,rut,nombrecompleto") # También puedes poner * si quieres seleccionar todo
                 ->from("personal")
                 ->group_by("rut")
 				->get();

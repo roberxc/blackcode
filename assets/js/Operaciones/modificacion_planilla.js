@@ -50,59 +50,34 @@ $(document).on('click', '#updateviatico1', function(e) {
     
 });
 
-$(document).on('click', '#update_material1', function(e) {
-    e.preventDefault();
-    document.getElementById("duranteTrab").style.display = "none";
-
+function subirDocumentoCompra(){
     //Obtencion del codigo de servicio
     var codigoservicio = $("#codigo_servicio").val();
-    //Materiales comprados durante el trabajo
-    var item_material = [];
-    var item_cantidad = [];
-    var item_valortotal = [];
-    var item_id = [];
-
-    //Material
-    $('input[id="item_material_update"]').each(function(){
-        item_material.push($(this).val());
-    });
-
-    //Cantidad
-    $('input[id="item_cantidad_update"]').each(function(){
-        item_cantidad.push($(this).val());
-    });
-
-    //Valor total 
-    $('input[id="item_valortotal_update"]').each(function(){
-        item_valortotal.push($(this).val());
-    });
-
-
-    $('input[id="item_material_update_id"]').each(function(){
-        item_id.push($(this).val());
-    });
-
+    var formData = new FormData($("#form-subir-documentocompra")[0]);
     $.ajax({
-        url: base_url+"PlantillaOperaciones/actualizarMaterialesCompradosDurante",
-        type: "post",
-        dataType: "json",
-        data: {
-            lista_material: item_material,
-            lista_cantidad: item_cantidad,
-            lista_valores: item_valortotal,
-            lista_id: item_id,
-            codigo_servicio: codigoservicio,
-        },
-        success: function(data) {
-            if (data.response == "success") {
+        url:base_url+"Factura/subirFacturaCompraMateriales",
+        type:$("form").attr("method"),
+        data:formData,
+        cache:false,
+        contentType:false,
+        processData:false,
+        success:function(respuesta){
+            if (respuesta==="exito") {
+                //$("#msg-error").hide();
+                $("#form-subir-archivos")[0].reset();
                 window.location.href = base_url+"ModificacionPlanilla/"+codigoservicio;
-                generarAvisoExitoso(data.message);
-            } else {
-                generarAvisoError(data.message);
+                generarAvisoExitoso('Archivo subido correctamente!');
+            }
+            else if(respuesta==="error"){
+                generarAvisoError('Error al subir el archivo');
+            }
+            else{
+                //$("#msg-error").show();
+                generarAvisoError(respuesta);
             }
         }
     });
-});
+}
 
 $(document).on('click', '#in-mat1', function(e) {
     e.preventDefault();
@@ -283,6 +258,7 @@ $(document).on('click', '.delete_archivo', function(e) {
 $("#form-subir-archivos").submit(function (event){
 
     event.preventDefault();
+    var codigoservicio = $("#codigo_servicio").val();
     var formData = new FormData($("#form-subir-archivos")[0]);
     $.ajax({
         url:$("form").attr("action"),
@@ -297,6 +273,7 @@ $("#form-subir-archivos").submit(function (event){
                 //$("#msg-error").hide();
                 $("#form-subir-archivos")[0].reset();
                 generarAvisoExitoso('Archivo subido correctamente!');
+                window.location.href = base_url+"ModificacionPlanilla/"+codigoservicio;
             }
             else if(respuesta==="error"){
                 generarAvisoError('Error al subir el archivo');
@@ -351,3 +328,24 @@ function generarAvisoExitoso($mensaje){
     }
 }
 
+function deleteDocMaterialDurante(){
+    //Obtencion del codigo de servicio
+    var iddoc = $("#iddocmaterialdurante").val().split(',')[0];
+    var codigoservicio = $("#codigo_servicio").val();
+    $.ajax({
+        url: base_url+"PlantillaOperaciones/deleteDocumentoCompraMaterialDurante",
+        type: "post",
+        dataType: "json",
+        data: {
+            iddoc: iddoc,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                window.location.href = base_url+"ModificacionPlanilla/"+codigoservicio;
+                generarAvisoExitoso(data.message);
+            } else {
+                generarAvisoError(data.message);
+            }
+        }
+    });
+}

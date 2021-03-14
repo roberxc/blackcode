@@ -31,11 +31,11 @@
             <div class="container-login100">
                <div class="wrap-login100">
                   <div class="login100-pic js-tilt" data-tilt>
-                     <img src="assets/imagen/logologin.png" alt="IMG">
+                     <img src="<?php echo base_url();?>assets/Imagen/logologin.png" alt="IMG">
                   </div>
                   <form action="<?= base_url('login/validate') ?>" method="POST" id="frm_login">
                      <span class="login100-form-title">
-                    Bienvenido a BlackCode
+                     Bienvenido a BlackCode
                      </span>
                      <div class="wrap-input100 validate-input" data-validate = "Formato invalido: ex@black.xyz" id="email">
                         <input class="input100" type="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su email">
@@ -45,16 +45,15 @@
                         </span>
                         <div class="invalid-feedback">
                         </div>
-                     </div>  
+                     </div>
                      <div class="wrap-input100 validate-input" data-validate = "Contraseña incorrecta" id="password">
                         <input class="input100" type="password" name="password"  id="exampleInputPassword1">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                         <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
-                       <!-- <div align="center" class> <a href='#' > Restablecer sus credenciales?</a></div> -->
+                        <!-- <div align="center" class> <a href='#' > Restablecer sus credenciales?</a></div> -->
                      </div>
-
                      <div class="form-group">
                         <center>
                         <button type="submit" class="btn btn-primary">Ingresar</button>

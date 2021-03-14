@@ -82,7 +82,7 @@ class ComprobantePago extends CI_Controller
 			$data['activo'] = 21;
 			$this->setNotificaciones();
 			$this->load->view('menu/menu_proyecto',$data);
-			$this->load->view('Administracion/Proveedores');
+			$this->load->view('Administracion/DocumentoPago');
 			$this->load->view('layout/footer');
 		}else if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
 			$data['lista_facturas'] = $this->FacturasModel->listaFacturas();

@@ -67,6 +67,17 @@ class Administracion extends CI_Controller {
 		$this->load->view('layout/footer');
 	}
 
+	public function listaRegistros(){
+		$data ['activo'] = 8;
+		$data ['activomenu'] = 2;
+		$this->setNotificaciones();
+		$data['lista_tipousuarios'] = $this->AdministracionModel->listaTipoUsuarios();
+		$this->load->view('menu/menu_supremo',$data);
+		$this->load->view('Administracion/listaRegistros',$data);
+		$this->load->view('layout/footer');
+
+	}
+
 	public function CajaIngreso()
 	{
 		$data ['activomenu'] = 5;
@@ -184,6 +195,43 @@ class Administracion extends CI_Controller {
 
 	}
 
+	public function obtenerRegistrosUsuarios(){
+		$fetch_data = $this->AdministracionModel->make_datatables_registrousuarios();
+        $data = array();
+        foreach ($fetch_data as $value){
+            $sub_array = array();
+			$sub_array[] = $value->id_usuario;
+            $sub_array[] = $value->rut;
+			if($value->estado == 1){
+				$sub_array[] = '<span class="badge badge-danger"><i class="fa fa-user"></i> &nbsp;'.$value->nombre.'</span>';
+			}
+
+			if($value->estado == 0){
+				$sub_array[] = '<span class="badge badge-success"><i class="fa fa-user"></i> &nbsp;'.$value->nombre.'</span>';
+			}
+			
+			$sub_array[] = $value->correo;
+			$sub_array[] = $value->tipo;
+			if($value->estado == 1){
+				$sub_array[] = '<span class="badge badge-danger">Inactivo</span>';
+			}
+			if($value->estado == 0){
+				$sub_array[] = '<span class="badge badge-success">Activo</span>';
+			}
+			$sub_array[] = '<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="setIDUsuario(this)"><i class="fas fa-trash"></i></button><button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-editar" onclick="setIDUsuario(this)"><i class="fas fa-edit"></i></button>';			
+			$data[] = $sub_array;
+        }
+
+        $output = array(
+            "draw" => intval($_POST["draw"]) ,
+            "recordsTotal" => $this->AdministracionModel->get_all_data_registrousuarios() ,
+            "recordsFiltered" => $this->AdministracionModel->get_filtered_data_registrousuarios() ,
+            "data" => $data
+        );
+        echo json_encode($output);
+
+	}
+
 	public function obtenerEgresosCajaChica(){
 		$fetch_data = $this->CajaChicaModel->make_datatables_cajaegresos();
         $data = array();
@@ -243,11 +291,19 @@ class Administracion extends CI_Controller {
 				$password2 = $ajax_data['password_confirm'];
 
 				if($password1 === $password2){
-					if (!$this->Users->create($ajax_data)) {
+					$result = $this->Users->create($ajax_data);
+					
+					if ($result == 1) {
 						$data = array('response' => "error", 'message' => "Falló el registro");
-					}else{
-						$data = array('response' => "success", 'message' => "Cuenta creada correctamente!");
 					}
+					
+					if ($result == 2) {
+						$data = array('response' => "success", 'message' => "Cuenta creada exitosamente!");
+					}
+					if ($result == 3) {
+						$data = array('response' => "error", 'message' => "El correo ingresado ya existe");
+					}
+					
 				}else{
 					$data = array('response' => "error", 'message' => "Las contraseñas ingresadas no son iguales");
 				}
@@ -561,6 +617,27 @@ class Administracion extends CI_Controller {
 
 	}
 
+	//Eliminar costos fijos cambiando su estado
+	public function eliminarRegistroUsuario(){
+		$ajax_data = $this->input->post();
+		$idusuario = $ajax_data['id_usuario'];
+		$estado = $ajax_data['estado'];
+		$set_data = $this->session->all_userdata();
+		$set_data['ID_Usuario'];
+		if($set_data['ID_Usuario'] === $idusuario){
+			$data = array('response' => 'error', 'message' => 'Estás usando esta cuenta, no puedes cambiar su estado');
+		}else{
+			$res = $this->AdministracionModel->eliminarRegistroUsuario($idusuario,$estado);
+			if($res){
+				$data = array('response' => 'success', 'message' => 'Exito');
+			}else{
+				$data = array('response' => 'error', 'message' => $res);
+			}
+		}
+		echo json_encode($data);
+
+	}
+
 	//Actualizar monto y fecha de caja chica
 	public function actualizarCajaChica(){
 		$ajax_data = $this->input->post();
@@ -599,6 +676,114 @@ class Administracion extends CI_Controller {
 		echo json_encode($data);
 
 	}
+
+	public function nuevaTarea(){
+		if ($this->input->is_ajax_request()) {
+			$ajax_data = $this->input->post();
+			$this->form_validation->set_rules('tarea', 'Tarea', 'required');
+			if ($this->form_validation->run() == FALSE) {
+				$data = array('response' => "error", 'message' => validation_errors());
+			}else{
+				$res = $this->AdministracionModel->registrarTarea($ajax_data); 
+				if ($res) {
+					$data = array('response' => "success", 'message' => "Tarea ingresada correctamente!");
+				} else{
+					$data = array('response' => "error", 'message' => $res);
+				}
+
+			}
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+    }
+
+	public function obtenerTareas(){
+		$ajax_data = $this->input->post(); //Datos que vienen por POST
+		$listatareas = $this->AdministracionModel->obtenerTareas();
+		$contador = 0;
+		$response = "<li>";
+		$response .= "</li>";
+
+		date_default_timezone_set("America/Santiago");
+        $fecha = date("Y-m-d G:i:s");
+
+		foreach($listatareas as $row){ 
+			$d1 = new DateTime($row->fecha);
+			$d2 = new DateTime($fecha);
+			$interval = $d1->diff($d2);
+			$minutos  = 0;
+			$diastotales = 0;
+
+			$diastotales = $interval->d;
+			$minutos  = $interval->i;
+
+			$response .= "<li>";
+			$response .= "<span class='handle'>";
+			$response .= "<i class='fas fa-ellipsis-v'></i>";
+			$response .= "<i class='fas fa-ellipsis-v'></i>";
+			$response .= "</span>";
+			$response .= "<div  class='icheck-primary d-inline ml-2'>";
+			$response .= "<input type='checkbox' value='".$row->id_tarea."' name='todo".$row->id_tarea."' id='todoCheck".$row->id_tarea."' onchange='updateTarea(this)'>";
+			$response .= "<label for='todoCheck".$row->id_tarea."'></label>";
+			$response .= "</div>";
+			$response .= "<span class='text'>".$row->nombre."</span>";
+			
+
+			if($diastotales >=1){
+				$response .= "<small class='badge badge-danger'><i class='far fa-clock'></i> ".$diastotales." dias</small>";
+			}else{
+				if($minutos <=59){
+					$response .= "<small class='badge badge-success'><i class='far fa-clock'></i> ".$minutos." min</small>";
+				}
+			}
+
+			$response .= "<div class='tools'>";
+			$response .= "<i class='fas fa-edit'></i>";
+			$response .= "<i class='fas fa-trash-o'></i>";
+			$response .= "</div>";
+			$response .= "</li>";
+			$contador +=1;
+		}
+
+        $data = array('response' => 'success', 'detalle' => $response);
+        
+
+		echo json_encode($data);
+    }
+
+	public function updateTarea(){
+		if ($this->input->is_ajax_request()) {
+			$ajax_data = $this->input->post();
+			$res = $this->AdministracionModel->updateTarea($ajax_data); 
+			if ($res) {
+				$data = array('response' => "success", 'message' => "Tarea finalizada correctamente!");
+			} else{
+				$data = array('response' => "error", 'message' => $res);
+			}
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+    }
+
+	public function cambiarTipoUsuario(){
+		if ($this->input->is_ajax_request()) {
+			$ajax_data = $this->input->post();
+			$res = $this->AdministracionModel->cambiarTipoUsuario($ajax_data); 
+			if ($res) {
+				$data = array('response' => "success", 'message' => "Tipo de usuario cambiado!");
+			} else{
+				$data = array('response' => "error", 'message' => $res);
+			}
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+    }
 }
 
 ?>

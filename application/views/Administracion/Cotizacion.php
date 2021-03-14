@@ -157,17 +157,17 @@
                                     <table id="productos_orden" name="productos_orden" class="table table-bordered table-striped tableprod" style="width: 100%;">
                                        <thead>
                                           <tr>
-                                             <th>Codigo</th>
+                                             <th style="width: 3%;background-color: #006699; color: white;">Codigo</th>
                                              <!-- 0 ---> 
-                                             <th>Producto</th>
+                                             <th style="width: 3%;background-color: #006699; color: white;">Producto</th>
                                              <!-- 1 --->
-                                             <th>Cantidad</th>
+                                             <th style="width: 3%;background-color: #006699; color: white;">Cantidad</th>
                                              <!-- 2 --->
-                                             <th>Costo</th>
-                                             <th>IVA %</th>
-                                             <th>Importe</th>
+                                             <th style="width: 3%;background-color: #006699; color: white;">Costo</th>
+                                             <th style="width: 3%;background-color: #006699; color: white;">IVA %</th>
+                                             <th style="width: 3%;background-color: #006699; color: white;">Importe</th>
                                              <!-- 4 --->
-                                             <th>Accion</th>
+                                             <th style="width: 3%;background-color: #006699; color: white;">Accion</th>
                                              <!-- 5 --->
                                           </tr>
                                        </thead>

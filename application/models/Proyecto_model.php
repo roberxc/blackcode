@@ -8,7 +8,9 @@ class Proyecto_model extends CI_Model {
           parent::__construct();
           $this->load->database();
     }
-  
+
+   
+
      public function ingresoProyecto($datos){
 
           $datos_detalle = array(
@@ -36,6 +38,20 @@ class Proyecto_model extends CI_Model {
           $this->db->insert('proyecto_usuario', $datos_proyectousuario);
           
      }
+     public function registroPersonal($datos){
+
+        $datos = array(
+          
+
+            'nombrecompleto' => $datos['name'],
+            'rut' => $datos['rut'],
+            'telefono' => $datos['telefono'],
+            'correo' => $datos['email'],
+            'cargo' => $datos['cargo'],
+            
+        );
+        $this->db->insert('personal', $datos);
+    }
 
       public function ObtenerCodigoProyecto(){
           $query = $this->db
@@ -47,8 +63,6 @@ class Proyecto_model extends CI_Model {
          return $query->result_array();
         
       }
-
-      
 
      function Mostrarpartidas(){
           $id_proyectos = $this->ObtenerCodigoProyecto();

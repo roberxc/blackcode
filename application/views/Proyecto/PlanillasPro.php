@@ -30,86 +30,12 @@
       <link rel="stylesheet" href="<?php echo base_url();?>assets/css/stylePlanillapro.css">
       <link rel="stylesheet" href="<?php echo base_url();?>assets/css/animate.css" />
    </head>
-   <body class="sidebar-mini layout-fixed sidebar-collapse">
+   <body class="hold-transition sidebar-mini sidebar-collapse">
       <input type="text" id="codigoproyecto" value="<?php echo$codigo;?>" class="form-control" />
       <?php $set_data = $this->session->all_userdata(); 
          if (isset($set_data['nombre_completo'])) {
            $nombre = $set_data['nombre_completo'];
          }?>
-      <div class="wrapper">
-      <!-- Navbar -->
-      <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-         <!-- Left navbar links -->
-         <ul class="navbar-nav">
-            <li class="nav-item">
-               <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-               <a href="<?php echo base_url()?>Inicio" class="nav-link">Inicio</a>
-            </li>
-         </ul>
-         <!-- Right navbar links -->
-         <ul class="navbar-nav ml-auto">
-         <!-- Notifications Dropdown Menu -->
-         <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-bell"></i>
-            <span class="badge badge-warning navbar-badge">153</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-               <span class="dropdown-item dropdown-header">3 Notifications</span>
-               <div class="dropdown-divider"></div>
-               <a href="#" class="dropdown-item">
-               <i class="fas fa-envelope mr-2"></i> 4 new messages
-               <span class="float-right text-muted text-sm">3 mins</span>
-               </a>
-               <div class="dropdown-divider"></div>
-               <a href="#" class="dropdown-item">
-               <i class="fas fa-users mr-2"></i> 8 friend requests
-               <span class="float-right text-muted text-sm">12 hours</span>
-               </a>
-               <div class="dropdown-divider"></div>
-               <a href="#" class="dropdown-item">
-               <i class="fas fa-file mr-2"></i> 3 new reports
-               <span class="float-right text-muted text-sm">2 days</span>
-               </a>
-               <div class="dropdown-divider"></div>
-               <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-            </div>
-         </li>
-         <li class="nav-item dropdown user user-menu">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-            <img src="<?php echo base_url();?>assets/dist/img/0012.png" class="user-image img-circle elevation-2 alt="User Image">
-            <span class="hidden-xs"><?php echo $nombre;?></span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-               <!-- User image -->
-               <li class="user-header bg-primary">
-                  <img src="<?php echo base_url();?>assets/dist/img/0012.png" class="img-circle elevation-2" alt="User Image">
-                  <p>Bienvenid@
-                     Usuario
-                     <small>(<?php echo $nombre;?> ) </small> 
-                  </p>
-               </li>
-               <!-- Menu Body -->
-               <li class="user-body">
-                  <div class="row">
-                     <div class="col-4 text-center">
-                        <a href="<?php echo base_url()?>Perfil">Perfil</a>
-                     </div>
-                     <div class="col-2 text-center">
-                        <a href="#"></a>
-                     </div>
-                     <div class="col-6 text-center">
-                        <a href="<?php echo base_url()?>Login">Cerrar Sesión</a>
-                     </div>
-                  </div>
-                  <!-- /.row -->
-               </li>
-               <!-- Menu Footer-->
-            </ul>
-         </li>
-      </nav>
       <div class="smoke">
          <div class="container" id="fh5co-pricing">
             <div class="heading animate-box">

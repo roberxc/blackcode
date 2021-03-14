@@ -56,3 +56,66 @@ function generarAvisoExitoso($mensaje) {
         "hideMethod": "fadeOut"
     }
 }
+
+function agregarTarea(){
+    var tarea = $("#tareatxt").val();
+    $.ajax({
+        url: base_url+"Administracion/nuevaTarea",
+        type: "post",
+        dataType: "json",
+        data: {
+            tarea: tarea,
+        },
+        success: function(data) {
+            if (data.response === "success") {
+                generarAvisoExitoso(data.message);
+                obtenerTareas();
+            } else if(data.response === "error") {
+                generarAvisoError(data.message);
+
+            }
+        }
+    }); 
+}
+
+
+function obtenerTareas(){
+    $.ajax({
+        url: base_url+"Administracion/obtenerTareas",
+        type: "post",
+        dataType: "json",
+        success: function(data) {
+            if (data.response === "success") {
+                $('#lista_tareas').empty();
+                $('#lista_tareas').append(data.detalle);
+            } else if(data.response === "error") {
+                generarAvisoError(data.message);
+
+            }
+        }
+    }); 
+}
+
+obtenerTareas();
+
+function updateTarea(check){
+    var idtarea = $(check).attr('value');
+    $.ajax({
+        url: base_url+"Administracion/updateTarea",
+        type: "post",
+        dataType: "json",
+        data: {
+            idtarea: idtarea,
+        },
+        success: function(data) {
+            if (data.response === "success") {
+                generarAvisoExitoso(data.message);
+                $('#lista_tareas').empty();
+                obtenerTareas();
+            } else if(data.response === "error") {
+                generarAvisoError(data.message);
+
+            }
+        }
+    }); 
+}

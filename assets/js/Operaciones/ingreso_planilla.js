@@ -89,50 +89,43 @@ $("#validar-iniciotrabajo").on('click', function(event){
         },
         success: function(data) {
             if (data.response === "success") {
-                Command: toastr["success"]('Ingreso correcto!','Correcto')
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
-            } else {
-                Command: toastr["error"]('Faltan campos por completar en la ventana anterior. Presione en "Volver"','Error')
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
-
+                detalleModal();
+                generarAvisoExitoso(data.message);
+            } else if(data.response === "error"){
+                inicioModal();
+                generarAvisoError(data.message);
             }
         }
     });
     
     
 });
+
+//Asi se abre un modal desde javascript
+jQuery('#validar-iniciotrabajo').magnificPopup({
+	items: {
+		src: '#detalleTrabajo',
+		type: 'inline'
+	}
+});
+
+function detalleModal() { // get the class name in arguments here
+    $.magnificPopup.open({
+        items: {
+            src: '#detalleTrabajo',
+        },
+        type: 'inline'
+    });
+}
+
+function inicioModal() { // get the class name in arguments here
+    $.magnificPopup.open({
+        items: {
+            src: '#details-lightbox-1',
+        },
+        type: 'inline'
+    });
+}
 var count=1;
 var max=10;
 var x = 1;

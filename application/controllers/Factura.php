@@ -67,7 +67,7 @@ class Factura extends CI_Controller
 			$data['activo'] = 18;
 			$this->setNotificaciones();
 			$this->load->view('menu/menu_proyecto',$data);
-			$this->load->view('Administracion/Proveedores');
+			$this->load->view('Administracion/Facturas');
 			$this->load->view('layout/footer');
 		}else if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
 
@@ -136,7 +136,7 @@ class Factura extends CI_Controller
 
 			$this->load->library("upload",$config);
 
-			if ($this->upload->do_upload('pic_file')) {
+			if ($this->upload->do_upload('pic_file_doccompra')) {
 				$data = array("upload_data" => $this->upload->data());
 				if($this->FacturasModel->subirFacturaCompraMateriales($data,$codigoservicio,$monto,$detalle)==true){
 					echo "exito";

@@ -11,10 +11,18 @@ class Proyecto extends CI_Controller
         $this->load->model('Proyecto_model');
         $this->load->helper(array('form', 'url'));
     }
-    
+    public function registroTrabajador(){
+		$data ['activo'] = 6;
+		$data ['activomenu'] = 2;
+		$this->load->view('layout/nav');
+		$this->load->view('menu/menu_proyecto',$data);
+		$this->load->view('Proyecto/GestionTrabajador');
+		$this->load->view('layout/footer');
+	}
     public function Estado_proyecto()
     {
         $data ['activo'] = 4;
+        $data ['activomenu'] = 1;
         $this->load->view('layout/nav');
         $this->load->view('menu/menu_proyecto',$data);
 		$this->load->view('Proyecto/Estado');
@@ -22,7 +30,8 @@ class Proyecto extends CI_Controller
     }
     public function Proyecto_ejecucion()
     {
-        $data ['activo'] = 4;
+        $data ['activo'] = 5;
+        $data ['activomenu'] = 1;
         $this->load->view('layout/nav');
         $this->load->view('menu/menu_proyecto',$data);
 		$this->load->view('Proyecto/ProyectoE');
@@ -30,7 +39,7 @@ class Proyecto extends CI_Controller
     }
     public function Planilla_Proyecto($idproyecto)
     {
-        $data ['activo'] = 4;
+        $data ['activo'] = 6;
         $data ['codigo'] = $idproyecto;
 
        $data ['Monto_total'] = $this->Proyecto_model->obtenerTotalFactura($data['codigo']);
@@ -43,13 +52,15 @@ class Proyecto extends CI_Controller
 		$this->load->view('Proyecto/PlanillasPro',$data);
 		$this->load->view('layout/footer');
     }
+
+    
+
     public function Evaluacion_proyecto()
     {
         // $data[ es lo que lleva en la vista foreach($partidas as $i)]combobox
         $data['partidas'] = $this->Proyecto_model->Mostrarpartidas();
-        
         $data ['activo'] = 4;
-        //$this->load->view('layout/nav');
+        $this->load->view('layout/nav-proyecto');
         $this->load->view('menu/menu_proyecto',$data);
 		$this->load->view('Proyecto/Evaluacion');
         $this->load->view('layout/footer');
@@ -57,7 +68,7 @@ class Proyecto extends CI_Controller
     public function Registro_proyecto()
     {      
         $data ['activo'] = 4;
-        //$this->load->view('layout/nav');
+        $this->load->view('layout/nav-proyecto');
         $this->load->view('menu/menu_proyecto',$data);
 		$this->load->view('Proyecto/RegistroProyecto');
         $this->load->view('layout/footer');
@@ -167,9 +178,34 @@ class Proyecto extends CI_Controller
            $sub_array[]	   = $value->fecha_termino;
            if($value->estado == 0){
             $sub_array[]= '<span class="badge badge-danger">En proceso</span>';
-        }else{
-            $sub_array[]= '<span class="badge badge-success">Terminado</span>';
-        }
+            }else{
+                $sub_array[]= '<span class="badge badge-success">Terminado</span>';
+            }
+
+            $hoy = date("Y-m-d");
+
+            //Paso de string a fecha
+            $d1 = new DateTime($value->fecha_inicio);
+            $d2 = new DateTime($value->fecha_termino);
+            $fechaactual = new DateTime($hoy);
+
+            //Dias totales del proyecto
+            $interval = $d1->diff($d2);
+            //Dias entre  la fecha actual y la fecha termino
+            $intervaluno = $fechaactual->diff($d2);
+
+
+            $diasTotales    = $interval->d; 
+            $diasFaltantes  = $intervaluno->d;
+
+            $porcentajefaltante = ($diasFaltantes * 100)/$diasTotales;
+            
+
+            //Dias totales entre las 2 fechas
+            $diasTotales    = $interval->d; 
+            $sub_array[]	   = '<td class="project_progress"><div class="progress progress-sm"><div class="progress-bar bg-green" role="progressbar" aria-volumenow="'.round($porcentajefaltante).'" aria-volumemin="0" aria-volumemax="100" style="width: '.round($porcentajefaltante).'%"></div></div><small>'.round($porcentajefaltante).'% Completado</small></td>';
+
+
            $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" onclick="detalleProyecto(this)" >';
            $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#modalDocumentos" >';
            $data[]         = $sub_array;
@@ -211,6 +247,34 @@ public function GuardarProyectos(){
         echo "'No direct script access allowed'";
     }
 
+}
+
+public function registroPersonal(){
+    if ($this->input->is_ajax_request()) {
+        $this->form_validation->set_rules('name', 'Nombre completo', 'required');
+        $this->form_validation->set_rules('rut', 'Rut', 'required');
+        $this->form_validation->set_rules('telefono', 'Telefono', 'required');
+        $this->form_validation->set_rules('email', 'Correo', 'required|valid_email');
+        $this->form_validation->set_rules('cargo', 'Cargo', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data = array('response' => "error", 'message' => validation_errors());
+        } else {
+            $ajax_data = $this->input->post();
+            
+            if (!$this->Proyecto_model->registroPersonal($ajax_data)) {
+                $data = array('response' => "success", 'message' => "Proyecto Registrado");
+                
+            }else{
+                $data = array('response' => "error", 'message' => "Falló el registro");
+            }
+
+        }
+
+        echo json_encode($data);
+    } else {
+        echo "'No direct script access allowed'";
+    }	
 }
 
 public function registroPartidas(){

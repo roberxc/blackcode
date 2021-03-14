@@ -63,6 +63,9 @@ class PlantillaOperaciones extends CI_Controller {
 		//Gastos varios registrados
 		$data ['gastosvarios_registrados'] = $this->OperacionesModel->ObtenerGastosVarios($codigo);
 
+		//Documentos de materiales comprados durante
+		$data ['doc_materialesdurante'] = $this->OperacionesModel->ObtenerMaterialesDurante($codigo);
+
 		//Materiales comprados
 		$data ['materiales_antes'] = $this->OperacionesModel->ObtenerMaterialesAntes($codigo);
 		//Materiales bodega
@@ -361,6 +364,23 @@ class PlantillaOperaciones extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 			$ajax_data = $this->input->post();
 			$res = $this->OperacionesModel->deleteArchivoSubido($ajax_data);
+			if ($res) {
+				$data = array('response' => "success", 'message' => "Eliminado exitosamente!");
+			}else{
+				$data = array('response' => "error", 'message' => $res);
+			}
+			echo json_encode($data);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+	}
+
+	//Metodo para eliminar el documento de compra de materiales durante
+	public function deleteDocumentoCompraMaterialDurante(){
+		
+		if ($this->input->is_ajax_request()) {
+			$ajax_data = $this->input->post();
+			$res = $this->OperacionesModel->deleteDocCompraMaterialDurante($ajax_data);
 			if ($res) {
 				$data = array('response' => "success", 'message' => "Eliminado exitosamente!");
 			}else{

@@ -274,8 +274,8 @@
                         <?php if(isset($gastosvarios_registrados) && (count($gastosvarios_registrados)>0)){
                            foreach($gastosvarios_registrados as $row){ ?>
                         <div class="form-group">
-                           <input type="hidden" class="form-control-input" id="item_gastovariosid" value="<?php echo $row->ID;?>">
-                           <input type="text" class="form-control-input" id="item_gastovarios" value="<?php echo $row->Valor;?>" required>
+                           <input type="hidden" class="form-control-input" id="item_gastovariosid" value="<?php echo $row->id;?>">
+                           <input type="text" class="form-control-input" id="item_gastovarios" value="<?php echo $row->valor;?>" required>
                            <label class="label-control" for="cemail"><?php echo $row->nombre;?></label>
                            <div class="help-block with-errors"></div>
                         </div>
@@ -368,55 +368,55 @@
       </div>
       <!-- Ingreso de materiales comprados durante -->
       <div id="duranteTrab" class="lightbox-basic zoom-anim-dialog mfp-hide">
-      <form id="form-subir-documentocompra" style="padding:0px 15px;" class="form-horizontal" role="form" action="<?php echo base_url();?>Upload/subirDocumentoCompra" method="POST" >
-         <div class="container">
-            <div class="row">
-               <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
-               <div class="col-lg-4">
-                  <div class="card"></div>
-                  
-                  <div class="card-body" id="dynamic_field" >
-                     <div class="card-title">Suba los documentos que verifiquen los materiales comprados</div>
-                     <hr class="cell-divide-hr">
+         <form id="form-subir-documentocompra" style="padding:0px 15px;" class="form-horizontal" role="form" method="POST" >
+            <div class="container">
+               <div class="row">
+                  <button title="Close (Esc)" type="button" class="mfp-close x-button">×</button>
+                  <div class="col-lg-4">
+                     <div class="card"></div>
                      
-                        <div class="col-lg-4">
-                           <div class="card"></div>
-                           <div class="card-body" id="dynamic_field" >
-                              <div class="card-title">Subir documentos</div>
-                              <hr class="cell-divide-hr">
-                              <div class="form-group">
-                                 <input type="hidden" class="form-control" name="codigo1" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" id="codigo1">
-                              </div>
-                              <div class="form-group">
-                                 <label for="pic_file">Monto total:</label>
-                                 <input type="text" name="montototal" class="form-control"  id="montototal">
-                              </div>
-                              <div class="form-group">
-                                 <label for="pic_file">Detalle:</label>
-                                 <input type="text" name="detalle" class="form-control"  id="detalle">
-                              </div>
-                              <div class="form-group">
-                                 <label for="pic_file">Ingresar:</label>
-                                 <input type="file" name="pic_file" class="form-control"  id="pic_file">
-                              </div>
-                              <hr class="cell-divide-hr">
-                              <div class="button-wrapper">
+                     <div class="card-body" id="dynamic_field" >
+                        <div class="card-title">Suba los documentos que verifiquen los materiales comprados</div>
+                        <hr class="cell-divide-hr">
+                        
+                           <div class="col-lg-4">
+                              <div class="card"></div>
+                              <div class="card-body" id="dynamic_field" >
+                                 <div class="card-title">Subir documentos</div>
+                                 <hr class="cell-divide-hr">
+                                 <div class="form-group">
+                                    <input type="hidden" class="form-control" name="codigo1" value="<?php if(isset($codigo)){ echo $codigo;}else{echo 'Error';}?>" id="codigo1">
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="montototal">Monto total:</label>
+                                    <input type="text" name="montototal" class="form-control"  id="montototal">
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="detalle">Detalle:</label>
+                                    <input type="text" name="detalle" class="form-control"  id="detalle">
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="pic_file_doccompra">Ingresar:</label>
+                                    <input type="file" name="pic_file_doccompra" class="form-control"  id="pic_file_doccompra">
+                                 </div>
+                                 <hr class="cell-divide-hr">
+                                 <div class="button-wrapper">
+                                 </div>
                               </div>
                            </div>
+                        <hr class="cell-divide-hr">
+                        <div class="button-wrapper">
                         </div>
-                     <hr class="cell-divide-hr">
-                     <div class="button-wrapper">
                      </div>
                   </div>
+                  <!-- end of card -->
                </div>
-               <!-- end of card -->
+               <!-- end of col -->
+               <div class="form-group">
+                  <button type="button" onclick="subirDocumentoCompra()" class="btn-solid-reg">Guardar</button></br> </br>
+               </div>
             </div>
-            <!-- end of col -->
-            <div class="form-group">
-               <button type="button" onclick="subirDocumentoCompra()" class="btn-solid-reg">Guardar</button></br> </br>
-            </div>
-         </div>
-      </form>
+         </form>
          <!-- end of row -->
       </div> 
       <!-- Ingreso de materiales comprados antes del trabajo -->
@@ -475,7 +475,7 @@
                      <?php if(isset($materiales_antes) && (count($materiales_antes)>0)){
                            foreach($materiales_antes as $row){ ?>
                         <TR>
-                           <TD><input type="hidden" id="item_material2_update_id" value="<?php echo $row->ID;?>" class="form-control" /></TD>
+                           <TD><input type="hidden" id="item_material2_update_id" value="<?php echo $row->id;?>" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Material</TH>
@@ -483,11 +483,11 @@
                         </TR>
                         <TR>
                            <TH>Cantidad</TH>
-                           <TD><input type="text" id="item_cantidad2_update" value="<?php echo $row->Cantidad;?>" class="form-control" /></TD>
+                           <TD><input type="text" id="item_cantidad2_update" value="<?php echo $row->cantidad;?>" class="form-control" /></TD>
                         </TR>
                         <TR>
                            <TH>Total $</TH>
-                           <TD><input type="text" id="item_valortotal2_update" value="<?php echo $row->Valor;?>" class="form-control" /></TD>
+                           <TD><input type="text" id="item_valortotal2_update" value="<?php echo $row->valor;?>" class="form-control" /></TD>
                         </TR>
                         <?php }
                            }?>
@@ -645,14 +645,9 @@
                      </div>
                   </div>
                </div>
-               <!-- end of card -->
+
             </div>
-            <!-- end of col -->
-            <!--<div class="form-group">
-               <a class="btn-solid-reg" type="submit" href="#detalleTrabajo">Guardar</a></br> </br>
-               </div>-->
          </div>
-         <!-- end of row -->
       </div>
 
       <!-- end of container -->

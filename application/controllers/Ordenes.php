@@ -26,7 +26,7 @@ class Ordenes extends CI_Controller
 			$data ['activo'] = 15;
 			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_proyecto',$data);
-			$this->load->view('Administracion/Proveedores');
+			$this->load->view('Administracion/Ordenes');
 			$this->load->view('layout/footer');
 		}else if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
 			$data['lista_materiales'] = $this->OrdenesModel->listaMateriales();
@@ -60,7 +60,7 @@ class Ordenes extends CI_Controller
 
 			if($value->estado == 1){
 
-				$sub_array[] = '<span class="badge badge-danger">Impagada</span>';
+				$sub_array[] = '<span class="badge badge-danger">Por pagar</span>';
 			}
 
 			if($value->estado == 2){
@@ -237,7 +237,7 @@ class Ordenes extends CI_Controller
 		$response = "<select class='form-control select2' style='width: 100%;' id='estado_orden' onchange='setEstadoOrden()'>";
 		$response .= "<option value='1' selected>Seleccione</option>";
 		$response .= "<option value='2'>Pagada</option>";
-		$response .= "<option value='1'>Impagada</option>";
+		$response .= "<option value='1'>Por pagar</option>";
 		$response .= "<option value='0'>Cheque a 30 dias</option>";
 		$response .= "</select>";
 		$data = array('response' => 'success', 'detalle' => $response);

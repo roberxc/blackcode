@@ -1,6 +1,6 @@
 $(document).on('click', '#detalle_trabajo', function(e) {
     e.preventDefault();
-    var codigoservicio = $(this).parents('tr').find(".name-file").val();
+    var codigoservicio = $("#codigoservicio").val();
     $.ajax({
         url: base_url+"Operacion/obtenerPlanillaRealizada",
         type: "post",
@@ -23,7 +23,7 @@ $(document).on('click', '#detalle_trabajo', function(e) {
 
 $(document).on('click', '#detalle_archivos', function(e) {
     e.preventDefault();
-    var codigoservicio = $(this).parents('tr').find(".name-file").val();
+    var codigoservicio = $("#codigoservicio").val();
     $.ajax({
         url: base_url+"Operacion/DescargarArchivos",
         type: "post",
@@ -82,8 +82,8 @@ $(document).on('click', '#boton-horasextras', function(e) {
 $(document).on('click', '#boton-filtrohorasextras', function(e) {
     e.preventDefault();
     var rutfiltro = $("#rut_filtro").val();
-    var startDate = $('#date_range').data('daterangepicker').startDate.format('DD-MM-YYYY');
-    var endDate = $('#date_range').data('daterangepicker').endDate.format('DD-MM-YYYY');
+    var startDate = $('#date_range').data('daterangepicker').startDate.format('YYYY-MM-DD');
+    var endDate = $('#date_range').data('daterangepicker').endDate.format('YYYY-MM-DD');
     $.ajax({
         url: base_url+"Operacion/obtenerHoraExtrasPersonal",
         type: "post",
@@ -132,16 +132,25 @@ $('#codigoservicio_filtro').keyup(function(){
 
 });
 
+function setCodigoServicio(table){
+    var codigoservicio = table.parentNode.parentNode.cells[0].textContent;
+    var fechatrabajo = table.parentNode.parentNode.cells[1].textContent;
+    document.getElementById("codigoservicio").value = codigoservicio;
+    document.getElementById("fechatrabajo").value = fechatrabajo;
+}
+
 
 $(document).on('click', '#detalle_asistencia', function(e) {
     e.preventDefault();
-    var codigoservicio = $(this).parents('tr').find(".name-file").val();
+    var codigoservicio = $("#codigoservicio").val();
+    var fechatrabajo = $("#fechatrabajo").val();
     $.ajax({
         url: base_url+"Operacion/obtenerAsistenciaPlanilla",
         type: "post",
         dataType: "json",
         data: {
             codigo_servicio: codigoservicio,
+            fecha_trabajo: fechatrabajo,
         },
         success: function(data) {
             if (data.response == "success") {
@@ -157,4 +166,8 @@ $(document).on('click', '#detalle_asistencia', function(e) {
 
 });
 
+function descargarDocumentoMateriales(){
+    var iddoc = $("#doc-materialesdurante").val();
+    window.location.href = base_url + "Operacion/descargarDocMaterialesDurante/"+iddoc;
 
+}

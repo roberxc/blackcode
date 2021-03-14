@@ -84,7 +84,6 @@ class Operacion extends CI_Controller {
 		if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
 			$data ['activo'] = 30;
 			//Lista de trabajos realizados
-			$data ['trabajos_realizados'] = $this->OperacionesModel->ObtenerTrabajosRealizados();
 			$this->setNotificaciones();
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('TrabajoDiario/TrabajoDiario',$data);
@@ -168,11 +167,10 @@ class Operacion extends CI_Controller {
 	public function validarTrabajoDiario(){
 		if ($this->input->is_ajax_request()) {
 			//Validaciones
-			
-			$this->form_validation->set_rules('fecha_trabajo', '"Fecha trabajo"', 'required');
-			$this->form_validation->set_rules('id_proyecto', '"Nombre proyecto"', 'required');
-			$this->form_validation->set_rules('persona_cargo', '"Persona a cargo"', 'required');
-			$this->form_validation->set_rules('suma_asignada', '"Suma asignada"', 'numeric|greater_than[0]|required');
+			$this->form_validation->set_rules('fecha_trabajo', 'Fecha trabajo', 'required');
+			$this->form_validation->set_rules('id_proyecto', 'Nombre proyecto', 'required');
+			$this->form_validation->set_rules('persona_cargo', 'Persona a cargo', 'required');
+			$this->form_validation->set_rules('suma_asignada', 'Suma asignada', 'numeric|greater_than[0]|required');
 			$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 
 			if ($this->form_validation->run() == FALSE) {
@@ -255,17 +253,19 @@ class Operacion extends CI_Controller {
 		$response .= "<table class='table table-striped'>";
 		$response .= "<thead>";
 		$response .= "<tr>";
-		$response .= "<th>Material</th>";
-		$response .= "<th>Cantidad</th>";
-		$response .= "<th>Total $</th>";
+		$response .= "<th>Documento</th>";
+		$response .= "<th>Monto total $</th>";
+		$response .= "<th>Detalle</th>";
+		$response .= "<th>Accion</th>";
 		$response .= "</tr>";
 		$response .= "</thead>";
 		$response .= "<tbody>";
 		foreach($materiales_durante as $row){
 			$response .= "<tr>";
-			$response .= "<th>".$row->Nombre."</th>";
-			$response .= "<td>".$row->Cantidad."</td>";
-			$response .= "<td>".$row->Valor."</td>";
+			$response .= "<th>".$row->documento."</th>";
+			$response .= "<td>".$row->monto."</td>";
+			$response .= "<td>".$row->detalle."</td>";
+			$response .= "<td><button class='btn btn-primary btn-sm' onclick='descargarDocumentoMateriales()' id='doc-materialesdurante' value='".$row->id."'><i class='fas fa-download'></i></button>";
 			$response .= "</tr>";
 		}
 		$response .= "</tbody>";
@@ -288,9 +288,9 @@ class Operacion extends CI_Controller {
 		$response .= "<tbody>";
 		foreach($materiales_antes as $row){
 			$response .= "<tr>";
-			$response .= "<th>".$row->Nombre."</th>";
-			$response .= "<td>".$row->Cantidad."</td>";
-			$response .= "<td>".$row->Valor."</td>";
+			$response .= "<th>".$row->nombre."</th>";
+			$response .= "<td>".$row->cantidad."</td>";
+			$response .= "<td>".$row->valor."</td>";
 			$response .= "</tr>";
 		}
 		$response .= "</tbody>";
@@ -312,8 +312,8 @@ class Operacion extends CI_Controller {
 		$response .= "<tbody>";
 		foreach($materiales_bodega as $row){
 			$response .= "<tr>";
-			$response .= "<th>".$row->Nombre."</th>";
-			$response .= "<td>".$row->Cantidad."</td>";
+			$response .= "<th>".$row->nombre."</th>";
+			$response .= "<td>".$row->cantidad."</td>";
 			$response .= "</tr>";
 		}
 		$response .= "</tbody>";
@@ -335,8 +335,8 @@ class Operacion extends CI_Controller {
 		$response .= "<tbody>";
 		foreach($gastos_combustible as $row){
 			$response .= "<tr>";
-			$response .= "<th>".$row->Nombre."</th>";
-			$response .= "<td>".$row->Valor."</td>";
+			$response .= "<th>".$row->nombre."</th>";
+			$response .= "<td>".$row->valor."</td>";
 			$response .= "</tr>";
 		}
 		$response .= "</tbody>";
@@ -358,8 +358,8 @@ class Operacion extends CI_Controller {
 		$response .= "<tbody>";
 		foreach($gastosvarios_registrados as $row){ 
 			$response .= "<tr>";
-			$response .= "<th>".$row->Nombre."</th>";
-			$response .= "<td> $".$row->Valor."</td>";
+			$response .= "<th>".$row->nombre."</th>";
+			$response .= "<td> $".$row->valor."</td>";
 			$response .= "</tr>";
 		}
 
@@ -399,71 +399,70 @@ class Operacion extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	public function descargarDocMaterialesDurante($id){
+        if(!empty($id)){
+            //load download helper
+            $this->load->helper('download');
+            
+            //get file info from database
+			$fileInfo = $this->OperacionesModel->getDocMaterialesDurante(array('id' => $id));
+            
+            //file path
+			$file ='ArchivosSubidos/'.$fileInfo['ubicaciondocumento'];
+		
+            
+            //download file from directory
+            force_download($file, NULL);
+        }
+	}
+
 	public function obtenerAsistenciaPlanilla(){
 		$ajax_data = $this->input->post(); //Datos que vienen por POST
-		$asistencia_planilla = $this->OperacionesModel->ObtenerAsistenciaPlanilla($ajax_data['codigo_servicio']);
-
+		$asistencia_planilla = $this->OperacionesModel->ObtenerAsistenciaPlanilla($ajax_data['codigo_servicio'],$ajax_data['fecha_trabajo']);
+		
 		$response = "<div class='table-responsive'>";
 		$response .= "<table class='table table-bordered'>";
+		
 		$response .= "<tr>";
-		$response .= "<td>";
-		$response .= "<label></label>";
-		$response .= "</td>";
-		$response .= "<td>";
-		$response .= "<label>Fecha Asistencia</label>";
-		$response .= "</td>";
-		$response .= "<td>";
-		$response .= "<label>Nombre Completo</label>";
-		$response .= "</td>";
-		$response .= "<td>";
-		$response .= "<label>Hora llegada</label>";
-		$response .= "</td>";
-		$response .= "<td>";
-		$response .= "<label>Hora salida</label>";
-		$response .= "</td>";
-		$response .= "<td>";
-		$response .= "<label>Horas trabajadas</label>";
-		$response .= "</td>";
-		$response .= "<td>";
-		$response .= "<label>Horas extras</label>";
-		$response .= "</td>";
-		$response .= "<td>";
-		$response .= "<label></label>";
-		$response .= "</td>";
+		$response .= "<td>Fecha Asistencia</td>";
+		$response .= "<th>".$asistencia_planilla[0]['Fecha']."</th>";
 		$response .= "</tr>";
-		$response .= "<tbody>";
-		foreach($asistencia_planilla as $row){ 
-			$response .= "<tr>";
-			$response .= "<td>";
-			$response .= "<input type='hidden' value='$row->rut' class='form-control rutPersonal' disabled/>";
-			$response .= "</td>";
-			$response .= "<td>";
-			$response .= $row->Fecha;
-			$response .= "</td>";
-			$response .= "<td>";
-			$response .= $row->NombreCompleto;
-			$response .= "</td>";
-			$response .= "<td>";
-			$response .= $row->LlegadaM;
-			$response .= "</td>";
-			$response .= "<td>";
-			$response .= $row->SalidaT;
-			$response .= "</td>";
-			$response .= "<td>";
-			$response .= $row->HorasTrabajadas;
-			$response .= "</td>";
-			$response .= "<td>";
-			$response .= $row->HorasExtras;
-			$response .= "</td>";
-			$response .= "<td>";
-			$response .= "<button class='btn btn-info btn-sm' id='boton-horasextras' data-toggle='modal' data-target='#modal-horasextras'>";
-			$response .= "<i class='fas fa-exclamation-circle'>";
-			$response .= "</i>";
-			$response .= "</button>";
-			$response .= "</td>";
-			$response .= "</tr>";
-		}
-		$response .= "</tbody>";
+
+		$response .= "<tr>";
+		$response .= "<td>Nombre Completo</td>";
+		$response .= "<th>".$asistencia_planilla[0]['NombreCompleto']."</th>";
+		$response .= "</tr>";
+
+		$response .= "<tr>";
+		$response .= "<td>Hora llegada</td>";
+		$response .= "<th>".$asistencia_planilla[0]['LlegadaM']."</th>";
+		$response .= "</tr>";
+
+		$response .= "<tr>";
+		$response .= "<td>Hora salida</td>";
+		$response .= "<th>".$asistencia_planilla[0]['SalidaT']."</th>";
+		$response .= "</tr>";
+
+		$response .= "<tr>";
+		$response .= "<td>Horas trabajadas</td>";
+		$response .= "<th>".$asistencia_planilla[0]['HorasTrabajadas']."</th>";
+		$response .= "</tr>";
+
+		$response .= "<tr>";
+		$response .= "<td>Horas extras</td>";
+		$response .= "<th>".$asistencia_planilla[0]['HorasExtras']."</th>";
+		$response .= "</tr>";
+
+		$response .= "<tr>";
+		$response .= "<td>Observación</td>";
+		$response .= "<th>".$asistencia_planilla[0]['detalle']."</th>";
+		$response .= "</tr>";
+
+		$response .= "<tr>";
+		$response .= "<td>Total horas extras</td>";
+		$response .= "<th><button class='btn btn-info btn-sm' id='boton-horasextras' data-toggle='modal' data-target='#modal-horasextras'><i class='fas fa-exclamation-circle'></i></button></th>";
+		$response .= "</tr>";
+
 		$response .= "</table>";
 		$response .= "</div>";
 
@@ -548,26 +547,50 @@ class Operacion extends CI_Controller {
 		$response .= "</td>";	
 		$response .= "</tr>";
 		$response .= "<tbody>";
-		foreach($horas_extras as $row){ 
-			$response .= "<tr>";
-			$response .= "<td>";
-			$response .= $row->Rut;
-			$response .= "</td>";
-			$response .= "<td>";
-			$response .= $row->Nombre;
-			$response .= "</td>";
-			$response .= "<td>";
-			$response .= $row->TotalHoras;
-			$response .= "</td>";
-			$response .= "</tr>";
-		}
+		$response .= "<tr>";
+		$response .= "<td>";
+		$response .= $horas_extras[0]['Rut'];
+		$response .= "</td>";
+		$response .= "<td>";
+		$response .= $horas_extras[0]['Nombre'];
+		$response .= "</td>";
+		$response .= "<td>";
+		$response .= $horas_extras[0]['TotalHoras'];
+		$response .= "</td>";
+		$response .= "</tr>";
 		$response .= "</tbody>";
 		$response .= "</table>";
 		$response .= "</div>";
 
-		$data = array('response' => 'success', 'horas' => $response);
+		if($horas_extras[0]['TotalHoras'] > 0){
+			$data = array('response' => 'success', 'horas' => $response);
 
-
+		}else{
+			$data = array('response' => 'success', 'horas' => '<span class="badge badge-danger">Sin resultados</span>');
+		}
 		echo json_encode($data);
+	}
+
+	public function obtenerTrabajosDiarios(){
+		$fetch_data = $this->OperacionesModel->make_datatables_trabajodiario();
+        $data = array();
+        foreach ($fetch_data as $value){
+            $sub_array = array();
+			$sub_array[] = $value->codigoservicio;
+            $sub_array[] = $value->fechaasignacion;
+			$sub_array[] = $value->nombreproyecto;
+			$sub_array[] = $value->personalcargo;
+			$sub_array[] = '<button class="btn btn-primary btn-sm" id="detalle_trabajo" data-toggle="modal" data-target="#modal-detalle" onclick="setCodigoServicio(this)"><i class="far fa-eye"></i></button><button class="btn btn-warning btn-sm" id="detalle_archivos" data-toggle="modal" data-target="#modal-archivos" onclick="setCodigoServicio(this)"><i class="fas fa-upload"></i></button><button class="btn btn-success btn-sm" id="detalle_asistencia" data-toggle="modal"data-target="#modal-asistencia" onclick="setCodigoServicio(this)"><i class="fas fa-book-open"></i></button>';			
+			$data[] = $sub_array;
+        }
+
+        $output = array(
+            "draw" => intval($_POST["draw"]) ,
+            "recordsTotal" => $this->OperacionesModel->get_all_data_trabajodiario() ,
+            "recordsFiltered" => $this->OperacionesModel->get_filtered_data_trabajodiario() ,
+            "data" => $data
+        );
+        echo json_encode($output);
+
 	}
 }

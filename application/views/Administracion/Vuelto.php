@@ -78,12 +78,12 @@
                      <table id="example1" class="table table-bordered table-striped">
                         <thead>
                            <tr>
-                              <th>Destinatario</th>
-                              <th>Fecha</th>
-                              <th>Monto asignado</th>
-                              <th>Vuelto</th>
-                              <th>Estado</th>
-                              <th></th>
+                              <th style="width: 3%;background-color: #006699; color: white;">Destinatario</th>
+                              <th style="width: 3%;background-color: #006699; color: white;">Fecha</th>
+                              <th style="width: 3%;background-color: #006699; color: white;">Monto asignado</th>
+                              <th style="width: 3%;background-color: #006699; color: white;">Vuelto</th>
+                              <th style="width: 3%;background-color: #006699; color: white;">Estado</th>
+                              <th style="width: 3%;background-color: #006699; color: white;"></th>
                            </tr>
                         </thead>
                         <tbody id="tbody">

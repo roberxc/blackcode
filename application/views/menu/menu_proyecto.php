@@ -56,7 +56,7 @@ if (isset($set_data['nombre_completo'])) {
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url();?>Proyecto/Estado_proyecto"  class="nav-link <?php if(isset($activo) && ($activo == 10)){echo "active"; }?>">
+                <a href="<?php echo base_url();?>Proyecto/Estado_proyecto"  class="nav-link <?php if(isset($activo) && ($activo == 4)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Estado del proyecto </p>
                 </a>
@@ -65,7 +65,7 @@ if (isset($set_data['nombre_completo'])) {
          
           <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo base_url();?>Proyecto/Proyecto_ejecucion" class="nav-link <?php if(isset($activo) && ($activo == 11)){echo "active"; }?>">
+                <a href="<?php echo base_url();?>Proyecto/Proyecto_ejecucion" class="nav-link <?php if(isset($activo) && ($activo == 5)){echo "active"; }?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Proyecto ejecutados </p>
                 </a>
@@ -133,13 +133,35 @@ if (isset($set_data['nombre_completo'])) {
                              </a>
                          </li>
                      </ul>
+                    
 
                      
+                 </li>
+                 <li
+                     class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 2)){echo "menu-open"; }?>">
+                     <a href="#" class="nav-link <?php if(isset($activomenu) && ($activomenu == 2)){echo "active"; }?>">
+                         <i class="nav-icon fas fa-cog"></i>
+                         <p>
+                             Sistema
+                             <i class="fas fa-angle-left right"></i>
+                         </p>
+                     </a>
+                     <ul class="nav nav-treeview">
+                         <li class="nav-item">
+                             <a href="<?php echo base_url()?>Proyecto/registroTrabajador"
+                                 class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Registrar Trabajador</p>
+                             </a>
+                         </li>
+
+                     </ul>
+
                  </li>
 
 
         </ul>
-
+        
       </nav>
       <!-- /.sidebar-menu -->
     </div>

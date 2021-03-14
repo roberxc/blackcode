@@ -72,23 +72,9 @@
                   <a class="nav-link page-scroll" href="#header">Configurar cuenta <span class="sr-only">(current)</span></a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link page-scroll" href="<?php echo base_url()?>login" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Salir</a>
+                  <a class="nav-link page-scroll" href="<?php echo base_url()?>login" class="nav-link active">Salir</a>
                </li>
             </ul>
-            <span class="nav-item social-icons">
-            <span class="fa-stack">
-            <a href="#your-link">
-            <i class="fas fa-circle fa-stack-2x facebook"></i>
-            <i class="fab fa-facebook-f fa-stack-1x"></i>
-            </a>
-            </span>
-            <span class="fa-stack">
-            <a href="#your-link">
-            <i class="fas fa-circle fa-stack-2x twitter"></i>
-            <i class="fab fa-twitter fa-stack-1x"></i>
-            </a>
-            </span>
-            </span>
          </div>
       </nav>
       <!-- end of navbar -->
@@ -165,7 +151,7 @@
                      <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
-                     <a class="btn-solid-reg popup-with-move-anim" id="validar-iniciotrabajo" href="#detalleTrabajo">Siguiente</a></br> </br>
+                     <button class="btn-solid-reg popup-with-move-anim" id="validar-iniciotrabajo">Siguiente</button></br> </br>
                   </div>
                </div>
                <!-- end of col -->
@@ -259,7 +245,6 @@
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
       <!-- Scripts modal -->
       <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
       <script type="text/javascript">
          var lista_personal = <?php echo json_encode($lista_personal); ?>;
       </script>

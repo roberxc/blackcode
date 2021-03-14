@@ -311,6 +311,129 @@ class AdministracionModel extends CI_Model
 		return $this->db->update('egresocaja',$datacajachicaegreso);
     }
 
+    //Devuelve el total de usuarios registrados en el ssistema
+    public function totalUsuariosRegistrados(){
+		$query = $this->db
+				->select("COUNT(id_usuario) as total") # También puedes poner * si quieres seleccionar todo
+				->from("usuario")
+				->get();
+    	return $query->result_array();
+	}
+
+    public function registrarTarea($ajax_data){
+        $set_data = $this->session->all_userdata();
+        date_default_timezone_set("America/Santiago");
+        $fecha = date("Y-m-d G:i:s");
+
+        $datatarea = array(
+			'nombre' => $ajax_data['tarea'],
+			'fecha' => $fecha,
+            'estado' => 0,
+            'id_usuario' =>  $set_data['ID_Usuario'],
+		);
+
+		return $this->db->insert('tarea',$datatarea);
+	}
+
+    public function obtenerTareas(){
+		$query = $this->db
+				->select("*") # También puedes poner * si quieres seleccionar todo
+				->from("tarea")
+                ->where("estado",0)
+				->get();
+    	return $query->result();
+	}
+
+    public function updateTarea($data){
+        $datatarea = array(
+            'estado' => 1,
+        );
+        $this->db->where('id_tarea', $data['idtarea']);
+		return $this->db->update('tarea',$datatarea);
+    }
+
+    //Tabla de usuarios registrados
+	function make_datatables_registrousuarios(){
+        $this->make_query_registrousuarios();
+        if ($_POST["length"] != - 1){
+            $this->db->limit($_POST['length'], $_POST['start']);
+        }
+        $query = $this->db->get();
+        return $query->result();
+
+    }
+
+    var $tablaregistrousuarios = array(
+        "usuario u",
+        "tipousuario t",
+    );
+    var $select_columna_registrousuarios = array(
+        "u.id_usuario",
+        "u.nombre_completo as nombre",
+		"u.rut as rut",
+        "u.correo as correo",
+		"t.rol as tipo",
+        "u.estado",
+    );
+
+    var $order_columna_registrousuarios = array(
+        "u.id_usuario",
+        "u.nombre_completo",
+		"u.rut",
+		"t.rol",
+    );
+
+    var $where_registrousuarios = "u.id_tipousuario = t.id_tipousuario";
+
+    function make_query_registrousuarios(){
+        $this->db->select($this->select_columna_registrousuarios);
+        $this->db->from($this->tablaregistrousuarios);
+        $this->db->where($this->where_registrousuarios);
+        if (isset($_POST["search"]["value"]) && $_POST["search"]["value"] != ''){
+            $this->db->group_start();
+            $this->db->like("u.nombre_completo", $_POST["search"]["value"]);
+            $this->db->or_like("u.rut", $_POST["search"]["value"]);
+            $this->db->or_like("u.correo", $_POST["search"]["value"]);
+            $this->db->group_end();
+        }
+        if (isset($_POST["order"])){
+            $this->db->order_by($this->order_columna_registrousuarios[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        
+        }else{
+            $this->db->order_by('id_usuario', 'ASC');
+        }
+    }
+
+    function get_all_data_registrousuarios(){
+        $this->db->select($this->select_columna_registrousuarios);
+        $this->db->from($this->tablaregistrousuarios);
+        return $this->db->count_all_results();
+    }
+
+    function get_filtered_data_registrousuarios(){
+        $this->make_query_registrousuarios();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    //Eliminar registro de usuario cambiando estado
+    public function eliminarRegistroUsuario($data,$estado){
+        $datauser = array(
+            'estado' => $estado,
+        );
+        $this->db->where('id_usuario', $data);
+		return $this->db->update('usuario',$datauser);
+    }
+
+    //Cambiar tipo de usuario
+    public function cambiarTipoUsuario($data){
+        $datauser = array(
+            'id_tipousuario' => $data['id_tipousuario'],
+        );
+        $this->db->where('id_usuario', $data['id_usuario']);
+		return $this->db->update('usuario',$datauser);
+    }
+
 }
 
 ?>

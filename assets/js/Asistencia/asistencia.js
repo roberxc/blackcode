@@ -56,7 +56,7 @@ function checkAll(){
 
 
 $(document).on('click', '#guardar-asistencia', function(e) {
-    var rut = $("#rut").val();
+    var idpersonal = $('#rut').val().split(',')[0];
 	var nombrecompleto = $("#nombrecompleto").val();
 	var fecha = $("#fecha").val();
     var horallegadam = $("#hora_llegadam").val();
@@ -77,7 +77,7 @@ $(document).on('click', '#guardar-asistencia', function(e) {
         type: "post",
         dataType: "json",
         data: {
-			rut: rut,
+			idpersonal: idpersonal,
 			nombrecompleto: nombrecompleto,
 			fecha: fecha,
 			horallegadam: horallegadam,
@@ -106,6 +106,13 @@ $(document).on('click', '#guardar-asistencia', function(e) {
     });
     
 });
+
+function setNombrePersonal(){
+    var nombrepersonal =$('#rut').val().split(',')[1];
+    var idpersonal = $('#rut').val().split(',')[0];
+    document.getElementById("nombrecompleto").value = nombrepersonal;
+
+}
 
 function generarAvisoError($mensaje) {
     Command: toastr["error"]($mensaje, 'Error')
@@ -171,30 +178,6 @@ $(document).on('click', '#detalle_asistencia', function(e) {
             }
         }
     });
-});
-
-$(document).on('click', '#detalle_asistencia', function(e) {
-    e.preventDefault();
-    var idpersonal = $(this).parents('tr').find(".name-file").val();
-    $.ajax({
-        url: base_url+"CAsistencia/obtenerAsistenciaCompleta",
-        type: "post",
-        dataType: "json",
-        data: {
-            id_personal: idpersonal,
-        },
-        success: function(data) {
-            if (data.response == "success") {
-                // Add response in Modal body
-                $('#asistencia-completa').html(data.planilla);
-                // Display Modal
-                 //$('#detalle-trabajo').modal('show');
-            } else {
-                
-            }
-        }
-    });
-
 });
 
 //Filtrar por horas extras
