@@ -64,7 +64,7 @@
    //Mostrar tabla principal
    $(document).ready(function(){
      $('#example1').DataTable({
-      dom: 'Bfrtip',
+      dom: 'Blfrtip',
         buttons: [
             {
                extend:     'excelHtml5',
@@ -91,6 +91,7 @@
                className:  'btn btn-outline-dark btn-lg'
             }
         ],
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "todos"]],
        "language": {
          "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
          },

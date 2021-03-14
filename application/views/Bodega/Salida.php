@@ -75,7 +75,7 @@
       <div class="modal-content">
         <div class="modal-header bg-blue">
         
-        <H3>Ingresar Entrada de Productos</H3>
+        <H3>Ingresar Salida de Productos</H3>
           <button type="button" class="close-white" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
@@ -160,6 +160,34 @@
       });
       $(document).ready(function(){
         $('#example1').DataTable({
+          dom: 'Blfrtip',
+        buttons: [
+            {
+               extend:     'excelHtml5',
+               text:       '<i class="fas fa-file-excel"></i>',
+               titleAttr:  'Exportar a Excel',
+               messageTop: 'Documento oficial de CDH INGENIERIA',
+               title:      'Salidas en Bodega de CDH INGENIERIA',
+               className:  'btn btn-success btn-lg'
+            },
+            {
+               extend:     'pdfHtml5',
+               text:       '<i class="fas fa-file-pdf"></i>',
+               titleAttr:  'Exportar a PDF',
+               messageTop: 'Documento oficial de CDH INGENIERIA',
+               title:      'Salidas en Bodega de CDH INGENIERIA',
+               className:  'btn btn-danger btn-lg'
+            },
+            {
+               extend:     'print',
+               text:       '<i class="fas fa-print"></i>',
+               titleAttr:  'Imprimir',
+               title:      'Salidas en Bodega de CDH INGENIERIA',
+               messageTop: 'Documento oficial de CDH INGENIERIA',
+               className:  'btn btn-outline-dark btn-lg'
+            }
+        ],
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "todos"]],
           "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
             },
@@ -186,6 +214,32 @@
 <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.jqueryui.min.js"></script>
 <script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- JavaScript -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+                
+<!-- CSS -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+<!-- Bootstrap theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
 
 
 
