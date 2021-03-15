@@ -137,7 +137,7 @@
    //Mostrar tabla principal
    $(document).ready(function(){
      $('#example1').DataTable({
-      dom: 'Bfrtip',
+      dom: 'Blfrtip',
         buttons: [
             {
                extend:     'pdfHtml5',
@@ -181,6 +181,7 @@
             },
             
         ],
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "todos"]],
        "language": {
          "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
          },

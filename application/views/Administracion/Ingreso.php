@@ -92,9 +92,9 @@
                   <table id="tabla_ingreso" name="tabla_ingreso" class="table table-bordered table-striped" style="width: 100%;">
                      <thead>
                         <tr>
-                           <th>Fecha</th>
-                           <th>Monto</th>
-                           <th></th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Fecha</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Monto</th>
+                           <th style="width: 3%;background-color: #006699; color: white;"></th>
                         </tr>
                      </thead>
                   </table>

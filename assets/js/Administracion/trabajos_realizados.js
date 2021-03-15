@@ -1,6 +1,6 @@
 $(document).on('click', '#detalle_trabajo', function(e) {
     e.preventDefault();
-    var codigoservicio = $(this).parents('tr').find(".name-file").val();
+    var codigoservicio = $("#codigoservicio").val();
     $.ajax({
         url: base_url+"Operacion/obtenerPlanillaRealizada",
         type: "post",
@@ -23,7 +23,7 @@ $(document).on('click', '#detalle_trabajo', function(e) {
 
 $(document).on('click', '#detalle_archivos', function(e) {
     e.preventDefault();
-    var codigoservicio = $(this).parents('tr').find(".name-file").val();
+    var codigoservicio = $("#codigoservicio").val();
     $.ajax({
         url: base_url+"Operacion/DescargarArchivos",
         type: "post",
@@ -132,16 +132,25 @@ $('#codigoservicio_filtro').keyup(function(){
 
 });
 
+function setCodigoServicio(table){
+    var codigoservicio = table.parentNode.parentNode.cells[0].textContent;
+    var fechatrabajo = table.parentNode.parentNode.cells[1].textContent;
+    document.getElementById("codigoservicio").value = codigoservicio;
+    document.getElementById("fechatrabajo").value = fechatrabajo;
+}
+
 
 $(document).on('click', '#detalle_asistencia', function(e) {
     e.preventDefault();
-    var codigoservicio = $(this).parents('tr').find(".name-file").val();
+    var codigoservicio = $("#codigoservicio").val();
+    var fechatrabajo = $("#fechatrabajo").val();
     $.ajax({
         url: base_url+"Operacion/obtenerAsistenciaPlanilla",
         type: "post",
         dataType: "json",
         data: {
             codigo_servicio: codigoservicio,
+            fecha_trabajo: fechatrabajo,
         },
         success: function(data) {
             if (data.response == "success") {

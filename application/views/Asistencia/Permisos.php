@@ -131,14 +131,14 @@
                   <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                      <thead>
                         <tr>
-                           <th>Rut</th>
-                           <th>Nombre</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Rut</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Nombre</th>
                            <!-- 0 ---> 
-                           <th>Permiso</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Permiso</th>
                            <!-- 1 --->
-                           <th>Fecha inicio</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Fecha inicio</th>
                            <!-- 2 --->
-                           <th>Fecha termino</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Fecha termino</th>
                         </tr>
                      </thead>
                   </table>

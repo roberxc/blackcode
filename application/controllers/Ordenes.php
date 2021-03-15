@@ -60,7 +60,7 @@ class Ordenes extends CI_Controller
 
 			if($value->estado == 1){
 
-				$sub_array[] = '<span class="badge badge-danger">Impagada</span>';
+				$sub_array[] = '<span class="badge badge-danger">Por pagar</span>';
 			}
 
 			if($value->estado == 2){
@@ -237,7 +237,7 @@ class Ordenes extends CI_Controller
 		$response = "<select class='form-control select2' style='width: 100%;' id='estado_orden' onchange='setEstadoOrden()'>";
 		$response .= "<option value='1' selected>Seleccione</option>";
 		$response .= "<option value='2'>Pagada</option>";
-		$response .= "<option value='1'>Impagada</option>";
+		$response .= "<option value='1'>Por pagar</option>";
 		$response .= "<option value='0'>Cheque a 30 dias</option>";
 		$response .= "</select>";
 		$data = array('response' => 'success', 'detalle' => $response);

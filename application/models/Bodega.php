@@ -60,6 +60,7 @@ class Bodega extends CI_Model {
 
     //INICIO DE SACAR UN MATERIAL ---- SALIDA
     function insertarSalidaProducto($post){
+          $bandera = false;
           $cantidadporsalir = $post['cantidadsalida'];
           $this->db->select('stock');
           $this->db->from('material');
@@ -73,7 +74,7 @@ class Bodega extends CI_Model {
           if($resultado < $cantidadporsalir){
                //echo '<script>alert("La cantidad de stock que se desea retirar no se encuentra en bodega");</script>';
                //alertify
-               return false;
+               $bandera = false;
           }
           else{
                $this->db->set('stock', 'stock - '. (int) $cantidadporsalir,FALSE);
@@ -83,6 +84,7 @@ class Bodega extends CI_Model {
           $datosdetallesalida['id_material'] = $post['material'];
           //$datosdetallesalida['FechaSalida'] = Date("Y-m-d");
           $this->db->insert('detallesalida', $datosdetallesalida);
+          $bandera = true;
           
             //TABLA SALIDA
           if($verificacion == TRUE){
@@ -90,9 +92,13 @@ class Bodega extends CI_Model {
                $datosSalida['id_proyecto'] = $post['centrocostos'];
                $datosSalida['cantidadsalida'] = $post['cantidadsalida'];
                $this->db->insert('salida', $datosSalida);
+               $bandera = true;
                }
+          else{
+               $bandera = false;
           }
-          
+          }
+          return $bandera;
      }
 
 

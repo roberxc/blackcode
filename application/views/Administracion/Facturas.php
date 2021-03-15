@@ -43,13 +43,13 @@
                   <table id="tabla_facturas" name="tabla_facturas" class="table table-bordered table-striped" style="width: 100%;">
                      <thead>
                         <tr>
-                           <th>Numero</th>
-                           <th>Rut proveedor</th>
-                           <th>Nombre proveedor</th>
-                           <th>Fecha</th>
-                           <th>Numero cotizacion</th>
-                           <th>Numero orden</th>
-                           <th>Accion</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Numero</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Rut proveedor</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Nombre proveedor</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Fecha</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Numero cotizacion</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Numero orden</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Accion</th>
                            <!-- 5 --->
                         </tr>
                      </thead>

@@ -44,15 +44,15 @@
                   <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                      <thead>
                         <tr>
-                           <th></th>
+                           <th style="width: 3%;background-color: #006699; color: white;"></th>
 
-                           <th>Rut</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Rut</th>
                            <!-- 0 ---> 
-                           <th>Nombre</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Nombre</th>
                            <!-- 1 --->
-                           <th>Telefono</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Telefono</th>
 
-                           <th>Accion</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Accion</th>
                            <!-- 5 --->
                         </tr>
                      </thead>

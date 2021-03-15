@@ -51,7 +51,6 @@
             <i class="fas fa-plus">
             </i> Nuevo
             </a>
-
             <div class="card-header">
                <section class="content">
                   <div class="box box-info ">
@@ -60,15 +59,15 @@
                            <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                               <thead>
                                  <tr>
-                                    <th>Nro</th>
-                                    <th>Fecha</th>
+                                    <th style="width: 3%;background-color: #006699; color: white;">Nro</th>
+                                    <th style="width: 3%;background-color: #006699; color: white;">Fecha</th>
                                     <!-- 0 ---> 
-                                    <th>Costo</th>
+                                    <th style="width: 3%;background-color: #006699; color: white;">Costo</th>
                                     <!-- 1 --->
-                                    <th>Tipo</th>
-                                    <th>Detalle</th>
+                                    <th style="width: 3%;background-color: #006699; color: white;">Tipo</th>
+                                    <th style="width: 3%;background-color: #006699; color: white;">Detalle</th>
                                     <!-- 4 --->
-                                    <th>Accion</th>
+                                    <th style="width: 3%;background-color: #006699; color: white;">Accion</th>
                                     <!-- 5 --->
                                  </tr>
                               </thead>
@@ -80,58 +79,86 @@
             </div>
          </div>
          <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
+         <div class="content-header">
+               <div class="container-fluid">
+                  <div class="row mb-2">
+                     <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">Reportes</h1>
+                     </div>
+                     <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                           <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                           <li class="breadcrumb-item active">Administracion oficina</li>
+                           <li class="breadcrumb-item active">Costos fijos</li>
+                           <li class="breadcrumb-item active">Reportes</li>
+                        </ol>
+                     </div>
+                     <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+               </div>
+               <!-- /.container-fluid -->
+               <!-- /.container-fluid -->
+            </div>
          <div class="card-header">
-                     
-                     <!-- SELECT2 EXAMPLE -->
-                     <div class="card card-default">
-                        <div class="card-header">
-                           <div class="card-tools">
-                              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                           </div>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                           <div class="row">
-                              
-                           </div>
-                           <div class="row">
-                              <div class="col-md-3">
-                                 <!-- /.form-group -->
-                                 <div class="form-group">
-                                    <label>Fecha</label>
-                                    <input type="text" id="date_range" name="date_range" class="form-control">
-                                 </div>
-                                 <!-- /.form-group -->
-                              </div>
-                              <div class="col-md-2">
-                                 <!-- /.form-group -->
-                                 <div class="form-group">
-                                    <label class="invisible">Graficar</label>
-                                    <button type="button" id="boton-generargrafico" class="btn btn-block btn-primary">Listar</button>
-                                 </div>
-                              </div>
-                              <!-- /.col -->
-                           </div>
-                           <!-- /.row -->
+               <!-- SELECT2 EXAMPLE -->
+               <div class="card card-default">
+                  <div class="card card-primary">
+                     <div class="card-header">
+                     <h3 class="card-title">Filtrado</h3>
+                        <div class="card-tools">
+                           <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                           </button>
+                           <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
                         </div>
                      </div>
-                  </div>
-                  <div class="container">
-                     <div class="card">
-                        <div class="card-header border-0">
-                           <div class="d-flex justify-content-between">
-                              <h3 class="card-title">Costos fijos</h3>
-                           </div>
+                  <!-- /.card-header -->
+                     <div class="card-body">
+                        <div class="row">
                         </div>
-                        <div class="card-body">
-                           <div class="position-relative mb-4" id="gh">
-                              <canvas id="myChart" height="200"></canvas>
+                        <div class="row">
+                           <div class="col-md-3">
+                              <!-- /.form-group -->
+                              <div class="form-group">
+                                 <label>Fecha</label>
+                                 <input type="text" id="date_range" name="date_range" class="form-control">
+                              </div>
+                              <!-- /.form-group -->
                            </div>
+                           <div class="col-md-2">
+                              <!-- /.form-group -->
+                              <div class="form-group">
+                                 <label class="invisible">Graficar</label>
+                                 <button type="button" id="boton-generargrafico" class="btn btn-block btn-primary">Graficar</button>
+                              </div>
+                           </div>
+                           <!-- /.col -->
                         </div>
+                        <!-- /.row -->
                      </div>
                   </div>
-         
-         
+               </div>
+               <div class="card card-success">
+                  <div class="card-header">
+                     <h3 class="card-title">Total costos fijos</h3>
+                     <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                     </div>
+                  </div>
+                  <div class="card-body" id="gh">
+                     <div class="col-md-2">
+                        <div class="form-group">
+                           <button type="button" class="btn btn-block btn-warning" onclick="graficoCircular()">Circular</button>
+                        </div>
+                     </div>
+                     <div class="chart">
+                        <canvas id="myChart" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
+                     </div>
+                  </div>
+               </div>
+            </div>
          </div>
       </div>
    </div>
@@ -151,12 +178,11 @@
             <div class="row">
                <div class="col-md-4">
                   <a class="btn btn-app" data-toggle="modal" data-target="#modal-nuevo-tipocosto">
-                     <i class="fas fa-plus">
-                     </i> Nuevo tipo
+                  <i class="fas fa-plus">
+                  </i> Nuevo tipo
                   </a>
                </div>
             </div>
-
             <div class="modal-body">
                <div class="row">
                   <div class="col-md-4">
@@ -179,13 +205,12 @@
                      <div class="form-group">
                         <label for="recipient-bodega" class="col-form-label">Tipo </label>
                         <select name="tipocosto" id="tipocosto" style="width: 100%; height: 60%">
-
-                        <option selected>Seleccione</option>
-                        <?php
-                           foreach($lista_tipocostos as $i){
-                             echo '<option value="'. $i->id_tipo .'">'. $i->nombre .'</option>';
-                           }
-                           ?>
+                           <option selected>Seleccione</option>
+                           <?php
+                              foreach($lista_tipocostos as $i){
+                                echo '<option value="'. $i->id_tipo .'">'. $i->nombre .'</option>';
+                              }
+                              ?>
                         </select>
                      </div>
                   </div>
@@ -207,7 +232,6 @@
          </div>
       </div>
    </div>
-</div>
 </div>
 <div id="modal-nuevo-tipocosto" class="modal fade bd-example-modal-lg" role="dialog">
    <div class="modal-dialog modal-lg">
@@ -242,22 +266,22 @@
 </div>
 <div id="modal-confirmacion" class="modal fade bd-example-modal-sm" role="dialog">
    <div class="modal-dialog modal-sm">
-         <!-- Contenido del modal -->
-         <div class="modal-content">
-            <div class="modal-header bg-red">
-               <H3>Confirmación</H3>
-               <button type="button" class="close-white" data-dismiss="modal">&times;</button>
-            </div>
+      <!-- Contenido del modal -->
+      <div class="modal-content">
+         <div class="modal-header bg-red">
+            <H3>Confirmación</H3>
+            <button type="button" class="close-white" data-dismiss="modal">&times;</button>
+         </div>
+         <div class="modal-body">
             <div class="modal-body">
-               <div class="modal-body">
-                    <p>Estás seguro que deseas eliminar este registro?</p>
-                </div>
-            </div>
-            <div class="modal-footer bg-white">
-               <input type="submit" class="btn btn-primary" value="Si" onclick="deleteCostoFijo()">
-               <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+               <p>Estás seguro que deseas eliminar este registro?</p>
             </div>
          </div>
+         <div class="modal-footer bg-white">
+            <input type="submit" class="btn btn-primary" value="Si" onclick="deleteCostoFijo()">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+         </div>
+      </div>
    </div>
 </div>
 </div>
@@ -365,6 +389,5 @@
 <!-- Bootstrap Switch -->
 <script src="<?php echo base_url();?>assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
-
 <script>var base_url = '<?php echo base_url();?>';</script>
 <script src="<?php echo base_url();?>assets/js/Administracion/costosfijos.js"></script>

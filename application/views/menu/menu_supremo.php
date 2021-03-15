@@ -321,6 +321,17 @@ if (isset($set_data['nombre_completo'])) {
 
                      <ul class="nav nav-treeview">
                          <li class="nav-item">
+                             <a href="<?php echo base_url()?>Administracion/listaRegistros"
+                                 class="nav-link <?php if(isset($activo) && ($activo == 8)){echo "active"; }?>">
+                                 <i class="far fa-circle nav-icon"></i>
+                                 <p>Lista de registros</p>
+                             </a>
+                         </li>
+
+                     </ul>
+
+                     <ul class="nav nav-treeview">
+                         <li class="nav-item">
                              <a href="<?php echo base_url()?>Perfil"
                                  class="nav-link <?php if(isset($activo) && ($activo == 7)){echo "active"; }?>">
                                  <i class="far fa-circle nav-icon"></i>

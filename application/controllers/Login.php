@@ -25,7 +25,6 @@ class Login extends CI_Controller {
 			$errors = array(
 				'email' => form_error('email'),
 				'password' => form_error('password')
-
 			);
 			echo json_encode($errors);
 			
@@ -38,18 +37,29 @@ class Login extends CI_Controller {
 				exit;
 
 			}
-			$data = array(
-				'ID_Usuario' => $res->id_usuario,
-				'id_tipousuario' => $res->id_tipousuario,
-				'correo' => $res->correo,
-				'nombre_completo' => $res->nombre_completo,
-				'is_logged' => TRUE,
 
-			);
-			$this->session->set_userdata($data);
+			if($res->estado == 1){
+				echo json_encode(array('msg' => 'Usuario inactivo, comuniquese con administración'));
+				$this->output->set_status_header(401);
+				exit;
 
-			$this->session->set_flashdata('msg', 'Bienvenido al sistema'.$data['nombre_completo']);
-			echo json_encode(array("url" => base_url('Inicio')));
+			}else{
+				$data = array(
+					'ID_Usuario' => $res->id_usuario,
+					'estado' =>$res->estado,
+					'id_tipousuario' => $res->id_tipousuario,
+					'correo' => $res->correo,
+					'nombre_completo' => $res->nombre_completo,
+					'is_logged' => TRUE,
+	
+				);
+				$this->session->set_userdata($data);
+	
+				$this->session->set_flashdata('msg', 'Bienvenido al sistema'.$data['nombre_completo']);
+				echo json_encode(array("url" => base_url('Inicio')));
+
+
+			}
 
 		}
 
