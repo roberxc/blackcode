@@ -354,6 +354,34 @@
       //Mostrar tabla principal
       $(document).ready(function(){
         $('#example1').DataTable({
+          dom: 'Blfrtip',
+        buttons: [
+            {
+               extend:     'excelHtml5',
+               text:       '<i class="fas fa-file-excel"></i>',
+               titleAttr:  'Exportar a Excel',
+               messageTop: 'Documento oficial de CDH INGENIERIA',
+               title:      'Entradas en Bodega de CDH INGENIERIA',
+               className:  'btn btn-success btn-lg'
+            },
+            {
+               extend:     'pdfHtml5',
+               text:       '<i class="fas fa-file-pdf"></i>',
+               titleAttr:  'Exportar a PDF',
+               messageTop: 'Documento oficial de CDH INGENIERIA',
+               title:      'Entradas en Bodega de CDH INGENIERIA',
+               className:  'btn btn-danger btn-lg'
+            },
+            {
+               extend:     'print',
+               text:       '<i class="fas fa-print"></i>',
+               titleAttr:  'Imprimir',
+               title:      'Entradas en Bodega de CDH INGENIERIA',
+               messageTop: 'Documento oficial de CDH INGENIERIA',
+               className:  'btn btn-outline-dark btn-lg'
+            }
+        ],
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "todos"]],
           "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
             },
