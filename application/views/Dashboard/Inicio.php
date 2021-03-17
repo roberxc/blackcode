@@ -37,6 +37,18 @@
                </div>
                <!-- /.info-box -->
             </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+               <div class="info-box mb-3">
+                  <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-poll"></i></span>
+                  <div class="info-box-content">
+                     <span class="info-box-text">Total caja chica</span>
+                     <span class="info-box-number"><?php if(isset($totalcajachica)){echo"$".$totalcajachica[0]->balance;}else{echo'0';}?></span>
+                  </div>
+                  <!-- /.info-box-content -->
+               </div>
+               <!-- /.info-box -->
+            </div>
          </div>
          <!-- Small boxes (Stat box) -->
          <div class="row">
@@ -92,7 +104,7 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="ion ion-clipboard mr-1"></i>
-                  Lista de tareas
+                  Lista de tareas 
                 </h3>
 
                 <div class="card-tools">
@@ -149,6 +161,9 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script type="text/javascript">
    var lista_nrodoc = <?php echo json_encode($lista_nrodocactualizables); ?>;
+</script>
+<script type="text/javascript">
+   var total_cajachica = <?php echo $totalcajachica[0]->Balance; ?>;
 </script>
 <script>var base_url = '<?php echo base_url();?>';</script>
 <script src="<?php echo base_url();?>assets/js/Administracion/inicio.js"></script>

@@ -6,6 +6,8 @@ class CRCombustible extends CI_Controller {
 	public function __construct(){
 		parent::__construct();// you have missed this line.
 		$this->load->model('Combustible');
+        $this->load->helper(array('notificacion','url'));
+		$this->load->model('DocumentacionModel');
 	 }
 
 	public function index(){
@@ -14,7 +16,7 @@ class CRCombustible extends CI_Controller {
 			$data ['activomenu'] = 20;
             $data ['activo'] = 95;
             $data ['total_BoletasC'] = $this->Combustible->Obtener_BoletasC();
-			$this->load->view('layout/nav');
+			setNotificaciones($this->DocumentacionModel);
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('Administracion/VRCombustible',$data);
 			$this->load->view('layout/footer');

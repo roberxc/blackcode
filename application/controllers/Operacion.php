@@ -8,27 +8,7 @@ class Operacion extends CI_Controller {
 		$this->load->library('Mobile_Detect');
 		$this->load->model('OperacionesModel');
 		$this->load->model('DocumentacionModel');
-		
-	 }
-
-	public function setNotificaciones(){
-		$data ['expiracion'] = 0;
-		$lista_fecha = $this->DocumentacionModel->ObtenerFechaDocActualizable();
-		$fechaactual = date("d-m-Y");
-		$data ['totaldocumentos'] = 0;
-		foreach($lista_fecha as $row){
-			//Paso de string a fecha
-			$d1 = new DateTime($row->fechalimite);
-			$d2 = new DateTime($fechaactual);
-			$interval = $d1->diff($d2);
-			$diasTotales    = $interval->d; 
-			if($diasTotales == 3){
-				$data ['lista_nrodocactualizables'] = $this->DocumentacionModel->ObtenerNroDocActualizable($row->fechalimite);
-				$data ['expiracion'] = 1;
-				$data ['totaldocumentos'] = $data ['totaldocumentos'] + 1;
-			}
-		}
-		$this->load->view('layout/nav',$data);
+		$this->load->helper(array('notificacion','url'));
 	}
 
 	public function index()
@@ -84,7 +64,7 @@ class Operacion extends CI_Controller {
 		if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
 			$data ['activo'] = 30;
 			//Lista de trabajos realizados
-			$this->setNotificaciones();
+			setNotificaciones($this->DocumentacionModel);
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('TrabajoDiario/TrabajoDiario',$data);
 			$this->load->view('layout/footer');
@@ -209,13 +189,15 @@ class Operacion extends CI_Controller {
 		$response .= "<div class='form-group'>";
 		$response .= "<label for='exampleInputEmail1'>Detalle del Trabajo realizado</label>";
 		foreach($detalle_trabajo as $row){
-			$response .= "<textarea class='form-control' rows='6' disabled>".$row->Detalle."</textarea>";
+			$response .= "<textarea class='form-control' rows='6' disabled>".$row->detalle."</textarea>";
 		}
 		$response .= "</div>";
 		$response .= "<div class='form-group'>";
 		$response .= "<label for='exampleInputEmail1'>Suma asignada</label>";
+		$valorasignado = 0;
 		foreach($detalle_trabajo as $row){
-			$response .= "<input type='text' class='form-control' value=".$row->ValorAsignado." disabled>";
+			$valorasignado = $row->valorasignado;
+			$response .= "<input type='text' class='form-control' value=".$row->valorasignado." disabled>";
 		}
 		$response .= "</div>";
 		$response .= "</div>";
@@ -238,7 +220,7 @@ class Operacion extends CI_Controller {
 		$response .= "<tbody>";
 		$response .= "<tr>";
 		foreach($viaticos_registrados as $row){
-			$response .= "<td>".$row->Valor."</td>";
+			$response .= "<td>".$row->valor."</td>";
 		}
 		$response .= "</tr>";
 		$response .= "</tbody>";
@@ -329,7 +311,7 @@ class Operacion extends CI_Controller {
 		$response .= "<thead>";
 		$response .= "<tr>";
 		$response .= "<th>Tipo</th>";
-		$response .= "<th>Valor Total</th>";
+		$response .= "<th>valor Total</th>";
 		$response .= "</tr>";
 		$response .= "</thead>";
 		$response .= "<tbody>";
@@ -352,7 +334,7 @@ class Operacion extends CI_Controller {
 		$response .= "<thead>";
 		$response .= "<tr>";
 		$response .= "<th>Nombre</th>";
-		$response .= "<th>Valor</th>";
+		$response .= "<th>valor</th>";
 		$response .= "</tr>";
 		$response .= "</thead>";
 		$response .= "<tbody>";
@@ -376,8 +358,10 @@ class Operacion extends CI_Controller {
 		$response .= "<div class='form-group'>";
 		$response .= "<label>Gasto total</label>";
 		$response .= "<div class='form-group'>";
+		$gastototal = 0;
 		foreach($gasto_total as $row){ 
-			$response .= "<input type='text' class='form-control' value='$".$row->Valor."' disabled>";
+			$gastototal = $row->valor;
+			$response .= "<input type='text' class='form-control' value='$".$row->valor."' disabled>";
 		}
 		$response .= "</div>";
 		$response .= "</div>";
@@ -386,7 +370,7 @@ class Operacion extends CI_Controller {
 		$response .= "<div class='form-group'>";
 		$response .= "<label>Vuelto</label>";
 		$response .= "<div class='form-group'>";
-		$response .= "<input type='text' class='form-control' disabled>";
+		$response .= "<input type='text' class='form-control' value='$".intval($valorasignado-$gastototal)."' disabled>";
 		$response .= "</div>";
 		$response .= "</div>";
 		$response .= "</div>";
@@ -422,46 +406,54 @@ class Operacion extends CI_Controller {
 		
 		$response = "<div class='table-responsive'>";
 		$response .= "<table class='table table-bordered'>";
-		
-		$response .= "<tr>";
-		$response .= "<td>Fecha Asistencia</td>";
-		$response .= "<th>".$asistencia_planilla[0]['Fecha']."</th>";
-		$response .= "</tr>";
+		$contador = 1;
+		foreach($asistencia_planilla as $row){
+			$response .= "<tr>";
+			$response .= "<th>".$contador.")</th>";
+			$response .= "<th class='success'><hr></th>";
+			$response .= "</tr>";
 
-		$response .= "<tr>";
-		$response .= "<td>Nombre Completo</td>";
-		$response .= "<th>".$asistencia_planilla[0]['NombreCompleto']."</th>";
-		$response .= "</tr>";
+			$response .= "<tr>";
+			$response .= "<td>Fecha Asistencia</td>";
+			$response .= "<th>".$row->Fecha."</th>";
+			$response .= "</tr>";
 
-		$response .= "<tr>";
-		$response .= "<td>Hora llegada</td>";
-		$response .= "<th>".$asistencia_planilla[0]['LlegadaM']."</th>";
-		$response .= "</tr>";
+			$response .= "<tr>";
+			$response .= "<td>Nombre Completo</td>";
+			$response .= "<th>".$row->NombreCompleto."</th>";
+			$response .= "</tr>";
 
-		$response .= "<tr>";
-		$response .= "<td>Hora salida</td>";
-		$response .= "<th>".$asistencia_planilla[0]['SalidaT']."</th>";
-		$response .= "</tr>";
+			$response .= "<tr>";
+			$response .= "<td>Hora llegada</td>";
+			$response .= "<th>".$row->LlegadaM."</th>";
+			$response .= "</tr>";
 
-		$response .= "<tr>";
-		$response .= "<td>Horas trabajadas</td>";
-		$response .= "<th>".$asistencia_planilla[0]['HorasTrabajadas']."</th>";
-		$response .= "</tr>";
+			$response .= "<tr>";
+			$response .= "<td>Hora salida</td>";
+			$response .= "<th>".$row->SalidaT."</th>";
+			$response .= "</tr>";
 
-		$response .= "<tr>";
-		$response .= "<td>Horas extras</td>";
-		$response .= "<th>".$asistencia_planilla[0]['HorasExtras']."</th>";
-		$response .= "</tr>";
+			$response .= "<tr>";
+			$response .= "<td>Horas trabajadas</td>";
+			$response .= "<th>".$row->HorasTrabajadas."</th>";
+			$response .= "</tr>";
 
-		$response .= "<tr>";
-		$response .= "<td>Observación</td>";
-		$response .= "<th>".$asistencia_planilla[0]['detalle']."</th>";
-		$response .= "</tr>";
+			$response .= "<tr>";
+			$response .= "<td>Horas extras</td>";
+			$response .= "<th>".$row->HorasExtras."</th>";
+			$response .= "</tr>";
 
-		$response .= "<tr>";
-		$response .= "<td>Total horas extras</td>";
-		$response .= "<th><button class='btn btn-info btn-sm' id='boton-horasextras' data-toggle='modal' data-target='#modal-horasextras'><i class='fas fa-exclamation-circle'></i></button></th>";
-		$response .= "</tr>";
+			$response .= "<tr>";
+			$response .= "<td>Observación</td>";
+			$response .= "<th>".$row->detalle."</th>";
+			$response .= "</tr>";
+
+			$response .= "<tr>";
+			$response .= "<td>Total horas extras</td>";
+			$response .= "<th><button class='btn btn-info btn-sm' id='boton-horasextras' data-toggle='modal' data-target='#modal-horasextras'><i class='fas fa-exclamation-circle'></i></button></th>";
+			$response .= "</tr>";
+			$contador = $contador + 1;
+		}
 
 		$response .= "</table>";
 		$response .= "</div>";
@@ -580,7 +572,7 @@ class Operacion extends CI_Controller {
             $sub_array[] = $value->fechaasignacion;
 			$sub_array[] = $value->nombreproyecto;
 			$sub_array[] = $value->personalcargo;
-			$sub_array[] = '<button class="btn btn-primary btn-sm" id="detalle_trabajo" data-toggle="modal" data-target="#modal-detalle" onclick="setCodigoServicio(this)"><i class="far fa-eye"></i></button><button class="btn btn-warning btn-sm" id="detalle_archivos" data-toggle="modal" data-target="#modal-archivos" onclick="setCodigoServicio(this)"><i class="fas fa-upload"></i></button><button class="btn btn-success btn-sm" id="detalle_asistencia" data-toggle="modal"data-target="#modal-asistencia" onclick="setCodigoServicio(this)"><i class="fas fa-book-open"></i></button>';			
+			$sub_array[] = '<button class="btn btn-primary btn-sm" id="detalle_trabajo" data-toggle="modal" data-target="#modal-detalle" onclick="setCodigoServicio(this)"><i class="far fa-eye"></i></button>&nbsp<button class="btn btn-warning btn-sm" id="detalle_archivos" data-toggle="modal" data-target="#modal-archivos" onclick="setCodigoServicio(this)"><i class="fas fa-upload"></i></button>&nbsp<button class="btn btn-success btn-sm" id="detalle_asistencia" data-toggle="modal"data-target="#modal-asistencia" onclick="setCodigoServicio(this)"><i class="fas fa-book-open"></i></button>';			
 			$data[] = $sub_array;
         }
 

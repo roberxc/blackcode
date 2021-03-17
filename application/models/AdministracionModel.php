@@ -303,14 +303,6 @@ class AdministracionModel extends CI_Model
 		return $this->db->update('egresocaja',$datacajachicaegreso);
     }
 
-    public function deleteCajaChicaEgreso($data){
-        $datacajachicaegreso = array(
-            'estadoreg' => 1,
-        );
-        $this->db->where('id_egresocaja', $data['id_reg']);
-		return $this->db->update('egresocaja',$datacajachicaegreso);
-    }
-
     //Devuelve el total de usuarios registrados en el ssistema
     public function totalUsuariosRegistrados(){
 		$query = $this->db
@@ -434,6 +426,50 @@ class AdministracionModel extends CI_Model
 		return $this->db->update('usuario',$datauser);
     }
 
+    public function deleteIngresoCajaChica($data){
+        $id_cajachica = $this->getIDCajaChica("ingresocaja",$data['id_ingreso']);
+        $res = 0;
+        $datacajachica = array(
+            'estado' => 1,
+        );
+
+        $this->db->where('id_cajachica', $id_cajachica[0]['id_cajachica']);
+        $this->db->update('cajachica',$datacajachica);
+
+        $dataingresocaja = array(
+            'estado' => 1,
+        );
+
+        $this->db->where('id_ingresocaja', $data['id_ingreso']);
+		return $this->db->update('ingresocaja',$dataingresocaja);
+    }
+
+    public function deleteCajaChicaEgreso($data){
+        $id_cajachica = $this->getIDCajaChica("egresocaja",$data['id_reg']);
+        $datacajachica = array(
+            'estado' => 1,
+        );
+
+        $this->db->where('id_cajachica', $id_cajachica[0]['id_cajachica']);
+        $this->db->update('cajachica',$datacajachica);
+
+        $dataegresocaja = array(
+            'estadoreg' => 1,
+        );
+
+        $this->db->where('id_egresocaja', $data['id_reg']);
+        return $this->db->update('egresocaja',$dataegresocaja);
+    }
+
+    //Obtener el id de la caja chica dependiendo de si es ingreso  o egreso
+    public function getIDCajaChica($type,$id){
+		$query = $this->db
+				->select("id_cajachica") # También puedes poner * si quieres seleccionar todo
+				->from($type)
+                ->where("id_".$type, $id)
+				->get();
+    	return $query->result_array();
+	}
 }
 
 ?>

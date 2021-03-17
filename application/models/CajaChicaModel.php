@@ -87,7 +87,7 @@ class CajaChicaModel extends CI_Model {
         "i.montoingreso",
     );
 
-    var $where_cajaingresos = "c.id_cajachica = i.id_cajachica";
+    var $where_cajaingresos = "c.id_cajachica = i.id_cajachica AND i.estado = 0";
 
     function make_query_cajaingresos(){
         $this->db->select($this->select_columna_cajaingresos);
@@ -201,9 +201,11 @@ class CajaChicaModel extends CI_Model {
     }
 
 	public function obtenerTotalCajaChica(){
-		
-		$this->db->select_sum('Balance');
-		$query = $this->db->get('cajachica');
+		$query = $this->db
+				->select_sum("balance") # También puedes poner * si quieres seleccionar todo
+				->from("cajachica")
+				->where("estado",0)
+				->get();
 		return $query->result();
 		
 	}

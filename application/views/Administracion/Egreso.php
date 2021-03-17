@@ -109,12 +109,12 @@
                   <table id="tabla_egreso" name="tabla_egreso" class="table table-bordered table-striped" style="width: 100%;">
                      <thead>
                         <tr>
-                        <th>Fecha</th>
-                           <th>Monto $</th>
-                           <th>Destinatario</th>
-                           <th>Detalle</th>
-                           <th>Estado</th>
-                           <th></th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Fecha</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Monto $</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Destinatario</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Detalle</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Estado</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Acción</th>
                         </tr>
                      </thead>
                   </table>

@@ -2,7 +2,6 @@ generarAlerta();
 function generarAlerta(){
     var estado = $('#estado-alerta').val();
     if(estado == 1){
-        
         for (var i = 0; i < lista_nrodoc.length; i++){
             var obj = lista_nrodoc[i];
             for (var key in obj){
@@ -10,6 +9,10 @@ function generarAlerta(){
                 generarAvisoError("El documento numero: " + value +" está a punto de expirar. Favor comprobar su validez inmediatamente");
             }
         }
+    }
+
+    if(total_cajachica <=5000){
+        generarAvisoError("El total de la caja chica es de: " + "$"+total_cajachica);
     }
 
     

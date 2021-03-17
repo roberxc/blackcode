@@ -6,6 +6,7 @@ class Documentacion extends CI_Controller {
 	public function __construct(){
 		parent::__construct();// you have missed this line.
 		$this->load->model('DocumentacionModel');
+		$this->load->helper(array('notificacion','url'));
 	 }
 
 	public function index()
@@ -13,32 +14,12 @@ class Documentacion extends CI_Controller {
 
 	}
 
-	public function setNotificaciones(){
-		$data ['expiracion'] = 0;
-		$lista_fecha = $this->DocumentacionModel->ObtenerFechaDocActualizable();
-		$fechaactual = date("d-m-Y");
-		$data ['totaldocumentos'] = 0;
-		foreach($lista_fecha as $row){
-			//Paso de string a fecha
-			$d1 = new DateTime($row->fechalimite);
-			$d2 = new DateTime($fechaactual);
-			$interval = $d1->diff($d2);
-			$diasTotales    = $interval->d; 
-			if($diasTotales == 3){
-				$data ['lista_nrodocactualizables'] = $this->DocumentacionModel->ObtenerNroDocActualizable($row->fechalimite);
-				$data ['expiracion'] = 1;
-				$data ['totaldocumentos'] = $data ['totaldocumentos'] + 1;
-			}
-		}
-		$this->load->view('layout/nav',$data);
-	}
-
 	public function Permamente()
 	{
 		$data ['documentos_permamentes'] = $this->DocumentacionModel->ObtenerDocumentosPermamentes();
 		$data ['activomenu'] = 11;
 		$data ['activo'] = 8;
-		$this->setNotificaciones();
+		setNotificaciones($this->DocumentacionModel);
      	$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/documentacionPermamente',$data);
 		$this->load->view('layout/footer');
@@ -49,7 +30,7 @@ class Documentacion extends CI_Controller {
 		$data ['documentos_actualizables'] = $this->DocumentacionModel->ObtenerDocumentosActualizables();
 		$data ['activomenu'] = 11;
 		$data ['activo'] = 12;
-		$this->setNotificaciones();
+		setNotificaciones($this->DocumentacionModel);
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/documentacionActualizable',$data);
 		$this->load->view('layout/footer');

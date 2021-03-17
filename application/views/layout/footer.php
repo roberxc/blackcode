@@ -37,6 +37,7 @@
 <script src="<?php echo base_url();?>assets/dist/js/demo.js"></script>
 <!-- xd -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-
+  <!-- pace-progress -->
+  <script src="<?php echo base_url();?>assets/plugins/pace-progress/pace.min.js"></script>
 </body>
 </html>

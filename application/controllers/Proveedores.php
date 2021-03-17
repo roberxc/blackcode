@@ -89,7 +89,7 @@ class Proveedores extends CI_Controller
             $sub_array[] = $value->rut;
             $sub_array[] = $value->nombre;
             $sub_array[] = $value->telefono;
-            $sub_array[] = '<a href="#" class="fas fa-eye" id="detalle_asistencia" data-toggle="modal"data-target="#modal-detalle-proveedor" onclick="setTablaDetalle(this)">';
+            $sub_array[] = '<button class="btn btn-primary btn-sm" id="detalle_asistencia" data-toggle="modal"data-target="#modal-detalle-proveedor" onclick="setTablaDetalle(this)"><i class="far fa-eye"></i></button>&nbsp<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-estado-orden" onclick="setTablaEstado(this)"><i class="fas fa-trash"></i></button>';
 
             $data[] = $sub_array;
         }

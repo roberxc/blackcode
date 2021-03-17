@@ -44,10 +44,8 @@
                   <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                      <thead>
                         <tr>
-                           <th style="width: 3%;background-color: #006699; color: white;"></th>
-
+                           <th style="width: 3%;background-color: #006699; color: white;">#</th>
                            <th style="width: 3%;background-color: #006699; color: white;">Rut</th>
-                           <!-- 0 ---> 
                            <th style="width: 3%;background-color: #006699; color: white;">Nombre</th>
                            <!-- 1 --->
                            <th style="width: 3%;background-color: #006699; color: white;">Telefono</th>

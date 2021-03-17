@@ -92,9 +92,10 @@
                   <table id="tabla_ingreso" name="tabla_ingreso" class="table table-bordered table-striped" style="width: 100%;">
                      <thead>
                         <tr>
+                           <th style="width: 3%;background-color: #006699; color: white;">#</th>
                            <th style="width: 3%;background-color: #006699; color: white;">Fecha</th>
                            <th style="width: 3%;background-color: #006699; color: white;">Monto</th>
-                           <th style="width: 3%;background-color: #006699; color: white;"></th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Acción</th>
                         </tr>
                      </thead>
                   </table>
@@ -146,6 +147,26 @@
       </div>
       <!-- /.modal-dialog -->
    </div>
+   <div id="modal-confirmacion" class="modal fade bd-example-modal-sm" role="dialog">
+   <div class="modal-dialog modal-sm">
+      <!-- Contenido del modal -->
+      <div class="modal-content">
+         <div class="modal-header bg-red">
+            <H3>Confirmación</H3>
+            <button type="button" class="close-white" data-dismiss="modal">&times;</button>
+         </div>
+         <div class="modal-body">
+            <div class="modal-body">
+               <p>Estás seguro que deseas eliminar este registro?</p>
+            </div>
+         </div>
+         <div class="modal-footer bg-white">
+            <input type="submit" class="btn btn-primary" value="Si" onclick="deleteIngreso()">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+         </div>
+      </div>
+   </div>
+</div>
    <script>
    //Mostrar tabla principal
    $(document).ready(function(){
