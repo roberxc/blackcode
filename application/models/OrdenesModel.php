@@ -228,20 +228,20 @@ class OrdenesModel extends CI_Model {
     }
 
     var $tablaordenes = array(
-        "proveedores",
-        "ordenes",
-        "cotizaciones",
-        "ordenes_cotizaciones",
+        "proveedores p",
+        "ordenes o",
+        "cotizaciones c",
+        "ordenes_cotizaciones oc",
     );
     var $select_columna_ordenes = array(
-		"nroorden",
-		"iva",
-        "total",
-        "ordenes_cotizaciones.fecha",
-        "estado",
-        "proveedores.nombre",
-        "proveedores.rut",
-        "cotizaciones.id_cotizacion",
+		"o.nroorden",
+		"o.iva",
+        "o.total",
+        "oc.fecha",
+        "o.estado",
+        "p.nombre",
+        "p.rut",
+        "c.id_cotizacion",
     );
 
     var $order_columna_ordenes = array(
@@ -249,7 +249,7 @@ class OrdenesModel extends CI_Model {
 		"proveedores.nombre",
     );
 
-    var $where_orden = "cotizaciones.id_proveedor = proveedores.id_proveedor AND ordenes_cotizaciones.id_orden = ordenes.id_orden AND ordenes_cotizaciones.id_cotizacion = cotizaciones.id_cotizacion";
+    var $where_orden = "c.id_proveedor = p.id_proveedor AND oc.id_orden = o.id_orden AND oc.id_cotizacion = c.id_cotizacion";
 
     function make_query_ordenes(){
         $this->db->select($this->select_columna_ordenes);

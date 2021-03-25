@@ -65,6 +65,7 @@ class Operacion extends CI_Controller {
 			$data ['activo'] = 30;
 			//Lista de trabajos realizados
 			setNotificaciones($this->DocumentacionModel);
+			$data ['lista_personal'] = $this->OperacionesModel->ObtenerPersonal();
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('TrabajoDiario/TrabajoDiario',$data);
 			$this->load->view('layout/footer');
@@ -406,57 +407,40 @@ class Operacion extends CI_Controller {
 		
 		$response = "<div class='table-responsive'>";
 		$response .= "<table class='table table-bordered'>";
+		$response .= "<thead>";
+		$response .= "<tr>";
+		$response .= "<th style='width: 3%;background-color: #006699; color: white;'>Fecha asistencia</th>";
+		$response .= "<th style='width: 3%;background-color: #006699; color: white;'>Nombre completo</th>";
+		$response .= "<th style='width: 3%;background-color: #006699; color: white;'>Hora llegada</th>";
+		$response .= "<th style='width: 3%;background-color: #006699; color: white;'>Hora salida</th>";
+		$response .= "<th style='width: 3%;background-color: #006699; color: white;'>Horas extras</th>";
+		$response .= "<th style='width: 3%;background-color: #006699; color: white;'>Horas trabajadas</th>";
+		$response .= "<th style='width: 3%;background-color: #006699; color: white;'>Observaciones</th>";
+		$response .= "</tr>";
+		$response .= "</thead>";
+		$response .= "<tbody>";
 		$contador = 1;
 		foreach($asistencia_planilla as $row){
-			$response .= "<tr>";
-			$response .= "<th>".$contador.")</th>";
-			$response .= "<th class='success'><hr></th>";
+			$response .= "<tr>";	
+			$response .= "<td>".$row->Fecha."</td>";
+			$response .= "<td>".$row->NombreCompleto."</td>";
+			$response .= "<td>".$row->LlegadaM."</td>";
+			$response .= "<td>".$row->SalidaT."</td>";
+			$response .= "<td>".$row->HorasExtras."</td>";
+			$response .= "<td>".$row->HorasTrabajadas."</td>";
+			$response .= "<td>".$row->detalle."</td>";
 			$response .= "</tr>";
-
-			$response .= "<tr>";
-			$response .= "<td>Fecha Asistencia</td>";
-			$response .= "<th>".$row->Fecha."</th>";
-			$response .= "</tr>";
-
-			$response .= "<tr>";
-			$response .= "<td>Nombre Completo</td>";
-			$response .= "<th>".$row->NombreCompleto."</th>";
-			$response .= "</tr>";
-
-			$response .= "<tr>";
-			$response .= "<td>Hora llegada</td>";
-			$response .= "<th>".$row->LlegadaM."</th>";
-			$response .= "</tr>";
-
-			$response .= "<tr>";
-			$response .= "<td>Hora salida</td>";
-			$response .= "<th>".$row->SalidaT."</th>";
-			$response .= "</tr>";
-
-			$response .= "<tr>";
-			$response .= "<td>Horas trabajadas</td>";
-			$response .= "<th>".$row->HorasTrabajadas."</th>";
-			$response .= "</tr>";
-
-			$response .= "<tr>";
-			$response .= "<td>Horas extras</td>";
-			$response .= "<th>".$row->HorasExtras."</th>";
-			$response .= "</tr>";
-
-			$response .= "<tr>";
-			$response .= "<td>Observación</td>";
-			$response .= "<th>".$row->detalle."</th>";
-			$response .= "</tr>";
-
+			/*
 			$response .= "<tr>";
 			$response .= "<td>Total horas extras</td>";
 			$response .= "<th><button class='btn btn-info btn-sm' id='boton-horasextras' data-toggle='modal' data-target='#modal-horasextras'><i class='fas fa-exclamation-circle'></i></button></th>";
 			$response .= "</tr>";
+			*/
 			$contador = $contador + 1;
 		}
 
+		$response .= "</tbody>";
 		$response .= "</table>";
-		$response .= "</div>";
 
 		$data = array('response' => 'success', 'planilla' => $response);
 
@@ -489,10 +473,10 @@ class Operacion extends CI_Controller {
 		$response = "<div class='table-responsive'>";
 		$response .= "<table class='table table-bordered'>";
 		$response .= "<tr>";
-		$response .= "<td>";
+		$response .= "<td style='width: 3%;background-color: #006699; color: white;'>";
 		$response .= "<label>Archivos</label>";
 		$response .= "</td>";
-		$response .= "<td>";
+		$response .= "<td style='width: 3%;background-color: #006699; color: white;'>";
 		$response .= "<label>Descarga</label>";
 		$response .= "</td>";	
 		$response .= "</tr>";
@@ -528,13 +512,13 @@ class Operacion extends CI_Controller {
 		$response = "<div class='table-responsive'>";
 		$response .= "<table class='table table-bordered'>";
 		$response .= "<tr>";
-		$response .= "<td>";
+		$response .= "<td style='width: 3%;background-color: #006699; color: white;'>";
 		$response .= "<label>Rut</label>";
 		$response .= "</td>";
-		$response .= "<td>";
+		$response .= "<td style='width: 3%;background-color: #006699; color: white;'>";
 		$response .= "<label>Nombre</label>";
 		$response .= "</td>";
-		$response .= "<td>";
+		$response .= "<td style='width: 3%;background-color: #006699; color: white;'>";
 		$response .= "<label>Total horas extras</label>";
 		$response .= "</td>";	
 		$response .= "</tr>";
@@ -556,7 +540,6 @@ class Operacion extends CI_Controller {
 
 		if($horas_extras[0]['TotalHoras'] > 0){
 			$data = array('response' => 'success', 'horas' => $response);
-
 		}else{
 			$data = array('response' => 'success', 'horas' => '<span class="badge badge-danger">Sin resultados</span>');
 		}

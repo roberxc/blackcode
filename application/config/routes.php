@@ -60,3 +60,4 @@ $route['Asistencia/(:any)'] = "AsistenciaTrabajador/Inicio/$1";
 $route['ModificacionPlanilla/(:any)'] = "PlantillaOperaciones/ModificacionPlanilla/$1";
 
 $route['Proyecto/Detalle/(:any)'] = "Proyecto/Planilla_Proyecto/$1";
+

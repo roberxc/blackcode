@@ -51,6 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class CI_Controller {
 
+	public $post;
+
 	/**
 	 * Reference to the CI singleton
 	 *
@@ -85,6 +87,7 @@ class CI_Controller {
 		$this->load =& load_class('Loader', 'core');
 		$this->load->initialize();
 		log_message('info', 'Controller Class Initialized');
+		$this->post = json_decode(file_get_contents('php://input'));
 	}
 
 	// --------------------------------------------------------------------

@@ -18,7 +18,18 @@ class Proyecto extends CI_Controller
 		$this->load->view('menu/menu_proyecto',$data);
 		$this->load->view('Proyecto/GestionTrabajador');
 		$this->load->view('layout/footer');
-	}
+	
+    }
+    
+    public function AdminArchivos(){
+		$data ['activo'] = 6;
+		$data ['activomenu'] = 1;
+		$this->load->view('layout/nav');
+		$this->load->view('menu/menu_proyecto',$data);
+		$this->load->view('Proyecto/AdministradorArchivos');
+        $this->load->view('layout/footer');
+    }
+
     public function Estado_proyecto()
     {
         $data ['activo'] = 4;

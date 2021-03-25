@@ -40,7 +40,7 @@
                   <div class="icon">
                      <i class="ion-android-arrow-dropup-circle"></i>
                   </div>
-                  <a href="<?php echo base_url()?>Administracion/CajaIngreso" class="small-box-footer">Más detalle <i class="fas fa-arrow-circle-right"></i></a>
+                  <a href="<?php echo base_url()?>Administracion/CajaIngreso" class="small-box-footer">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
                </div>
             </div>
             <!-- ./col -->
@@ -54,7 +54,7 @@
                   <div class="icon">
                      <i class="ion-android-arrow-dropdown-circle"></i>
                   </div>
-                  <a href="<?php echo base_url()?>Administracion/CajaEgreso" class="small-box-footer">Más detalle <i class="fas fa-arrow-circle-right"></i></a>
+                  <a href="<?php echo base_url()?>Administracion/CajaEgreso" class="small-box-footer">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
                </div>
             </div>
             <!-- ./col -->
@@ -68,7 +68,7 @@
                   <div class="icon">
                      <i class="ion ion-stats-bars"></i>
                   </div>
-                  <a href="<?php echo base_url()?>Administracion/vueltocaja" class="small-box-footer">Más detalle <i class="fas fa-arrow-circle-right"></i></a>
+                  <a href="<?php echo base_url()?>Administracion/vueltocaja" class="small-box-footer">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
                </div>
             </div>
             <div class="col-lg-3 col-8">

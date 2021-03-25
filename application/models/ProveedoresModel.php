@@ -10,17 +10,37 @@ class ProveedoresModel extends CI_Model {
 
 	//Metodo para registrar gastos combustible
 	public function registrarProveedores($ajax_data){
-		$dataproveedores = array(
-			'rut' => $ajax_data['rut'],
-			'nombre' => $ajax_data['nombre'],
-			'direccion' => $ajax_data['direccion'],
-			'telefono' => $ajax_data['telefono'],
-			'correo' => $ajax_data['correo'],
-			'descripcion' => $ajax_data['comentario'],
-			'diascredito' => $ajax_data['diascredito'],
-		);
+        $flag = false;
+        if($this->siExisteProveedor($ajax_data)){
+            $dataproveedores = array(
+                'rut' => $ajax_data['rut'],
+                'nombre' => $ajax_data['nombre'],
+                'direccion' => $ajax_data['direccion'],
+                'telefono' => $ajax_data['telefono'],
+                'correo' => $ajax_data['correo'],
+                'descripcion' => $ajax_data['comentario'],
+                'diascredito' => $ajax_data['diascredito'],
+                'estado' => 0,
+            );
 
-		return $this->db->insert('proveedores',$dataproveedores);
+            $this->db->insert('proveedores',$dataproveedores);
+            $flag = true;
+        }else{
+            $flag = false;
+        }
+		
+        return $flag;
+	}
+
+    function siExisteProveedor($ajax_data){
+        $query = $this->db->select("id_proveedor") # También puedes poner * si quieres seleccionar todo
+        ->from("proveedores")
+        ->where('rut', $ajax_data["rut"]);
+        $query = $this->db->get();
+		if(count($query->result()) == 0){
+            return true;
+		}
+		return false;
 	}
 
 	function make_datatables_proveedores()
@@ -47,12 +67,19 @@ class ProveedoresModel extends CI_Model {
         "correo",
         "descripcion",
         "diascredito",
+        "estado",
     );
 
     var $order_columnaaa = array(
-        "rut",
-		"nombre",
-		"telefono",
+        "id_proveedor",
+		"rut",
+        "nombre",
+        "direccion",
+        "telefono",
+        "correo",
+        "descripcion",
+        "diascredito",
+        "estado",
     );
 
     function make_query_proveedores(){
@@ -117,16 +144,39 @@ class ProveedoresModel extends CI_Model {
     
     public function ObtenerDetalleProveedores($idproveedor){
 		$query = $this->db
-				->select("p.rut as rut, p.nombre as nombre, p.direccion as direccion, p.telefono as telefono, p.correo as correo, p.descripcion as descripcion, p.diascredito as diascredito") # También puedes poner * si quieres seleccionar todo
+				->select("p.id_proveedor, p.rut as rut, p.nombre as nombre, p.direccion as direccion, p.telefono as telefono, p.correo as correo, p.descripcion as descripcion, p.diascredito as diascredito") # También puedes poner * si quieres seleccionar todo
 				->from("proveedores p")
 				->where("p.id_proveedor",$idproveedor)
 				->get();
-
-
         // if (count($query->result()) > 0) {
         return $query->result();
         // }
 	}
+
+    //Inactivar un proveedor cambiando su estado
+    public function updateEstadoProveedor($data){
+        $dataproveedor = array(
+            'estado' => $data['estado_registro'],
+        );
+
+        $this->db->where('id_proveedor', $data['id_proveedor']);
+		return $this->db->update('proveedores',$dataproveedor);
+    }
+
+    //Actualizar un proveedor
+    public function updateProveedor($data){
+        $dataproveedor = array(
+            'rut' => $data['rut'],
+            'nombre' => $data['nombre'],
+            'direccion' => $data['direccion'],
+            'telefono' => $data['telefono'],
+            'correo' => $data['correo'],
+            'descripcion' => $data['descripcion'],
+            'diascredito' => $data['credito'],
+        );
+        $this->db->where('id_proveedor', $data['id_proveedor']);
+		return $this->db->update('proveedores',$dataproveedor);
+    }
 
 }
 

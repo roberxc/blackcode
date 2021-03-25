@@ -62,11 +62,12 @@ class Proveedores extends CI_Controller
 				$data = array('response' => "error", 'message' => validation_errors());
 			} else {
 				$ajax_data = $this->input->post();
+				$res = $this->ProveedoresModel->registrarProveedores($ajax_data);
 
-				if ($this->ProveedoresModel->registrarProveedores($ajax_data)) {
+				if ($res) {
 					$data = array('response' => "success", 'message' => "Proveedor ingresado correctamente!");
 				} else {
-					$data = array('response' => "error", 'message' => "Falló el ingreso");
+					$data = array('response' => "error", 'message' => "El rut ingresado ya existe");
 				}
 			}
 
@@ -87,9 +88,20 @@ class Proveedores extends CI_Controller
             $sub_array = array();
             $sub_array[] = $value->id_proveedor;
             $sub_array[] = $value->rut;
-            $sub_array[] = $value->nombre;
-            $sub_array[] = $value->telefono;
-            $sub_array[] = '<button class="btn btn-primary btn-sm" id="detalle_asistencia" data-toggle="modal"data-target="#modal-detalle-proveedor" onclick="setTablaDetalle(this)"><i class="far fa-eye"></i></button>&nbsp<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-estado-orden" onclick="setTablaEstado(this)"><i class="fas fa-trash"></i></button>';
+            
+			if($value->estado == 1){
+				$sub_array[] = '<span class="badge badge-danger"><i class="fa fa-user"></i> &nbsp;'.$value->nombre.'</span>';
+				$sub_array[] = $value->telefono;
+				$sub_array[] = '<span class="badge badge-danger">&nbsp;Inactivo</span>';
+			}
+
+			if($value->estado == 0){
+				$sub_array[] = '<span class="badge badge-success"><i class="fa fa-user"></i> &nbsp;'.$value->nombre.'</span>';
+				$sub_array[] = $value->telefono;
+				$sub_array[] = '<span class="badge badge-success">&nbsp;Activo</span>';
+			}
+			
+			$sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal"data-target="#modal-detalle-proveedor" onclick="setTablaDetalle(this)"><i class="far fa-eye"></i></button>&nbsp<button class="btn btn-warning btn-sm" id="editar_asistencia" data-toggle="modal"data-target="#modal-editar-proveedor" onclick="setTablaEditar(this)"><i class="fas fa-edit"></i></button>&nbsp<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="setIDRegistro('.$value->id_proveedor.')"><i class="fas fa-trash"></i></button>';
 
             $data[] = $sub_array;
         }
@@ -159,8 +171,90 @@ class Proveedores extends CI_Controller
 		echo json_encode($data);
 	}
 
-    
+	public function obtenerDetalleProveedoresEdit(){
+		$ajax_data = $this->input->post(); //Datos que vienen por POST
+		
+		$detalle_proveedor = $this->ProveedoresModel->ObtenerDetalleProveedores($ajax_data['iditem']);
+		
+		$response = "<div class='table-responsive'>";
+		$response .= "<table class='table table-bordered' id='table-proveedor'>";
+		foreach($detalle_proveedor as $row){ 
 
+			$response .="<TR>";
+			$response .="<TH>#</TH>";
+			$response .="<TD contenteditable=true id='idproveedor'>".$row->id_proveedor."</TD>";
+			$response .="</TR>";
+
+
+			$response .="<TR>";
+			$response .="<TH>Rut</TH>";
+			$response .="<TD contenteditable=true id='rut'>".$row->rut."</TD>";
+			$response .="</TR>";
+			
+			$response .="<TR>";
+			$response .="<TH>Nombre</TH>";
+			$response .="<TD contenteditable=true id='nombre'>".$row->nombre."</TD>";
+			$response .="</TR>";
+			
+			$response .="<TR>";
+			$response .="<TH>Direccion</TH>";
+			$response .="<TD contenteditable=true id='direccion'>".$row->direccion."</TD>";
+			$response .="</TR>";
+
+			$response .="<TR>";
+			$response .="<TH>Telefono</TH>";
+			$response .="<TD contenteditable=true id='telefono'>".$row->telefono."</TD>";
+			$response .="</TR>";
+			
+			$response .="<TR>";
+			$response .="<TH>Correo</TH>";
+			$response .="<TD contenteditable=true id='correo'>".$row->correo."</TD>";
+			$response .="</TR>";
+			
+			$response .="<TR>";
+			$response .="<TH>Descripcion</TH>";
+			$response .="<TD contenteditable=true id='descripcion'>".$row->descripcion."</TD>";
+			$response .="</TR>";
+			
+			$response .="<TR>";
+			$response .="<TH>Dias credito</TH>";
+			$response .="<TD contenteditable=true id='credito'>".$row->diascredito."</TD>";
+			$response .="</TR>";
+		}
+		$response .= "</table>";
+		$response .= "</div>";
+
+		$data = array('response' => 'success', 'detalle' => $response);
+
+
+		echo json_encode($data);
+	}
+
+    //Eliminar un documento de documentos peramentes cambiando su estado
+	public function cambiarEstadoProveedor(){
+		$ajax_data = $this->input->post();
+		$res = $this->ProveedoresModel->updateEstadoProveedor($ajax_data);
+        if($res){
+            $data = array('response' => 'success', 'message' => 'Exito');
+        }else{
+            $data = array('response' => 'error', 'message' => $res);
+        }
+		echo json_encode($data);
+
+	}
+
+
+	public function actualizarProveedor(){
+		$ajax_data = $this->input->post();
+		$res = $this->ProveedoresModel->updateProveedor($ajax_data);
+        if($res){
+            $data = array('response' => 'success', 'message' => 'Exito');
+        }else{
+            $data = array('response' => 'error', 'message' => $res);
+        }
+		echo json_encode($data);
+
+	}
     
 }
 

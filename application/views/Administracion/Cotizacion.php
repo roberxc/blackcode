@@ -43,12 +43,12 @@
                   <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                      <thead>
                         <tr>
-                           <th>Numero</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Numero</th>
                            <!-- 0 ---> 
-                           <th>Proveedor</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Proveedor</th>
                            <!-- 1 --->
-                           <th>Fecha</th>
-                           <th>Accion</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Fecha</th>
+                           <th style="width: 3%;background-color: #006699; color: white;">Accion</th>
                            <!-- 5 --->
                         </tr>
                      </thead>

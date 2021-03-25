@@ -28,6 +28,8 @@
       <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/summernote/summernote-bs4.css">
       <!-- Google Font: Source Sans Pro -->
       <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+      <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
    </head>
    <body class="hold-transition sidebar-mini layout-fixed pace-primary">
       <?php $set_data = $this->session->all_userdata(); 
@@ -51,7 +53,7 @@
          <!-- Notifications Dropdown Menu -->
          <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-bell"></i>
+            <i class="bx bxs-bell bx-sm bx-tada"></i>
             <span class="badge badge-warning navbar-badge"><?php if(isset($totalnotificaciones)){ echo$totalnotificaciones;}else{echo 0;}?></span>
             </a>
 

@@ -1,5 +1,10 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 class Login extends CI_Controller {
 
 	public function __construct(){
@@ -12,6 +17,12 @@ class Login extends CI_Controller {
 	public function index(){
 		$this->load->view('Login');
 		
+	}
+
+
+	public function testlogin(){
+		$test = "SI FUNCIONA";
+		echo json_encode($test);
 	}
 
 	public function validate(){

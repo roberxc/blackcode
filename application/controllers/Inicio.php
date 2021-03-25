@@ -19,10 +19,9 @@ class Inicio extends CI_Controller {
 		if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 1) {
 			$data ['activo'] = 2;
 			$data ['totalcajachica'] = $this->CajaChicaModel->obtenerTotalCajaChica();
+			$data ['totalcostosfijos'] = $this->CajaChicaModel->ObtenerTotalCostosFijos();
 			//Cargado desde el helper (notificacion_helper)
 			setNotificaciones($this->DocumentacionModel);
-			
-			
 			$data ['total_registros'] = $this->AdministracionModel->totalUsuariosRegistrados();
 			$data ['tareas_registradas'] = $this->AdministracionModel->obtenerTareas();
 			$this->load->view('menu/menu_supremo',$data);

@@ -541,7 +541,7 @@ class Administracion extends CI_Controller {
             $sub_array[] = $value->valor;
 			$sub_array[] = $value->tipo;
 			$sub_array[] = $value->detalle;
-            $sub_array[] = '<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="setIDCosto(this)"><i class="fa fa-trash"></i></button>';
+            $sub_array[] = '<button class="btn btn-warning btn-sm" id="editar_asistencia" data-toggle="modal"data-target="#modal-editar-costofijo" onclick="setTablaEditar(this)"><i class="fas fa-edit"></i></button>&nbsp<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="setIDCosto(this)"><i class="fa fa-trash"></i></button>';
             $data[] = $sub_array;
         }
 
@@ -779,6 +779,96 @@ class Administracion extends CI_Controller {
 		}
 
     }
+
+
+	public function obtenerDetalleCostoFijo(){
+		$ajax_data = $this->input->post(); //Datos que vienen por POST
+		
+		$detalle_costofijo = $this->CajaChicaModel->ObtenerDetalleCostoFijo($ajax_data['iditem']);
+		
+		$response = "<div class='table-responsive'>";
+		foreach($detalle_costofijo as $row){ 
+
+			$response .="<div class='modal-body'>";
+			$response .="<div class='row'>";
+			$response .="<input type='hidden' class='form-control' value='".$row->id_costofijos."' id='idcosto_update'>";
+
+			$response .="<div class='col-md-4'>";
+			$response .="<div class='form-group'>";
+			$response .="<label for='recipient-bodega' class='col-form-label'>Fecha </label>";
+			$response .="<div class='form-group'>";
+			$response .="<input type='date' class='form-control' value='".$row->fecha."' id='fecha_update'>";
+			$response .="</div>";
+			$response .="</div>";
+			$response .="</div>";
+
+			$response .="<div class='col-md-4'>";
+			$response .="<div class='form-group'>";
+			$response .="<label for='recipient-bodega' class='col-form-label'>Valor </label>";
+			$response .="<div class='form-group'>";
+			$response .="<input type='text' class='form-control' value='".$row->valor."' id='valor_update'>";
+			$response .="</div>";
+			$response .="</div>";
+			$response .="</div>";
+
+			$response .="<div class='col-md-4'>";
+			$response .="<div class='form-group'>";
+			$response .="<label for='recipient-bodega' class='col-form-label'>Detalle </label>";
+			$response .="<div class='form-group'>";
+			$response .="<input type='text' class='form-control' value='".$row->detalle."' id='detalle_update'>";
+			$response .="</div>";
+			$response .="</div>";
+			$response .="</div>";
+
+			$response .="<div class='col-md-4'>";
+			$response .="<div class='form-group'>";
+			$response .="<label for='recipient-bodega' class='col-form-label'>Nombre </label>";
+			$response .="<div class='form-group'>";
+			$response .="<select class='form-control' id='tipocosto_update'>";
+			$response .="<option value='".$row->id_tipo."'>".$row->nombre."</option>";
+			$response .="</select>";
+			$response .="</div>";
+			$response .="</div>";
+			$response .="</div>";
+			$response .="</div>";
+			$response .="<hr class='cell-divide-hr'>";
+			$response .="</div>";
+
+			
+		}
+		$response .= "</table>";
+		$response .= "</div>";
+
+		$data = array('response' => 'success', 'detalle' => $response);
+
+
+		echo json_encode($data);
+	}
+
+	public function actualizarCostosFijos(){
+		$ajax_data = $this->input->post();
+		$res = $this->CajaChicaModel->updateCostosFijos($ajax_data);
+        if($res){
+            $data = array('response' => 'success', 'message' => 'Exito');
+        }else{
+            $data = array('response' => 'error', 'message' => $res);
+        }
+		echo json_encode($data);
+
+	}
+
+	public function obtenerEstadisticasCostosFijos(){
+		if ($this->input->is_ajax_request()) {
+			date_default_timezone_set("America/Santiago");
+			$currentyear = date("Y");
+
+			$end = date('Y', strtotime('-1 years'));
+			$res = $this->CajaChicaModel->generarEstadisticasCostosFijos($end,$currentyear);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+	}
 }
 
 ?>

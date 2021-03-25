@@ -239,13 +239,13 @@ class OperacionesModel extends CI_Model {
 		return $query->result();
 	}
 
-	public function obtenerSumaAsignada($codigo){
+	public function ObtenerSumaAsignada($codigo){
 
 		$idtipotrabajo = $this->getIDTrabajoDiarioCS($codigo);
 		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['id_tipotrabajo']);
 		$idtrabajodiario = $idtipotrabajo[0]['id_trabajodiario'];
 
-		$this->db->select('valorAsignado');
+		$this->db->select('valorasignado');
 		$this->db->where('id_trabajodiario',$idtrabajodiario);
 		$this->db->limit(1);
 		$query = $this->db->get('trabajodiario');
@@ -397,6 +397,7 @@ class OperacionesModel extends CI_Model {
 		$cadena_codigo = preg_replace('/[0-9]+/', '', $data['codigo_servicio']);
 		$idtipotrabajo = $this->obtenerIDTipoTrabajo($cadena_codigo);
 		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['id_tipotrabajo']);
+		$this->db->trans_start();
 		$datacodigo = array(
 			'codigoservicio' => $data['codigo_servicio'],
 			'id_tipotrabajo' => $idtipotrabajo[0]['id_tipotrabajo'],
@@ -466,9 +467,16 @@ class OperacionesModel extends CI_Model {
 			}
 			
 		}
-		
 
-		return  $this->db->insert_batch('personal_trabajo',$insert_data);
+		$this->db->insert_batch('personal_trabajo',$insert_data);
+
+		$this->db->trans_complete();
+		if ($this->db->trans_status()){
+			return true;
+		}else{
+			$this->db->trans_rollback();
+		}
+
 	}
 
 	public function siExistePersonal($rut){
@@ -635,11 +643,19 @@ class OperacionesModel extends CI_Model {
 		//Actualizar estado de planilla
 		$idcodigoservicio = $this->getIDcodigoservicio($data['codigo_servicio']);
 
+		$this->db->trans_start();
 		$this->db->set('asistencia','1', FALSE);
 		$this->db->where('id_codigo', $idcodigoservicio[0]['id_codigo']);
 		$this->db->update('planillaestado');
 
-		return  $this->db->insert_batch('asistencia_personal',$insert_data);
+		//Ingreso asistencia
+		$this->db->insert_batch('asistencia_personal',$insert_data);
+		$this->db->trans_complete();
+		if ($this->db->trans_status()){
+			return true;
+		}else{
+			$this->db->trans_rollback();
+		}
 	}
 
 	public function updateAsistenciaPersonal($data){
@@ -766,9 +782,7 @@ class OperacionesModel extends CI_Model {
 	//Metodo para registrar tipos de gastos
 	public function registroTipoGasto($lista_tipogasto){
 		for($count = 0; $count<count($lista_tipogasto); $count++){
-
 			$lista_tipo = $lista_tipogasto[$count];
-
 			if(!empty($lista_tipo)){
 				$insert_tipogastos[] = array(
 					'nombreTipoGasto'=> $lista_tipo,
@@ -1293,6 +1307,8 @@ class OperacionesModel extends CI_Model {
 	}
 
 	public function ObtenerhorasextrasSegunFecha($rutpersonal,$fecha){
+		//echo$fecha;
+		//echo"RUT: ".$rutpersonal;
 		
 		$query = $this->db
 				->select("SUM(a.horasextras) AS TotalHoras,p.rut AS Rut, p.nombrecompleto AS Nombre") # También puedes poner * si quieres seleccionar todo
@@ -1308,6 +1324,10 @@ class OperacionesModel extends CI_Model {
 	public function ObtenerHorasExtras($rutpersonal,$fechainicial,$fechatermino){
 		// Declare an empty array 
 		$arraydias = array(); 
+		//echo"Fecha inicial: ".$fechainicial;
+		//echo"Fecha termino: ".$fechatermino; 
+
+		
 		$pos = strpos($fechainicial, $fechatermino);
 		if($pos === false){
 			// Variable that store the date interval 
@@ -1320,7 +1340,7 @@ class OperacionesModel extends CI_Model {
 			$period = new DatePeriod(new DateTime($fechainicial), $interval, $realEnd); 
 			
 			// Use loop to store date into array 
-			$format = 'y-m-d';
+			$format = 'Y-m-d';
 			foreach($period as $date) {                  
 				$fecha = $date->format($format);
 				$arraydias [] = $fecha;

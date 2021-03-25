@@ -63,12 +63,12 @@ class Documentacion extends CI_Controller {
 			//Si es igual a 0 es porque es documentacion permamente
 			if($tipo == 0){
 				$sub_array[] = $value->fecha;
-				$sub_array[] = '<button class="btn btn-success btn-sm" data-toggle="modal" id="estado-orden" data-target="#modal-estado-orden" onclick="descargarDocumento(this)"><i class="fas fa-download"></i></button>';
+				$sub_array[] = '<button class="btn btn-success btn-sm" data-toggle="modal" id="estado-orden" data-target="#modal-estado-orden" onclick="descargarDocumento(this)"><i class="fas fa-download"></i></button>&nbsp<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="setIDRegistro('.$value->id.')"><i class="fa fa-trash"></i></button>';
 			}
 			//Si es igual a 1 es porque es documentacion actualizable
 			if($tipo == 1){
 				$sub_array[] = $value->fechalimite;
-				$sub_array[] = '<button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-editardocumento" onclick="editarDocumento(this)"><i class="fas fa-edit"></i></button><button class="btn btn-success btn-sm" data-toggle="modal" id="estado-orden" data-target="#modal-estado-orden" onclick="descargarDocumento(this)"><i class="fas fa-download"></i></button>';
+				$sub_array[] = '<button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-editardocumento" onclick="editarDocumento(this)"><i class="fas fa-edit"></i></button>&nbsp<button class="btn btn-success btn-sm" data-toggle="modal" id="estado-orden" data-target="#modal-estado-orden" onclick="descargarDocumento(this)"><i class="fas fa-download"></i></button>&nbsp<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="setIDRegistro('.$value->id.')"><i class="fa fa-trash"></i></button>';
 			}
             $data[] = $sub_array;
         }
@@ -117,5 +117,18 @@ class Documentacion extends CI_Controller {
 
 
 		echo json_encode($data);
+	}
+
+	//Eliminar un documento de documentos peramentes cambiando su estado
+	public function cambiarEstadoDocumento(){
+		$ajax_data = $this->input->post();
+		$res = $this->DocumentacionModel->updateEstadoDocumento($ajax_data);
+        if($res){
+            $data = array('response' => 'success', 'message' => 'Exito');
+        }else{
+            $data = array('response' => 'error', 'message' => $res);
+        }
+		echo json_encode($data);
+
 	}
 }

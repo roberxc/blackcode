@@ -37,13 +37,12 @@
                </div>
                <!-- /.info-box -->
             </div>
-
             <div class="col-12 col-sm-6 col-md-3">
                <div class="info-box mb-3">
                   <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-poll"></i></span>
                   <div class="info-box-content">
                      <span class="info-box-text">Total caja chica</span>
-                     <span class="info-box-number"><?php if(isset($totalcajachica)){echo"$".$totalcajachica[0]->balance;}else{echo'0';}?></span>
+                     <span class="info-box-number"><?php if(isset($totalcajachica)){ if($totalcajachica[0]->balance>0){echo"$".$totalcajachica[0]->balance;}else{echo'$0';}}?></span>
                   </div>
                   <!-- /.info-box-content -->
                </div>
@@ -61,8 +60,7 @@
                   <div class="icon">
                      <i class="ion ion-stats-bars"></i>
                   </div>
-                  <a href="<?php echo base_url()?>Inicio" class="small-box-footer" data-toggle="modal" 
-                     data-target="#oficina1">Administrar <i class="fas fa-arrow-circle-right"></i></a>
+                  <a href="<?php echo base_url()?>Administracion/MenuCaja" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
                </div>
             </div>
             <!-- ./col -->
@@ -70,7 +68,7 @@
                <!-- small box -->
                <div class="small-box bg-warning">
                   <div class="inner">
-                     <p>Administracion de trabajadores</p>
+                     <p>Administracion de usuarios</p>
                   </div>
                   <div class="icon">
                      <i class="ion ion-person-add"></i>
@@ -97,53 +95,72 @@
          <!-- /.row -->
          <!-- /.row (main row) -->
          <div class="row">
-          <!-- Left col -->
-          <section class="col-lg-7 connectedSortable">
-            <!-- TO DO List -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="ion ion-clipboard mr-1"></i>
-                  Lista de tareas 
-                </h3>
-
-                <div class="card-tools">
-                  <ul class="pagination pagination-sm">
-                    <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
-                  </ul>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <ul class="todo-list" data-widget="todo-list" id="lista_tareas">
-                  
-                </ul>
-              </div>
-              <!-- /.card-body -->
-              <div class="card-footer clearfix">
-              <input class="form-control form-control-lg border-0 add-todo-input bg-transparent rounded" type="text" placeholder="Ingrese nueva tarea" id="tareatxt">
-                <button type="button" class="btn btn-info float-right" onclick="agregarTarea()"><i class="fas fa-plus"></i> Agregar tarea</button>
-              </div>
+            <!-- Grafico de costos fijos -->
+            <div class="col-lg-6">
+               <div class="card">
+                  <div class="card-header border-0">
+                     <div class="d-flex justify-content-between">
+                        <h3 class="card-title">Costos fijos</h3>
+                        <a href="<?php echo base_url()?>Administracion/CostosFijos">Administrar</a>
+                     </div>
+                  </div>
+                  <div class="card-body">
+                     <div class="d-flex">
+                        <p class="d-flex flex-column">
+                           <span class="text-bold text-lg">$<?php echo$totalcostosfijos[0]['total'];?></span>
+                           <span>Costos fijos totales</span>
+                        </p>
+                     </div>
+                     <!-- /.d-flex -->
+                     <div class="position-relative mb-4">
+                        <canvas id="sales-chart" height="200"></canvas>
+                     </div>
+                     <div class="d-flex flex-row justify-content-end">
+                        <span class="mr-2">
+                        <i class="fas fa-square text-primary"></i> Este año
+                        </span>
+                        <span>
+                        <i class="fas fa-square text-gray"></i> Año pasado
+                        </span>
+                     </div>
+                  </div>
+               </div>
             </div>
-            <!-- /.card -->
-          </section>
-          <!-- /.Left col -->
-          <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col-lg-5 connectedSortable">
-            <!-- Calendar -->
-            <!-- /.card -->
-          </section>
-          <!-- right col -->
-        </div>
-         
+            <!-- Lista de tareas -->
+            <div class="col-lg-6">
+               <div class="card">
+                  <div class="card-header">
+                     <h3 class="card-title">
+                        <i class="ion ion-clipboard mr-1"></i>
+                        Lista de tareas 
+                     </h3>
+                     <div class="card-tools">
+                        <ul class="pagination pagination-sm">
+                           <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
+                           <li class="page-item"><a href="#" class="page-link">1</a></li>
+                           <li class="page-item"><a href="#" class="page-link">2</a></li>
+                           <li class="page-item"><a href="#" class="page-link">3</a></li>
+                           <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
+                        </ul>
+                     </div>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                     <ul class="todo-list" data-widget="todo-list" id="lista_tareas">
+                     </ul>
+                  </div>
+                  <!-- /.card-body -->
+                  <div class="card-footer clearfix">
+                     <input class="form-control form-control-lg border-0 add-todo-input bg-transparent rounded" type="text" placeholder="Ingrese nueva tarea" id="tareatxt">
+                     <button type="button" class="btn btn-info float-right" onclick="agregarTarea()"><i class="fas fa-plus"></i> Agregar tarea</button>
+                  </div>
+               </div>
+            </div>
+         </div>
       </div>
-      <!-- /.container-fluid -->
-   </section>
-   <!-- /.content -->
+</div>
+</section>
+<!-- /.content -->
 </div>
 </body>
 <!-- ESTE PARA LAS ALERTAS --->
@@ -163,8 +180,11 @@
    var lista_nrodoc = <?php echo json_encode($lista_nrodocactualizables); ?>;
 </script>
 <script type="text/javascript">
-   var total_cajachica = <?php echo $totalcajachica[0]->Balance; ?>;
+   var total_cajachica = <?php echo $totalcajachica[0]->Balance;?>;
 </script>
 <script>var base_url = '<?php echo base_url();?>';</script>
 <script src="<?php echo base_url();?>assets/js/Administracion/inicio.js"></script>
+<!-- OPTIONAL SCRIPTS -->
+<script src="<?php echo base_url();?>assets/plugins/chart.js/Chart.min.js"></script>
+<script src="<?php echo base_url();?>assets/dist/js/pages/inicio_admin.js"></script>
 </html>
