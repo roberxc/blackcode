@@ -171,3 +171,112 @@ function descargarDocumentoMateriales(){
     window.location.href = base_url + "Operacion/descargarDocMaterialesDurante/"+iddoc;
 
 }
+
+function obtenerHorasExtrasReporte(){
+    var rutfiltro = $("#rut_personal_reporte").val();
+    var startDate = $('#date_reporte').data('daterangepicker').startDate.format('YYYY-MM-DD');
+    var endDate = $('#date_reporte').data('daterangepicker').endDate.format('YYYY-MM-DD');
+    $.ajax({
+        url: base_url+"Operacion/obtenerHoraExtrasPersonal",
+        type: "post",
+        dataType: "json",
+        data: {
+            rut_personal: rutfiltro,
+            fecha_inicio: startDate,
+            fecha_fin: endDate
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                // Add response in Modal body
+                generarAvisoExitoso('Actualizando..');
+                $('#horas-extras-reportes').html(data.horas);
+                // Display Modal
+                 //$('#detalle-trabajo').modal('show');
+            } else {
+                
+            }
+        }
+    });
+}
+
+$(function(){
+    $(".select2").select2({
+        matcher: matchCustom,
+        templateResult: formatCustom
+    });
+})
+
+function stringMatch(term, candidate) {
+    return candidate && candidate.toLowerCase().indexOf(term.toLowerCase()) >= 0;
+}
+
+function matchCustom(params, data) {
+    // If there are no search terms, return all of the data
+    if ($.trim(params.term) === '') {
+        return data;
+    }
+    // Do not display the item if there is no 'text' property
+    if (typeof data.text === 'undefined') {
+        return null;
+    }
+    // Match text of option
+    if (stringMatch(params.term, data.text)) {
+        return data;
+    }
+    // Match attribute "data-foo" of option
+    if (stringMatch(params.term, $(data.element).attr('data-foo'))) {
+        return data;
+    }
+    // Return `null` if the term should not be displayed
+    return null;
+}
+
+function formatCustom(state) {
+    return $(
+        '<div><div>' + state.text + '</div><div class="foo">'
+            + $(state.element).attr('data-foo')
+            + '</div></div>'
+    );
+}
+
+function generarAvisoError($mensaje) {
+    Command: toastr["error"]($mensaje, 'Error')
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+}
+
+function generarAvisoExitoso($mensaje) {
+    Command: toastr["success"]($mensaje, 'Correcto')
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+}

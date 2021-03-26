@@ -6,6 +6,8 @@ class CGarage extends CI_Controller {
 	public function __construct(){
 		parent::__construct();// you have missed this line.
 		$this->load->model('Vehiculo');
+		$this->load->helper(array('notificacion','url'));
+		$this->load->model('DocumentacionModel');
 	 }
 
 	public function index(){
@@ -14,7 +16,7 @@ class CGarage extends CI_Controller {
 			$data ['activomenu'] = 20;
 			$data ['activo'] = 98;
 
-			$this->load->view('layout/nav');
+			setNotificaciones($this->DocumentacionModel);
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('Administracion/VGarage');
 			$this->load->view('layout/footer');

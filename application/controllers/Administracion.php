@@ -13,35 +13,15 @@ class Administracion extends CI_Controller {
 		$this->load->model('Mantencion');
 		$this->load->model('OperacionesModel');
 		$this->load->model('AdministracionModel');
-		$this->load->helper(array('form', 'url'));
+		$this->load->helper(array('notificacion','url'));
 		$this->load->model('Users');
 		$this->load->model('DocumentacionModel');
-	}
-
-	public function setNotificaciones(){
-		$data ['expiracion'] = 0;
-		$lista_fecha = $this->DocumentacionModel->ObtenerFechaDocActualizable();
-		$fechaactual = date("d-m-Y");
-		$data ['totaldocumentos'] = 0;
-		foreach($lista_fecha as $row){
-			//Paso de string a fecha
-			$d1 = new DateTime($row->fechalimite);
-			$d2 = new DateTime($fechaactual);
-			$interval = $d1->diff($d2);
-			$diasTotales    = $interval->d; 
-			if($diasTotales == 3){
-				$data ['lista_nrodocactualizables'] = $this->DocumentacionModel->ObtenerNroDocActualizable($row->fechalimite);
-				$data ['expiracion'] = 1;
-				$data ['totaldocumentos'] = $data ['totaldocumentos'] + 1;
-			}
-		}
-		$this->load->view('layout/nav',$data);
 	}
 
 	public function informeEgresos(){
 		
 		$data ['activo'] = 10;
-		$this->setNotificaciones();
+		setNotificaciones($this->DocumentacionModel);
      	$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/InformeEgresos');
 		$this->load->view('layout/footer');
@@ -51,7 +31,7 @@ class Administracion extends CI_Controller {
 		$data ['activomenu'] = 5;
 		$data ['activo'] = 6;
 		$data['lista_tipocostos'] = $this->AdministracionModel->listaTipoCostos();
-		$this->setNotificaciones();
+		setNotificaciones($this->DocumentacionModel);
      	$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/CostosFijos',$data);
 		$this->load->view('layout/footer');
@@ -61,7 +41,7 @@ class Administracion extends CI_Controller {
 	{
 		$data ['activomenu'] = 5;
 		$data ['activo'] = 5;
-		$this->setNotificaciones();
+		setNotificaciones($this->DocumentacionModel);
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/Egreso');
 		$this->load->view('layout/footer');
@@ -70,7 +50,7 @@ class Administracion extends CI_Controller {
 	public function listaRegistros(){
 		$data ['activo'] = 8;
 		$data ['activomenu'] = 2;
-		$this->setNotificaciones();
+		setNotificaciones($this->DocumentacionModel);
 		$data['lista_tipousuarios'] = $this->AdministracionModel->listaTipoUsuarios();
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/listaRegistros',$data);
@@ -83,7 +63,7 @@ class Administracion extends CI_Controller {
 		$data ['activomenu'] = 5;
 		$data ['activo'] = 5;
 		$data['include_css'] = array("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css");
-		$this->setNotificaciones();
+		setNotificaciones($this->DocumentacionModel);
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/Ingreso',$data);
 		$this->load->view('layout/footer');
@@ -93,7 +73,7 @@ class Administracion extends CI_Controller {
 		$data ['activomenu'] = 5;
 		$data ['activo'] = 5;
 		$data ['totalcajachica'] = $this->CajaChicaModel->obtenerTotalCajaChica();
-		$this->setNotificaciones();
+		setNotificaciones($this->DocumentacionModel);
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/CajaChica');
 		$this->load->view('layout/footer');
@@ -102,7 +82,7 @@ class Administracion extends CI_Controller {
 	{
 		$data ['activomenu'] = 5;
 		$data ['activo'] = 5;
-		$this->setNotificaciones();
+		setNotificaciones($this->DocumentacionModel);
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/Vuelto');
 		$this->load->view('layout/footer');
@@ -110,7 +90,7 @@ class Administracion extends CI_Controller {
 	public function registroTrabajador(){
 		$data ['activo'] = 6;
 		$data ['activomenu'] = 2;
-		$this->setNotificaciones();
+		setNotificaciones($this->DocumentacionModel);
 		$data['lista_tipousuarios'] = $this->AdministracionModel->listaTipoUsuarios();
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/GestionCuentas');
@@ -155,7 +135,7 @@ class Administracion extends CI_Controller {
 				$data = array('response' => "error", 'message' => validation_errors());
 			} else {
 				$ajax_data = $this->input->post();
-				if($ajax_data['montoegreso']<=$total[0]->Balance){
+				if($ajax_data['montoegreso']<=$total[0]->balance){
 					if ($this->CajaChicaModel->registroEgreso($ajax_data['fechaegreso'],abs($ajax_data['montoegreso']),
 						$ajax_data['destinatario'],$ajax_data['detalle'])) {
 					$data = array('response' => "success", 'message' => "Egreso registrado correctamente!");
@@ -179,9 +159,10 @@ class Administracion extends CI_Controller {
         $data = array();
         foreach ($fetch_data as $value){
             $sub_array = array();
+			$sub_array[] = $value->id;
             $sub_array[] = $value->fechaingreso;
 			$sub_array[] = $value->montoingreso;
-			$sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#EditarIngreso" id="id_cajachica" value='.$value->id.'><i class="far fa-edit"></i></button>';
+			$sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#EditarIngreso" id="id_cajachica" value='.$value->id.'><i class="far fa-edit"></i></button>&nbsp<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirmacion" value='.$value->id.' onclick="setIDIngreso('.$value->id.')"><i class="fas fa-trash"></i></button>';
 			$data[] = $sub_array;
         }
 
@@ -243,12 +224,13 @@ class Administracion extends CI_Controller {
 			$sub_array[] = $value->detalle;
 			if($value->estado == 2){
 				$sub_array[] = '<span class="badge badge-success">Reingresado</span>';
+				$sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#EditarEgreso" id="id_egresoupdate" value='.$value->id.','.$value->iddestinatario.'><i class="far fa-edit"></i></button>';
 			}
 
 			if($value->estado == 1){
 				$sub_array[] = '<span class="badge badge-warning">Ingresado</span>';
+				$sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#EditarEgreso" id="id_egresoupdate" value='.$value->id.','.$value->iddestinatario.'><i class="far fa-edit"></i></button>&nbsp<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#EliminarEgreso" id="id_egresodelete" value='.$value->id.'><i class="fas fa-trash"></i></button>';
 			}
-			$sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#EditarEgreso" id="id_egresoupdate" value='.$value->id.','.$value->iddestinatario.'><i class="far fa-edit"></i></button><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#EliminarEgreso" id="id_egresodelete" value='.$value->id.'><i class="fas fa-trash"></i></button>';
 			$data[] = $sub_array;
         }
 
@@ -559,7 +541,7 @@ class Administracion extends CI_Controller {
             $sub_array[] = $value->valor;
 			$sub_array[] = $value->tipo;
 			$sub_array[] = $value->detalle;
-            $sub_array[] = '<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="setIDCosto(this)"><i class="fa fa-trash"></i></button>';
+            $sub_array[] = '<button class="btn btn-warning btn-sm" id="editar_asistencia" data-toggle="modal"data-target="#modal-editar-costofijo" onclick="setTablaEditar(this)"><i class="fas fa-edit"></i></button>&nbsp<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="setIDCosto(this)"><i class="fa fa-trash"></i></button>';
             $data[] = $sub_array;
         }
 
@@ -642,6 +624,19 @@ class Administracion extends CI_Controller {
 	public function actualizarCajaChica(){
 		$ajax_data = $this->input->post();
 		$res = $this->AdministracionModel->updateCajaChica($ajax_data);
+        if($res){
+            $data = array('response' => 'success', 'message' => 'Exito');
+        }else{
+            $data = array('response' => 'error', 'message' => $res);
+        }
+		echo json_encode($data);
+
+	}
+
+	//Eliminar un ingreso de la caja chica cambiando su estado
+	public function deleteIngresoCajaChica(){
+		$ajax_data = $this->input->post();
+		$res = $this->AdministracionModel->deleteIngresoCajaChica($ajax_data);
         if($res){
             $data = array('response' => 'success', 'message' => 'Exito');
         }else{
@@ -784,6 +779,96 @@ class Administracion extends CI_Controller {
 		}
 
     }
+
+
+	public function obtenerDetalleCostoFijo(){
+		$ajax_data = $this->input->post(); //Datos que vienen por POST
+		
+		$detalle_costofijo = $this->CajaChicaModel->ObtenerDetalleCostoFijo($ajax_data['iditem']);
+		
+		$response = "<div class='table-responsive'>";
+		foreach($detalle_costofijo as $row){ 
+
+			$response .="<div class='modal-body'>";
+			$response .="<div class='row'>";
+			$response .="<input type='hidden' class='form-control' value='".$row->id_costofijos."' id='idcosto_update'>";
+
+			$response .="<div class='col-md-4'>";
+			$response .="<div class='form-group'>";
+			$response .="<label for='recipient-bodega' class='col-form-label'>Fecha </label>";
+			$response .="<div class='form-group'>";
+			$response .="<input type='date' class='form-control' value='".$row->fecha."' id='fecha_update'>";
+			$response .="</div>";
+			$response .="</div>";
+			$response .="</div>";
+
+			$response .="<div class='col-md-4'>";
+			$response .="<div class='form-group'>";
+			$response .="<label for='recipient-bodega' class='col-form-label'>Valor </label>";
+			$response .="<div class='form-group'>";
+			$response .="<input type='text' class='form-control' value='".$row->valor."' id='valor_update'>";
+			$response .="</div>";
+			$response .="</div>";
+			$response .="</div>";
+
+			$response .="<div class='col-md-4'>";
+			$response .="<div class='form-group'>";
+			$response .="<label for='recipient-bodega' class='col-form-label'>Detalle </label>";
+			$response .="<div class='form-group'>";
+			$response .="<input type='text' class='form-control' value='".$row->detalle."' id='detalle_update'>";
+			$response .="</div>";
+			$response .="</div>";
+			$response .="</div>";
+
+			$response .="<div class='col-md-4'>";
+			$response .="<div class='form-group'>";
+			$response .="<label for='recipient-bodega' class='col-form-label'>Nombre </label>";
+			$response .="<div class='form-group'>";
+			$response .="<select class='form-control' id='tipocosto_update'>";
+			$response .="<option value='".$row->id_tipo."'>".$row->nombre."</option>";
+			$response .="</select>";
+			$response .="</div>";
+			$response .="</div>";
+			$response .="</div>";
+			$response .="</div>";
+			$response .="<hr class='cell-divide-hr'>";
+			$response .="</div>";
+
+			
+		}
+		$response .= "</table>";
+		$response .= "</div>";
+
+		$data = array('response' => 'success', 'detalle' => $response);
+
+
+		echo json_encode($data);
+	}
+
+	public function actualizarCostosFijos(){
+		$ajax_data = $this->input->post();
+		$res = $this->CajaChicaModel->updateCostosFijos($ajax_data);
+        if($res){
+            $data = array('response' => 'success', 'message' => 'Exito');
+        }else{
+            $data = array('response' => 'error', 'message' => $res);
+        }
+		echo json_encode($data);
+
+	}
+
+	public function obtenerEstadisticasCostosFijos(){
+		if ($this->input->is_ajax_request()) {
+			date_default_timezone_set("America/Santiago");
+			$currentyear = date("Y");
+
+			$end = date('Y', strtotime('-1 years'));
+			$res = $this->CajaChicaModel->generarEstadisticasCostosFijos($end,$currentyear);
+		} else {
+			echo "'No direct script access allowed'";
+		}
+
+	}
 }
 
 ?>

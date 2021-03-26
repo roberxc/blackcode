@@ -8,7 +8,8 @@ class CMantencion extends CI_Controller {
 		$this->load->model('Vehiculo');
 		$this->load->model('Personal');
 		$this->load->model('Mantencion');
-
+		$this->load->helper(array('notificacion','url'));
+		$this->load->model('DocumentacionModel');
 
 	 }
 
@@ -20,7 +21,7 @@ class CMantencion extends CI_Controller {
 			$data ['lista_vehiculos'] = $this->Vehiculo->ObtenerVehiculos();
 			$data ['lista_personal'] = $this->Personal->ObtenerListaPersonal();
 			$data ['total_mantenciones'] = $this->Mantencion->ObtenerListaMantenciones();
-			$this->load->view('layout/nav');
+			setNotificaciones($this->DocumentacionModel);
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('Administracion/VMantencion',$data);
 			$this->load->view('layout/footer');

@@ -152,3 +152,29 @@ function editarDocumento(table){
         }
     });
 }
+
+var idreg = 0;
+
+function setIDRegistro($idregistro){
+    idreg = $idregistro;
+}
+
+
+function deleteRegDocumento(){
+    $.ajax({
+        url: base_url+"Documentacion/cambiarEstadoDocumento",
+        type: "post",
+        dataType: "json",
+        data: {
+            id_documento: idreg,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                generarAvisoExitoso(data.message);
+                location.reload();
+            } else if (data.response == "error") {
+                generarAvisoError(data.message);
+            }
+        }
+    });
+}

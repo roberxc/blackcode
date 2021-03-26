@@ -6,6 +6,7 @@ class Documentacion extends CI_Controller {
 	public function __construct(){
 		parent::__construct();// you have missed this line.
 		$this->load->model('DocumentacionModel');
+		$this->load->helper(array('notificacion','url'));
 	 }
 
 	public function index()
@@ -13,32 +14,12 @@ class Documentacion extends CI_Controller {
 
 	}
 
-	public function setNotificaciones(){
-		$data ['expiracion'] = 0;
-		$lista_fecha = $this->DocumentacionModel->ObtenerFechaDocActualizable();
-		$fechaactual = date("d-m-Y");
-		$data ['totaldocumentos'] = 0;
-		foreach($lista_fecha as $row){
-			//Paso de string a fecha
-			$d1 = new DateTime($row->fechalimite);
-			$d2 = new DateTime($fechaactual);
-			$interval = $d1->diff($d2);
-			$diasTotales    = $interval->d; 
-			if($diasTotales == 3){
-				$data ['lista_nrodocactualizables'] = $this->DocumentacionModel->ObtenerNroDocActualizable($row->fechalimite);
-				$data ['expiracion'] = 1;
-				$data ['totaldocumentos'] = $data ['totaldocumentos'] + 1;
-			}
-		}
-		$this->load->view('layout/nav',$data);
-	}
-
 	public function Permamente()
 	{
 		$data ['documentos_permamentes'] = $this->DocumentacionModel->ObtenerDocumentosPermamentes();
 		$data ['activomenu'] = 11;
 		$data ['activo'] = 8;
-		$this->setNotificaciones();
+		setNotificaciones($this->DocumentacionModel);
      	$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/documentacionPermamente',$data);
 		$this->load->view('layout/footer');
@@ -49,7 +30,7 @@ class Documentacion extends CI_Controller {
 		$data ['documentos_actualizables'] = $this->DocumentacionModel->ObtenerDocumentosActualizables();
 		$data ['activomenu'] = 11;
 		$data ['activo'] = 12;
-		$this->setNotificaciones();
+		setNotificaciones($this->DocumentacionModel);
 		$this->load->view('menu/menu_supremo',$data);
 		$this->load->view('Administracion/documentacionActualizable',$data);
 		$this->load->view('layout/footer');
@@ -82,12 +63,12 @@ class Documentacion extends CI_Controller {
 			//Si es igual a 0 es porque es documentacion permamente
 			if($tipo == 0){
 				$sub_array[] = $value->fecha;
-				$sub_array[] = '<button class="btn btn-success btn-sm" data-toggle="modal" id="estado-orden" data-target="#modal-estado-orden" onclick="descargarDocumento(this)"><i class="fas fa-download"></i></button>';
+				$sub_array[] = '<button class="btn btn-success btn-sm" data-toggle="modal" id="estado-orden" data-target="#modal-estado-orden" onclick="descargarDocumento(this)"><i class="fas fa-download"></i></button>&nbsp<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="setIDRegistro('.$value->id.')"><i class="fa fa-trash"></i></button>';
 			}
 			//Si es igual a 1 es porque es documentacion actualizable
 			if($tipo == 1){
 				$sub_array[] = $value->fechalimite;
-				$sub_array[] = '<button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-editardocumento" onclick="editarDocumento(this)"><i class="fas fa-edit"></i></button><button class="btn btn-success btn-sm" data-toggle="modal" id="estado-orden" data-target="#modal-estado-orden" onclick="descargarDocumento(this)"><i class="fas fa-download"></i></button>';
+				$sub_array[] = '<button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-editardocumento" onclick="editarDocumento(this)"><i class="fas fa-edit"></i></button>&nbsp<button class="btn btn-success btn-sm" data-toggle="modal" id="estado-orden" data-target="#modal-estado-orden" onclick="descargarDocumento(this)"><i class="fas fa-download"></i></button>&nbsp<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="setIDRegistro('.$value->id.')"><i class="fa fa-trash"></i></button>';
 			}
             $data[] = $sub_array;
         }
@@ -136,5 +117,18 @@ class Documentacion extends CI_Controller {
 
 
 		echo json_encode($data);
+	}
+
+	//Eliminar un documento de documentos peramentes cambiando su estado
+	public function cambiarEstadoDocumento(){
+		$ajax_data = $this->input->post();
+		$res = $this->DocumentacionModel->updateEstadoDocumento($ajax_data);
+        if($res){
+            $data = array('response' => 'success', 'message' => 'Exito');
+        }else{
+            $data = array('response' => 'error', 'message' => $res);
+        }
+		echo json_encode($data);
+
 	}
 }

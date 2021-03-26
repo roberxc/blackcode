@@ -327,3 +327,57 @@ function graficoCircular(){
         },
     });
 }
+
+function setTablaEditar(table){
+    var iditem = table.parentNode.parentNode.cells[0].textContent;
+    $.ajax({
+        url: base_url+"Administracion/obtenerDetalleCostoFijo",
+        type: "post",
+        dataType: "json",
+        data: {
+            iditem: iditem,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                // Add response in Modal body
+                $('#editar-costofijo').html(data.detalle);
+                // Display Modal
+                 //$('#detalle-trabajo').modal('show');
+            } else {
+                
+            }
+        }
+    });
+}
+
+function updateCostoFijo(){
+    var fecha = $("#fecha_update").val();
+    var valor = $("#valor_update").val();
+    var detalle = $("#detalle_update").val();
+    var idtipo = $("#tipocosto_update").val();
+
+    var idcostofijo = $("#idcosto_update").val();
+    $.ajax({
+        url: base_url+"Administracion/actualizarCostosFijos",
+        type: "post",
+        dataType: "json",
+        data: {
+            fecha: fecha,
+            valor: valor,
+            detalle: detalle,
+            id_tipo: idtipo,
+            idcostofijo: idcostofijo,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                // Add response in Modal body
+                generarAvisoExitoso(data.message);
+                location.reload();
+                // Display Modal
+                 //$('#detalle-trabajo').modal('show');
+            } else {
+                
+            }
+        }
+    });
+}

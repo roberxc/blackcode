@@ -87,7 +87,7 @@ class CajaChicaModel extends CI_Model {
         "i.montoingreso",
     );
 
-    var $where_cajaingresos = "c.id_cajachica = i.id_cajachica";
+    var $where_cajaingresos = "c.id_cajachica = i.id_cajachica AND i.estado = 0";
 
     function make_query_cajaingresos(){
         $this->db->select($this->select_columna_cajaingresos);
@@ -201,9 +201,11 @@ class CajaChicaModel extends CI_Model {
     }
 
 	public function obtenerTotalCajaChica(){
-		
-		$this->db->select_sum('Balance');
-		$query = $this->db->get('cajachica');
+		$query = $this->db
+				->select_sum("balance") # También puedes poner * si quieres seleccionar todo
+				->from("cajachica")
+				->where("estado",0)
+				->get();
 		return $query->result();
 		
 	}
@@ -479,6 +481,155 @@ class CajaChicaModel extends CI_Model {
 		return $query->result_array();
 	}
 
+    public function ObtenerDetalleCostoFijo($idcostofijo){
+		$query = $this->db
+				->select("tc.id_tipo,c.id_costofijos,c.fecha,c.valor,c.detalle,tc.nombre") # También puedes poner * si quieres seleccionar todo
+				->from("costosfijos c")
+                ->join("tipocostosfijos tc","c.id_tipo = tc.id_tipo")
+				->where("c.id_costofijos",$idcostofijo)
+				->get();
+        // if (count($query->result()) > 0) {
+        return $query->result();
+        // }
+	}
+
+    public function ObtenerTotalCostosFijos(){
+		$query = $this->db
+				->select("SUM(valor) as total") # También puedes poner * si quieres seleccionar todo
+				->from("costosfijos c")
+                ->where("estado",0)
+				->get();
+        // if (count($query->result()) > 0) {
+        return $query->result_array();
+        // }
+	}
+
+    public function updateCostosFijos($data){
+        $dataproveedor = array(
+            'fecha' => $data['fecha'],
+            'valor' => $data['valor'],
+            'detalle' => $data['detalle'],
+            'id_tipo' => $data['id_tipo'],
+        );
+        $this->db->where('id_costofijos', $data['idcostofijo']);
+		return $this->db->update('costosfijos',$dataproveedor);
+    }
+
+    //Costos fijos
+    //Año anterior
+    public function ObtenerMontoTotalPorMesesLast($yearlast){
+        $meses = array(1,2,3,4,5,6,7,8,9,10,11,12);
+		$query = $this->db
+				->select("SUM(c.valor) as montototal, MONTH(c.fecha) as mes") # También puedes poner * si quieres seleccionar todo
+				->from("costosfijos c")
+				->where_in("MONTH(fecha)",$meses)
+                ->where_in("YEAR(fecha)",$yearlast)
+                ->where("estado",0)
+                ->group_by("mes")
+				->get();
+        // if (count($query->result()) > 0) {
+        return $query->result_array();
+        // }
+	}
+
+    //Año actual
+    public function ObtenerMontoTotalPorMesesCurrent($yearcurrent){
+        $meses = array(1,2,3,4,5,6,7,8,9,10,11,12);
+		$query = $this->db
+				->select("SUM(c.valor) as montototal, MONTH(c.fecha) as mes") # También puedes poner * si quieres seleccionar todo
+				->from("costosfijos c")
+				->where_in("MONTH(fecha)",$meses)
+                ->where("YEAR(fecha)",$yearcurrent)
+                ->where("estado",0)
+                ->group_by("mes")
+				->get();
+        // if (count($query->result()) > 0) {
+        return $query->result_array();
+        // }
+	}
+
+    public function generarEstadisticasCostosFijos($yearlast,$yearcurrent){
+        //Año actual
+        $datacostosfijoscurrent = $this->ObtenerMontoTotalPorMesesCurrent($yearcurrent);
+
+        //Año anterior
+        $datacostosfijoslast = $this->ObtenerMontoTotalPorMesesLast($yearlast);
+        //------
+        $mesesespañol_current = array ();
+        $montodata_current = array();
+
+        //------
+        $mesesespañol_last = array ();
+        $montodata_last = array();
+
+        //Abreviacion de meses
+        $meses = array('EN','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC');
+        //Numero de meses
+        $mesesnumber = array(1,2,3,4,5,6,7,8,9,10,11,12);
+        //Tamaño de data mysql
+        $size_current = count($datacostosfijoscurrent);
+
+        $size_last = count($datacostosfijoslast);
+        //----------------------------------------------------------------------------
+        //Año actual
+        //----------------------------------------------------------------------------
+        //Llenado de meses con valores
+        for($i = 0;$i<count($meses);$i++){
+            if($i < $size_current){
+                if (in_array($datacostosfijoscurrent[$i]['mes'], $mesesnumber)) {
+                    $mesesespañol_current []= $meses[$datacostosfijoscurrent[$i]['mes']-1];
+                    $montodata_current [] = intval($datacostosfijoscurrent[$i]['montototal']);
+                }
+            }
+
+            if($i < $size_last){
+                if (in_array($datacostosfijoslast[$i]['mes'], $mesesnumber)) {
+                    $mesesespañol_last [] = $meses[$datacostosfijoslast[$i]['mes']-1];
+                    $montodata_last [] = intval($datacostosfijoslast[$i]['montototal']);
+                }
+            }
+        }
+
+        //Llenado de meses sin valores
+        for($x=0;$x<count($meses);$x++){
+            if(in_array($meses[$x], $mesesespañol_current) == false){
+                $mesesespañol_current [] = $meses[$x];
+                $montodata_current [] = 0; 
+            }
+        }
+
+        for($x=0;$x<count($meses);$x++){
+            if(in_array($meses[$x], $mesesespañol_last) == false){
+                $mesesespañol_last [] = $meses[$x];
+                $montodata_last [] = 0; 
+            }
+        }
+
+        //ARRAY CON DATA
+        $mesesespañol_currentdata = array();
+        $montodata_currentdata = array();
+
+        $mesesespañol_lastdata = array();
+        $montodata_lastdata = array();
+
+        for($p=0;$p<count($mesesespañol_current);$p++){
+            $mesesespañol_currentdata = $mesesespañol_current[$p];
+            $montodata_currentdata = $montodata_current[$p];
+
+            $mesesespañol_lastdata = $mesesespañol_last[$p];
+            $montodata_lastdata = $montodata_last[$p];
+
+            $arraydata[] = array(
+                "meses_current" => $mesesespañol_currentdata,
+                "monto_current" => $montodata_currentdata,
+                "meses_last" => $mesesespañol_lastdata,
+                "monto_last" => $montodata_lastdata,
+            );
+        }
+        //----------------------------------------------------------------------------
+        echo json_encode($arraydata);
+
+    }
 
 }
 

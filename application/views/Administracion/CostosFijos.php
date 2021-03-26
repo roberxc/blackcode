@@ -79,7 +79,7 @@
             </div>
          </div>
          <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
-         <div class="content-header">
+            <div class="content-header">
                <div class="container-fluid">
                   <div class="row mb-2">
                      <div class="col-sm-6">
@@ -100,19 +100,19 @@
                <!-- /.container-fluid -->
                <!-- /.container-fluid -->
             </div>
-         <div class="card-header">
+            <div class="card-header">
                <!-- SELECT2 EXAMPLE -->
                <div class="card card-default">
                   <div class="card card-primary">
                      <div class="card-header">
-                     <h3 class="card-title">Filtrado</h3>
+                        <h3 class="card-title">Filtrado</h3>
                         <div class="card-tools">
                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                            </button>
                            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
                         </div>
                      </div>
-                  <!-- /.card-header -->
+                     <!-- /.card-header -->
                      <div class="card-body">
                         <div class="row">
                         </div>
@@ -263,7 +263,6 @@
       </div>
    </div>
 </div>
-</div>
 <div id="modal-confirmacion" class="modal fade bd-example-modal-sm" role="dialog">
    <div class="modal-dialog modal-sm">
       <!-- Contenido del modal -->
@@ -284,7 +283,30 @@
       </div>
    </div>
 </div>
-</div>
+<div id="modal-editar-costofijo" class="modal fade bd-example-modal-lg" role="dialog">
+   <div class="modal-dialog modal-lg">
+      <div class="table-responsive">
+         <!-- Contenido del modal -->
+         <div class="modal-content">
+            <div class="modal-header bg-blue">
+               <H3>Editar costo fijo</H3>
+               <button type="button" class="close-white" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+               <div class="card-body" id="dynamic_field" >
+                  <div class="box-body">
+                     <div class="modal-body" id="editar-costofijo">
+                     </div>
+                  </div>
+               </div>
+               <div class="modal-footer bg-white">
+                  <input type="submit" class="btn btn-primary" value="Guardar" onclick="updateCostoFijo()">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 </div>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>

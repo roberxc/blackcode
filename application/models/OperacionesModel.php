@@ -116,7 +116,7 @@ class OperacionesModel extends CI_Model {
 		//Array con las id de los gastos viaticos
 		$gastosviaticos = array('Almuerzo','Cena','Agua','Alojamiento','Desayuno');
 
-		$this->db->select_sum('g.Valor');
+		$this->db->select_sum('g.valor');
 		$this->db->from("gastos g");
 		$this->db->join("tipogasto gc", "gc.id_tipogasto = g.id_tipogasto");
 		$this->db->where('g.id_trabajodiario',$idtrabajodiario);
@@ -190,7 +190,7 @@ class OperacionesModel extends CI_Model {
 		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['id_tipotrabajo']);
 		$idtrabajodiario = $idtipotrabajo[0]['id_trabajodiario'];
 
-		$this->db->select_sum('Valor');
+		$this->db->select_sum('valor');
 		$this->db->where('id_trabajodiario',$idtrabajodiario);
 		$this->db->limit(1);
 		$query = $this->db->get('gastos');
@@ -209,7 +209,7 @@ class OperacionesModel extends CI_Model {
 		//Array con las id de los gastos viaticos
 		$gastosviaticos = array('Almuerzo','Cena','Agua','Alojamiento','Desayuno');
 		$query = $this->db
-		->select("g.ID_Gasto AS ID, g.Valor AS Valor,t.nombreTipoGasto AS nombre") # También puedes poner * si quieres seleccionar todo
+		->select("g.ID_Gasto AS ID, g.valor AS valor,t.nombreTipoGasto AS nombre") # También puedes poner * si quieres seleccionar todo
 		->from("gastos g")
 		->join("tipogasto t", "t.id_tipogasto = g.id_tipogasto")
 		->where_in('t.nombretipogasto',$gastosviaticos)
@@ -239,13 +239,13 @@ class OperacionesModel extends CI_Model {
 		return $query->result();
 	}
 
-	public function obtenerSumaAsignada($codigo){
+	public function ObtenerSumaAsignada($codigo){
 
 		$idtipotrabajo = $this->getIDTrabajoDiarioCS($codigo);
 		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['id_tipotrabajo']);
 		$idtrabajodiario = $idtipotrabajo[0]['id_trabajodiario'];
 
-		$this->db->select('ValorAsignado');
+		$this->db->select('valorasignado');
 		$this->db->where('id_trabajodiario',$idtrabajodiario);
 		$this->db->limit(1);
 		$query = $this->db->get('trabajodiario');
@@ -263,7 +263,7 @@ class OperacionesModel extends CI_Model {
 		//Array con las id de los gastos viaticos
 		$gastosviaticos = array('Almuerzo','Agua','Cena','Alojamiento','Desayuno');
 		$query = $this->db
-		->select("g.Valor AS Valor,t.nombreTipoGasto AS nombre") # También puedes poner * si quieres seleccionar todo
+		->select("g.valor AS valor,t.nombreTipoGasto AS nombre") # También puedes poner * si quieres seleccionar todo
 		->from("gastos g")
 		->join("tipogasto t", "t.id_tipogasto = g.id_tipogasto")
 		->where_in('t.nombretipogasto',$gastosviaticos)
@@ -282,33 +282,33 @@ class OperacionesModel extends CI_Model {
 		$idtipogasto = 0;
 		$data = array(
 			array(
-			   'Valor' => $ajax_data['valmuerzo'],
-			   'Cantidad' => 0,  
+			   'valor' => $ajax_data['valmuerzo'],
+			   'cantidad' => 0,  
 			   'id_tipogasto' => $this->getTipoGasto('Almuerzo')[0]['id_tipogasto'],
 			   'id_trabajodiario' => $idtrabajodiario
 			),
 			array(
-				'Valor' => $ajax_data['vcena'],
-				'Cantidad' => 0,
+				'valor' => $ajax_data['vcena'],
+				'cantidad' => 0,
 				'id_tipogasto' => $this->getTipoGasto('Cena')[0]['id_tipogasto'],
 				'id_trabajodiario' => $idtrabajodiario
 			 ),
 			 array(
-				'Valor' => $ajax_data['vagua'],
-				'Cantidad' => 0,
+				'valor' => $ajax_data['vagua'],
+				'cantidad' => 0,
 				'id_tipogasto' => $this->getTipoGasto('Agua')[0]['id_tipogasto'],
 				'id_trabajodiario' => $idtrabajodiario
 			 ),
 			 array(
-				'Valor' => $ajax_data['valojamiento'],
-				'Cantidad' => 0,
+				'valor' => $ajax_data['valojamiento'],
+				'cantidad' => 0,
 				'id_tipogasto' => $this->getTipoGasto('Alojamiento')[0]['id_tipogasto'],
 				'id_trabajodiario' => $idtrabajodiario
 			 ),
 
 			 array(
-				'Valor' => $ajax_data['vdesayuno'],
-				'Cantidad' => 0,
+				'valor' => $ajax_data['vdesayuno'],
+				'cantidad' => 0,
 				'id_tipogasto' => $this->getTipoGasto('Desayuno')[0]['id_tipogasto'],
 				'id_trabajodiario' => $idtrabajodiario
 			 )
@@ -339,8 +339,8 @@ class OperacionesModel extends CI_Model {
 			if(!empty($lista_gastos)){
 				$insert_data[] = array(
 					'ID_Gasto' => $lista_gastosid,
-					'Valor' => $lista_gastos,
-					'Cantidad' => 0
+					'valor' => $lista_gastos,
+					'cantidad' => 0
 				);
 			}
 		}
@@ -364,8 +364,8 @@ class OperacionesModel extends CI_Model {
 			if(!empty($lista_gastos)){
 				$insert_data[] = array(
 					'ID_Gasto' => $lista_gastosid,
-					'Valor' => $lista_gastos,
-					'Cantidad' => 0
+					'valor' => $lista_gastos,
+					'cantidad' => 0
 				);
 			}
 		}
@@ -397,6 +397,7 @@ class OperacionesModel extends CI_Model {
 		$cadena_codigo = preg_replace('/[0-9]+/', '', $data['codigo_servicio']);
 		$idtipotrabajo = $this->obtenerIDTipoTrabajo($cadena_codigo);
 		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['id_tipotrabajo']);
+		$this->db->trans_start();
 		$datacodigo = array(
 			'codigoservicio' => $data['codigo_servicio'],
 			'id_tipotrabajo' => $idtipotrabajo[0]['id_tipotrabajo'],
@@ -419,8 +420,8 @@ class OperacionesModel extends CI_Model {
 
 		$datatrabajodiario = array(
 			'PersonalCargo' => $data['persona_cargo'],
-			'Detalle' => $data['detalle_trabajo'],
-			'ValorAsignado' => $data['suma_asignada'],
+			'detalle' => $data['detalle_trabajo'],
+			'valorAsignado' => $data['suma_asignada'],
 			'ID_Proyecto' => $data['id_proyecto'],
 			'id_codigo' => $id_codigo,
 		);
@@ -466,9 +467,16 @@ class OperacionesModel extends CI_Model {
 			}
 			
 		}
-		
 
-		return  $this->db->insert_batch('personal_trabajo',$insert_data);
+		$this->db->insert_batch('personal_trabajo',$insert_data);
+
+		$this->db->trans_complete();
+		if ($this->db->trans_status()){
+			return true;
+		}else{
+			$this->db->trans_rollback();
+		}
+
 	}
 
 	public function siExistePersonal($rut){
@@ -635,11 +643,19 @@ class OperacionesModel extends CI_Model {
 		//Actualizar estado de planilla
 		$idcodigoservicio = $this->getIDcodigoservicio($data['codigo_servicio']);
 
+		$this->db->trans_start();
 		$this->db->set('asistencia','1', FALSE);
 		$this->db->where('id_codigo', $idcodigoservicio[0]['id_codigo']);
 		$this->db->update('planillaestado');
 
-		return  $this->db->insert_batch('asistencia_personal',$insert_data);
+		//Ingreso asistencia
+		$this->db->insert_batch('asistencia_personal',$insert_data);
+		$this->db->trans_complete();
+		if ($this->db->trans_status()){
+			return true;
+		}else{
+			$this->db->trans_rollback();
+		}
 	}
 
 	public function updateAsistenciaPersonal($data){
@@ -766,9 +782,7 @@ class OperacionesModel extends CI_Model {
 	//Metodo para registrar tipos de gastos
 	public function registroTipoGasto($lista_tipogasto){
 		for($count = 0; $count<count($lista_tipogasto); $count++){
-
 			$lista_tipo = $lista_tipogasto[$count];
-
 			if(!empty($lista_tipo)){
 				$insert_tipogastos[] = array(
 					'nombreTipoGasto'=> $lista_tipo,
@@ -802,8 +816,8 @@ class OperacionesModel extends CI_Model {
 			 && !empty($valores_limpio)){
 				$insert_gastos[] = array(
 					'nombre' => $materiales_limpio,
-					'Cantidad'=> $cantidad_limpio,
-					'Valor' => $valores_limpio,
+					'cantidad'=> $cantidad_limpio,
+					'valor' => $valores_limpio,
 					'id_trabajodiario' => $idtrabajo,
 				);
 			}
@@ -844,8 +858,8 @@ class OperacionesModel extends CI_Model {
 			 && !empty($valores_limpio)){
 				$insert_gastos[] = array(
 					'nombre' => $materiales_limpio,
-					'Cantidad'=> $cantidad_limpio,
-					'Valor' => $valores_limpio,
+					'cantidad'=> $cantidad_limpio,
+					'valor' => $valores_limpio,
 					'id_trabajodiario' => $idtrabajo,
 				);
 			}
@@ -883,7 +897,7 @@ class OperacionesModel extends CI_Model {
 			if(!empty($materiales_limpio) && !empty($cantidad_limpio)){
 				$insert_gastos[] = array(
 					'nombre' => $materiales_limpio,
-					'Cantidad'=> $cantidad_limpio,
+					'cantidad'=> $cantidad_limpio,
 					'id_trabajodiario' => $idtrabajo,
 				);
 			}
@@ -916,14 +930,14 @@ class OperacionesModel extends CI_Model {
 
 		$data = array(
 			array(
-			   'Valor' => $ajax_data['gasto_peaje'],
-			   'Cantidad' => 0,
+			   'valor' => $ajax_data['gasto_peaje'],
+			   'cantidad' => 0,
 			   'id_tipogasto' => $idtipogastopeaje[0]['id_tipogasto'],
 			   'id_trabajodiario' => $idtrabajodiario
 			),
 			array(
-				'Valor' => $ajax_data['gasto_estacionamiento'],
-				'Cantidad' => 0,
+				'valor' => $ajax_data['gasto_estacionamiento'],
+				'cantidad' => 0,
 				'id_tipogasto' => $idtipogastoestacionamiento[0]['id_tipogasto'],
 				'id_trabajodiario' => $idtrabajodiario
 			 ),
@@ -946,8 +960,8 @@ class OperacionesModel extends CI_Model {
 		$idtrabajodiario = $idtipotrabajo[0]['id_trabajodiario'];
 
 		$datagastocombustible = array(
-			'Valor' => $ajax_data['gasto_combustible'],
-			'Cantidad' => 0,
+			'valor' => $ajax_data['gasto_combustible'],
+			'cantidad' => 0,
 			'id_tipogasto' => $ajax_data['id_gasto'],
 			'id_trabajodiario' => $idtrabajodiario,
 		);
@@ -967,10 +981,10 @@ class OperacionesModel extends CI_Model {
 		$idtipotrabajo = $this->getIDTrabajoDiarioCS($ajax_data['codigo_servicio']);
 		//var_dump('DATITOS ID: '. $idtipotrabajo[0]['id_tipotrabajo']);
 		$idtrabajodiario = $idtipotrabajo[0]['id_trabajodiario'];
-		//$this->db->set('Valor',$ajax_data['gasto_combustible'], FALSE);
+		//$this->db->set('valor',$ajax_data['gasto_combustible'], FALSE);
 		//$this->db->where('id_trabajodiario', $idtrabajodiario);
 
-		$this->db->set("g.Valor",$ajax_data['gasto_combustible']); # También puedes poner * si quieres seleccionar todo
+		$this->db->set("g.valor",$ajax_data['gasto_combustible']); # También puedes poner * si quieres seleccionar todo
 		$this->db->from("gastos g");
 		$this->db->join("tipogasto t", "t.id_tipogasto = g.id_tipogasto");
 		$this->db->where('g.id_tipogasto',$ajax_data['id_gasto']);
@@ -983,7 +997,7 @@ class OperacionesModel extends CI_Model {
 		$query = $this->db
 				->select("p.nombreProyecto AS nombreProyecto, c.codigoservicio AS codigoservicio,
 				i.FechaAsignacion AS FechaTrabajo, t.PersonalCargo AS PersonalCargo,
-				t.Detalle AS Detalle, t.ValorAsignado AS ValorAsignado") # También puedes poner * si quieres seleccionar todo
+				t.detalle AS detalle, t.valorAsignado AS valorAsignado") # También puedes poner * si quieres seleccionar todo
 				->from("trabajodiario t")
 				->join("codigoservicio c", "c.id_codigo = t.id_codigo")
 				->join("proyecto p", "p.ID_Proyecto = t.ID_Proyecto")
@@ -996,11 +1010,11 @@ class OperacionesModel extends CI_Model {
 	}
 
 	//Validar codigo de servicio
-	public function ObtenerDetallePlanilla($ajax_data){
+	public function ObtenerdetallePlanilla($ajax_data){
 		$query = $this->db
 				->select("tg.nombreTipoGasto AS nombreGastoViatico, p.nombreProyecto AS nombreProyecto, c.codigoservicio AS codigoservicio,
 				i.FechaAsignacion AS FechaTrabajo, t.PersonalCargo AS PersonalCargo,
-				t.Detalle AS Detalle, t.ValorAsignado AS ValorAsignado") # También puedes poner * si quieres seleccionar todo
+				t.detalle AS detalle, t.valorAsignado AS valorAsignado") # También puedes poner * si quieres seleccionar todo
 				->from("trabajodiario t")
 				->from("tipogasto tg")
 				->join("codigoservicio c", "c.id_codigo = t.id_codigo")
@@ -1042,7 +1056,7 @@ class OperacionesModel extends CI_Model {
 		$idtrabajodiario = $idtipotrabajo[0]['id_trabajodiario'];
 
 		$query = $this->db
-		->select("ma.ID_MaterialesAntes AS ID, ma.nombre AS nombre, ma.Cantidad AS Cantidad, ma.Valor AS Valor") # También puedes poner * si quieres seleccionar todo
+		->select("ma.ID_MaterialesAntes AS ID, ma.nombre AS nombre, ma.cantidad AS cantidad, ma.valor AS valor") # También puedes poner * si quieres seleccionar todo
 		->from("materialesantes ma")
 		->join("trabajodiario t", "t.id_trabajodiario = ma.id_trabajodiario")
 		->where('ma.id_trabajodiario',$idtrabajodiario)
@@ -1059,7 +1073,7 @@ class OperacionesModel extends CI_Model {
 		$idtrabajodiario = $idtipotrabajo[0]['id_trabajodiario'];
 
 		$query = $this->db
-		->select("mb.ID_MaterialesBodega AS ID, mb.nombre AS nombre, mb.Cantidad AS Cantidad") # También puedes poner * si quieres seleccionar todo
+		->select("mb.ID_MaterialesBodega AS ID, mb.nombre AS nombre, mb.cantidad AS cantidad") # También puedes poner * si quieres seleccionar todo
 		->from("materialesbodega mb")
 		->join("trabajodiario t", "t.id_trabajodiario = mb.id_trabajodiario")
 		->where('mb.id_trabajodiario',$idtrabajodiario)
@@ -1092,8 +1106,8 @@ class OperacionesModel extends CI_Model {
 				$insert_data[] = array(
 					'ID_MaterialesDurante' => $lista_id,
 					'nombre' => $materiales_limpio,
-					'Cantidad'=> $cantidad_limpio,
-					'Valor' => $valores_limpio,
+					'cantidad'=> $cantidad_limpio,
+					'valor' => $valores_limpio,
 				);
 			}
 		}
@@ -1126,8 +1140,8 @@ class OperacionesModel extends CI_Model {
 				$insert_data[] = array(
 					'ID_MaterialesAntes' => $lista_id,
 					'nombre' => $materiales_limpio,
-					'Cantidad'=> $cantidad_limpio,
-					'Valor' => $valores_limpio,
+					'cantidad'=> $cantidad_limpio,
+					'valor' => $valores_limpio,
 				);
 			}
 		}
@@ -1156,7 +1170,7 @@ class OperacionesModel extends CI_Model {
 				$insert_data[] = array(
 					'ID_MaterialesBodega' => $lista_id,
 					'nombre' => $materiales_limpio,
-					'Cantidad'=> $cantidad_limpio,
+					'cantidad'=> $cantidad_limpio,
 				);
 			}
 		}
@@ -1171,7 +1185,7 @@ class OperacionesModel extends CI_Model {
 		$idtrabajodiario = $idtipotrabajo[0]['id_trabajodiario'];
 
 		$query = $this->db
-		->select("dt.ID_DetalleTrabajo AS ID, dt.Imagen AS Imagen") # También puedes poner * si quieres seleccionar todo
+		->select("dt.ID_detalleTrabajo AS ID, dt.Imagen AS Imagen") # También puedes poner * si quieres seleccionar todo
 		->from("detalletrabajodiario dt")
 		->join("trabajodiario t", "t.id_trabajodiario = dt.id_trabajodiario")
 		->where('dt.id_trabajodiario',$idtrabajodiario)
@@ -1210,7 +1224,7 @@ class OperacionesModel extends CI_Model {
 
 	public function ObtenerDetalleTrabajo($codigoservicio){
 		$query = $this->db
-				->select("t.Detalle AS Detalle, t.ValorAsignado AS ValorAsignado") # También puedes poner * si quieres seleccionar todo
+				->select("t.detalle AS detalle, t.valorasignado AS valorasignado") # También puedes poner * si quieres seleccionar todo
 				->from("trabajodiario t")
 				->join("codigoservicio c", "c.id_codigo = t.id_codigo")
 				->where("c.codigoservicio", $codigoservicio)
@@ -1236,7 +1250,7 @@ class OperacionesModel extends CI_Model {
 				->where("a.fecha_asistencia", $fechatrabajo)
 				->get();
 		
-		return $query->result_array();
+		return $query->result();
 	}
 
 	public function ObtenerGastosCombustibles($codigo){
@@ -1262,7 +1276,7 @@ class OperacionesModel extends CI_Model {
         $this->db->select('Imagen');
         $this->db->from('detalletrabajodiario');
         if(!empty($params['id'])){
-            $this->db->where('ID_DetalleTrabajo',$params['id']);
+            $this->db->where('ID_detalleTrabajo',$params['id']);
             //get records
             $query = $this->db->get();
             $result = ($query->num_rows() > 0)?$query->row_array():FALSE;
@@ -1293,6 +1307,8 @@ class OperacionesModel extends CI_Model {
 	}
 
 	public function ObtenerhorasextrasSegunFecha($rutpersonal,$fecha){
+		//echo$fecha;
+		//echo"RUT: ".$rutpersonal;
 		
 		$query = $this->db
 				->select("SUM(a.horasextras) AS TotalHoras,p.rut AS Rut, p.nombrecompleto AS Nombre") # También puedes poner * si quieres seleccionar todo
@@ -1308,6 +1324,10 @@ class OperacionesModel extends CI_Model {
 	public function ObtenerHorasExtras($rutpersonal,$fechainicial,$fechatermino){
 		// Declare an empty array 
 		$arraydias = array(); 
+		//echo"Fecha inicial: ".$fechainicial;
+		//echo"Fecha termino: ".$fechatermino; 
+
+		
 		$pos = strpos($fechainicial, $fechatermino);
 		if($pos === false){
 			// Variable that store the date interval 
@@ -1320,7 +1340,7 @@ class OperacionesModel extends CI_Model {
 			$period = new DatePeriod(new DateTime($fechainicial), $interval, $realEnd); 
 			
 			// Use loop to store date into array 
-			$format = 'y-m-d';
+			$format = 'Y-m-d';
 			foreach($period as $date) {                  
 				$fecha = $date->format($format);
 				$arraydias [] = $fecha;

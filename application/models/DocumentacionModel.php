@@ -124,12 +124,11 @@ class DocumentacionModel extends CI_Model {
 		"nombre",
     );
 
-    var $where_docpermamente = "tipo = 0";
-
     function make_query_documentacion($tipo){
         $this->db->select($this->select_columna_docpermamente);
         $this->db->from($this->tabladocpermamente);
         $this->db->where("tipo",$tipo);
+		$this->db->where("estado",0);
 
         if (isset($_POST["search"]["value"]) && $_POST["search"]["value"] != ''){
             $this->db->group_start();
@@ -217,6 +216,15 @@ class DocumentacionModel extends CI_Model {
         // if (count($query->result()) > 0) {
         return $query->result();
         // }
+    }
+
+	public function updateEstadoDocumento($data){
+        $datadocumentos = array(
+            'estado' => 1,
+        );
+
+        $this->db->where('id_documentos', $data['id_documento']);
+		return $this->db->update('documentacion_empresa',$datadocumentos);
     }
 
 }

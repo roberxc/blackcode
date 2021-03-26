@@ -1,14 +1,16 @@
+var idingreso = 0;
+function setIDIngreso(idingresoc){
+    idingreso = idingresoc;
+}
+
 $(document).on('click', '#add', function(e) {
     e.preventDefault();
-
     var currentdate = new Date(); 
     var datetime = currentdate.getHours() + ":"  
                 + currentdate.getMinutes() + ":" 
                 + currentdate.getSeconds();
-
     var monto = $("#montoingreso").val();
     var fecha = $("#fechaingreso").val() + ' ' + datetime;
-
     $.ajax({
         url: "ingresoCajaChica",
         type: "post",
@@ -18,51 +20,14 @@ $(document).on('click', '#add', function(e) {
             fechaingreso: fecha,
         },
         success: function(data) {
-            if (data.response == "success") {
-                
+            if (data.response == "success") {                
                 $('#exampleModal').modal('hide')
                 $("#form")[0].reset();
-                Command: toastr["success"](data.message)
-
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
+                generarAvisoExitoso(data.message);
 
                 window.location.href = base_url + "Administracion/CajaIngreso";
             } else {
-                Command: toastr["error"](data.message)
-
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
+                generarAvisoError(data.message);
             }
         }
     });
@@ -91,47 +56,71 @@ function updateCajaChica(){
         success: function(data) {
             if (data.response == "success") {
                 window.location.href = base_url + "Administracion/CajaIngreso";
-                Command: toastr["success"](data.message)
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
+                generarAvisoExitoso(data.message);
             } else {
-                Command: toastr["error"](data.message)
-
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
+                generarAvisoError(data.message);
             }
         }
     });
 }
 
+function deleteIngreso(){
+    $.ajax({
+        url: "deleteIngresoCajaChica",
+        type: "post",
+        dataType: "json",
+        data: {
+            id_ingreso: idingreso,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                window.location.href = base_url + "Administracion/CajaIngreso";
+                generarAvisoExitoso(data.message);
+            } else {
+                generarAvisoError(data.message);
+            }
+        }
+    });
+}
 
+function generarAvisoError($mensaje) {
+    Command: toastr["error"]($mensaje, 'Error')
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+}
+
+function generarAvisoExitoso($mensaje) {
+    Command: toastr["success"]($mensaje, 'Correcto')
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+}

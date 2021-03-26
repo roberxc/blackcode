@@ -101,3 +101,91 @@ function generarAvisoExitoso($mensaje) {
         "hideMethod": "fadeOut"
     }
 }
+
+var idreg = 0;
+
+function setIDRegistro($idregistro){
+    idreg = $idregistro;
+}
+
+
+function deleteRegistro(){
+    var estadoproveedor = $("#estado_registro").val();
+    $.ajax({
+        url: base_url+"Proveedores/cambiarEstadoProveedor",
+        type: "post",
+        dataType: "json",
+        data: {
+            id_proveedor: idreg,
+            estado_registro: estadoproveedor,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                generarAvisoExitoso(data.message);
+                location.reload();
+            } else if (data.response == "error") {
+                generarAvisoError(data.message);
+            }
+        }
+    });
+}
+
+function setTablaEditar(table){
+    var iditem = table.parentNode.parentNode.cells[0].textContent;
+    $.ajax({
+        url: base_url+"Proveedores/obtenerDetalleProveedoresEdit",
+        type: "post",
+        dataType: "json",
+        data: {
+            iditem: iditem,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                // Add response in Modal body
+                $('#editar-proveedores').html(data.detalle);
+                // Display Modal
+                 //$('#detalle-trabajo').modal('show');
+            } else {
+                
+            }
+        }
+    });
+}
+
+function updateProveedor(){
+    var rut = $("#table-proveedor #rut").text();
+    var nombre = $("#table-proveedor #nombre").text();
+    var direccion = $("#table-proveedor #direccion").text();
+    var telefono = $("#table-proveedor #telefono").text();
+    var correo = $("#table-proveedor #correo").text();
+    var descripcion = $("#table-proveedor #descripcion").text();
+    var credito = $("#table-proveedor #credito").text();
+
+    var idproveedor = $("#table-proveedor #idproveedor").text();
+    $.ajax({
+        url: base_url+"Proveedores/actualizarProveedor",
+        type: "post",
+        dataType: "json",
+        data: {
+            rut: rut,
+            nombre: nombre,
+            direccion: direccion,
+            telefono: telefono,
+            correo: correo,
+            descripcion: descripcion,
+            credito: credito,
+            id_proveedor: idproveedor,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                // Add response in Modal body
+                generarAvisoExitoso(data.message);
+                location.reload();
+                // Display Modal
+                 //$('#detalle-trabajo').modal('show');
+            } else {
+                
+            }
+        }
+    });
+}

@@ -37,15 +37,15 @@
                <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                   <thead>
                      <tr>
-                        <th>Codigo Producto</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Codigo Producto</th>
                         <!-- 0 ---> 
-                        <th>Nombre Producto</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Nombre Producto</th>
                         <!-- 1 --->
-                        <th>Categoria</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Categoria</th>
                         <!-- 2 --->
-                        <th>Stock Total Producto</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Stock Total Producto</th>
                         <!-- 3 --->
-                        <th>Bodega</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Bodega</th>
                         <!-- 4 --->
                         <!--<th>Accion</th>
                          5 --->

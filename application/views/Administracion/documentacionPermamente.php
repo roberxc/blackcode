@@ -117,7 +117,29 @@
          <!-- /.modal-content -->
       </div>
       <!-- /.modal-dialog -->
+      
    </div>
+
+   <div id="modal-confirmacion" class="modal fade bd-example-modal-sm" role="dialog">
+         <div class="modal-dialog modal-sm">
+            <!-- Contenido del modal -->
+            <div class="modal-content">
+               <div class="modal-header bg-red">
+                  <H3>Confirmación</H3>
+                  <button type="button" class="close-white" data-dismiss="modal">&times;</button>
+               </div>
+               <div class="modal-body">
+                  <div class="modal-body">
+                     <p>Estás seguro que deseas eliminar este registro?</p>
+                  </div>
+               </div>
+               <div class="modal-footer bg-white">
+                  <input type="submit" class="btn btn-primary" value="Si" onclick="deleteRegDocumento()">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+               </div>
+            </div>
+         </div>
+      </div>
    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
