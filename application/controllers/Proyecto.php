@@ -14,6 +14,7 @@ class Proyecto extends CI_Controller
     public function registroTrabajador(){
 		$data ['activo'] = 6;
 		$data ['activomenu'] = 2;
+        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
 		$this->load->view('layout/nav');
 		$this->load->view('menu/menu_proyecto',$data);
 		$this->load->view('Proyecto/GestionTrabajador');
@@ -21,12 +22,14 @@ class Proyecto extends CI_Controller
 	
     }
     
-    public function AdminArchivos(){
+    public function AdminArchivos($idproyecto){
 		$data ['activo'] = 6;
 		$data ['activomenu'] = 1;
+        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
+        $data ['id_proyecto'] = $idproyecto;
 		$this->load->view('layout/nav');
 		$this->load->view('menu/menu_proyecto',$data);
-		$this->load->view('Proyecto/AdministradorArchivos');
+		$this->load->view('Proyecto/AdministradorArchivos',$data);
         $this->load->view('layout/footer');
     }
 
@@ -34,6 +37,7 @@ class Proyecto extends CI_Controller
     {
         $data ['activo'] = 4;
         $data ['activomenu'] = 1;
+        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
         $this->load->view('layout/nav');
         $this->load->view('menu/menu_proyecto',$data);
 		$this->load->view('Proyecto/Estado');
@@ -44,6 +48,7 @@ class Proyecto extends CI_Controller
         $data ['activo'] = 5;
         $data ['activomenu'] = 1;
         $this->load->view('layout/nav');
+        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
         $this->load->view('menu/menu_proyecto',$data);
 		$this->load->view('Proyecto/ProyectoE');
 		$this->load->view('layout/footer');
@@ -52,7 +57,7 @@ class Proyecto extends CI_Controller
     {
         $data ['activo'] = 6;
         $data ['codigo'] = $idproyecto;
-
+        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
        $data ['Monto_total'] = $this->Proyecto_model->obtenerTotalFactura($data['codigo']);
        $data ['Monto_balanceProyecto'] = $this->Proyecto_model->TotalBalanceProyecto($data['codigo']);
        $data ['Monto_TotalProyecto'] = $this->Proyecto_model->MostrarTotalProyecto($data['codigo']);
@@ -64,12 +69,87 @@ class Proyecto extends CI_Controller
 		$this->load->view('layout/footer');
     }
 
+    function subirArchivos(){ 
+        $data = array(); 
+        $errorUploadType = $statusMsg = ''; 
+         
+        // If file upload form submitted 
+        if($this->input->post('fileSubmit')){ 
+            //idproyecto 
+            $idproyecto = $this->input->post('id_proyecto');
+            $iddirectorio = $this->input->post('tipo-archivo');
+            // If files are selected to upload 
+            if(!empty($_FILES['files']['name']) && count(array_filter($_FILES['files']['name'])) > 0){ 
+                $filesCount = count($_FILES['files']['name']); 
+                for($i = 0; $i < $filesCount; $i++){ 
+                    $_FILES['file']['name']     = $_FILES['files']['name'][$i]; 
+                    $_FILES['file']['type']     = $_FILES['files']['type'][$i]; 
+                    $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i]; 
+                    $_FILES['file']['error']     = $_FILES['files']['error'][$i]; 
+                    $_FILES['file']['size']     = $_FILES['files']['size'][$i]; 
+                     
+                    // File upload configuration 
+                    $uploadPath = 'ArchivosSubidos'; 
+                    $config['upload_path'] = $uploadPath; 
+                    $config['allowed_types'] = '*'; 
+                    //$config['max_size']    = '100'; 
+                    //$config['max_width'] = '1024'; 
+                    //$config['max_height'] = '768'; 
+                     
+                    // Load and initialize upload library 
+                    $this->load->library('upload', $config); 
+                    $this->upload->initialize($config); 
+                     
+                    // Upload file to server 
+                    if($this->upload->do_upload('file')){ 
+                        // Uploaded file data 
+                        $fileData = $this->upload->data(); 
+                        $uploadData[$i]['nombre'] = $fileData['file_name']; 
+                        $uploadData[$i]['tipo'] = $fileData['file_type']; 
+                        $uploadData[$i]['fecha_subida'] = date("Y-m-d H:i:s"); 
+                    }else{  
+                        $errorUploadType .= $_FILES['file']['name'].' | ';  
+                    } 
+                } 
+                 
+                $errorUploadType = !empty($errorUploadType)?'<br/>File Type Error: '.trim($errorUploadType, ' | '):''; 
+                if(!empty($uploadData)){ 
+                    // Insert files data into the database 
+                    $insert = $this->Proyecto_model->insert($uploadData,$idproyecto,$iddirectorio); 
+                     
+                    // Upload status message 
+                    $statusMsg = $insert?'Files uploaded successfully!'.$errorUploadType:'Some problem occurred, please try again.'; 
+                }else{ 
+                    $statusMsg = "Sorry, there was an error uploading your file.".$errorUploadType; 
+                } 
+            }else{ 
+                $statusMsg = 'Please select image files to upload.'; 
+            } 
+        } 
+         
+        // Get files data from the database 
+        $data['files'] = $this->Proyecto_model->getRows(); 
+         
+        // Pass the files data to view 
+        $data['statusMsg'] = $statusMsg; 
+
+        $data ['activo'] = 6;
+		$data ['activomenu'] = 1;
+        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
+        $data ['id_proyecto'] = $idproyecto;
+		$this->load->view('layout/nav');
+		$this->load->view('menu/menu_proyecto',$data);
+		$this->load->view('Proyecto/AdministradorArchivos',$data);
+        $this->load->view('layout/footer');
+    } 
+
     
 
     public function Evaluacion_proyecto()
     {
         // $data[ es lo que lleva en la vista foreach($partidas as $i)]combobox
         $data['partidas'] = $this->Proyecto_model->Mostrarpartidas();
+        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
         $data ['activo'] = 4;
         $this->load->view('layout/nav-proyecto');
         $this->load->view('menu/menu_proyecto',$data);
@@ -78,6 +158,7 @@ class Proyecto extends CI_Controller
     }
     public function Registro_proyecto()
     {      
+        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
         $data ['activo'] = 4;
         $this->load->view('layout/nav-proyecto');
         $this->load->view('menu/menu_proyecto',$data);
@@ -784,5 +865,33 @@ public function descargaFactura($id){
         //download file from directory
         force_download($file, NULL);
     }
+}
+
+
+public function obtenerDetalleArchivos(){
+    $ajax_data = $this->input->post();
+    $id_proyecto = $ajax_data['id_proyecto'];
+    $id_directorio = $ajax_data['id_directorio'];
+    
+    $detalle_archivos = $this->Proyecto_model->ObtenerArchivos($id_proyecto,$id_directorio);
+    
+    $response ="<table class='table table-hover table-striped'>";
+    $response .=" <tbody>";
+    foreach($detalle_archivos as $row){
+        $response .="<tr>"; 
+        $response .="<td>".$row->nombre."</td>";
+        $response .="<td>".$row->fecha_subida."</td>";
+        $response .="<td>".$row->formato."</td>";
+        $response .="<td>".$row->directorio."</td>";
+        $response .="</tr>";
+    }
+    $response .="</tbody>";
+    $response .=" </table>";
+
+
+    $data = array('response' => 'success', 'detalle' => $response);
+
+    echo json_encode($data);
+    
 }
 }

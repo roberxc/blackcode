@@ -14,135 +14,254 @@
    <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
 </head>
 <div class="content-wrapper">
-   <!-- Main Sidebar Container -->
-   <section class="content">
+   <!-- Content Header (Page header) -->
+   <section class="content-header">
       <div class="container-fluid">
-         <div class="row">
-            <!-- left column -->
-            <div class="col-md-4">
-               <!-- general form elements -->
-               <div class="card card-primary">
-                  <div class="card-header">
-                     <h3 class="card-title">Carpetas</h3>
-                     <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="card-refresh" data-source="widgets.html" data-source-selector="#card-refresh-content" data-load-on-init="false"><i class="fas fa-sync-alt"></i></button>
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                     </div>
-                  </div>
-                  <!-- /.card-header -->
-                  <!-- form start -->
-                  <br>
-                  <div class="col-md-12">
-                     <p>
-                        <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#licitaciones" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-folder"></i> Licitaciones</button>
-                     </p>
-                     <div class="row">
-                        <div class="collapse" id="licitaciones">
-                           <div class="card card-body">
-                              <p>
-                                 <button class="btn btn-secondary"><i class="far fa-file"></i> Antecedentes tecnicos</button>
-                              </p>
-                              <p>
-                                 <button class="btn btn-secondary"><i class="far fa-file"></i> Propuestas tecnicas</button>
-                              </p>
-                              <p>
-                                 <button class="btn btn-secondary"><i class="fas fa-file-image"></i> Fotos</button>
-                              </p>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <!--- COTIZACIONES --->
-                  <div class="col-md-12">
-                     <p>
-                        <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#cotizaciones" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-folder"></i> Cotizaciones</button>
-                     </p>
-                     <div class="row">
-                        <div class="collapse" id="cotizaciones">
-                           <div class="card card-body">
-                              <!--- Clientes --->
-                              <p>
-                              <button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#clientes" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-folder"></i> Clientes</button>
-                              </p>
-                              <div class="row">
-                                 <div class="collapse" id="clientes">
-                                    <div class="card card-body">
-                                       <p>
-                                          <button class="btn btn-warning"><i class="fa fa-folder"></i> Cotizaciones</button>
-                                       </p>
-                                       <p>
-                                          <button class="btn btn-warning"><i class="fa fa-folder"></i> Evaluacion de proyectos</button>
-                                       </p>
-                                    </div>
-                                 </div>
-                              </div>
-                             
-                              <!--- Proveedores --->
-                              <p>
-                                 <button class="btn btn-danger" type="button" data-toggle="collapse" data-target="#proveedores" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-folder"></i> Proveedores</button>
-                              </p>
-                              <div class="row">
-                                 <div class="collapse" id="proveedores">
-                                    <div class="card card-body">
-                                       <p>
-                                       <button class="btn btn-danger"><i class="fa fa-folder"></i> Cotizaciones</button>
-                                       </p>
-                                    </div>
-                                 </div>
-                              </div>
-                              <!------------------>
-                              <p>
-                                 <button class="btn btn-success"><i class="fa fa-folder"></i> Documentos tecnicos</button>
-                              </p>
-                              <p>
-                                 <button class="btn btn-success"><i class="fa fa-folder"></i> Planos</button>
-                              </p>
-
-                           </div>
-                           
-                        </div>
-                        
-                     </div>
-                  </div>
-
-               </div>
+         <div class="row mb-2">
+            <div class="col-sm-6">
+               <h1>Administrador de archivos: <?php echo$id_proyecto; ?></h1>
+               <input type="hidden" class="form-control" id="id_proyecto_dir" value="<?php echo$id_proyecto;?>"/>
             </div>
-            <!--/.col (left) -->
-            <!-- right column -->
-            <div class="col-md-8">
-               <!-- general form elements disabled -->
-               <div class="card card-secondary">
-                  <div class="card-header">
-                     <h3 class="card-title">Archivos</h3>
-                  </div>
-                  <!-- /.card-header -->
-                  <div class="card-body">
-                     <form role="form">
-                        <div class="row">
-                           <div class="col-md-3 col-sm-6 col-12">
-                              <div class="info-box">
-                                 <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
-                                 <div class="info-box-content">
-                                    <span class="info-box-text">Messages</span>
-                                    <span class="info-box-number">1,410</span>
-                                 </div>
-                                 <!-- /.info-box-content -->
-                              </div>
-                              <!-- /.info-box -->
-                           </div>
-                        </div>
-                     </form>
-                  </div>
-                  <!-- /.card-body -->
-               </div>
-               <!-- /.card -->
+            <div class="col-sm-6">
+               <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                  <li class="breadcrumb-item active">Proyectos</li>
+                  <li class="breadcrumb-item active">Administrador de archivos</li>
+               </ol>
             </div>
-            <!--/.col (right) -->
          </div>
-         <!-- /.row -->
       </div>
       <!-- /.container-fluid -->
    </section>
+   <!-- Main content -->
+   <section class="content">
+      <div class="row">
+         <div class="col-md-3">
+            <a class="btn btn-primary btn-block mb-3" id="click-modal-archivos">Subir archivo</a>
+            <div class="card">
+               <div class="card-header">
+                  <h3 class="card-title">Licitaciones</h3>
+                  <div class="card-tools">
+                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                     </button>
+                  </div>
+               </div>
+               <div class="card-body p-0">
+                  <ul class="nav nav-pills flex-column">
+                     <li class="nav-item active">
+                        <a href="#" class="nav-link" id="antecedentes-tecnicos">
+                        <i class="fa fa-folder"></i> Antecedentes tecnicos
+                        <span class="badge bg-primary float-right">12</span>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="#" class="nav-link" id="propuestas-tecnicas">
+                        <i class="fa fa-folder"></i> Propuestas tecnicas
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="#" class="nav-link" id="fotos">
+                        <i class="fa fa-folder"></i> Fotos
+                        </a>
+                     </li>
+                  </ul>
+               </div>
+               <!-- /.card-body -->
+            </div>
+            <div class="card">
+               <div class="card-header">
+                  <h3 class="card-title">Cotizaciones</h3>
+                  <div class="card-tools">
+                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                     </button>
+                  </div>
+               </div>
+               <div class="card-body p-0">
+                  <ul class="nav nav-pills flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                     <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                        <i class="fa fa-folder"></i> Clientes <i class="fas fa-plus"></i>
+                        </a>
+                        <ul class="nav nav-treeview">
+                           <li class="nav-item">
+                              <a href="#" class="nav-link" id="cotizaciones-clientes">
+                              <i class="far fa-circle nav-icon"></i> Cotizaciones
+                              </a>
+                           </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                           <li class="nav-item">
+                              <a href="#" class="nav-link" id="evaluacion-proyecto">
+                              <i class="far fa-circle nav-icon"></i> Evaluacion de proyecto
+                              </a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                        <i class="fa fa-folder"></i> Proveedores <i class="fas fa-plus"></i>
+                        </a>
+                        <ul class="nav nav-treeview">
+                           <li class="nav-item">
+                              <a href="#" class="nav-link" id="cotizaciones-proveedores">
+                              <i class="far fa-circle nav-icon"></i> Cotizaciones
+                              </a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="nav-item">
+                        <a href="#" class="nav-link" id="documentos-tecnicos">
+                        <i class="fa fa-folder"></i> Documentos tecnicos
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="#" class="nav-link" id="planos">
+                        <i class="fa fa-folder"></i> Planos
+                        <span class="badge bg-warning float-right">65</span>
+                        </a>
+                     </li>
+                  </ul>
+               </div>
+               <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+            <div class="card">
+               <div class="card-header">
+                  <h3 class="card-title">Labels</h3>
+                  <div class="card-tools">
+                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                     </button>
+                  </div>
+               </div>
+               <div class="card-body p-0">
+                  <ul class="nav nav-pills flex-column">
+                     <li class="nav-item">
+                        <a href="#" class="nav-link">
+                        <i class="far fa-circle text-danger"></i>
+                        Important
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="#" class="nav-link">
+                        <i class="far fa-circle text-warning"></i> Promotions
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="#" class="nav-link">
+                        <i class="far fa-circle text-primary"></i>
+                        Social
+                        </a>
+                     </li>
+                  </ul>
+               </div>
+               <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+         </div>
+         <!-- /.col ------------------------------------------>
+         <div class="col-md-9">
+            <div class="card card-primary card-outline">
+               <div class="card-header">
+                  <h3 class="card-title" id="directorio-archivos">Archivos</h3>
+                  <?php echo !empty($statusMsg)?'<p class="status-msg">'.$statusMsg.'</p>':''; ?>
+                  <div class="card-tools">
+                     <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="Buscador">
+                        <div class="input-group-append">
+                           <div class="btn btn-primary">
+                              <i class="fas fa-search"></i>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- /.card-tools -->
+               </div>
+               <!-- /.card-header -->
+               <div class="card-body p-0">
+                  <div class="mailbox-controls">
+                     <!-- Check all button -->
+                     <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
+                     </button>
+                     <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button>
+                     </div>
+                     <!-- /.btn-group -->
+                     <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
+                     <div class="float-right">
+                        1-50/200
+                        <div class="btn-group">
+                           <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
+                           <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <!-- /.btn-group -->
+                     </div>
+                     <!-- /.float-right -->
+                  </div>
+                  <div class="table-responsive mailbox-messages" id="tabla-archivos">
+
+                  </div>
+                  <!-- /.mail-box-messages -->
+               </div>
+               <!-- /.card-body -->
+               <div class="card-footer p-0">
+                  <div class="mailbox-controls">
+                     <!-- Check all button -->
+                     <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
+                     </button>
+                     <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button>
+                        <button type="button" class="btn btn-default btn-sm"><i class="fas fa-reply"></i></button>
+                        <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i></button>
+                     </div>
+                     <!-- /.btn-group -->
+                     <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
+                     <div class="float-right">
+                        1-50/200
+                        <div class="btn-group">
+                           <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
+                           <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <!-- /.btn-group -->
+                     </div>
+                     <!-- /.float-right -->
+                  </div>
+               </div>
+            </div>
+            <!-- /.card -->
+         </div>
+         <!-- /.col -->
+      </div>
+      <!-- /.row -->
+   </section>
+   <!-- /.content -->
+</div>
+</div>
+<div id="modal-archivos" class="modal fade bd-example-modal-lg" role="dialog">
+   <div class="modal-dialog modal-lg">
+      <!-- Contenido del modal -->
+      <div class="modal-content">
+         <div class="modal-header bg-blue">
+            <h3 class="card-title" id="directorio-archivos-modal"></h3>
+            <button type="button" class="close-white" data-dismiss="modal">&times;</button>
+         </div>
+         <form method="post" action="<?php echo base_url();?>Proyecto/subirArchivos" enctype="multipart/form-data">
+            <div class="modal-body">
+               <input type="hidden" class="form-control" id="tipo-archivo" name="tipo-archivo">
+               <input type="hidden" class="form-control" id="id_proyecto" value="<?php echo$id_proyecto;?>"/>
+               <div class="form-group">
+                  <label>Buscar archivos</label>
+                  <input type="file" class="form-control" name="files[]" multiple/>
+               </div>
+               <div class="form-group">
+                  <input class="form-control" type="submit" name="fileSubmit" value="Subir"/>
+               </div>
+            </div>
+            <div class="modal-footer bg-white">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+         </form>
+      </div>
+   </div>
 </div>
 </body>
 <!-- ESTE PARA LAS ALERTAS --->
@@ -159,5 +278,5 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>var base_url = '<?php echo base_url();?>';</script>
-<script src="<?php echo base_url()?>assets/js/CajaChica/ingreso_cajachica.js"></script>
+<script src="<?php echo base_url()?>assets/js/PlanillaProyecto/administrador_archivos.js"></script>
 </html>

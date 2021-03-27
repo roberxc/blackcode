@@ -10,6 +10,7 @@ class Inicio extends CI_Controller {
         $this->load->model('DocumentacionModel');
 		$this->load->model('AdministracionModel');
 		$this->load->model('CajaChicaModel');
+		$this->load->model('Proyecto_model');
 		$this->load->helper(array('notificacion','url'));
     }
 
@@ -49,6 +50,7 @@ class Inicio extends CI_Controller {
 
 		}else if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 5) {
 			$data ['activo'] = 2;
+			$data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
 			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_proyecto',$data);
 			$this->load->view('Dashboard/InicioProyecto');
