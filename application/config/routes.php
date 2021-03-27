@@ -61,3 +61,5 @@ $route['ModificacionPlanilla/(:any)'] = "PlantillaOperaciones/ModificacionPlanil
 
 $route['Proyecto/Detalle/(:any)'] = "Proyecto/Planilla_Proyecto/$1";
 
+$route['DirectorioProyecto/(:any)'] = "Proyecto/AdminArchivos/$1";
+
