@@ -198,7 +198,7 @@
                      <!-- /.float-right -->
                   </div>
                   <div class="table-responsive mailbox-messages" id="tabla-archivos">
-
+                     
                   </div>
                   <!-- /.mail-box-messages -->
                </div>
@@ -210,7 +210,6 @@
                      </button>
                      <div class="btn-group">
                         <button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button>
-                        <button type="button" class="btn btn-default btn-sm"><i class="fas fa-reply"></i></button>
                         <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i></button>
                      </div>
                      <!-- /.btn-group -->
@@ -247,7 +246,7 @@
          <form method="post" action="<?php echo base_url();?>Proyecto/subirArchivos" enctype="multipart/form-data">
             <div class="modal-body">
                <input type="hidden" class="form-control" id="tipo-archivo" name="tipo-archivo">
-               <input type="hidden" class="form-control" id="id_proyecto" value="<?php echo$id_proyecto;?>"/>
+               <input type="hidden" class="form-control" id="id_proyecto_dir" name="id_proyecto" value="<?php echo$id_proyecto;?>"/>
                <div class="form-group">
                   <label>Buscar archivos</label>
                   <input type="file" class="form-control" name="files[]" multiple/>
@@ -279,4 +278,29 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>var base_url = '<?php echo base_url();?>';</script>
 <script src="<?php echo base_url()?>assets/js/PlanillaProyecto/administrador_archivos.js"></script>
+
+
+
+<!-- Ekko Lightbox -->
+<script src="<?php echo base_url()?>assets/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+
+<!-- Filterizr-->
+<script src="<?php echo base_url()?>assets/plugins/filterizr/jquery.filterizr.min.js"></script>
+<!-- Page specific script -->
+<script>
+  $(function () {
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+      event.preventDefault();
+      $(this).ekkoLightbox({
+        alwaysShowClose: true
+      });
+    });
+
+    $('.filter-container').filterizr({gutterPixels: 3});
+    $('.btn[data-filter]').on('click', function() {
+      $('.btn[data-filter]').removeClass('active');
+      $(this).addClass('active');
+    });
+  });
+</script>
 </html>

@@ -1342,15 +1342,15 @@ class Proyecto_model extends CI_Model
      * Insert file data into the database
      * @param array the data for inserting into the table
     */
-    public function insert($data = array(),$idproyecto,$iddirectorio){
-
+    public function insert($data = array(),$idproyecto,$directorio){
+        $id_directorio = $this->obtenerIDDirectorio($directorio);
         for($i = 0; $i < count($data); $i++){
             $insert_data [] = array(
                 'nombre' => $data[$i]['nombre'],
                 'fecha_subida' => $data[$i]['fecha_subida'],
                 'estado' => 0,
                 'formato' => $data[$i]['tipo'],
-                'id_directorio' => $iddirectorio,
+                'id_directorio' => $id_directorio[0]['id_directorio'],
                 'id_proyecto' => $idproyecto
             );
         }
@@ -1358,14 +1358,49 @@ class Proyecto_model extends CI_Model
         return $insert ? true : false;
     }
 
-    public function ObtenerArchivos($id_proyecto,$id_directorio)
+    //Obtener id de directorio
+    public function obtenerIDDirectorio($directorio){
+        $query = $this
+            ->db
+            ->SELECT('id_directorio')
+            ->from('directorio_proyecto')
+            ->where('directorio', $directorio)
+            ->get();
+        return $query->result_array();
+    }
+
+    public function ObtenerArchivos($id_proyecto,$directorio)
     {
+        $id_directorio = $this->obtenerIDDirectorio($directorio);
         $query = $this->db->select("ap.nombre as nombre,ap.fecha_subida as fecha_subida,ap.estado as estado,ap.formato as formato,dp.nombre as directorio") # También puedes poner * si quieres seleccionar todo
         ->from("archivo_proyecto ap")
         ->join("proyecto p", "p.id_proyecto = ap.id_proyecto")
         ->join("directorio_proyecto dp", "ap.id_directorio = dp.id_directorio")
         ->where("ap.id_proyecto", $id_proyecto)
-        ->where("dp.directorio", $id_directorio)
+        ->where("dp.id_directorio", $id_directorio[0]['id_directorio'])
+        ->get();
+
+        return $query->result();
+    }
+
+    public function ObtenerFotosOrdenadas($id_proyecto,$tipo_orden)
+    {
+        //1 ascendente
+        $orden = "";
+        if($tipo_orden == 2){
+            $orden = "asc";
+        }
+
+        if($tipo_orden == 1){
+            $orden = "desc";
+        }
+        $query = $this->db->select("ap.nombre as nombre,ap.fecha_subida as fecha_subida,ap.estado as estado,ap.formato as formato,dp.nombre as directorio") # También puedes poner * si quieres seleccionar todo
+        ->from("archivo_proyecto ap")
+        ->join("proyecto p", "p.id_proyecto = ap.id_proyecto")
+        ->join("directorio_proyecto dp", "ap.id_directorio = dp.id_directorio")
+        ->where("ap.id_proyecto", $id_proyecto)
+        ->where("dp.id_directorio", 2)
+        ->order_by("fecha_subida", $orden)
         ->get();
 
         return $query->result();

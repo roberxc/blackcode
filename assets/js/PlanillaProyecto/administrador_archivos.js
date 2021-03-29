@@ -14,7 +14,7 @@ $(document).on('click', '#fotos', function(e) {
     document.getElementById("directorio-archivos-modal").innerHTML = 'Archivos / Fotos';
     document.getElementById("tipo-archivo").value = "3";
     generarAvisoExitoso("Directorio seleccionado");
-    generarTablaArchivos(3);
+    generarTablaFotos(3);
 });
 
 $(document).on('click', '#documentos-tecnicos', function(e) {
@@ -79,11 +79,11 @@ $(document).on('click', '#click-modal-archivos', function(e) {
     }else{
         $('#modal-archivos').modal('show');
     }
-    
 });
 
 function generarTablaArchivos($tipo){
     var idproyecto = $('#id_proyecto_dir').val();
+
     $.ajax({
         url: base_url+"Proyecto/obtenerDetalleArchivos",
         type: "post",
@@ -91,6 +91,46 @@ function generarTablaArchivos($tipo){
         data: {
             id_proyecto: idproyecto,
             id_directorio: $tipo,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                $('#tabla-archivos').html(data.detalle);
+            } else {
+                
+            }
+        }
+    });
+}
+
+function generarTablaFotos($tipo){
+    var idproyecto = $('#id_proyecto_dir').val();
+    $.ajax({
+        url: base_url+"Proyecto/obtenerDetalleFotos",
+        type: "post",
+        dataType: "json",
+        data: {
+            id_proyecto: idproyecto,
+            id_directorio: $tipo,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                $('#tabla-archivos').html(data.detalle);
+            } else {
+                
+            }
+        }
+    });
+}
+
+function ordenFotos($tipo){
+    var idproyecto = $('#id_proyecto_dir').val();
+    $.ajax({
+        url: base_url+"Proyecto/ordenarFotosPorFecha",
+        type: "post",
+        dataType: "json",
+        data: {
+            id_proyecto: idproyecto,
+            tipo_orden: $tipo,
         },
         success: function(data) {
             if (data.response == "success") {
