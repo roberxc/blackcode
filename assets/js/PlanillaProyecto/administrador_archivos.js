@@ -183,3 +183,25 @@ function generarAvisoExitoso($mensaje) {
         "hideMethod": "fadeOut"
     }
 }
+
+function subirArchivos(){
+  $('#FormArchivos').ajaxForm({
+    beforeSubmit: function() {
+        $("#progress-bar").width('0%');
+    },
+
+    uploadProgress: function(event, position, total, percentComplete) {
+        $("#progress-bar").width(percentComplete + '%');
+        $("#progress-bar").html('<div id="progress-status">' + percentComplete +' %</div>')
+    },
+    
+	success: function() {
+        generarAvisoExitoso("Archivo subido correctamente!");
+        $('#loader-icon').hide();
+        location.reload();
+    },
+    resetForm: true 
+  }); 
+  return false; 
+}
+

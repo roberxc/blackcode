@@ -76,7 +76,7 @@ class Proyecto extends CI_Controller
         // If file upload form submitted 
         if($this->input->post('fileSubmit')){ 
             //idproyecto 
-            $idproyecto = $this->input->post('id_proyecto');
+            $idproyecto = $this->input->post('id_proyecto_dir');
             $iddirectorio = $this->input->post('tipo-archivo');
             // If files are selected to upload 
             if(!empty($_FILES['files']['name']) && count(array_filter($_FILES['files']['name'])) > 0){ 
@@ -926,7 +926,7 @@ public function obtenerDetalleFotos(){
     $response .= "<div class='filter-container p-0 row'>";
     foreach($detalle_archivos as $row){
         $response .= "<div class='filtr-item col-sm-4' data-category='1' data-sort='white sample'>";
-        $response .= "<a href='".base_url()."ArchivosSubidos/".$row->nombre."' data-toggle='lightbox' data-title='".$row->fecha_subida."'>";
+        $response .= "<a href='".base_url()."ArchivosSubidos/".$row->nombre."' data-toggle='lightbox' data-title='Nombre: ".$row->nombre." | Fecha: ".$row->fecha_subida."'>";
         $response .= "<img src='".base_url()."ArchivosSubidos/".$row->nombre."' class='img-fluid mb-2' alt='white sample'/>";
         $response .= "</a>";
 
@@ -990,7 +990,7 @@ public function ordenarFotosPorFecha(){
     $response .= "<div class='filter-container p-0 row'>";
     foreach($detalle_archivos as $row){
         $response .= "<div class='filtr-item col-sm-4' data-category='1' data-sort='white sample'>";
-        $response .= "<a href='".base_url()."ArchivosSubidos/".$row->nombre."' data-toggle='lightbox' data-title='".$row->fecha_subida."'>";
+        $response .= "<a href='".base_url()."ArchivosSubidos/".$row->nombre."' data-toggle='lightbox' data-title='Nombre: ".$row->nombre." | Fecha: ".$row->fecha_subida."'>";
         $response .= "<img src='".base_url()."ArchivosSubidos/".$row->nombre."' class='img-fluid mb-2' alt='white sample'/>";
         $response .= "</a>";
 

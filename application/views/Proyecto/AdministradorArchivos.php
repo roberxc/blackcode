@@ -1,4 +1,5 @@
 ﻿<head>
+   
    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
    <!-- SELECT CON BUSCADOR -->
    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
@@ -12,6 +13,8 @@
    <!-- Latest compiled and minified CSS -->
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
    <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+
+   <link rel="stylesheet" href="<?php echo base_url()?>assets/js/PlanillaProyecto/barra_subida.css">
 </head>
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
@@ -198,7 +201,6 @@
                      <!-- /.float-right -->
                   </div>
                   <div class="table-responsive mailbox-messages" id="tabla-archivos">
-                     
                   </div>
                   <!-- /.mail-box-messages -->
                </div>
@@ -210,7 +212,6 @@
                      </button>
                      <div class="btn-group">
                         <button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button>
-                        <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i></button>
                      </div>
                      <!-- /.btn-group -->
                      <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
@@ -243,17 +244,21 @@
             <h3 class="card-title" id="directorio-archivos-modal"></h3>
             <button type="button" class="close-white" data-dismiss="modal">&times;</button>
          </div>
-         <form method="post" action="<?php echo base_url();?>Proyecto/subirArchivos" enctype="multipart/form-data">
+         <form  name="FormArchivos" method="post" id="FormArchivos" action="<?php echo base_url();?>Proyecto/subirArchivos" enctype="multipart/form-data">
             <div class="modal-body">
                <input type="hidden" class="form-control" id="tipo-archivo" name="tipo-archivo">
-               <input type="hidden" class="form-control" id="id_proyecto_dir" name="id_proyecto" value="<?php echo$id_proyecto;?>"/>
+               <input type="hidden" class="form-control" id="id_proyecto_dir" name="id_proyecto_dir" value="<?php echo$id_proyecto;?>"/>
                <div class="form-group">
                   <label>Buscar archivos</label>
                   <input type="file" class="form-control" name="files[]" multiple/>
                </div>
                <div class="form-group">
-                  <input class="form-control" type="submit" name="fileSubmit" value="Subir"/>
+                  <input class="form-control" type="submit" name="fileSubmit" value="Subir" onclick="subirArchivos();"/>
                </div>
+               <div id="progress-div">
+                  <div id="progress-bar"></div>
+               </div>
+               <div id="loader-icon" style="display:none;"><img src="<?php echo base_url()?>assets/Imagen/LoaderIcon.gif" /></div>
             </div>
             <div class="modal-footer bg-white">
                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -276,31 +281,28 @@
    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script> 
 <script>var base_url = '<?php echo base_url();?>';</script>
 <script src="<?php echo base_url()?>assets/js/PlanillaProyecto/administrador_archivos.js"></script>
-
-
-
 <!-- Ekko Lightbox -->
 <script src="<?php echo base_url()?>assets/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
-
 <!-- Filterizr-->
 <script src="<?php echo base_url()?>assets/plugins/filterizr/jquery.filterizr.min.js"></script>
 <!-- Page specific script -->
 <script>
-  $(function () {
-    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-      event.preventDefault();
-      $(this).ekkoLightbox({
-        alwaysShowClose: true
-      });
-    });
-
-    $('.filter-container').filterizr({gutterPixels: 3});
-    $('.btn[data-filter]').on('click', function() {
-      $('.btn[data-filter]').removeClass('active');
-      $(this).addClass('active');
-    });
-  });
+   $(function () {
+     $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+       event.preventDefault();
+       $(this).ekkoLightbox({
+         alwaysShowClose: true
+       });
+     });
+   
+     $('.filter-container').filterizr({gutterPixels: 3});
+     $('.btn[data-filter]').on('click', function() {
+       $('.btn[data-filter]').removeClass('active');
+       $(this).addClass('active');
+     });
+   });
 </script>
 </html>
