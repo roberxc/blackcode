@@ -76,7 +76,7 @@ class Proyecto extends CI_Controller
         // If file upload form submitted 
         if($this->input->post('fileSubmit')){ 
             //idproyecto 
-            $idproyecto = $this->input->post('id_proyecto');
+            $idproyecto = $this->input->post('id_proyecto_dir');
             $iddirectorio = $this->input->post('tipo-archivo');
             // If files are selected to upload 
             if(!empty($_FILES['files']['name']) && count(array_filter($_FILES['files']['name'])) > 0){ 
@@ -118,7 +118,7 @@ class Proyecto extends CI_Controller
                     $insert = $this->Proyecto_model->insert($uploadData,$idproyecto,$iddirectorio); 
                      
                     // Upload status message 
-                    $statusMsg = $insert?'Files uploaded successfully!'.$errorUploadType:'Some problem occurred, please try again.'; 
+                    $statusMsg = $insert?'Archivos subidos exitosamente!'.$errorUploadType:'Some problem occurred, please try again.'; 
                 }else{ 
                     $statusMsg = "Sorry, there was an error uploading your file.".$errorUploadType; 
                 } 
@@ -889,6 +889,123 @@ public function obtenerDetalleArchivos(){
     $response .=" </table>";
 
 
+    $data = array('response' => 'success', 'detalle' => $response);
+
+    echo json_encode($data);
+    
+}
+
+public function obtenerDetalleFotos(){
+    $ajax_data = $this->input->post();
+    $id_proyecto = $ajax_data['id_proyecto'];
+    $id_directorio = $ajax_data['id_directorio'];
+    
+    $detalle_archivos = $this->Proyecto_model->ObtenerArchivos($id_proyecto,$id_directorio);
+
+    $response = "<section class='content'>";
+    $response .= "<div class='container-fluid'>";
+    $response .= "<div class='row'>";
+    $response .= "<div class='col-12'>";
+    $response .= "<div class='card card-primary'>";
+    $response .= "<div class='card-body'>";
+    $response .= "<div>";
+    $response .= "<div class='mb-2'>";
+    $response .= "<a class='btn btn-secondary' href='javascript:void(0)' data-shuffle> Shuffle items </a>";
+    $response .= "<div class='float-right'>";
+    $response .= "<select class='custom-select' style='width: auto;' data-sortOrder>";
+    $response .= "<option value='sortData'> Ordenar por fecha </option>";
+    $response .= "</select>";
+    $response .= "<div class='btn-group'>";
+    $response .= "<button class='btn btn-default' onclick='ordenFotos(1)'> Ascendente </button>";
+    $response .= "<button class='btn btn-default' onclick='ordenFotos(2)'> Descendente </button>";
+    $response .= "</div>";
+    $response .= "</div>";
+    $response .= "</div>";
+    $response .= "</div>";
+    $response .= "<div>";
+    $response .= "<div class='filter-container p-0 row'>";
+    foreach($detalle_archivos as $row){
+        $response .= "<div class='filtr-item col-sm-4' data-category='1' data-sort='white sample'>";
+        $response .= "<a href='".base_url()."ArchivosSubidos/".$row->nombre."' data-toggle='lightbox' data-title='Nombre: ".$row->nombre." | Fecha: ".$row->fecha_subida."'>";
+        $response .= "<img src='".base_url()."ArchivosSubidos/".$row->nombre."' class='img-fluid mb-2' alt='white sample'/>";
+        $response .= "</a>";
+
+        $response .= "<a data-toggle='lightbox' data-footer='foooterrrr'>";
+        $response .= "</a>";
+        $response .= "</div>";
+    }
+    $response .= "</div>";
+    $response .= "</div>";
+    $response .= "</div>";
+    $response .= "</div>";
+    $response .= "</div>";
+    $response .= "</div>";
+    $response .= "</div>";
+    $response .= "</section>";
+    $data = array('response' => 'success', 'detalle' => $response);
+
+    echo json_encode($data);
+    
+}
+
+
+public function ordenarFotosPorFecha(){
+    $ajax_data = $this->input->post();
+    $id_proyecto = $ajax_data['id_proyecto'];
+    $tipo_orden = $ajax_data['tipo_orden'];
+
+    //Ascendente
+    if($tipo_orden == 1){
+        $detalle_archivos = $this->Proyecto_model->ObtenerFotosOrdenadas($id_proyecto,$tipo_orden);
+    }
+
+    //Descendente
+    if($tipo_orden == 2){
+        $detalle_archivos = $this->Proyecto_model->ObtenerFotosOrdenadas($id_proyecto,$tipo_orden);
+    }
+    
+    
+
+    $response = "<section class='content'>";
+    $response .= "<div class='container-fluid'>";
+    $response .= "<div class='row'>";
+    $response .= "<div class='col-12'>";
+    $response .= "<div class='card card-primary'>";
+    $response .= "<div class='card-body'>";
+    $response .= "<div>";
+    $response .= "<div class='mb-2'>";
+    $response .= "<a class='btn btn-secondary' href='javascript:void(0)' data-shuffle> Shuffle items </a>";
+    $response .= "<div class='float-right'>";
+    $response .= "<select class='custom-select' style='width: auto;' data-sortOrder>";
+    $response .= "<option value='sortData'> Ordenar por fecha </option>";
+    $response .= "</select>";
+    $response .= "<div class='btn-group'>";
+    $response .= "<a class='btn btn-default' onclick='ordenFotos(1)'> Ascendente </a>";
+    $response .= "<a class='btn btn-default' onclick='ordenFotos(2)'> Descendente </a>";
+    $response .= "</div>";
+    $response .= "</div>";
+    $response .= "</div>";
+    $response .= "</div>";
+    $response .= "<div>";
+    $response .= "<div class='filter-container p-0 row'>";
+    foreach($detalle_archivos as $row){
+        $response .= "<div class='filtr-item col-sm-4' data-category='1' data-sort='white sample'>";
+        $response .= "<a href='".base_url()."ArchivosSubidos/".$row->nombre."' data-toggle='lightbox' data-title='Nombre: ".$row->nombre." | Fecha: ".$row->fecha_subida."'>";
+        $response .= "<img src='".base_url()."ArchivosSubidos/".$row->nombre."' class='img-fluid mb-2' alt='white sample'/>";
+        $response .= "</a>";
+
+        $response .= "<a data-toggle='lightbox' data-footer='foooterrrr'>";
+        $response .= "</a>";
+        $response .= "</div>";
+    }
+    $response .= "</div>";
+    $response .= "</div>";
+    $response .= "</div>";
+    $response .= "</div>";
+    $response .= "</div>";
+    $response .= "</div>";
+    $response .= "</div>";
+    $response .= "</section>";
     $data = array('response' => 'success', 'detalle' => $response);
 
     echo json_encode($data);
