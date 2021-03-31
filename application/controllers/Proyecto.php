@@ -69,7 +69,7 @@ class Proyecto extends CI_Controller
 		$this->load->view('layout/footer');
     }
 
-    function subirArchivos(){ 
+    function subirArchivos(){
         $data = array(); 
         $errorUploadType = $statusMsg = ''; 
          
@@ -91,7 +91,7 @@ class Proyecto extends CI_Controller
                     // File upload configuration 
                     $uploadPath = 'ArchivosSubidos'; 
                     $config['upload_path'] = $uploadPath; 
-                    $config['allowed_types'] = '*'; 
+                    $config['allowed_types'] = 'gif|jpg|png|xlsx|pdf|doc|mp4|docx'; 
                     //$config['max_size']    = '100'; 
                     //$config['max_width'] = '1024'; 
                     //$config['max_height'] = '768'; 
@@ -108,39 +108,32 @@ class Proyecto extends CI_Controller
                         $uploadData[$i]['tipo'] = $fileData['file_type']; 
                         $uploadData[$i]['fecha_subida'] = date("Y-m-d H:i:s"); 
                     }else{  
-                        $errorUploadType .= $_FILES['file']['name'].' | ';  
+                        $errorUploadType .= $_FILES['file']['name'].' | ';
                     } 
                 } 
                  
-                $errorUploadType = !empty($errorUploadType)?'<br/>File Type Error: '.trim($errorUploadType, ' | '):''; 
+                $errorUploadType = !empty($errorUploadType)?'<br/>Formato no admitido: '.trim($errorUploadType, ' | '):''; 
                 if(!empty($uploadData)){ 
                     // Insert files data into the database 
                     $insert = $this->Proyecto_model->insert($uploadData,$idproyecto,$iddirectorio); 
-                     
+                    $dataresponse = array('response' => 'success', 'message' => 'Archivo subido correctamente!');
                     // Upload status message 
                     $statusMsg = $insert?'Archivos subidos exitosamente!'.$errorUploadType:'Some problem occurred, please try again.'; 
                 }else{ 
+                    $dataresponse = array('response' => "error", 'message' => $errorUploadType);  
                     $statusMsg = "Sorry, there was an error uploading your file.".$errorUploadType; 
                 } 
             }else{ 
                 $statusMsg = 'Please select image files to upload.'; 
             } 
         } 
-         
+
         // Get files data from the database 
         $data['files'] = $this->Proyecto_model->getRows(); 
          
         // Pass the files data to view 
         $data['statusMsg'] = $statusMsg; 
-
-        $data ['activo'] = 6;
-		$data ['activomenu'] = 1;
-        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
-        $data ['id_proyecto'] = $idproyecto;
-		$this->load->view('layout/nav');
-		$this->load->view('menu/menu_proyecto',$data);
-		$this->load->view('Proyecto/AdministradorArchivos',$data);
-        $this->load->view('layout/footer');
+        echo json_encode($dataresponse);
     } 
 
     
@@ -868,13 +861,42 @@ public function descargaFactura($id){
 }
 
 
+//Administrador de archivos
+
+    public function ObtenerArchivos($directorio,$id_proyecto){
+        $fetch_data = $this->Proyecto_model->make_datatables_archivos($directorio,$id_proyecto);
+        $data = array();
+        foreach ($fetch_data as $value){
+            $sub_array = array();
+            $sub_array[] = '<div class="checkbox"><input type="checkbox" value=""></div>';
+            $sub_array[] = $value->nombrearchivo;
+            $sub_array[] = $value->fecha_subida;
+			$sub_array[] = $value->directorio;
+			$sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-detalle-orden" onclick="setTablaDetalle(this)"><i class="far fa-eye"></i></button><button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-estado-orden" onclick="setTablaEstado(this)"><i class="far fa-edit"></i></button>';
+			//$sub_array[] = '<a href="#"  class="fas fa-eye" data-toggle="modal" onclick="verMas('.$value->nroorden.');">';
+			$data[] = $sub_array;
+        }
+
+        $output = array(
+            "draw" => intval($_POST["draw"]) ,
+            "recordsTotal" => $this->Proyecto_model->get_all_data_archivos(),
+            "recordsFiltered" => $this->Proyecto_model->get_filtered_data_archivos($directorio,$id_proyecto),
+            "data" => $data
+        );
+        echo json_encode($output);
+
+	}
+
 public function obtenerDetalleArchivos(){
     $ajax_data = $this->input->post();
-    $id_proyecto = $ajax_data['id_proyecto'];
-    $id_directorio = $ajax_data['id_directorio'];
     
-    $detalle_archivos = $this->Proyecto_model->ObtenerArchivos($id_proyecto,$id_directorio);
-    
+    //Filtro de busqueda
+    if(isset($ajax_data['filtro_nombre'])){
+        $detalle_archivos = $this->Proyecto_model->ObtenerArchivosPorNombre($ajax_data);
+    }else{
+        $detalle_archivos = $this->Proyecto_model->ObtenerArchivos($ajax_data);
+    }
+
     $response ="<table class='table table-hover table-striped'>";
     $response .=" <tbody>";
     foreach($detalle_archivos as $row){
@@ -897,10 +919,13 @@ public function obtenerDetalleArchivos(){
 
 public function obtenerDetalleFotos(){
     $ajax_data = $this->input->post();
-    $id_proyecto = $ajax_data['id_proyecto'];
-    $id_directorio = $ajax_data['id_directorio'];
-    
-    $detalle_archivos = $this->Proyecto_model->ObtenerArchivos($id_proyecto,$id_directorio);
+
+    //Filtro de busqueda
+    if(isset($ajax_data['filtro_nombre'])){
+        $detalle_archivos = $this->Proyecto_model->ObtenerArchivosPorNombre($ajax_data);
+    }else{
+        $detalle_archivos = $this->Proyecto_model->ObtenerArchivos($ajax_data);
+    }
 
     $response = "<section class='content'>";
     $response .= "<div class='container-fluid'>";
@@ -1010,5 +1035,29 @@ public function ordenarFotosPorFecha(){
 
     echo json_encode($data);
     
+}
+
+public function descargarArchivos(){
+    $ajax_data = $this->input->post();
+    //load download helper
+    $this->load->helper('download');
+
+    var_dump($ajax_data['lista_archivos']);
+
+    
+        
+    //get file info from database
+    $fileInfo = $this->Proyecto_model->getNombreArchivo(array('id' => $id));
+    
+    
+    echo("Documentos a descargar: ".$fileInfo['ubicacion']);
+    die();
+    //file path
+    $file ='ArchivosSubidos/'.$fileInfo['ubicacion'];
+    
+        
+    //download file from directory
+    force_download($file, NULL);
+    $data = array('response' => 'success', 'message' => 'Descarga correcta');
 }
 }

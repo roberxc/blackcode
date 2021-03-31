@@ -1,6 +1,7 @@
 ﻿<head>
-   
    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+   
+   
    <!-- SELECT CON BUSCADOR -->
    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
@@ -13,7 +14,6 @@
    <!-- Latest compiled and minified CSS -->
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
    <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
-
    <link rel="stylesheet" href="<?php echo base_url()?>assets/js/PlanillaProyecto/barra_subida.css">
 </head>
 <div class="content-wrapper">
@@ -167,65 +167,75 @@
                <div class="card-header">
                   <h3 class="card-title" id="directorio-archivos">Archivos</h3>
                   <?php echo !empty($statusMsg)?'<p class="status-msg">'.$statusMsg.'</p>':''; ?>
-                  <div class="card-tools">
-                     <div class="input-group input-group-sm">
-                        <input type="text" class="form-control" placeholder="Buscador">
-                        <div class="input-group-append">
-                           <div class="btn btn-primary">
-                              <i class="fas fa-search"></i>
+                  <!--
+                     <div class="card-tools">
+                        <div class="input-group input-group-sm">
+                           <input type="text" class="form-control" id="filtro_nombre" placeholder="Buscador" onkeyup="buscarArchivos()">
+                           <div class="input-group-append">
+                              <div class="btn btn-primary">
+                                 <i class="fas fa-search"></i>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     -->
+               </div>
+               <div class="card-body p-0">
+                  
+                     <div class="mailbox-controls">
+                        <!---
+                        <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i></button>
+                        ---->
+                        <div class="btn-group">
+                           <button class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button>
+                           <button class="btn btn-default btn-sm" onclick="descargarArchivo()"><i class="fa fa-download"></i></button>
+                        </div>
+                        <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
+                        <!---
+                        <div class="float-right">
+                           1-50/200
+                           <div class="btn-group">
+                              <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
+                              <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
+                           </div>
+                        </div>
+                        --->
+                     </div>
+                     
+                  <div class="table-responsive mailbox-messages" id="tabla-fotos">
+                  </div>
+                  <div class="card-header" id="data-table">
+                     <table id="administrador_archivos" class="table table-bordered table-striped" style="width: 100%;">
+                        <thead>
+                           <tr>
+                              <th style="width: 3%;background-color: #006699; color: white;"></th>
+                              <th style="width: 3%;background-color: #006699; color: white;">Nombre</th>
+                              <th style="width: 3%;background-color: #006699; color: white;">Fecha</th>
+                              <th style="width: 3%;background-color: #006699; color: white;">Directorio</th>
+                           </tr>
+                        </thead>
+                     </table>
+                  </div>
+               </div>
+               <!--                  
+                  <div class="card-footer p-0">
+                     <div class="mailbox-controls">
+                        <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
+                        </button>
+                        <div class="btn-group">
+                           <button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button>
+                        </div>
+                        <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
+                        <div class="float-right">
+                           1-50/200
+                           <div class="btn-group">
+                              <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
+                              <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
                            </div>
                         </div>
                      </div>
                   </div>
-                  <!-- /.card-tools -->
-               </div>
-               <!-- /.card-header -->
-               <div class="card-body p-0">
-                  <div class="mailbox-controls">
-                     <!-- Check all button -->
-                     <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
-                     </button>
-                     <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button>
-                     </div>
-                     <!-- /.btn-group -->
-                     <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
-                     <div class="float-right">
-                        1-50/200
-                        <div class="btn-group">
-                           <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
-                           <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
-                        </div>
-                        <!-- /.btn-group -->
-                     </div>
-                     <!-- /.float-right -->
-                  </div>
-                  <div class="table-responsive mailbox-messages" id="tabla-archivos">
-                  </div>
-                  <!-- /.mail-box-messages -->
-               </div>
-               <!-- /.card-body -->
-               <div class="card-footer p-0">
-                  <div class="mailbox-controls">
-                     <!-- Check all button -->
-                     <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
-                     </button>
-                     <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button>
-                     </div>
-                     <!-- /.btn-group -->
-                     <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
-                     <div class="float-right">
-                        1-50/200
-                        <div class="btn-group">
-                           <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
-                           <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
-                        </div>
-                        <!-- /.btn-group -->
-                     </div>
-                     <!-- /.float-right -->
-                  </div>
-               </div>
+                  --->
             </div>
             <!-- /.card -->
          </div>
@@ -274,9 +284,15 @@
 <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.jqueryui.min.js"></script>
-<script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
+
+<!-- Data table -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+   <script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
+<script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -302,6 +318,32 @@
      $('.btn[data-filter]').on('click', function() {
        $('.btn[data-filter]').removeClass('active');
        $(this).addClass('active');
+     });
+   });
+</script>
+<script>
+   //Mostrar tabla principal
+   $(document).ready(function(){
+      $('#administrador_archivos').DataTable({
+       "language": {
+         "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+         },
+       "processing": true,
+       "serverSide": true, 
+       "ajax":{url:"<?php echo base_url('Proyecto/ObtenerArchivos/'); ?>" + 0,0,
+       type: "POST"
+     },
+       "columnDefs":[
+         {
+             "targets": [1,2,3],
+             className: 'select-checkbox',
+            targets:   0
+         }
+       ],
+      select: {
+         style:    'os',
+         selector: 'td:first-child'
+      },
      });
    });
 </script>
