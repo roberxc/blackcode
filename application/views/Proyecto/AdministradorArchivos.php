@@ -14,7 +14,6 @@
          <div class="row mb-2">
             <div class="col-sm-6">
                <h5>Administrador de archivos del proyecto: <?php echo$nombre_proyecto[0]['nombreproyecto']; ?></h5>
-               
             </div>
             <div class="col-sm-6">
                <ol class="breadcrumb float-sm-right">
@@ -154,36 +153,35 @@
          </div>
          <!-- /.col ------------------------------------------>
          <div class="col-md-9">
-         <form method="post" action="<?php echo base_url(); ?>Proyecto/descargarArchivos">
-         <input type="hidden" class="form-control" id="tipo-descarga" name="tipo-descarga">
-         <input type="hidden" class="form-control" id="id_proyecto_dir" name="id_proyecto_dir" value="<?php echo$id_proyecto;?>"/>
-            <div class="card card-primary card-outline">
-               <div class="card-header">
-               <input type="hidden" class="form-control" id="cdirectorio-archivos" name="cdirectorio-archivos">
-                  <h3 class="card-title" id="directorio-archivos">Archivos</h3>
-                  <?php echo !empty($statusMsg)?'<p class="status-msg">'.$statusMsg.'</p>':''; ?>
-                  <!--
-                     <div class="card-tools">
-                        <div class="input-group input-group-sm">
-                           <input type="text" class="form-control" id="filtro_nombre" placeholder="Buscador" onkeyup="buscarArchivos()">
-                           <div class="input-group-append">
-                              <div class="btn btn-primary">
-                                 <i class="fas fa-search"></i>
+            <form method="post" action="<?php echo base_url(); ?>Proyecto/descargarArchivos">
+               <input type="hidden" class="form-control" id="tipo-descarga" name="tipo-descarga">
+               <input type="hidden" class="form-control" id="id_proyecto_dir" name="id_proyecto_dir" value="<?php echo$id_proyecto;?>"/>
+               <div class="card card-primary card-outline">
+                  <div class="card-header">
+                     <input type="hidden" class="form-control" id="cdirectorio-archivos" name="cdirectorio-archivos">
+                     <h3 class="card-title" id="directorio-archivos">Archivos</h3>
+                     <?php echo !empty($statusMsg)?'<p class="status-msg">'.$statusMsg.'</p>':''; ?>
+                     <!--
+                        <div class="card-tools">
+                           <div class="input-group input-group-sm">
+                              <input type="text" class="form-control" id="filtro_nombre" placeholder="Buscador" onkeyup="buscarArchivos()">
+                              <div class="input-group-append">
+                                 <div class="btn btn-primary">
+                                    <i class="fas fa-search"></i>
+                                 </div>
                               </div>
                            </div>
                         </div>
-                     </div>
-                     -->
-               </div>
-               
+                        -->
+                  </div>
                   <div class="card-body p-0">
                      <div class="mailbox-controls">
                         <!---
                            <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i></button>
                            ---->
                         <div class="btn-group">
-                           <button type="submit" class="btn btn-default btn-sm" onclick="eliminarArchivos()"><i class="far fa-trash-alt"></i></button>
-                           <button type="submit" class="btn btn-default btn-sm" onclick="descargarArchivos()"><i class="fa fa-download"></i></button>
+                           <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="eliminarArchivos()"><i class="far fa-trash-alt"></i></button>
+                           <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-confirmacion-descarga" onclick="descargarArchivos()"><i class="fa fa-download"></i></button>
                         </div>
                         <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
                         <!---
@@ -211,26 +209,67 @@
                         </table>
                      </div>
                   </div>
-               </form>
-               <!--                  
-                  <div class="card-footer p-0">
-                     <div class="mailbox-controls">
-                        <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
-                        </button>
-                        <div class="btn-group">
-                           <button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button>
-                        </div>
-                        <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
-                        <div class="float-right">
-                           1-50/200
-                           <div class="btn-group">
-                              <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
-                              <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
+                  <div id="modal-confirmacion" class="modal fade bd-example-modal-sm" role="dialog">
+                     <div class="modal-dialog modal-sm">
+                        <!-- Contenido del modal -->
+                        <div class="modal-content">
+                           <div class="modal-header bg-red">
+                              <H3>Confirmación</H3>
+                              <button type="button" class="close-white" data-dismiss="modal">&times;</button>
+                           </div>
+                           <div class="modal-body">
+                              <div class="modal-body">
+                                 <p>Estás seguro que deseas eliminar este archivo?</p>
+                              </div>
+                           </div>
+                           <div class="modal-footer bg-white">
+                              <input type="submit" class="btn btn-primary" value="Si">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                            </div>
                         </div>
                      </div>
                   </div>
-                  --->
+
+                  <div id="modal-confirmacion-descarga" class="modal fade bd-example-modal-sm" role="dialog">
+                     <div class="modal-dialog modal-sm">
+                        <!-- Contenido del modal -->
+                        <div class="modal-content">
+                           <div class="modal-header bg-red">
+                              <H3>Confirmación</H3>
+                              <button type="button" class="close-white" data-dismiss="modal">&times;</button>
+                           </div>
+                           <div class="modal-body">
+                              <div class="modal-body">
+                                 <p>Estás seguro que deseas descargar estos archivos?</p>
+                              </div>
+                           </div>
+                           <div class="modal-footer bg-white">
+                              <input type="submit" class="btn btn-primary" value="Si">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+            </form>
+            <!--                  
+               <div class="card-footer p-0">
+                  <div class="mailbox-controls">
+                     <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
+                     </button>
+                     <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button>
+                     </div>
+                     <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
+                     <div class="float-right">
+                        1-50/200
+                        <div class="btn-group">
+                           <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
+                           <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               --->
             </div>
             <!-- /.card -->
          </div>
