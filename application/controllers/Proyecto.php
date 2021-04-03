@@ -6,1058 +6,1209 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Proyecto extends CI_Controller
 {
-    function __construct(){
-		parent::__construct();
-        $this->load->model('Proyecto_model');
-        $this->load->helper(array('form', 'url'));
-    }
-    public function registroTrabajador(){
-		$data ['activo'] = 6;
-		$data ['activomenu'] = 2;
-        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
-		$this->load->view('layout/nav');
-		$this->load->view('menu/menu_proyecto',$data);
-		$this->load->view('Proyecto/GestionTrabajador');
-		$this->load->view('layout/footer');
-	
-    }
-    
-    public function AdminArchivos($idproyecto){
-		$data ['activo'] = 6;
-		$data ['activomenu'] = 1;
-        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
-        $data ['id_proyecto'] = $idproyecto;
-		$this->load->view('layout/nav');
-		$this->load->view('menu/menu_proyecto',$data);
-		$this->load->view('Proyecto/AdministradorArchivos',$data);
-        $this->load->view('layout/footer');
-    }
-
-    public function Estado_proyecto()
+    function __construct()
     {
-        $data ['activo'] = 4;
-        $data ['activomenu'] = 1;
+        parent::__construct();
+        $this->load->model('Proyecto_model');
+        $this->load->helper(array(
+            'form',
+            'url'
+        ));
+        $this->load->library('zip');
+        $this->load->helper('url');
+    }
+    public function registroTrabajador()
+    {
+        $data['activo']          = 6;
+        $data['activomenu']      = 2;
         $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
         $this->load->view('layout/nav');
-        $this->load->view('menu/menu_proyecto',$data);
-		$this->load->view('Proyecto/Estado');
-		$this->load->view('layout/footer');
+        $this->load->view('menu/menu_proyecto', $data);
+        $this->load->view('Proyecto/GestionTrabajador');
+        $this->load->view('layout/footer');
+        
+    }
+    
+    public function AdminArchivos($idproyecto)
+    {
+        $data['activo']          = 6;
+        $data['activomenu']      = 1;
+        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
+        $data['id_proyecto']     = $idproyecto;
+        $data['nombre_proyecto'] = $this->Proyecto_model->getNombreProyecto($idproyecto);
+        $this->load->view('layout/nav');
+        $this->load->view('menu/menu_proyecto', $data);
+        $this->load->view('Proyecto/AdministradorArchivos', $data);
+        $this->load->view('layout/footer');
+    }
+    
+    public function Estado_proyecto()
+    {
+        $data['activo']          = 4;
+        $data['activomenu']      = 1;
+        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
+        $this->load->view('layout/nav');
+        $this->load->view('menu/menu_proyecto', $data);
+        $this->load->view('Proyecto/Estado');
+        $this->load->view('layout/footer');
     }
     public function Proyecto_ejecucion()
     {
-        $data ['activo'] = 5;
-        $data ['activomenu'] = 1;
+        $data['activo']     = 5;
+        $data['activomenu'] = 1;
         $this->load->view('layout/nav');
         $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
-        $this->load->view('menu/menu_proyecto',$data);
-		$this->load->view('Proyecto/ProyectoE');
-		$this->load->view('layout/footer');
+        $this->load->view('menu/menu_proyecto', $data);
+        $this->load->view('Proyecto/ProyectoE');
+        $this->load->view('layout/footer');
     }
     public function Planilla_Proyecto($idproyecto)
     {
-        $data ['activo'] = 6;
-        $data ['codigo'] = $idproyecto;
-        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
-       $data ['Monto_total'] = $this->Proyecto_model->obtenerTotalFactura($data['codigo']);
-       $data ['Monto_balanceProyecto'] = $this->Proyecto_model->TotalBalanceProyecto($data['codigo']);
-       $data ['Monto_TotalProyecto'] = $this->Proyecto_model->MostrarTotalProyecto($data['codigo']);
-       $data ['Monto_presupuesto'] = $this->Proyecto_model->obtenerTotalPresupuesto($data['codigo']);
-       $data ['Monto_balance'] = $this->Proyecto_model->TotalBalance($data['codigo']);
-        $data['Monto_proyecto'] = $this->Proyecto_model->obtenerMontoProyecto($data['codigo']);
-        $this->load->view('menu/menu_proyecto',$data);
-		$this->load->view('Proyecto/PlanillasPro',$data);
-		$this->load->view('layout/footer');
+        $data['activo']                = 6;
+        $data['codigo']                = $idproyecto;
+        $data['lista_proyectos']       = $this->Proyecto_model->listaProyectos();
+        $data['Monto_total']           = $this->Proyecto_model->obtenerTotalFactura($data['codigo']);
+        $data['Monto_balanceProyecto'] = $this->Proyecto_model->TotalBalanceProyecto($data['codigo']);
+        $data['Monto_TotalProyecto']   = $this->Proyecto_model->MostrarTotalProyecto($data['codigo']);
+        $data['Monto_presupuesto']     = $this->Proyecto_model->obtenerTotalPresupuesto($data['codigo']);
+        $data['Monto_balance']         = $this->Proyecto_model->TotalBalance($data['codigo']);
+        $data['Monto_proyecto']        = $this->Proyecto_model->obtenerMontoProyecto($data['codigo']);
+        $this->load->view('menu/menu_proyecto', $data);
+        $this->load->view('Proyecto/PlanillasPro', $data);
+        $this->load->view('layout/footer');
     }
-
-    function subirArchivos(){
-        $data = array(); 
-        $errorUploadType = $statusMsg = ''; 
-         
+    
+    function subirArchivos()
+    {
+        $data            = array();
+        $errorUploadType = $statusMsg = '';
+        
         // If file upload form submitted 
-        if($this->input->post('fileSubmit')){ 
+        if ($this->input->post('fileSubmit')) {
             //idproyecto 
-            $idproyecto = $this->input->post('id_proyecto_dir');
+            $idproyecto   = $this->input->post('id_proyecto_dir');
             $iddirectorio = $this->input->post('tipo-archivo');
             // If files are selected to upload 
-            if(!empty($_FILES['files']['name']) && count(array_filter($_FILES['files']['name'])) > 0){ 
-                $filesCount = count($_FILES['files']['name']); 
-                for($i = 0; $i < $filesCount; $i++){ 
-                    $_FILES['file']['name']     = $_FILES['files']['name'][$i]; 
-                    $_FILES['file']['type']     = $_FILES['files']['type'][$i]; 
-                    $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i]; 
-                    $_FILES['file']['error']     = $_FILES['files']['error'][$i]; 
-                    $_FILES['file']['size']     = $_FILES['files']['size'][$i]; 
-                     
+            if (!empty($_FILES['files']['name']) && count(array_filter($_FILES['files']['name'])) > 0) {
+                $filesCount = count($_FILES['files']['name']);
+                for ($i = 0; $i < $filesCount; $i++) {
+                    $_FILES['file']['name']     = $_FILES['files']['name'][$i];
+                    $_FILES['file']['type']     = $_FILES['files']['type'][$i];
+                    $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
+                    $_FILES['file']['error']    = $_FILES['files']['error'][$i];
+                    $_FILES['file']['size']     = $_FILES['files']['size'][$i];
+                    
                     // File upload configuration 
-                    $uploadPath = 'ArchivosSubidos'; 
-                    $config['upload_path'] = $uploadPath; 
-                    $config['allowed_types'] = 'gif|jpg|png|xlsx|pdf|doc|mp4|docx'; 
+                    $uploadPath              = 'ArchivosSubidos';
+                    $config['upload_path']   = $uploadPath;
+                    $config['allowed_types'] = 'gif|jpg|png|xlsx|pdf|doc|mp4|docx';
                     //$config['max_size']    = '100'; 
                     //$config['max_width'] = '1024'; 
                     //$config['max_height'] = '768'; 
-                     
+                    
                     // Load and initialize upload library 
-                    $this->load->library('upload', $config); 
-                    $this->upload->initialize($config); 
-                     
+                    $this->load->library('upload', $config);
+                    $this->upload->initialize($config);
+                    
                     // Upload file to server 
-                    if($this->upload->do_upload('file')){ 
+                    if ($this->upload->do_upload('file')) {
                         // Uploaded file data 
-                        $fileData = $this->upload->data(); 
-                        $uploadData[$i]['nombre'] = $fileData['file_name']; 
-                        $uploadData[$i]['tipo'] = $fileData['file_type']; 
-                        $uploadData[$i]['fecha_subida'] = date("Y-m-d H:i:s"); 
-                    }else{  
-                        $errorUploadType .= $_FILES['file']['name'].' | ';
-                    } 
-                } 
-                 
-                $errorUploadType = !empty($errorUploadType)?'<br/>Formato no admitido: '.trim($errorUploadType, ' | '):''; 
-                if(!empty($uploadData)){ 
+                        $fileData                       = $this->upload->data();
+                        $uploadData[$i]['nombre']       = $fileData['file_name'];
+                        $uploadData[$i]['tipo']         = $fileData['file_type'];
+                        $uploadData[$i]['fecha_subida'] = date("Y-m-d H:i:s");
+                    } else {
+                        $errorUploadType .= $_FILES['file']['name'] . ' | ';
+                    }
+                }
+                
+                $errorUploadType = !empty($errorUploadType) ? '<br/>Formato no admitido: ' . trim($errorUploadType, ' | ') : '';
+                if (!empty($uploadData)) {
                     // Insert files data into the database 
-                    $insert = $this->Proyecto_model->insert($uploadData,$idproyecto,$iddirectorio); 
-                    $dataresponse = array('response' => 'success', 'message' => 'Archivo subido correctamente!');
+                    $insert       = $this->Proyecto_model->insert($uploadData, $idproyecto, $iddirectorio);
+                    $dataresponse = array(
+                        'response' => 'success',
+                        'message' => 'Archivo subido correctamente!'
+                    );
                     // Upload status message 
-                    $statusMsg = $insert?'Archivos subidos exitosamente!'.$errorUploadType:'Some problem occurred, please try again.'; 
-                }else{ 
-                    $dataresponse = array('response' => "error", 'message' => $errorUploadType);  
-                    $statusMsg = "Sorry, there was an error uploading your file.".$errorUploadType; 
-                } 
-            }else{ 
-                $statusMsg = 'Please select image files to upload.'; 
-            } 
-        } 
-
+                    $statusMsg    = $insert ? 'Archivos subidos exitosamente!' . $errorUploadType : 'Some problem occurred, please try again.';
+                } else {
+                    $dataresponse = array(
+                        'response' => "error",
+                        'message' => $errorUploadType
+                    );
+                    $statusMsg    = "Sorry, there was an error uploading your file." . $errorUploadType;
+                }
+            } else {
+                $statusMsg = 'Please select image files to upload.';
+            }
+        }
+        
         // Get files data from the database 
-        $data['files'] = $this->Proyecto_model->getRows(); 
-         
+        $data['files'] = $this->Proyecto_model->getRows();
+        
         // Pass the files data to view 
-        $data['statusMsg'] = $statusMsg; 
+        $data['statusMsg'] = $statusMsg;
         echo json_encode($dataresponse);
-    } 
-
+    }
     
-
+    
+    
     public function Evaluacion_proyecto()
     {
         // $data[ es lo que lleva en la vista foreach($partidas as $i)]combobox
-        $data['partidas'] = $this->Proyecto_model->Mostrarpartidas();
+        $data['partidas']        = $this->Proyecto_model->Mostrarpartidas();
         $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
-        $data ['activo'] = 4;
+        $data['activo']          = 4;
         $this->load->view('layout/nav-proyecto');
-        $this->load->view('menu/menu_proyecto',$data);
-		$this->load->view('Proyecto/Evaluacion');
+        $this->load->view('menu/menu_proyecto', $data);
+        $this->load->view('Proyecto/Evaluacion');
         $this->load->view('layout/footer');
     }
     public function Registro_proyecto()
-    {      
+    {
         $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
-        $data ['activo'] = 4;
+        $data['activo']          = 4;
         $this->load->view('layout/nav-proyecto');
-        $this->load->view('menu/menu_proyecto',$data);
-		$this->load->view('Proyecto/RegistroProyecto');
+        $this->load->view('menu/menu_proyecto', $data);
+        $this->load->view('Proyecto/RegistroProyecto');
         $this->load->view('layout/footer');
     }
-    public function obtenerDetalleDespiece(){
-		$ajax_data = $this->input->post(); //Datos que vienen por POST
-		$lista_etapas = $this->Proyecto_model->MostrarpartidasEtapas($ajax_data['id_partida']);
-		$response = "<div class='table-responsive'>";
-		$response .= "<table class='table table-bordered'>";
+    public function obtenerDetalleDespiece()
+    {
+        $ajax_data    = $this->input->post(); //Datos que vienen por POST
+        $lista_etapas = $this->Proyecto_model->MostrarpartidasEtapas($ajax_data['id_partida']);
+        $response     = "<div class='table-responsive'>";
+        $response .= "<table class='table table-bordered'>";
         $response .= "<tr>";
         $response .= "<td style='visibility:hidden'>";
-		$response .= "<label>ID</label>";
-		$response .= "</td>";
-		$response .= "<td>";
-		$response .= "<label>Etapa</label>";
-		$response .= "</td>";
-		$response .= "<td>";
-		$response .= "<label>Estado</label>";
-		$response .= "</td>";
-		$response .= "<td>";
-		$response .= "<label>Ingresar despiece</label>";
-        $response .= "</td>";	
-       /* $response .= "<td>";
-		$response .= "<label>Ingresar flete</label>";
-        $response .= "</td>";*/	
-		$response .= "</tr>";
-		$response .= "<tbody>";
-		foreach($lista_etapas as $row){ 
+        $response .= "<label>ID</label>";
+        $response .= "</td>";
+        $response .= "<td>";
+        $response .= "<label>Etapa</label>";
+        $response .= "</td>";
+        $response .= "<td>";
+        $response .= "<label>Estado</label>";
+        $response .= "</td>";
+        $response .= "<td>";
+        $response .= "<label>Ingresar despiece</label>";
+        $response .= "</td>";
+        /* $response .= "<td>";
+        $response .= "<label>Ingresar flete</label>";
+        $response .= "</td>";*/
+        $response .= "</tr>";
+        $response .= "<tbody>";
+        foreach ($lista_etapas as $row) {
             $response .= "<tr>";
             $response .= "<td>";
-			$response .= $row->id;
-			$response .= "</td>";
-			$response .= "<td>";
-			$response .= $row->nombreetapa;
-			$response .= "</td>";
+            $response .= $row->id;
+            $response .= "</td>";
             $response .= "<td>";
-            if($row->estado == 0){
+            $response .= $row->nombreetapa;
+            $response .= "</td>";
+            $response .= "<td>";
+            if ($row->estado == 0) {
                 $response .= '<span class="badge badge-danger">No registrado</span>';
-            }else{
+            } else {
                 $response .= '<span class="badge badge-success">Registrado</span>';
             }
-			$response .= "</td>";
-			$response .= "<td>";
-			$response .= "<button type='button' name='add' onclick='setId(this)' data-toggle='modal' data-target='#registro_despiece' class='btn btn-success'>+</button>";
+            $response .= "</td>";
+            $response .= "<td>";
+            $response .= "<button type='button' name='add' onclick='setId(this)' data-toggle='modal' data-target='#registro_despiece' class='btn btn-success'>+</button>";
             $response .= "</td>";
             /*
             $response .= "<td>";
-			$response .= "<button type='button' name='add' onclick='setIdFlete(this)' data-toggle='modal' data-target='#registro_flete' class='btn btn-success'>+</button>";
-			$response .= "</td>";*/
-			$response .= "</tr>";
-		}
-		$response .= "</tbody>";
-		$response .= "</table>";
-		$response .= "</div>";
-
-		$data = array('response' => 'success', 'detalle' => $response);
-
-
-		echo json_encode($data);
-	}
+            $response .= "<button type='button' name='add' onclick='setIdFlete(this)' data-toggle='modal' data-target='#registro_flete' class='btn btn-success'>+</button>";
+            $response .= "</td>";*/
+            $response .= "</tr>";
+        }
+        $response .= "</tbody>";
+        $response .= "</table>";
+        $response .= "</div>";
+        
+        $data = array(
+            'response' => 'success',
+            'detalle' => $response
+        );
+        
+        
+        echo json_encode($data);
+    }
     
     //Mostrar estado de todos los proyectos en ejecución a la vista de todos los usuarios
-
-   public function fetch_data()
-   {
-       $this->load->model('Proyecto_model', 'proyecto_modal');
-
-       $fetch_data = $this->proyecto_modal->make_datatables_EstadoProyecto();
-       $data = array();
-       foreach ($fetch_data as $value) {
-
-           $sub_array      = array();
-           $sub_array[]    = $value->id_proyecto;
-           $sub_array[]    = $value->nombreproyecto;
-           $sub_array[]    = $value->nombreusuario;
-           $sub_array[]    = $value->fecha_inicio;
-           $sub_array[]	   = $value->fecha_termino;
-           if($value->estado == 0){
-            $sub_array[]= '<span class="badge badge-danger">En proceso</span>';
-        }else{
-            $sub_array[]= '<span class="badge badge-success">Terminado</span>';
-        }
-           $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" >';
-          
-           $data[]         = $sub_array;
-       }
-       $output = array(
-           "draw"                =>     intval($_POST["draw"]),
-            "recordsTotal"        =>     $this->Proyecto_model->get_all_data_EstadoProyecto(),
-          "recordsFiltered"     =>     $this->Proyecto_model->get_filtered_data_EstadoProyecto(),
-           "data"                =>     $data
-       );
-       echo json_encode($output);  
-   }
-   public function fetch_ProyectoEjecutados()
-   {
-       $this->load->model('Proyecto_model', 'proyecto_modal');
-
-       $fetch_data = $this->proyecto_modal->make_datatables_ProyectoEjecutados();
-       $data = array();
-       foreach ($fetch_data as $value) {
-
-           $sub_array      = array();
-           $sub_array[]    = $value->id_proyecto;
-           $sub_array[]    = $value->nombreproyecto;
-           $sub_array[]    = $value->fecha_inicio;
-           $sub_array[]	   = $value->fecha_termino;
-           if($value->estado == 0){
-            $sub_array[]= '<span class="badge badge-danger">En proceso</span>';
-            }else{
-                $sub_array[]= '<span class="badge badge-success">Terminado</span>';
+    
+    public function fetch_data()
+    {
+        $this->load->model('Proyecto_model', 'proyecto_modal');
+        
+        $fetch_data = $this->proyecto_modal->make_datatables_EstadoProyecto();
+        $data       = array();
+        foreach ($fetch_data as $value) {
+            
+            $sub_array   = array();
+            $sub_array[] = $value->id_proyecto;
+            $sub_array[] = $value->nombreproyecto;
+            $sub_array[] = $value->nombreusuario;
+            $sub_array[] = $value->fecha_inicio;
+            $sub_array[] = $value->fecha_termino;
+            if ($value->estado == 0) {
+                $sub_array[] = '<span class="badge badge-danger">En proceso</span>';
+            } else {
+                $sub_array[] = '<span class="badge badge-success">Terminado</span>';
             }
-
+            $sub_array[] = '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" >';
+            
+            $data[] = $sub_array;
+        }
+        $output = array(
+            "draw" => intval($_POST["draw"]),
+            "recordsTotal" => $this->Proyecto_model->get_all_data_EstadoProyecto(),
+            "recordsFiltered" => $this->Proyecto_model->get_filtered_data_EstadoProyecto(),
+            "data" => $data
+        );
+        echo json_encode($output);
+    }
+    public function fetch_ProyectoEjecutados()
+    {
+        $this->load->model('Proyecto_model', 'proyecto_modal');
+        
+        $fetch_data = $this->proyecto_modal->make_datatables_ProyectoEjecutados();
+        $data       = array();
+        foreach ($fetch_data as $value) {
+            
+            $sub_array   = array();
+            $sub_array[] = $value->id_proyecto;
+            $sub_array[] = $value->nombreproyecto;
+            $sub_array[] = $value->fecha_inicio;
+            $sub_array[] = $value->fecha_termino;
+            if ($value->estado == 0) {
+                $sub_array[] = '<span class="badge badge-danger">En proceso</span>';
+            } else {
+                $sub_array[] = '<span class="badge badge-success">Terminado</span>';
+            }
+            
             $hoy = date("Y-m-d");
-
+            
             //Paso de string a fecha
-            $d1 = new DateTime($value->fecha_inicio);
-            $d2 = new DateTime($value->fecha_termino);
+            $d1          = new DateTime($value->fecha_inicio);
+            $d2          = new DateTime($value->fecha_termino);
             $fechaactual = new DateTime($hoy);
-
+            
             //Dias totales del proyecto
-            $interval = $d1->diff($d2);
+            $interval    = $d1->diff($d2);
             //Dias entre  la fecha actual y la fecha termino
             $intervaluno = $fechaactual->diff($d2);
-
-
-            $diasTotales    = $interval->d; 
-            $diasFaltantes  = $intervaluno->d;
-
-            $porcentajefaltante = ($diasFaltantes * 100)/$diasTotales;
             
-
+            
+            $diasTotales   = $interval->d;
+            $diasFaltantes = $intervaluno->d;
+            
+            $porcentajefaltante = ($diasFaltantes * 100) / $diasTotales;
+            
+            
             //Dias totales entre las 2 fechas
-            $diasTotales    = $interval->d; 
-            $sub_array[]	   = '<td class="project_progress"><div class="progress progress-sm"><div class="progress-bar bg-green" role="progressbar" aria-volumenow="'.round($porcentajefaltante).'" aria-volumemin="0" aria-volumemax="100" style="width: '.round($porcentajefaltante).'%"></div></div><small>'.round($porcentajefaltante).'% Completado</small></td>';
-
-
-           $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" onclick="detalleProyecto(this)" >';
-           $sub_array[]	= '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#modalDocumentos" >';
-           $data[]         = $sub_array;
-       }
-       $output = array(
-           "draw"                =>     intval($_POST["draw"]),
-            "recordsTotal"        =>     $this->Proyecto_model->get_all_data_EstadoProyecto(),
-          "recordsFiltered"     =>     $this->Proyecto_model->get_filtered_data_EstadoProyecto(),
-           "data"                =>     $data
-       );
-       echo json_encode($output);  
-   }
-  
-
-public function GuardarProyectos(){
-    if ($this->input->is_ajax_request()) {
-        //Validaciones
-        $this->form_validation->set_rules('nombreProyecto', 'nombreProyecto', 'required');
-        $this->form_validation->set_rules('fechaInicio', 'fechaInicio', 'required');
-        $this->form_validation->set_rules('fechaTermino', 'fechaTermino', 'required');
-        $this->form_validation->set_rules('monto', 'monto', 'required');
-
-        if ($this->form_validation->run() == FALSE) {
-            $data = array('response' => "error", 'message' => validation_errors());
-        } else {
-            $ajax_data = $this->input->post();
+            $diasTotales = $interval->d;
+            $sub_array[] = '<td class="project_progress"><div class="progress progress-sm"><div class="progress-bar bg-green" role="progressbar" aria-volumenow="' . round($porcentajefaltante) . '" aria-volumemin="0" aria-volumemax="100" style="width: ' . round($porcentajefaltante) . '%"></div></div><small>' . round($porcentajefaltante) . '% Completado</small></td>';
             
-            if (!$this->Proyecto_model->ingresoProyecto($ajax_data)) {
-                $data = array('response' => "success", 'message' => "Proyecto Registrado");
-                
-            }else{
-                $data = array('response' => "error", 'message' => "Falló el registro");
-            }
-
-        }
-
-        echo json_encode($data);
-    } else {
-        echo "'No direct script access allowed'";
-    }
-
-}
-
-public function registroPersonal(){
-    if ($this->input->is_ajax_request()) {
-        $this->form_validation->set_rules('name', 'Nombre completo', 'required');
-        $this->form_validation->set_rules('rut', 'Rut', 'required');
-        $this->form_validation->set_rules('telefono', 'Telefono', 'required');
-        $this->form_validation->set_rules('email', 'Correo', 'required|valid_email');
-        $this->form_validation->set_rules('cargo', 'Cargo', 'required');
-
-        if ($this->form_validation->run() == FALSE) {
-            $data = array('response' => "error", 'message' => validation_errors());
-        } else {
-            $ajax_data = $this->input->post();
             
-            if (!$this->Proyecto_model->registroPersonal($ajax_data)) {
-                $data = array('response' => "success", 'message' => "Proyecto Registrado");
-                
-            }else{
-                $data = array('response' => "error", 'message' => "Falló el registro");
-            }
-
+            $sub_array[] = '<a href="#" class="fas fa-eye" style="font-size: 20px;" onclick="detalleProyecto(this)" >';
+            $sub_array[] = '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#modalDocumentos" >';
+            $data[]      = $sub_array;
         }
-
-        echo json_encode($data);
-    } else {
-        echo "'No direct script access allowed'";
-    }	
-}
-
-public function registroPartidas(){
-		
-    if ($this->input->is_ajax_request()) {
-        $ajax_data = $this->input->post();
-        $res = $this->Proyecto_model->registrarPartidasModels($ajax_data);
-        if ($res) {
-            $data = array('response' => "success", 'message' => "Guardado exitosamente!");
-        }else{
-            $data = array('response' => "error", 'message' => $res);
-        }
-        echo json_encode($data);
-    } else {
-        echo "'No direct script access allowed'";
+        $output = array(
+            "draw" => intval($_POST["draw"]),
+            "recordsTotal" => $this->Proyecto_model->get_all_data_EstadoProyecto(),
+            "recordsFiltered" => $this->Proyecto_model->get_filtered_data_EstadoProyecto(),
+            "data" => $data
+        );
+        echo json_encode($output);
     }
-}
-
-public function GuardarPorcentaje(){
-    if ($this->input->is_ajax_request()) {
-        $ajax_data = $this->input->post();
-        $res = $this->Proyecto_model->ingresoPorcentaje($ajax_data);
-        if ($res) {
-            $data = array('response' => "error", 'message' => $res);
-           
-        }else{
-            $data = array('response' => "success", 'message' => "Guardado exitosamente!");
-        }
-        echo json_encode($data);
-    } else {
-        echo "'No direct script access allowed'";
-    }
-}
-
-
-
-public function registroSupervision(){
-		
-    if ($this->input->is_ajax_request()) {
-        $ajax_data = $this->input->post();
-        $res = $this->Proyecto_model->ingresarSupervision($ajax_data);
-        if ($res) {
-            $data = array('response' => "success", 'message' => "Guardado exitosamente!");
-        }else{
-            $data = array('response' => "error", 'message' => $res);
-        }
-        echo json_encode($data);
-    } else {
-        echo "'No direct script access allowed'";
-    }
-}
-public function registroInstalacion(){
-		
-    if ($this->input->is_ajax_request()) {
-        $ajax_data = $this->input->post();
-        $res = $this->Proyecto_model->ingresarInstalacion($ajax_data);
-        if ($res) {
-            $data = array('response' => "success", 'message' => "Guardado exitosamente!");
-        }else{
-            $data = array('response' => "error", 'message' => $res);
-        }
-        echo json_encode($data);
-    } else {
-        echo "'No direct script access allowed'";
-    }
-}
-
-public function registroEtapas(){
-		
-    if ($this->input->is_ajax_request()) {
-        $ajax_data = $this->input->post();
-        $res = $this->Proyecto_model->ingresarEtapas($ajax_data);
-        if ($res) {
-            $data = array('response' => "success", 'message' => "Guardado exitosamente!");
-        }else{
-            $data = array('response' => "error", 'message' => $res);
-        }
-        echo json_encode($data);
-    } else {
-        echo "'No direct script access allowed'";
-    }
-}
-
-public function registroDespiece(){
-		
-    if ($this->input->is_ajax_request()) {
-        $ajax_data = $this->input->post();
-        $res = $this->Proyecto_model->ingresarDespiece($ajax_data);
-        if ($res) {
-            $data = array('response' => "success", 'message' => "Guardado exitosamente!");
-        }else{
-            $data = array('response' => "error", 'message' => $res);
-        }
-        echo json_encode($data);
-    } else {
-        echo "'No direct script access allowed'";
-    }
-}
-public function Guardarflete(){
-    if ($this->input->is_ajax_request()) {
-        //Validaciones
-        $this->form_validation->set_rules('id_etapa', 'id_etapa', 'required');
-        $this->form_validation->set_rules('valor', 'valor', 'required');
-       
-
-        if ($this->form_validation->run() == FALSE) {
-            $data = array('response' => "error", 'message' => validation_errors());
-        } else {
-            $ajax_data = $this->input->post();
+    
+    
+    public function GuardarProyectos()
+    {
+        if ($this->input->is_ajax_request()) {
+            //Validaciones
+            $this->form_validation->set_rules('nombreProyecto', 'nombreProyecto', 'required');
+            $this->form_validation->set_rules('fechaInicio', 'fechaInicio', 'required');
+            $this->form_validation->set_rules('fechaTermino', 'fechaTermino', 'required');
+            $this->form_validation->set_rules('monto', 'monto', 'required');
             
-            if (!$this->Proyecto_model->ingresoflete($ajax_data)) {
-                $data = array('response' => "success", 'message' => "Proyecto Registrado");
+            if ($this->form_validation->run() == FALSE) {
+                $data = array(
+                    'response' => "error",
+                    'message' => validation_errors()
+                );
+            } else {
+                $ajax_data = $this->input->post();
                 
-            }else{
-                $data = array('response' => "error", 'message' => "Falló el registro");
+                if (!$this->Proyecto_model->ingresoProyecto($ajax_data)) {
+                    $data = array(
+                        'response' => "success",
+                        'message' => "Proyecto Registrado"
+                    );
+                    
+                } else {
+                    $data = array(
+                        'response' => "error",
+                        'message' => "Falló el registro"
+                    );
+                }
+                
             }
-
+            
+            echo json_encode($data);
+        } else {
+            echo "'No direct script access allowed'";
         }
-
-        echo json_encode($data);
-    } else {
-        echo "'No direct script access allowed'";
+        
     }
-
-}
-public function GuardarFleteTraslado(){
-    if ($this->input->is_ajax_request()) {
-        $ajax_data = $this->input->post();
-        $res = $this->Proyecto_model->ingresoFleteTraslado($ajax_data);
-        if ($res) {
-            $data = array('response' => "success", 'message' => $res);
-           
-        }else{
-            $data = array('response' => "error", 'message' => "ERRRROR!");
+    
+    public function registroPersonal()
+    {
+        if ($this->input->is_ajax_request()) {
+            $this->form_validation->set_rules('name', 'Nombre completo', 'required');
+            $this->form_validation->set_rules('rut', 'Rut', 'required');
+            $this->form_validation->set_rules('telefono', 'Telefono', 'required');
+            $this->form_validation->set_rules('email', 'Correo', 'required|valid_email');
+            $this->form_validation->set_rules('cargo', 'Cargo', 'required');
+            
+            if ($this->form_validation->run() == FALSE) {
+                $data = array(
+                    'response' => "error",
+                    'message' => validation_errors()
+                );
+            } else {
+                $ajax_data = $this->input->post();
+                
+                if (!$this->Proyecto_model->registroPersonal($ajax_data)) {
+                    $data = array(
+                        'response' => "success",
+                        'message' => "Proyecto Registrado"
+                    );
+                    
+                } else {
+                    $data = array(
+                        'response' => "error",
+                        'message' => "Falló el registro"
+                    );
+                }
+                
+            }
+            
+            echo json_encode($data);
+        } else {
+            echo "'No direct script access allowed'";
         }
-        echo json_encode($data);
-    } else {
-        echo "'No direct script access allowed'";
     }
-}
-
-
-public function obtenerResumenProyecto(){
-        $ajax_data = $this->input->post(); //Datos que vienen por POST
-        $lista_etapas = $this->Proyecto_model->obtenerResumen($ajax_data);
-        $lista_imprevistos = $this->Proyecto_model->obtenerImprevisto($ajax_data);
-        $lista_instalacion = $this->Proyecto_model->obtenerInstalacion($ajax_data);
-        $lista_supervision = $this->Proyecto_model->obtenerSupervision($ajax_data);
-        $lista_porcentaje = $this->Proyecto_model->obtenerPorcentaje($ajax_data);
+    
+    public function registroPartidas()
+    {
+        
+        if ($this->input->is_ajax_request()) {
+            $ajax_data = $this->input->post();
+            $res       = $this->Proyecto_model->registrarPartidasModels($ajax_data);
+            if ($res) {
+                $data = array(
+                    'response' => "success",
+                    'message' => "Guardado exitosamente!"
+                );
+            } else {
+                $data = array(
+                    'response' => "error",
+                    'message' => $res
+                );
+            }
+            echo json_encode($data);
+        } else {
+            echo "'No direct script access allowed'";
+        }
+    }
+    
+    public function GuardarPorcentaje()
+    {
+        if ($this->input->is_ajax_request()) {
+            $ajax_data = $this->input->post();
+            $res       = $this->Proyecto_model->ingresoPorcentaje($ajax_data);
+            if ($res) {
+                $data = array(
+                    'response' => "error",
+                    'message' => $res
+                );
+                
+            } else {
+                $data = array(
+                    'response' => "success",
+                    'message' => "Guardado exitosamente!"
+                );
+            }
+            echo json_encode($data);
+        } else {
+            echo "'No direct script access allowed'";
+        }
+    }
+    
+    
+    
+    public function registroSupervision()
+    {
+        
+        if ($this->input->is_ajax_request()) {
+            $ajax_data = $this->input->post();
+            $res       = $this->Proyecto_model->ingresarSupervision($ajax_data);
+            if ($res) {
+                $data = array(
+                    'response' => "success",
+                    'message' => "Guardado exitosamente!"
+                );
+            } else {
+                $data = array(
+                    'response' => "error",
+                    'message' => $res
+                );
+            }
+            echo json_encode($data);
+        } else {
+            echo "'No direct script access allowed'";
+        }
+    }
+    public function registroInstalacion()
+    {
+        
+        if ($this->input->is_ajax_request()) {
+            $ajax_data = $this->input->post();
+            $res       = $this->Proyecto_model->ingresarInstalacion($ajax_data);
+            if ($res) {
+                $data = array(
+                    'response' => "success",
+                    'message' => "Guardado exitosamente!"
+                );
+            } else {
+                $data = array(
+                    'response' => "error",
+                    'message' => $res
+                );
+            }
+            echo json_encode($data);
+        } else {
+            echo "'No direct script access allowed'";
+        }
+    }
+    
+    public function registroEtapas()
+    {
+        
+        if ($this->input->is_ajax_request()) {
+            $ajax_data = $this->input->post();
+            $res       = $this->Proyecto_model->ingresarEtapas($ajax_data);
+            if ($res) {
+                $data = array(
+                    'response' => "success",
+                    'message' => "Guardado exitosamente!"
+                );
+            } else {
+                $data = array(
+                    'response' => "error",
+                    'message' => $res
+                );
+            }
+            echo json_encode($data);
+        } else {
+            echo "'No direct script access allowed'";
+        }
+    }
+    
+    public function registroDespiece()
+    {
+        
+        if ($this->input->is_ajax_request()) {
+            $ajax_data = $this->input->post();
+            $res       = $this->Proyecto_model->ingresarDespiece($ajax_data);
+            if ($res) {
+                $data = array(
+                    'response' => "success",
+                    'message' => "Guardado exitosamente!"
+                );
+            } else {
+                $data = array(
+                    'response' => "error",
+                    'message' => $res
+                );
+            }
+            echo json_encode($data);
+        } else {
+            echo "'No direct script access allowed'";
+        }
+    }
+    public function Guardarflete()
+    {
+        if ($this->input->is_ajax_request()) {
+            //Validaciones
+            $this->form_validation->set_rules('id_etapa', 'id_etapa', 'required');
+            $this->form_validation->set_rules('valor', 'valor', 'required');
+            
+            
+            if ($this->form_validation->run() == FALSE) {
+                $data = array(
+                    'response' => "error",
+                    'message' => validation_errors()
+                );
+            } else {
+                $ajax_data = $this->input->post();
+                
+                if (!$this->Proyecto_model->ingresoflete($ajax_data)) {
+                    $data = array(
+                        'response' => "success",
+                        'message' => "Proyecto Registrado"
+                    );
+                    
+                } else {
+                    $data = array(
+                        'response' => "error",
+                        'message' => "Falló el registro"
+                    );
+                }
+                
+            }
+            
+            echo json_encode($data);
+        } else {
+            echo "'No direct script access allowed'";
+        }
+        
+    }
+    public function GuardarFleteTraslado()
+    {
+        if ($this->input->is_ajax_request()) {
+            $ajax_data = $this->input->post();
+            $res       = $this->Proyecto_model->ingresoFleteTraslado($ajax_data);
+            if ($res) {
+                $data = array(
+                    'response' => "success",
+                    'message' => $res
+                );
+                
+            } else {
+                $data = array(
+                    'response' => "error",
+                    'message' => "ERRRROR!"
+                );
+            }
+            echo json_encode($data);
+        } else {
+            echo "'No direct script access allowed'";
+        }
+    }
+    
+    
+    public function obtenerResumenProyecto()
+    {
+        $ajax_data           = $this->input->post(); //Datos que vienen por POST
+        $lista_etapas        = $this->Proyecto_model->obtenerResumen($ajax_data);
+        $lista_imprevistos   = $this->Proyecto_model->obtenerImprevisto($ajax_data);
+        $lista_instalacion   = $this->Proyecto_model->obtenerInstalacion($ajax_data);
+        $lista_supervision   = $this->Proyecto_model->obtenerSupervision($ajax_data);
+        $lista_porcentaje    = $this->Proyecto_model->obtenerPorcentaje($ajax_data);
         $lista_fletetraslado = $this->Proyecto_model->obtenerFleteTraslado($ajax_data);
-        $lista_gastoGeneral = $this->Proyecto_model->totalGastoGeneral($ajax_data);
-        $lista_comisiones = $this->Proyecto_model->totalComisiones($ajax_data);
-        $lista_ingenieria = $this->Proyecto_model->totalIngenieria($ajax_data);
-        $lista_utilidades = $this->Proyecto_model->totalUtilidades($ajax_data);
-        $response ="<TABLE BORDER class='table table-bordered'>";
-        $subtotal = 0;
-        foreach($lista_etapas as $row){
+        $lista_gastoGeneral  = $this->Proyecto_model->totalGastoGeneral($ajax_data);
+        $lista_comisiones    = $this->Proyecto_model->totalComisiones($ajax_data);
+        $lista_ingenieria    = $this->Proyecto_model->totalIngenieria($ajax_data);
+        $lista_utilidades    = $this->Proyecto_model->totalUtilidades($ajax_data);
+        $response            = "<TABLE BORDER class='table table-bordered'>";
+        $subtotal            = 0;
+        foreach ($lista_etapas as $row) {
             $subtotal = intval($row->SubTotal);
-            $response .="<TR>";
-            $response .="<TH>Subtotal por partida</TH>";
-            $response .="<TD>$".$subtotal."</TD>";
+            $response .= "<TR>";
+            $response .= "<TH>Subtotal por partida</TH>";
+            $response .= "<TD>$" . $subtotal . "</TD>";
         }
-            $response .="</TR>";
+        $response .= "</TR>";
         $imprevisto = 0;
-        foreach($lista_imprevistos as $row){
-            $imprevisto = $subtotal * (float)$row->imprevisto;
-            $response .="<TR>";
-            $response .="<TH>Imprevistos</TH>";
-            $response .="<TD>$".$imprevisto."</TD>";
-            $response .="</TR>";
+        foreach ($lista_imprevistos as $row) {
+            $imprevisto = $subtotal * (float) $row->imprevisto;
+            $response .= "<TR>";
+            $response .= "<TH>Imprevistos</TH>";
+            $response .= "<TD>$" . $imprevisto . "</TD>";
+            $response .= "</TR>";
         }
-
-        $costomaterial = intval($subtotal)+intval($imprevisto);
-            $response .="<TR>";
-            $response .="<TH>Costo materiales</TH>";
-            $response .="<TD>$".$costomaterial."</TD>";
-            $response .="</TR>";
-
-        $instalacion=0;
-        foreach($lista_instalacion as $row){
+        
+        $costomaterial = intval($subtotal) + intval($imprevisto);
+        $response .= "<TR>";
+        $response .= "<TH>Costo materiales</TH>";
+        $response .= "<TD>$" . $costomaterial . "</TD>";
+        $response .= "</TR>";
+        
+        $instalacion = 0;
+        foreach ($lista_instalacion as $row) {
             $instalacion = $row->instalacion;
-            $response .="<TR>";
-            $response .="<TH>Instalación</TH>";
-            $response .="<TD>$".$row->instalacion."</TD>";
-            $response .="</TR>";
+            $response .= "<TR>";
+            $response .= "<TH>Instalación</TH>";
+            $response .= "<TD>$" . $row->instalacion . "</TD>";
+            $response .= "</TR>";
         }
-        $supervision=0;
-        foreach($lista_supervision as $row){
+        $supervision = 0;
+        foreach ($lista_supervision as $row) {
             $supervision = $row->supervision;
-            $response .="<TR>";
-            $response .="<TH>Supervisión</TH>";
-            $response .="<TD>$".$row->supervision."</TD>";
-            $response .="</TR>";
+            $response .= "<TR>";
+            $response .= "<TH>Supervisión</TH>";
+            $response .= "<TD>$" . $row->supervision . "</TD>";
+            $response .= "</TR>";
         }
         //echo"Costo material: ".$costomaterial."\n";
         //echo"Instalacion: ".$instalacion."\n";
         //echo"Supervision: ".$supervision."\n";
-
-        $valorEquipamiento = intval($costomaterial)+intval($instalacion)+intval($supervision);
-
-            $response .="<TR>";
-            $response .="<TH>Valor equipamiento instalado</TH>";
-            $response .="<TD>$".$valorEquipamiento."</TD>";
-            $response .="</TR>";
         
-        $valor=0;
-        foreach($lista_fletetraslado as $row){
-            $valor=intval($row->valor);
-            $response .="<TR>";
-            $response .="<TH>Flete traslado </TH>";
-            $response .="<TD>$".$row->valor."</TD>";
-            $response .="</TR>";
+        $valorEquipamiento = intval($costomaterial) + intval($instalacion) + intval($supervision);
+        
+        $response .= "<TR>";
+        $response .= "<TH>Valor equipamiento instalado</TH>";
+        $response .= "<TD>$" . $valorEquipamiento . "</TD>";
+        $response .= "</TR>";
+        
+        $valor = 0;
+        foreach ($lista_fletetraslado as $row) {
+            $valor = intval($row->valor);
+            $response .= "<TR>";
+            $response .= "<TH>Flete traslado </TH>";
+            $response .= "<TD>$" . $row->valor . "</TD>";
+            $response .= "</TR>";
         }
-            $response .="<TR>";
-            $response .="<TH>Gastos generales </TH>";
-            $response .="<TD>$".$lista_gastoGeneral."</TD>";
-            $response .="</TR>";
-        $comisiones=0;
+        $response .= "<TR>";
+        $response .= "<TH>Gastos generales </TH>";
+        $response .= "<TD>$" . $lista_gastoGeneral . "</TD>";
+        $response .= "</TR>";
+        $comisiones = 0;
         
-            $response .="<TR>";
-            $response .="<TH>Comisiones </TH>";
-            $response .="<TD>$".$lista_comisiones."</TD>";
-            $response .="</TR>";
-        $ingenieria=0;
+        $response .= "<TR>";
+        $response .= "<TH>Comisiones </TH>";
+        $response .= "<TD>$" . $lista_comisiones . "</TD>";
+        $response .= "</TR>";
+        $ingenieria = 0;
         
-           
-            $response .="<TR>";
-            $response .="<TH>Ingeniería </TH>";
-            $response .="<TD>$".$lista_ingenieria."</TD>";
-            $response .="</TR>";
+        
+        $response .= "<TR>";
+        $response .= "<TH>Ingeniería </TH>";
+        $response .= "<TD>$" . $lista_ingenieria . "</TD>";
+        $response .= "</TR>";
+        
+        
+        $utilidades = 0;
+        
+        $response .= "<TR>";
+        $response .= "<TH>Utilidades </TH>";
+        $response .= "<TD>$" . $lista_utilidades . "</TD>";
+        $response .= "</TR>";
+        
+        
+        $Preciosugerido = intval($valorEquipamiento) + intval($valor) + (float) $lista_gastoGeneral + (float) $lista_comisiones + (float) $lista_ingenieria + (float) $lista_utilidades;
+        $response .= "<TR>";
+        $response .= "<TH>Precio sugerido venta </TH>";
+        $response .= "<TD>$" . $Preciosugerido . "</TD>";
+        $response .= "</TR>";
+        
+        $response .= "</TABLE>";
+        $data = array(
+            'response' => 'success',
+            'detalle' => $response
+        );
+        
+        
+        echo json_encode($data);
+        
+        
+    }
+    public function obtenerPrecioVenta()
+    {
+        
+        $PreciosugeridoVenta = $this->Proyecto_model->obtenerPrecioSugeridoProyecto();
+        
+        $response = "<TABLE BORDER class='table table-bordered'>";
+        $response .= "<TR>";
+        $response .= "<TD class='bg-info'><h5>Precio sugerido Proyecto</h5></TD>";
+        $response .= "</TR>";
+        
+        
+        foreach ($PreciosugeridoVenta as $row) {
+            $response .= "<TR>";
+            $response .= "<TD scope='col'>$" . $row->PrecioSugerido . "</TD>";
+            $response .= "</TR>";
+        }
+        $response .= "</TABLE>";
+        
+        $data = array(
+            'response' => 'success',
+            'detalle' => $response
+        );
+        
+        echo json_encode($data);
+    }
+    
+    public function obtenerTrabajoDiario()
+    {
+        
+        $ajax_data     = $this->input->post();
+        $codigo        = $ajax_data['codigo'];
+        $lista_trabajo = $this->Proyecto_model->obtenerTrabajoDiario($codigo);
+        
+        $response = "<table id='example1' class='table table-bordered table-striped'>";
+        $response .= " <thead>";
+        $response .= " <tr>";
+        $response .= "<th>ID</th>";
+        $response .= "<th>Fecha</th>";
+        $response .= " <th>Detalle</th>";
+        $response .= "<th>Codigo de servicio</th>";
+        $response .= "<th>Personal</th>";
+        $response .= "<th>Registro fotográfico</th>";
+        $response .= "</tr>";
+        $response .= "</thead>";
+        $response .= "<tbody>";
+        
+        foreach ($lista_trabajo as $row) {
+            $response .= "<tr>";
+            $response .= "<td>" . $row->id . "</td>";
+            $response .= "<td>" . $row->fecha_inicio . "</td>";
+            $response .= "<td>" . $row->detalle . "</td>";
+            $response .= "<td>" . $row->codigoservicio . "</td>";
+            $response .= "<td> <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#personal' onclick='generarTablaPersonalQueAsiste(this)'><i class='far fa-eye'></i></button></td>";
+            $response .= "<td> <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#modal-detalle-orden' onclick=''><i class='far fa-eye'></i></button></td>";
+            $response .= " </tr>";
+        }
+        $response .= "</tfoot>";
+        $response .= " </table>";
+        
+        
+        $data = array(
+            'response' => 'success',
+            'detalle' => $response
+        );
+        
+        echo json_encode($data);
+        
+    }
+    
+    public function obtenerRegistroMaterial()
+    {
+        
+        $ajax_data = $this->input->post();
+        $codigo    = $ajax_data['codigo'];
+        
+        $lista_monto       = $this->Proyecto_model->MostrarMaterialesProyecto($codigo);
+        $lista_factura     = $this->Proyecto_model->obtenerTotalFactura($codigo);
+        $lista_presupuesto = $this->Proyecto_model->obtenerTotalPresupuesto($codigo);
+        $lista_balance     = $this->Proyecto_model->TotalBalance($codigo);
+        
+        $response = "<table id='example1' class='table table-bordered table-striped'>";
+        $response .= " <thead>";
+        $response .= " <tr>";
+        $response .= "<th>ID</th>";
+        $response .= " <th>Monto</th>";
+        $response .= "<th>Detalle</th>";
+        $response .= " <th>Presupuesto</th>";
+        $response .= "<th>Balance por item</th>";
+        $response .= "<th>Facturas</th>";
+        $response .= "</tr>";
+        $response .= "</thead>";
+        $response .= "<tbody>";
+        $balance = 0;
+        foreach ($lista_monto as $row) {
+            $balance = intval($row->monto) - intval($row->presupuesto);
+            $response .= "<tr>";
+            $response .= "<td>" . $row->id . "</td>";
+            $response .= "<td>$" . $row->monto . "</td>";
+            $response .= "<td>" . $row->detalle . "</td>";
+            $response .= "<td>$" . $row->presupuesto . "</td>";
+            $response .= "<td>$" . $balance . "</td>";
+            $response .= "<td> <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#MostrarFacturas' onclick='setTablaFacturas(this)'><i class='fas fa-download'></i></button></td>";
+            $response .= " </tr>";
+        }
+        $response .= "</tfoot>";
+        $response .= "<tr>";
+        $response .= "<th>Total: </th>";
+        $factura = 0;
+        foreach ($lista_factura as $row) {
+            $factura = $row->totalMonto;
+            $response .= "<th>$" . $factura . "</th>";
+        }
+        $response .= "<th></th>";
+        $presupuesto = 0;
+        foreach ($lista_presupuesto as $row) {
+            $presupuesto = $row->totalpresupuesto;
+            $response .= "<th>$ " . $presupuesto . "</th>";
+        }
+        $response .= "<th>$ " . $lista_balance . "</th>";
+        $response .= " </tr>";
+        $response .= "</tfoot>";
+        $response .= " </table>";
+        
+        $data = array(
+            'response' => 'success',
+            'detalle' => $response
+        );
+        
+        echo json_encode($data);
+        
+    }
+    
+    public function obtenerManoDeObra()
+    {
+        
+        //$PreciosugeridoVenta = $this->Proyecto_model->obtenerPrecioSugeridoProyecto();
+        $ajax_data   = $this->input->post();
+        $codigo      = $ajax_data['codigo'];
+        $lista_monto = $this->Proyecto_model->MostrarTotalManoObra($codigo);
+        
+        $response = "<table id='example1' class='table table-bordered table-striped'>";
+        $response .= " <thead>";
+        $response .= " <tr>";
+        $response .= "<th>Rut</th>";
+        $response .= "<th>Nombre Completo</th>";
+        $response .= " <th>Total horas</th>";
+        $response .= "<th>Hora trabajador</th>";
+        $response .= "<th>Costo total</th>";
+        $response .= "</tr>";
+        $response .= "</thead>";
+        $response .= "<tbody>";
+        $valorhora     = 20000;
+        $totalhora     = 0;
+        $totalproyecto = 0;
+        foreach ($lista_monto as $row) {
+            $totalhora = intval($row->horastrabajadas) * $valorhora;
+            $response .= "<tr>";
+            $response .= "<td>" . $row->rut . "</td>";
+            $response .= "<td>" . $row->nombrecompleto . "</td>";
+            $response .= "<td>" . $row->horastrabajadas . "</td>";
+            $response .= "<td>" . $valorhora . "</td>";
+            $response .= "<td>" . $totalhora . "</td>";
+            $response .= "</tr>";
+            $totalproyecto += $totalhora;
+        }
+        $response .= "<tr>";
+        $response .= "<th></th>";
+        $response .= "<th></th>";
+        $response .= "<th></th>";
+        $response .= "<th>Total: </th>";
+        $response .= "<th>" . $totalproyecto . "</th>";
+        $response .= " </tr>";
+        $response .= "</tfoot>";
+        $response .= " </table>";
+        
+        
+        $data = array(
+            'response' => 'success',
+            'detalle' => $response
+        );
+        
+        echo json_encode($data);
+        
+        
+    }
+    
+    public function obtenerPersonalQueAsiste()
+    {
+        $ajax_data      = $this->input->post();
+        $codigo         = $ajax_data['codigo'];
+        $lista_personal = $this->Proyecto_model->MostrarPersonal($codigo);
+        
+        $response = "<table id='example1' class='table table-bordered table-striped'>";
+        $response .= " <thead>";
+        $response .= " <tr>";
+        $response .= "<th>Personal</th>";
+        $response .= "<th>Horas</th>";
+        $response .= "</tr>";
+        $response .= "</thead>";
+        $response .= "<tbody>";
+        foreach ($lista_personal as $row) {
+            $response .= "<tr>";
+            $response .= "<td>" . $row->nombre . "</td>";
+            $response .= "<td>" . $row->hora . "</td>";
+            $response .= " </tr>";
+        }
+        $response .= "</tfoot>";
+        $response .= " </table>";
+        
+        
+        $data = array(
+            'response' => 'success',
+            'detalle' => $response
+        );
+        
+        echo json_encode($data);
+        
+    }
+    public function obtenerFacturas()
+    {
+        $ajax_data = $this->input->post();
+        $codigo    = $ajax_data['idtrabajodiario'];
+        
+        $lista_documento = $this->Proyecto_model->MostrarDocumento($codigo);
+        
+        $response = "<table id='' class='table table-bordered table-striped'>";
+        $response .= " <thead>";
+        $response .= " <tr>";
+        $response .= "<th>Nro Factura</th>";
+        $response .= "<th>Nombre Factura</th>";
+        $response .= "<th>Descargar</th>";
+        $response .= "</tr>";
+        $response .= "</thead>";
+        $response .= "<tbody>";
+        foreach ($lista_documento as $row) {
+            $response .= "<tr>";
+            $response .= "<td>" . $row->id . "</td>";
+            $response .= "<td>" . $row->documento . "</td>";
+            $response .= "<td><button class='btn btn-primary btn-sm' onclick='descargarFactura(this)'><i class='fas fa-download'></i></button></td>";
+            $response .= " </tr>";
+        }
+        $response .= "</tfoot>";
+        $response .= " </table>";
+        
+        
+        $data = array(
+            'response' => 'success',
+            'detalle' => $response
+        );
+        
+        echo json_encode($data);
+        
+    }
+    public function descargaFactura($id)
+    {
+        if (!empty($id)) {
+            //load download helper
+            $this->load->helper('download');
             
-        
-        $utilidades=0;
+            //get file info from database
+            $fileInfo = $this->Proyecto_model->getRows(array(
+                'id' => $id
+            ));
             
-            $response .="<TR>";
-            $response .="<TH>Utilidades </TH>";
-            $response .="<TD>$".$lista_utilidades."</TD>";
-            $response .="</TR>";
+            //file path
+            $file = 'ArchivosSubidos/' . $fileInfo['ubicaciondocumento'];
             
-    
-        $Preciosugerido = intval($valorEquipamiento)+intval($valor)+(float)$lista_gastoGeneral+(float)$lista_comisiones+(float)$lista_ingenieria+(float)$lista_utilidades;  
-            $response .="<TR>";
-            $response .="<TH>Precio sugerido venta </TH>";
-            $response .="<TD>$".$Preciosugerido."</TD>";
-            $response .="</TR>";
-        
-        $response .="</TABLE>";
-		$data = array('response' => 'success', 'detalle' => $response);
-
-
-		echo json_encode($data);
-   
-
-}
-public function obtenerPrecioVenta(){
-
-    $PreciosugeridoVenta = $this->Proyecto_model->obtenerPrecioSugeridoProyecto();
-
-    $response ="<TABLE BORDER class='table table-bordered'>";
-    $response .="<TR>";
-    $response .="<TD class='bg-info'><h5>Precio sugerido Proyecto</h5></TD>"; 
-    $response .="</TR>";
-
-
-    foreach($PreciosugeridoVenta as $row){
-    $response .="<TR>";
-    $response .="<TD scope='col'>$".$row->PrecioSugerido."</TD>"; 
-    $response .="</TR>";
+            
+            //download file from directory
+            force_download($file, NULL);
+        }
     }
-    $response .="</TABLE>";
     
-    $data = array('response' => 'success', 'detalle' => $response);
-
-    echo json_encode($data);
-}
-
-public function obtenerTrabajoDiario(){
-
-    $ajax_data = $this->input->post();
-    $codigo = $ajax_data['codigo'];
-    $lista_trabajo = $this->Proyecto_model->obtenerTrabajoDiario($codigo);
     
-    $response ="<table id='example1' class='table table-bordered table-striped'>";
-    $response .=" <thead>";
-    $response .=" <tr>"; 
-    $response .="<th>ID</th>";
-    $response .="<th>Fecha</th>";
-    $response .=" <th>Detalle</th>";
-    $response .="<th>Codigo de servicio</th>"; 
-    $response .="<th>Personal</th>";
-    $response .="<th>Registro fotográfico</th>";
-    $response .="</tr>";
-    $response .="</thead>";
-    $response .="<tbody>";
-
-    foreach($lista_trabajo as $row){
-    $response .="<tr>";
-    $response .="<td>".$row->id."</td>";
-    $response .="<td>".$row->fecha_inicio."</td>";
-    $response .="<td>".$row->detalle."</td>";
-    $response .="<td>".$row->codigoservicio."</td>";
-    $response .="<td> <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#personal' onclick='generarTablaPersonalQueAsiste(this)'><i class='far fa-eye'></i></button></td>";
-    $response .="<td> <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#modal-detalle-orden' onclick=''><i class='far fa-eye'></i></button></td>";
-    $response .=" </tr>";
-    }
-    $response .="</tfoot>";
-    $response .=" </table>";
-
-
-    $data = array('response' => 'success', 'detalle' => $response);
-
-    echo json_encode($data);
-
-}
-
-public function obtenerRegistroMaterial(){
-
-    $ajax_data = $this->input->post();
-    $codigo = $ajax_data['codigo'];
-
-    $lista_monto = $this->Proyecto_model->MostrarMaterialesProyecto($codigo);
-    $lista_factura = $this->Proyecto_model-> obtenerTotalFactura($codigo);
-    $lista_presupuesto = $this->Proyecto_model->obtenerTotalPresupuesto($codigo);
-    $lista_balance = $this->Proyecto_model->TotalBalance($codigo);
-
-    $response ="<table id='example1' class='table table-bordered table-striped'>";
-    $response .=" <thead>";
-    $response .=" <tr>"; 
-    $response .="<th>ID</th>";
-    $response .=" <th>Monto</th>";
-    $response .="<th>Detalle</th>"; 
-    $response .=" <th>Presupuesto</th>";
-    $response .="<th>Balance por item</th>";
-    $response .="<th>Facturas</th>";
-    $response .="</tr>";
-    $response .="</thead>";
-    $response .="<tbody>";
-    $balance=0;
-    foreach($lista_monto as $row){
-    $balance = intval($row->monto)-intval($row->presupuesto);
-        $response .="<tr>";
-        $response .="<td>".$row->id."</td>";
-        $response .="<td>$".$row->monto."</td>";
-        $response .="<td>".$row->detalle."</td>";
-        $response .="<td>$".$row->presupuesto."</td>";
-        $response .="<td>$".$balance."</td>";
-        $response .="<td> <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#MostrarFacturas' onclick='setTablaFacturas(this)'><i class='fas fa-download'></i></button></td>";
-        $response .=" </tr>";
-    }
-    $response .="</tfoot>";
-    $response .="<tr>";
-    $response .="<th>Total: </th>";
-    $factura=0;
-    foreach($lista_factura as $row){
-        $factura= $row->totalMonto;
-         $response .="<th>$".$factura."</th>";
-    }
-    $response .="<th></th>";
-    $presupuesto=0;
-    foreach($lista_presupuesto as $row){
-        $presupuesto=$row->totalpresupuesto;
-        $response .="<th>$ ".$presupuesto."</th>";
-    }
-    $response .="<th>$ ".$lista_balance."</th>";
-    $response .=" </tr>";
-    $response .="</tfoot>";
-    $response .=" </table>";
-
-    $data = array('response' => 'success', 'detalle' => $response);
-
-    echo json_encode($data);
-
-}
-
-public function obtenerManoDeObra(){
-
-    //$PreciosugeridoVenta = $this->Proyecto_model->obtenerPrecioSugeridoProyecto();
-    $ajax_data = $this->input->post();
-    $codigo = $ajax_data['codigo'];
-    $lista_monto = $this->Proyecto_model->MostrarTotalManoObra($codigo);
+    //Administrador de archivos
     
-    $response ="<table id='example1' class='table table-bordered table-striped'>";
-    $response .=" <thead>";
-    $response .=" <tr>"; 
-    $response .="<th>Rut</th>";
-    $response .="<th>Nombre Completo</th>";
-    $response .=" <th>Total horas</th>";
-    $response .="<th>Hora trabajador</th>"; 
-    $response .="<th>Costo total</th>";
-    $response .="</tr>";
-    $response .="</thead>";
-    $response .="<tbody>";
-    $valorhora = 20000;
-    $totalhora = 0;
-    $totalproyecto = 0;
-    foreach($lista_monto as $row){
-        $totalhora = intval($row->horastrabajadas) * $valorhora;
-        $response .="<tr>";
-        $response .="<td>".$row->rut."</td>";
-        $response .="<td>".$row->nombrecompleto."</td>";
-        $response .="<td>".$row->horastrabajadas."</td>";
-        $response .="<td>".$valorhora."</td>";
-        $response .="<td>".$totalhora."</td>";
-        $response .="</tr>";
-        $totalproyecto += $totalhora;
-    }
-    $response .="<tr>";
-    $response .="<th></th>";
-    $response .="<th></th>";
-    $response .="<th></th>";
-    $response .="<th>Total: </th>";
-    $response .="<th>".$totalproyecto."</th>";
-    $response .=" </tr>";
-    $response .="</tfoot>";
-    $response .=" </table>";
-
-
-    $data = array('response' => 'success', 'detalle' => $response);
-
-    echo json_encode($data);
-
-    
-}
-
-public function obtenerPersonalQueAsiste(){
-    $ajax_data = $this->input->post();
-    $codigo = $ajax_data['codigo'];
-    $lista_personal = $this->Proyecto_model->MostrarPersonal($codigo);
-    
-    $response ="<table id='example1' class='table table-bordered table-striped'>";
-    $response .=" <thead>";
-    $response .=" <tr>"; 
-    $response .="<th>Personal</th>";
-    $response .="<th>Horas</th>";
-    $response .="</tr>";
-    $response .="</thead>";
-    $response .="<tbody>";
-    foreach($lista_personal as $row){
-    $response .="<tr>";
-    $response .="<td>".$row->nombre."</td>";
-    $response .="<td>".$row->hora."</td>";
-    $response .=" </tr>";
-    }
-    $response .="</tfoot>";
-    $response .=" </table>";
-
-
-    $data = array('response' => 'success', 'detalle' => $response);
-
-    echo json_encode($data);
-    
-}
-public function obtenerFacturas(){
-    $ajax_data = $this->input->post();
-    $codigo = $ajax_data['idtrabajodiario'];
-    
-    $lista_documento = $this->Proyecto_model->MostrarDocumento($codigo);
-    
-    $response ="<table id='' class='table table-bordered table-striped'>";
-    $response .=" <thead>";
-    $response .=" <tr>"; 
-    $response .="<th>Nro Factura</th>";
-    $response .="<th>Nombre Factura</th>";
-    $response .="<th>Descargar</th>";
-    $response .="</tr>";
-    $response .="</thead>";
-    $response .="<tbody>";
-    foreach($lista_documento as $row){
-    $response .="<tr>";
-    $response .="<td>".$row->id."</td>";
-    $response .="<td>".$row->documento."</td>";
-    $response .="<td><button class='btn btn-primary btn-sm' onclick='descargarFactura(this)'><i class='fas fa-download'></i></button></td>";
-    $response .=" </tr>";
-    }
-    $response .="</tfoot>";
-    $response .=" </table>";
-
-
-    $data = array('response' => 'success', 'detalle' => $response);
-
-    echo json_encode($data);
-    
-}
-public function descargaFactura($id){
-    if(!empty($id)){
-        //load download helper
-        $this->load->helper('download');
-        
-        //get file info from database
-        $fileInfo = $this->Proyecto_model->getRows(array('id' => $id));
-        
-        //file path
-        $file ='ArchivosSubidos/'.$fileInfo['ubicaciondocumento'];
-    
-        
-        //download file from directory
-        force_download($file, NULL);
-    }
-}
-
-
-//Administrador de archivos
-
-    public function ObtenerArchivos($directorio,$id_proyecto){
-        $fetch_data = $this->Proyecto_model->make_datatables_archivos($directorio,$id_proyecto);
-        $data = array();
-        foreach ($fetch_data as $value){
-            $sub_array = array();
-            $sub_array[] = '<div class="checkbox"><input type="checkbox" value=""></div>';
+    public function ObtenerArchivos($directorio, $id_proyecto)
+    {
+        $fetch_data = $this->Proyecto_model->make_datatables_archivos($directorio, $id_proyecto);
+        $data       = array();
+        foreach ($fetch_data as $value) {
+            $sub_array   = array();
+            $sub_array[] = '<div class="checkbox"><input type="checkbox" value="'.$value->nombrearchivo.'" name="images[]"></div>';
             $sub_array[] = $value->nombrearchivo;
             $sub_array[] = $value->fecha_subida;
-			$sub_array[] = $value->directorio;
-			$sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-detalle-orden" onclick="setTablaDetalle(this)"><i class="far fa-eye"></i></button><button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-estado-orden" onclick="setTablaEstado(this)"><i class="far fa-edit"></i></button>';
-			//$sub_array[] = '<a href="#"  class="fas fa-eye" data-toggle="modal" onclick="verMas('.$value->nroorden.');">';
-			$data[] = $sub_array;
+            $sub_array[] = $value->directorio;
+            $sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-detalle-orden" onclick="setTablaDetalle(this)"><i class="far fa-eye"></i></button><button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-estado-orden" onclick="setTablaEstado(this)"><i class="far fa-edit"></i></button>';
+            //$sub_array[] = '<a href="#"  class="fas fa-eye" data-toggle="modal" onclick="verMas('.$value->nroorden.');">';
+            $data[]      = $sub_array;
         }
-
+        
         $output = array(
-            "draw" => intval($_POST["draw"]) ,
+            "draw" => intval($_POST["draw"]),
             "recordsTotal" => $this->Proyecto_model->get_all_data_archivos(),
-            "recordsFiltered" => $this->Proyecto_model->get_filtered_data_archivos($directorio,$id_proyecto),
+            "recordsFiltered" => $this->Proyecto_model->get_filtered_data_archivos($directorio, $id_proyecto),
             "data" => $data
         );
         echo json_encode($output);
-
-	}
-
-public function obtenerDetalleArchivos(){
-    $ajax_data = $this->input->post();
-    
-    //Filtro de busqueda
-    if(isset($ajax_data['filtro_nombre'])){
-        $detalle_archivos = $this->Proyecto_model->ObtenerArchivosPorNombre($ajax_data);
-    }else{
-        $detalle_archivos = $this->Proyecto_model->ObtenerArchivos($ajax_data);
-    }
-
-    $response ="<table class='table table-hover table-striped'>";
-    $response .=" <tbody>";
-    foreach($detalle_archivos as $row){
-        $response .="<tr>"; 
-        $response .="<td>".$row->nombre."</td>";
-        $response .="<td>".$row->fecha_subida."</td>";
-        $response .="<td>".$row->formato."</td>";
-        $response .="<td>".$row->directorio."</td>";
-        $response .="</tr>";
-    }
-    $response .="</tbody>";
-    $response .=" </table>";
-
-
-    $data = array('response' => 'success', 'detalle' => $response);
-
-    echo json_encode($data);
-    
-}
-
-public function obtenerDetalleFotos(){
-    $ajax_data = $this->input->post();
-
-    //Filtro de busqueda
-    if(isset($ajax_data['filtro_nombre'])){
-        $detalle_archivos = $this->Proyecto_model->ObtenerArchivosPorNombre($ajax_data);
-    }else{
-        $detalle_archivos = $this->Proyecto_model->ObtenerArchivos($ajax_data);
-    }
-
-    $response = "<section class='content'>";
-    $response .= "<div class='container-fluid'>";
-    $response .= "<div class='row'>";
-    $response .= "<div class='col-12'>";
-    $response .= "<div class='card card-primary'>";
-    $response .= "<div class='card-body'>";
-    $response .= "<div>";
-    $response .= "<div class='mb-2'>";
-    $response .= "<a class='btn btn-secondary' href='javascript:void(0)' data-shuffle> Shuffle items </a>";
-    $response .= "<div class='float-right'>";
-    $response .= "<select class='custom-select' style='width: auto;' data-sortOrder>";
-    $response .= "<option value='sortData'> Ordenar por fecha </option>";
-    $response .= "</select>";
-    $response .= "<div class='btn-group'>";
-    $response .= "<button class='btn btn-default' onclick='ordenFotos(1)'> Ascendente </button>";
-    $response .= "<button class='btn btn-default' onclick='ordenFotos(2)'> Descendente </button>";
-    $response .= "</div>";
-    $response .= "</div>";
-    $response .= "</div>";
-    $response .= "</div>";
-    $response .= "<div>";
-    $response .= "<div class='filter-container p-0 row'>";
-    foreach($detalle_archivos as $row){
-        $response .= "<div class='filtr-item col-sm-4' data-category='1' data-sort='white sample'>";
-        $response .= "<a href='".base_url()."ArchivosSubidos/".$row->nombre."' data-toggle='lightbox' data-title='Nombre: ".$row->nombre." | Fecha: ".$row->fecha_subida."'>";
-        $response .= "<img src='".base_url()."ArchivosSubidos/".$row->nombre."' class='img-fluid mb-2' alt='white sample'/>";
-        $response .= "</a>";
-
-        $response .= "<a data-toggle='lightbox' data-footer='foooterrrr'>";
-        $response .= "</a>";
-        $response .= "</div>";
-    }
-    $response .= "</div>";
-    $response .= "</div>";
-    $response .= "</div>";
-    $response .= "</div>";
-    $response .= "</div>";
-    $response .= "</div>";
-    $response .= "</div>";
-    $response .= "</section>";
-    $data = array('response' => 'success', 'detalle' => $response);
-
-    echo json_encode($data);
-    
-}
-
-
-public function ordenarFotosPorFecha(){
-    $ajax_data = $this->input->post();
-    $id_proyecto = $ajax_data['id_proyecto'];
-    $tipo_orden = $ajax_data['tipo_orden'];
-
-    //Ascendente
-    if($tipo_orden == 1){
-        $detalle_archivos = $this->Proyecto_model->ObtenerFotosOrdenadas($id_proyecto,$tipo_orden);
-    }
-
-    //Descendente
-    if($tipo_orden == 2){
-        $detalle_archivos = $this->Proyecto_model->ObtenerFotosOrdenadas($id_proyecto,$tipo_orden);
-    }
-    
-    
-
-    $response = "<section class='content'>";
-    $response .= "<div class='container-fluid'>";
-    $response .= "<div class='row'>";
-    $response .= "<div class='col-12'>";
-    $response .= "<div class='card card-primary'>";
-    $response .= "<div class='card-body'>";
-    $response .= "<div>";
-    $response .= "<div class='mb-2'>";
-    $response .= "<a class='btn btn-secondary' href='javascript:void(0)' data-shuffle> Shuffle items </a>";
-    $response .= "<div class='float-right'>";
-    $response .= "<select class='custom-select' style='width: auto;' data-sortOrder>";
-    $response .= "<option value='sortData'> Ordenar por fecha </option>";
-    $response .= "</select>";
-    $response .= "<div class='btn-group'>";
-    $response .= "<a class='btn btn-default' onclick='ordenFotos(1)'> Ascendente </a>";
-    $response .= "<a class='btn btn-default' onclick='ordenFotos(2)'> Descendente </a>";
-    $response .= "</div>";
-    $response .= "</div>";
-    $response .= "</div>";
-    $response .= "</div>";
-    $response .= "<div>";
-    $response .= "<div class='filter-container p-0 row'>";
-    foreach($detalle_archivos as $row){
-        $response .= "<div class='filtr-item col-sm-4' data-category='1' data-sort='white sample'>";
-        $response .= "<a href='".base_url()."ArchivosSubidos/".$row->nombre."' data-toggle='lightbox' data-title='Nombre: ".$row->nombre." | Fecha: ".$row->fecha_subida."'>";
-        $response .= "<img src='".base_url()."ArchivosSubidos/".$row->nombre."' class='img-fluid mb-2' alt='white sample'/>";
-        $response .= "</a>";
-
-        $response .= "<a data-toggle='lightbox' data-footer='foooterrrr'>";
-        $response .= "</a>";
-        $response .= "</div>";
-    }
-    $response .= "</div>";
-    $response .= "</div>";
-    $response .= "</div>";
-    $response .= "</div>";
-    $response .= "</div>";
-    $response .= "</div>";
-    $response .= "</div>";
-    $response .= "</section>";
-    $data = array('response' => 'success', 'detalle' => $response);
-
-    echo json_encode($data);
-    
-}
-
-public function descargarArchivos(){
-    $ajax_data = $this->input->post();
-    //load download helper
-    $this->load->helper('download');
-
-    var_dump($ajax_data['lista_archivos']);
-
-    
         
-    //get file info from database
-    $fileInfo = $this->Proyecto_model->getNombreArchivo(array('id' => $id));
+    }
     
-    
-    echo("Documentos a descargar: ".$fileInfo['ubicacion']);
-    die();
-    //file path
-    $file ='ArchivosSubidos/'.$fileInfo['ubicacion'];
-    
+    public function obtenerDetalleArchivos()
+    {
+        $ajax_data = $this->input->post();
         
-    //download file from directory
-    force_download($file, NULL);
-    $data = array('response' => 'success', 'message' => 'Descarga correcta');
-}
+        //Filtro de busqueda
+        if (isset($ajax_data['filtro_nombre'])) {
+            $detalle_archivos = $this->Proyecto_model->ObtenerArchivosPorNombre($ajax_data);
+        } else {
+            $detalle_archivos = $this->Proyecto_model->ObtenerArchivos($ajax_data);
+        }
+        
+        $response = "<table class='table table-hover table-striped'>";
+        $response .= " <tbody>";
+        foreach ($detalle_archivos as $row) {
+            $response .= "<tr>";
+            $response .= "<td>" . $row->nombre . "</td>";
+            $response .= "<td>" . $row->fecha_subida . "</td>";
+            $response .= "<td>" . $row->formato . "</td>";
+            $response .= "<td>" . $row->directorio . "</td>";
+            $response .= "</tr>";
+        }
+        $response .= "</tbody>";
+        $response .= " </table>";
+        
+        
+        $data = array(
+            'response' => 'success',
+            'detalle' => $response
+        );
+        
+        echo json_encode($data);
+        
+    }
+    
+    public function obtenerDetalleFotos()
+    {
+        $ajax_data = $this->input->post();
+        
+        //Filtro de busqueda
+        if (isset($ajax_data['filtro_nombre'])) {
+            $detalle_archivos = $this->Proyecto_model->ObtenerArchivosPorNombre($ajax_data);
+        } else {
+            $detalle_archivos = $this->Proyecto_model->ObtenerArchivos($ajax_data);
+        }
+        
+        $response = "<section class='content'>";
+        $response .= "<div class='container-fluid'>";
+        $response .= "<div class='row'>";
+        $response .= "<div class='col-12'>";
+        $response .= "<div class='card card-primary'>";
+        $response .= "<div class='card-body'>";
+        $response .= "<div>";
+        $response .= "<div class='mb-2'>";
+        $response .= "<a class='btn btn-secondary' href='javascript:void(0)' data-shuffle> Shuffle items </a>";
+        $response .= "<div class='float-right'>";
+        $response .= "<select class='custom-select' style='width: auto;' data-sortOrder>";
+        $response .= "<option value='sortData'> Ordenar por fecha </option>";
+        $response .= "</select>";
+        $response .= "<div class='btn-group'>";
+        $response .= "<button class='btn btn-default' onclick='ordenFotos(1)'> Ascendente </button>";
+        $response .= "<button class='btn btn-default' onclick='ordenFotos(2)'> Descendente </button>";
+        $response .= "</div>";
+        $response .= "</div>";
+        $response .= "</div>";
+        $response .= "</div>";
+        $response .= "<div>";
+        $response .= "<div class='filter-container p-0 row'>";
+        foreach ($detalle_archivos as $row) {
+            $response .= "<div class='filtr-item col-sm-4' data-category='1' data-sort='white sample'>";
+            $response .= "<a href='" . base_url() . "ArchivosSubidos/" . $row->nombre . "' data-toggle='lightbox' data-footer='Fecha: ".$row->fecha_subida."' data-title='Nombre: " . $row->nombre . "'>";
+            $response .= "<img src='" . base_url() . "ArchivosSubidos/" . $row->nombre . "' class='img-fluid mb-2' alt='white sample'/>";
+            $response .= "</a>";
+            $response .= "<br>";
+            $response .= "<input type='checkbox' name='images[]' class='select' value='" . $row->nombre . "'/>";
+            $response .= "</div>";
+        }
+        $response .= "</div>";
+        $response .= "</div>";
+        $response .= "</div>";
+        $response .= "</div>";
+        $response .= "</div>";
+        $response .= "</div>";
+        $response .= "</div>";
+        $response .= "</section>";
+        $data = array(
+            'response' => 'success',
+            'detalle' => $response
+        );
+        
+        echo json_encode($data);
+        
+    }
+    
+    
+    public function ordenarFotosPorFecha()
+    {
+        $ajax_data   = $this->input->post();
+        $id_proyecto = $ajax_data['id_proyecto'];
+        $tipo_orden  = $ajax_data['tipo_orden'];
+        
+        //Ascendente
+        if ($tipo_orden == 1) {
+            $detalle_archivos = $this->Proyecto_model->ObtenerFotosOrdenadas($id_proyecto, $tipo_orden);
+        }
+        
+        //Descendente
+        if ($tipo_orden == 2) {
+            $detalle_archivos = $this->Proyecto_model->ObtenerFotosOrdenadas($id_proyecto, $tipo_orden);
+        }
+        
+        
+        
+        $response = "<section class='content'>";
+        $response .= "<div class='container-fluid'>";
+        $response .= "<div class='row'>";
+        $response .= "<div class='col-12'>";
+        $response .= "<div class='card card-primary'>";
+        $response .= "<div class='card-body'>";
+        $response .= "<div>";
+        $response .= "<div class='mb-2'>";
+        $response .= "<a class='btn btn-secondary' href='javascript:void(0)' data-shuffle> Shuffle items </a>";
+        $response .= "<div class='float-right'>";
+        $response .= "<select class='custom-select' style='width: auto;' data-sortOrder>";
+        $response .= "<option value='sortData'> Ordenar por fecha </option>";
+        $response .= "</select>";
+        $response .= "<div class='btn-group'>";
+        $response .= "<a class='btn btn-default' onclick='ordenFotos(1)'> Ascendente </a>";
+        $response .= "<a class='btn btn-default' onclick='ordenFotos(2)'> Descendente </a>";
+        $response .= "</div>";
+        $response .= "</div>";
+        $response .= "</div>";
+        $response .= "</div>";
+        $response .= "<div>";
+        $response .= "<div class='filter-container p-0 row'>";
+        foreach ($detalle_archivos as $row) {
+            $response .= "<div class='filtr-item col-sm-4' data-category='1' data-sort='white sample'>";
+            $response .= "<a href='" . base_url() . "ArchivosSubidos/" . $row->nombre . "' data-toggle='lightbox' data-title='Nombre: " . $row->nombre . " | Fecha: " . $row->fecha_subida . "'>";
+            $response .= "<img src='" . base_url() . "ArchivosSubidos/" . $row->nombre . "' class='img-fluid mb-2' alt='white sample'/>";
+            $response .= "</a>";
+            
+            $response .= "<a data-toggle='lightbox' data-footer='foooter'>";
+            $response .= "</a>";
+            $response .= "</div>";
+        }
+        $response .= "</div>";
+        $response .= "</div>";
+        $response .= "</div>";
+        $response .= "</div>";
+        $response .= "</div>";
+        $response .= "</div>";
+        $response .= "</div>";
+        $response .= "</section>";
+        $data = array(
+            'response' => 'success',
+            'detalle' => $response
+        );
+        
+        echo json_encode($data);
+        
+    }
+    
+    public function descargarArchivos(){
+        $ajax_data = $this->input->post();
+        if($ajax_data['tipo-descarga'] == '1'){
+            $directorio = $this->input->post('cdirectorio-archivos');
+            $archivos = array();
+            if($this->input->post('images')){
+                $images = $this->input->post('images');
+                foreach($images as $image){
+                    array_push($archivos,$image);
+                }
+            }
+            //get file info from database
+            $fileInfo  = $this->Proyecto_model->getNombreArchivo($archivos);
+            foreach ($fileInfo as $row) {
+                $this->zip->read_file('./ArchivosSubidos/'.$row->nombre);
+            }
+
+            $this->zip->download(''.$directorio.time().'-CDH.zip');
+        
+        }else if($ajax_data['tipo-descarga'] == '0'){
+            $archivos = array();
+            if($this->input->post('images')){
+                $images = $this->input->post('images');
+                foreach($images as $image){
+                    array_push($archivos,$image);
+                }
+            }
+            $this->Proyecto_model->eliminarArchivos($archivos);
+            redirect('DirectorioProyecto/'.$ajax_data['id_proyecto_dir'], 'refresh');
+        }
+            
+    }
 }

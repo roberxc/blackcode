@@ -1,19 +1,10 @@
 ﻿<head>
    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-   
-   
-   <!-- SELECT CON BUSCADOR -->
-   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" rel="stylesheet" />
-   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
    <!-- DataTables -->
    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.jqueryui.min.css">
    <!-- Latest compiled and minified CSS -->
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
-   <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
    <link rel="stylesheet" href="<?php echo base_url()?>assets/js/PlanillaProyecto/barra_subida.css">
 </head>
 <div class="content-wrapper">
@@ -22,8 +13,8 @@
       <div class="container-fluid">
          <div class="row mb-2">
             <div class="col-sm-6">
-               <h1>Administrador de archivos: <?php echo$id_proyecto; ?></h1>
-               <input type="hidden" class="form-control" id="id_proyecto_dir" value="<?php echo$id_proyecto;?>"/>
+               <h5>Administrador de archivos del proyecto: <?php echo$nombre_proyecto[0]['nombreproyecto']; ?></h5>
+               
             </div>
             <div class="col-sm-6">
                <ol class="breadcrumb float-sm-right">
@@ -163,8 +154,12 @@
          </div>
          <!-- /.col ------------------------------------------>
          <div class="col-md-9">
+         <form method="post" action="<?php echo base_url(); ?>Proyecto/descargarArchivos">
+         <input type="hidden" class="form-control" id="tipo-descarga" name="tipo-descarga">
+         <input type="hidden" class="form-control" id="id_proyecto_dir" name="id_proyecto_dir" value="<?php echo$id_proyecto;?>"/>
             <div class="card card-primary card-outline">
                <div class="card-header">
+               <input type="hidden" class="form-control" id="cdirectorio-archivos" name="cdirectorio-archivos">
                   <h3 class="card-title" id="directorio-archivos">Archivos</h3>
                   <?php echo !empty($statusMsg)?'<p class="status-msg">'.$statusMsg.'</p>':''; ?>
                   <!--
@@ -180,43 +175,43 @@
                      </div>
                      -->
                </div>
-               <div class="card-body p-0">
-                  
+               
+                  <div class="card-body p-0">
                      <div class="mailbox-controls">
                         <!---
-                        <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i></button>
-                        ---->
+                           <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i></button>
+                           ---->
                         <div class="btn-group">
-                           <button class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button>
-                           <button class="btn btn-default btn-sm" onclick="descargarArchivo()"><i class="fa fa-download"></i></button>
+                           <button type="submit" class="btn btn-default btn-sm" onclick="eliminarArchivos()"><i class="far fa-trash-alt"></i></button>
+                           <button type="submit" class="btn btn-default btn-sm" onclick="descargarArchivos()"><i class="fa fa-download"></i></button>
                         </div>
                         <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
                         <!---
-                        <div class="float-right">
-                           1-50/200
-                           <div class="btn-group">
-                              <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
-                              <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
+                           <div class="float-right">
+                              1-50/200
+                              <div class="btn-group">
+                                 <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
+                                 <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
+                              </div>
                            </div>
-                        </div>
-                        --->
+                           --->
                      </div>
-                     
-                  <div class="table-responsive mailbox-messages" id="tabla-fotos">
+                     <div class="table-responsive mailbox-messages" id="tabla-fotos">
+                     </div>
+                     <div class="card-header" id="data-table">
+                        <table id="administrador_archivos" class="table table-bordered table-striped" style="width: 100%;">
+                           <thead>
+                              <tr>
+                                 <th style="width: 3%;background-color: #006699; color: white;"></th>
+                                 <th style="width: 3%;background-color: #006699; color: white;">Nombre</th>
+                                 <th style="width: 3%;background-color: #006699; color: white;">Fecha</th>
+                                 <th style="width: 3%;background-color: #006699; color: white;">Directorio</th>
+                              </tr>
+                           </thead>
+                        </table>
+                     </div>
                   </div>
-                  <div class="card-header" id="data-table">
-                     <table id="administrador_archivos" class="table table-bordered table-striped" style="width: 100%;">
-                        <thead>
-                           <tr>
-                              <th style="width: 3%;background-color: #006699; color: white;"></th>
-                              <th style="width: 3%;background-color: #006699; color: white;">Nombre</th>
-                              <th style="width: 3%;background-color: #006699; color: white;">Fecha</th>
-                              <th style="width: 3%;background-color: #006699; color: white;">Directorio</th>
-                           </tr>
-                        </thead>
-                     </table>
-                  </div>
-               </div>
+               </form>
                <!--                  
                   <div class="card-footer p-0">
                      <div class="mailbox-controls">
@@ -284,15 +279,8 @@
 <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.jqueryui.min.js"></script>
-
 <!-- Data table -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"
-   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-   <script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
-<script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
-
-
-
+<script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

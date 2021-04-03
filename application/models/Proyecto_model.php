@@ -365,6 +365,17 @@ class Proyecto_model extends CI_Model
         return $query->result();
     }
 
+    public function getNombreProyecto($idproyecto)
+    {
+        $query = $this->db
+            ->select("nombreproyecto") # También puedes poner * si quieres seleccionar todo
+            ->from("proyecto")
+            ->where("id_proyecto",$idproyecto)
+            ->get();
+
+        return $query->result_array();
+    }
+
     public function ingresarEtapas($data)
     {
 
@@ -1464,11 +1475,12 @@ class Proyecto_model extends CI_Model
         $this->db->where($this->where_archivos);
         $this->db->where("ap.id_proyecto", $id_proyecto);
         $this->db->where("dp.id_directorio", $id_directorio[0]['id_directorio']);
+        $this->db->where("ap.estado", 0);
 
         if (isset($_POST["search"]["value"]) && $_POST["search"]["value"] != ''){
             $this->db->group_start();
-            $this->db->like("nombrearchivo", $_POST["search"]["value"]);
-            $this->db->or_like("fecha_subida", $_POST["search"]["value"]);
+            $this->db->like("ap.nombre", $_POST["search"]["value"]);
+            $this->db->or_like("ap.fecha_subida", $_POST["search"]["value"]);
             $this->db->group_end();
         }
         if (isset($_POST["order"])){
@@ -1492,14 +1504,15 @@ class Proyecto_model extends CI_Model
     }
 
 
-    function getNombreArchivo($listaarchivos){
+    function getNombreArchivo($lista_nombres){
         $this->db->select('nombre');
         $this->db->from('archivo_proyecto');
-        if (!empty($listaarchivos)){
-            $this->db->where('id_facturatrabajo', $params['id']);
+        if (!empty($lista_nombres)){
+            //var_dump($lista_nombres);
+            $this->db->where_in('nombre', $lista_nombres);
             //get records
             $query = $this->db->get();
-            $result = ($query->num_rows() > 0) ? $query->row_array() : false;
+            $result = ($query->num_rows() > 0) ? $query->result() : false;
         }else{
             //set start and limit
             if (array_key_exists("start", $params) && array_key_exists("limit", $params)){
@@ -1514,5 +1527,21 @@ class Proyecto_model extends CI_Model
         //return fetched data
         return $result;
     }
+
+    //Eliminar archivos cambiando su estado
+    public function eliminarArchivos($lista_nombres)
+    {
+        for($i=0;$i<count($lista_nombres);$i++){
+            $data [] = array(
+                'nombre' => $lista_nombres[$i],
+                'estado' => 1,
+                
+            );
+
+        }
+        $this->db->update_batch('archivo_proyecto', $data, 'nombre');
+    }
+
 }
+
 ?>
