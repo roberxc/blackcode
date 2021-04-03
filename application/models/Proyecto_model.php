@@ -365,6 +365,17 @@ class Proyecto_model extends CI_Model
         return $query->result();
     }
 
+    public function getNombreProyecto($idproyecto)
+    {
+        $query = $this->db
+            ->select("nombreproyecto") # También puedes poner * si quieres seleccionar todo
+            ->from("proyecto")
+            ->where("id_proyecto",$idproyecto)
+            ->get();
+
+        return $query->result_array();
+    }
+
     public function ingresarEtapas($data)
     {
 
@@ -1369,17 +1380,32 @@ class Proyecto_model extends CI_Model
         return $query->result_array();
     }
 
-    public function ObtenerArchivos($id_proyecto,$directorio)
+    public function ObtenerArchivos($data)
     {
-        $id_directorio = $this->obtenerIDDirectorio($directorio);
+        $id_directorio = $this->obtenerIDDirectorio($data['id_directorio']);
         $query = $this->db->select("ap.nombre as nombre,ap.fecha_subida as fecha_subida,ap.estado as estado,ap.formato as formato,dp.nombre as directorio") # También puedes poner * si quieres seleccionar todo
         ->from("archivo_proyecto ap")
         ->join("proyecto p", "p.id_proyecto = ap.id_proyecto")
         ->join("directorio_proyecto dp", "ap.id_directorio = dp.id_directorio")
-        ->where("ap.id_proyecto", $id_proyecto)
+        ->where("ap.id_proyecto", $data['id_proyecto'])
         ->where("dp.id_directorio", $id_directorio[0]['id_directorio'])
         ->get();
 
+        return $query->result();
+    }
+
+    public function ObtenerArchivosPorNombre($data)
+    {
+        $id_directorio = $this->obtenerIDDirectorio($data['id_directorio']);
+        $query = $this->db->select("ap.nombre as nombre,ap.fecha_subida as fecha_subida,ap.estado as estado,ap.formato as formato,dp.nombre as directorio") # También puedes poner * si quieres seleccionar todo
+        ->from("archivo_proyecto ap")
+        ->join("proyecto p", "p.id_proyecto = ap.id_proyecto")
+        ->join("directorio_proyecto dp", "ap.id_directorio = dp.id_directorio")
+        ->where("ap.id_proyecto", $data['id_proyecto'])
+        ->where("dp.id_directorio", $id_directorio[0]['id_directorio'])
+        ->like("ap.nombre",$data['filtro_nombre'])
+        ->limit(50)
+        ->get();
         return $query->result();
     }
 
@@ -1406,5 +1432,116 @@ class Proyecto_model extends CI_Model
         return $query->result();
     }
 
+
+    //DATA TABLE DE ADMINISTRADOR DE ARCHIVOS
+    function make_datatables_archivos($directorio,$id_proyecto){
+        $this->make_query_archivos($directorio,$id_proyecto);
+        if ($_POST["length"] != - 1){
+            $this->db->limit($_POST['length'], $_POST['start']);
+        }
+        $query = $this->db->get();
+        return $query->result();
+
+    }
+
+    var $tablaarchivos = array(
+        "archivo_proyecto ap",
+        "proyecto p",
+        "directorio_proyecto dp",
+    );
+    var $select_columna_archivos = array(
+		"ap.id_archivo as id_archivo",
+        "ap.nombre as nombrearchivo",
+		"ap.fecha_subida as fecha_subida",
+        "ap.estado as estado",
+        "ap.formato as formato",
+        "dp.nombre as directorio",
+    );
+
+    var $order_columna_archivos = array(
+        "ap.nombre",
+		"ap.fecha_subida",
+        "ap.estado",
+        "ap.formato",
+        "dp.nombre",
+    );
+
+    var $where_archivos = "p.id_proyecto = ap.id_proyecto AND ap.id_directorio = dp.id_directorio";
+
+    function make_query_archivos($directorio,$id_proyecto){
+        $id_directorio = $this->obtenerIDDirectorio($directorio);
+        $this->db->select($this->select_columna_archivos);
+        $this->db->from($this->tablaarchivos);
+        $this->db->where($this->where_archivos);
+        $this->db->where("ap.id_proyecto", $id_proyecto);
+        $this->db->where("dp.id_directorio", $id_directorio[0]['id_directorio']);
+        $this->db->where("ap.estado", 0);
+
+        if (isset($_POST["search"]["value"]) && $_POST["search"]["value"] != ''){
+            $this->db->group_start();
+            $this->db->like("ap.nombre", $_POST["search"]["value"]);
+            $this->db->or_like("ap.fecha_subida", $_POST["search"]["value"]);
+            $this->db->group_end();
+        }
+        if (isset($_POST["order"])){
+            $this->db->order_by($this->order_columna_archivos[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        
+        }else{
+            $this->db->order_by('id_archivo', 'ASC');
+        }
+    }
+
+    function get_all_data_archivos(){
+        $this->db->select($this->select_columna_archivos);
+        $this->db->from($this->tablaarchivos);
+        return $this->db->count_all_results();
+    }
+
+    function get_filtered_data_archivos($directorio,$id_proyecto){
+        $this->make_query_archivos($directorio,$id_proyecto);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+
+    function getNombreArchivo($lista_nombres){
+        $this->db->select('nombre');
+        $this->db->from('archivo_proyecto');
+        if (!empty($lista_nombres)){
+            //var_dump($lista_nombres);
+            $this->db->where_in('nombre', $lista_nombres);
+            //get records
+            $query = $this->db->get();
+            $result = ($query->num_rows() > 0) ? $query->result() : false;
+        }else{
+            //set start and limit
+            if (array_key_exists("start", $params) && array_key_exists("limit", $params)){
+                $this->db->limit($params['limit'], $params['start']);
+            }elseif (!array_key_exists("start", $params) && array_key_exists("limit", $params)){
+                $this->db->limit($params['limit']);
+            }
+            //get records
+            $query = $this->db->get();
+            $result = ($query->num_rows() > 0) ? $query->result_array() : false;
+        }
+        //return fetched data
+        return $result;
+    }
+
+    //Eliminar archivos cambiando su estado
+    public function eliminarArchivos($lista_nombres)
+    {
+        for($i=0;$i<count($lista_nombres);$i++){
+            $data [] = array(
+                'nombre' => $lista_nombres[$i],
+                'estado' => 1,
+                
+            );
+
+        }
+        $this->db->update_batch('archivo_proyecto', $data, 'nombre');
+    }
+
 }
+
 ?>
