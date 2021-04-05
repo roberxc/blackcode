@@ -70,10 +70,10 @@
                   </div>
                </div>
                <div class="card-body p-0">
-                  <ul class="nav nav-pills flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                      <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                        <i class="fa fa-folder"></i> Clientes <i class="fas fa-plus"></i>
+                        <i class="fa fa-folder"></i> Clientes <i class="fas fa-angle-left right"></i>
                         </a>
                         <ul class="nav nav-treeview">
                            <li class="nav-item">
@@ -92,7 +92,7 @@
                      </li>
                      <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                        <i class="fa fa-folder"></i> Proveedores <i class="fas fa-plus"></i>
+                        <i class="fa fa-folder"></i> Proveedores <i class="fas fa-angle-left right"></i>
                         </a>
                         <ul class="nav nav-treeview">
                            <li class="nav-item">

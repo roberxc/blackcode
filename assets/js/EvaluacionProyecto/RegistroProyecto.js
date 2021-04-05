@@ -39,6 +39,47 @@ $(document).on('click', '#addProyecto', function(e) {
 
 
 });
+//Registro Proyecto
+$(document).on('click', '#addProyectoModal', function(e) {
+    e.preventDefault();
+
+    var nombreProyecto = $("#nombreProyecto").val();
+    var fechaInicio = $("#fechaInicio").val();
+    var fechaTermino = $("#fechaTermino").val();
+    var monto = $("#monto").val();
+
+
+    $.ajax({
+        url: base_url + "Proyecto/GuardarProyectos",
+        type: "post",
+        dataType: "json",
+        data: {
+            nombreProyecto: nombreProyecto,
+            fechaInicio: fechaInicio,
+            fechaTermino: fechaTermino,
+            monto: monto,
+           
+
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                window.location.href = base_url+"Inicio/index";
+                generarAvisoExitoso('Proyecto registrado correctamente!');
+                
+
+            } else if(data.response == "error"){
+                generarAvisoError('Error al registrar el proyecto');
+                
+            }
+            else{
+                //$("#msg-error").show();
+                generarAvisoError(response);
+            }
+        }
+    });
+
+
+});
 //Registro de partidas
 $(document).on('click', '#addpartidas', function(e) {
     e.preventDefault();
