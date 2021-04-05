@@ -106,10 +106,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     $('#files').change(function(){
-        div_error_files.style.display = "none";
-            if (div_error_files.style.display === "none") {
-                div_error_files.style.display = "block";
-            } 
+        if (div_error_files.style.display === "none") {
+            div_error_files.style.display = "block";
+        } 
         var selection = document.getElementById('files');
         var div = document.getElementById('files-error');
         for (var i=0; i<selection.files.length; i++) {
@@ -200,6 +199,11 @@ function subirArchivos() {
             },
             success: function(data) {
                 if(data.response == "success"){
+                    generarAvisoExitoso("Archivos subidos correctamente!");
+                    location.reload();
+                }
+
+                if(data.response == "error"){
                     generarAvisoExitoso("Archivos subidos correctamente!");
                     location.reload();
                 }
