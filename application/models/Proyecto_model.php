@@ -1389,6 +1389,7 @@ class Proyecto_model extends CI_Model
         ->join("directorio_proyecto dp", "ap.id_directorio = dp.id_directorio")
         ->where("ap.id_proyecto", $data['id_proyecto'])
         ->where("dp.id_directorio", $id_directorio[0]['id_directorio'])
+        ->where("ap.estado",0)
         ->get();
 
         return $query->result();
@@ -1426,6 +1427,7 @@ class Proyecto_model extends CI_Model
         ->join("directorio_proyecto dp", "ap.id_directorio = dp.id_directorio")
         ->where("ap.id_proyecto", $id_proyecto)
         ->where("dp.id_directorio", 2)
+        ->where("ap.estado",0)
         ->order_by("fecha_subida", $orden)
         ->get();
 

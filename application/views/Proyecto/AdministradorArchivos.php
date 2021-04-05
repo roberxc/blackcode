@@ -30,7 +30,7 @@
    <section class="content">
       <div class="row">
          <div class="col-md-3">
-            <a class="btn btn-primary btn-block mb-3" id="click-modal-archivos">Subir archivo</a>
+            <button class="btn btn-primary btn-block mb-3" id="click-modal-archivos">Subir archivo</button>
             <div class="card">
                <div class="card-header">
                   <h3 class="card-title">Licitaciones</h3>
@@ -117,39 +117,6 @@
                </div>
                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
-            <div class="card">
-               <div class="card-header">
-                  <h3 class="card-title">Labels</h3>
-                  <div class="card-tools">
-                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                     </button>
-                  </div>
-               </div>
-               <div class="card-body p-0">
-                  <ul class="nav nav-pills flex-column">
-                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                        <i class="far fa-circle text-danger"></i>
-                        Important
-                        </a>
-                     </li>
-                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                        <i class="far fa-circle text-warning"></i> Promotions
-                        </a>
-                     </li>
-                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                        <i class="far fa-circle text-primary"></i>
-                        Social
-                        </a>
-                     </li>
-                  </ul>
-               </div>
-               <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
          </div>
          <!-- /.col ------------------------------------------>
          <div class="col-md-9">
@@ -161,18 +128,6 @@
                      <input type="hidden" class="form-control" id="cdirectorio-archivos" name="cdirectorio-archivos">
                      <h3 class="card-title" id="directorio-archivos">Archivos</h3>
                      <?php echo !empty($statusMsg)?'<p class="status-msg">'.$statusMsg.'</p>':''; ?>
-                     <!--
-                        <div class="card-tools">
-                           <div class="input-group input-group-sm">
-                              <input type="text" class="form-control" id="filtro_nombre" placeholder="Buscador" onkeyup="buscarArchivos()">
-                              <div class="input-group-append">
-                                 <div class="btn btn-primary">
-                                    <i class="fas fa-search"></i>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        -->
                   </div>
                   <div class="card-body p-0">
                      <div class="mailbox-controls">
@@ -183,7 +138,7 @@
                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="eliminarArchivos()"><i class="far fa-trash-alt"></i></button>
                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-confirmacion-descarga" onclick="descargarArchivos()"><i class="fa fa-download"></i></button>
                         </div>
-                        <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="refresh()"><i class="fas fa-sync-alt"></i></button>
                         <!---
                            <div class="float-right">
                               1-50/200
@@ -194,7 +149,7 @@
                            </div>
                            --->
                      </div>
-                     <div class="table-responsive mailbox-messages" id="tabla-fotos">
+                     <div class="table-responsive" id="tabla-fotos">
                      </div>
                      <div class="card-header" id="data-table">
                         <table id="administrador_archivos" class="table table-bordered table-striped" style="width: 100%;">
@@ -288,16 +243,18 @@
             <h3 class="card-title" id="directorio-archivos-modal"></h3>
             <button type="button" class="close-white" data-dismiss="modal">&times;</button>
          </div>
-         <form  name="FormArchivos" method="post" id="FormArchivos" action="<?php echo base_url();?>Proyecto/subirArchivos" enctype="multipart/form-data">
+         <form  name="FormArchivos" role="form" method="post" id="FormArchivos" enctype="multipart/form-data">
             <div class="modal-body">
                <input type="hidden" class="form-control" id="tipo-archivo" name="tipo-archivo">
                <input type="hidden" class="form-control" id="id_proyecto_dir" name="id_proyecto_dir" value="<?php echo$id_proyecto;?>"/>
                <div class="form-group">
                   <label>Buscar archivos</label>
-                  <input type="file" class="form-control" name="files[]" multiple/>
+                  <input type="file" class="form-control" name="files[]" id="files" multiple/>
+               </div>
+               <div class="alert alert-danger" id="files-error">
                </div>
                <div class="form-group">
-                  <input class="form-control" type="submit" name="fileSubmit" value="Subir" onclick="subirArchivos();"/>
+                  <input class="form-control" type="submit" name="fileSubmit" value="Subir" onclick="subirArchivos()"/>
                </div>
                <div id="progress-div">
                   <div id="progress-bar"></div>

@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () { 
     const tabla_archivo = document.getElementById("data-table");  
-    const tabla_fotos = document.getElementById("tabla-fotos");     
+    const tabla_fotos = document.getElementById("tabla-fotos");
+    
+    const div_error_files = document.getElementById("files-error");
+
+    //Esconder el div donde salen errores de subida de archivos
+    div_error_files.style.display = "none";
+
     $(document).on('click', '#planos', function(e) {
         e.preventDefault();
         document.getElementById("directorio-archivos").innerHTML = 'Archivos / Planos';
@@ -98,14 +104,29 @@ document.addEventListener("DOMContentLoaded", function () {
             $('#modal-archivos').modal('show');
         }
     });
-    
+
+    $('#files').change(function(){
+        div_error_files.style.display = "none";
+            if (div_error_files.style.display === "none") {
+                div_error_files.style.display = "block";
+            } 
+        var selection = document.getElementById('files');
+        var div = document.getElementById('files-error');
+        for (var i=0; i<selection.files.length; i++) {
+            var ext = selection.files[i].name.substr(-3);
+            if(ext!== "pdf" && ext!== "doc" && ext!== "docx" && ext !== "ppt" && ext !== "png" && ext !== "jpeg" && ext !== "jpg")  {
+                generarAvisoError("El archivo: " + selection.files[i].name + " tiene una extension no valida y no será subido");
+                div.innerHTML += "- El archivo: " + selection.files[i].name + " tiene una extension no valida y no será subido";
+                div.innerHTML += "\n";
+            }
+        } 
+    });
+
     function generarTablaFotos($tipo) {
         tabla_archivo.style.display = "none";
         if (tabla_fotos.style.display === "none") {
             tabla_fotos.style.display = "block";
-        } else {
-            tabla_fotos.style.display = "none";
-        }
+        } 
 
         var idproyecto = $('#id_proyecto_dir').val();
         $.ajax({
@@ -160,37 +181,44 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-function subirArchivos() {
-    $('#FormArchivos').ajaxForm({
-        dataType: "json",
-        beforeSubmit: function() {
-            $("#progress-bar").width('0%');
-        },
 
-        uploadProgress: function(event, position, total, percentComplete) {
-            $("#progress-bar").width(percentComplete + '%');
-            $("#progress-bar").html('<div id="progress-status">' + percentComplete + ' %</div>')
-        },
+
+function subirArchivos() {
+    var numFiles = $("input:file")[0].files.length;
+    if(numFiles <= 20){
+        $('#FormArchivos').ajaxForm({
+            url: base_url + "Proyecto/subirArchivos",
+            type: "post",
+            dataType: "json",
+            beforeSubmit: function() {
+                $("#progress-bar").width('0%');
+            },
+
+            uploadProgress: function(event, position, total, percentComplete) {
+                $("#progress-bar").width(percentComplete + '%');
+                $("#progress-bar").html('<div id="progress-status">' + percentComplete + ' %</div>')
+            },
+            success: function(data) {
+                if(data.response == "success"){
+                    generarAvisoExitoso("Archivos subidos correctamente!");
+                    location.reload();
+                }
+            },
+            done: function(data){
+                alert("DONE: " + data.response);
+            },
+            resetForm: true
+        });
+    } else {
+        generarAvisoError("El limite máximo de archivos para subir es de 20 a la vez");
         
-        success: function(data) {
-            if (data.response == "success") {
-                //$("#msg-error").hide();
-                generarAvisoExitoso('Archivo subido correctamente!');
-                location.reload();
-            }
-            else if(data.response == "error"){
-                generarAvisoError(data.message);
-            }
-        },
-        resetForm: true
-    });
+    }
     return false;
 }
 
 
 function ordenFotos($tipo) {
     var idproyecto = $('#id_proyecto_dir').val();
-    alert("ID PROYECTO: " + idproyecto);
     $.ajax({
         url: base_url + "Proyecto/ordenarFotosPorFecha",
         type: "post",
@@ -201,7 +229,7 @@ function ordenFotos($tipo) {
         },
         success: function(data) {
             if (data.response == "success") {
-                $('#tabla-archivos').html(data.detalle);
+                $('#tabla-fotos').html(data.detalle);
             } else {
 
             }
@@ -214,6 +242,9 @@ function descargarArchivos(){
 
 }
 
+function refresh(){
+    location.reload();
+}
 
 function eliminarArchivos(){
     document.getElementById("tipo-descarga").value = "0";
@@ -230,7 +261,7 @@ function generarAvisoError($mensaje) {
         "positionClass": "toast-top-right",
         "preventDuplicates": false,
         "onclick": null,
-        "showDuration": "300",
+        "showDuration": "2000",
         "hideDuration": "1000",
         "timeOut": "5000",
         "extendedTimeOut": "1000",

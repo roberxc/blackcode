@@ -80,7 +80,8 @@ class Proyecto extends CI_Controller
     
     function subirArchivos()
     {
-        $data            = array();
+        $data = array();
+        $dataresponse = array();
         $errorUploadType = $statusMsg = '';
         
         // If file upload form submitted 
@@ -120,6 +121,9 @@ class Proyecto extends CI_Controller
                     } else {
                         $errorUploadType .= $_FILES['file']['name'] . ' | ';
                     }
+                    
+                    
+                    
                 }
                 
                 $errorUploadType = !empty($errorUploadType) ? '<br/>Formato no admitido: ' . trim($errorUploadType, ' | ') : '';
@@ -135,17 +139,22 @@ class Proyecto extends CI_Controller
                 } else {
                     $dataresponse = array(
                         'response' => "error",
-                        'message' => $errorUploadType
+                        'message' => "Error al subir los archivos" . $errorUploadType
                     );
                     $statusMsg    = "Sorry, there was an error uploading your file." . $errorUploadType;
                 }
             } else {
-                $statusMsg = 'Please select image files to upload.';
+                $dataresponse = array(
+                    'response' => 'error',
+                    'message' => 'El limite máximo de archivos para subir es de:' . intval(ini_get("max_file_uploads"))
+                );
             }
+            
         }
         
         // Get files data from the database 
         $data['files'] = $this->Proyecto_model->getRows();
+        
         
         // Pass the files data to view 
         $data['statusMsg'] = $statusMsg;
@@ -999,7 +1008,7 @@ class Proyecto extends CI_Controller
         $data       = array();
         foreach ($fetch_data as $value) {
             $sub_array   = array();
-            $sub_array[] = '<div class="checkbox"><input type="checkbox" value="'.$value->nombrearchivo.'" name="images[]"></div>';
+            $sub_array[] = '<div class="checkbox"><input type="checkbox" value="' . $value->nombrearchivo . '" name="images[]"></div>';
             $sub_array[] = $value->nombrearchivo;
             $sub_array[] = $value->fecha_subida;
             $sub_array[] = $value->directorio;
@@ -1071,14 +1080,14 @@ class Proyecto extends CI_Controller
         $response .= "<div class='card-body'>";
         $response .= "<div>";
         $response .= "<div class='mb-2'>";
-        $response .= "<a class='btn btn-secondary' href='javascript:void(0)' data-shuffle> Shuffle items </a>";
+        $response .= "<a class='btn btn-secondary' href='javascript:void(0)' data-shuffle> -- </a>";
         $response .= "<div class='float-right'>";
         $response .= "<select class='custom-select' style='width: auto;' data-sortOrder>";
         $response .= "<option value='sortData'> Ordenar por fecha </option>";
         $response .= "</select>";
         $response .= "<div class='btn-group'>";
-        $response .= "<button class='btn btn-default' onclick='ordenFotos(1)'> Ascendente </button>";
-        $response .= "<button class='btn btn-default' onclick='ordenFotos(2)'> Descendente </button>";
+        $response .= "<input type='button' class='btn btn-default' value='Ascendente' onclick='ordenFotos(1)'/>";
+        $response .= "<input type='button' class='btn btn-default' value='Descendente' onclick='ordenFotos(2)'/>";
         $response .= "</div>";
         $response .= "</div>";
         $response .= "</div>";
@@ -1087,7 +1096,7 @@ class Proyecto extends CI_Controller
         $response .= "<div class='filter-container p-0 row'>";
         foreach ($detalle_archivos as $row) {
             $response .= "<div class='filtr-item col-sm-4' data-category='1' data-sort='white sample'>";
-            $response .= "<a href='" . base_url() . "ArchivosSubidos/" . $row->nombre . "' data-toggle='lightbox' data-footer='Fecha: ".$row->fecha_subida."' data-title='Nombre: " . $row->nombre . "'>";
+            $response .= "<a href='" . base_url() . "ArchivosSubidos/" . $row->nombre . "' data-toggle='lightbox' data-footer='Fecha: " . $row->fecha_subida . "' data-title='Nombre: " . $row->nombre . "'>";
             $response .= "<img src='" . base_url() . "ArchivosSubidos/" . $row->nombre . "' class='img-fluid mb-2' alt='white sample'/>";
             $response .= "</a>";
             $response .= "<br>";
@@ -1128,6 +1137,7 @@ class Proyecto extends CI_Controller
             $detalle_archivos = $this->Proyecto_model->ObtenerFotosOrdenadas($id_proyecto, $tipo_orden);
         }
         
+        //var_dump($detalle_archivos);
         
         
         $response = "<section class='content'>";
@@ -1138,7 +1148,7 @@ class Proyecto extends CI_Controller
         $response .= "<div class='card-body'>";
         $response .= "<div>";
         $response .= "<div class='mb-2'>";
-        $response .= "<a class='btn btn-secondary' href='javascript:void(0)' data-shuffle> Shuffle items </a>";
+        $response .= "<a class='btn btn-secondary' href='javascript:void(0)' data-shuffle> -- </a>";
         $response .= "<div class='float-right'>";
         $response .= "<select class='custom-select' style='width: auto;' data-sortOrder>";
         $response .= "<option value='sortData'> Ordenar por fecha </option>";
@@ -1154,12 +1164,11 @@ class Proyecto extends CI_Controller
         $response .= "<div class='filter-container p-0 row'>";
         foreach ($detalle_archivos as $row) {
             $response .= "<div class='filtr-item col-sm-4' data-category='1' data-sort='white sample'>";
-            $response .= "<a href='" . base_url() . "ArchivosSubidos/" . $row->nombre . "' data-toggle='lightbox' data-title='Nombre: " . $row->nombre . " | Fecha: " . $row->fecha_subida . "'>";
+            $response .= "<a href='" . base_url() . "ArchivosSubidos/" . $row->nombre . "' data-toggle='lightbox' data-footer='Fecha: " . $row->fecha_subida . "' data-title='Nombre: " . $row->nombre . "'>";
             $response .= "<img src='" . base_url() . "ArchivosSubidos/" . $row->nombre . "' class='img-fluid mb-2' alt='white sample'/>";
             $response .= "</a>";
-            
-            $response .= "<a data-toggle='lightbox' data-footer='foooter'>";
-            $response .= "</a>";
+            $response .= "<br>";
+            $response .= "<input type='checkbox' name='images[]' class='select' value='" . $row->nombre . "'/>";
             $response .= "</div>";
         }
         $response .= "</div>";
@@ -1179,36 +1188,37 @@ class Proyecto extends CI_Controller
         
     }
     
-    public function descargarArchivos(){
+    public function descargarArchivos()
+    {
         $ajax_data = $this->input->post();
-        if($ajax_data['tipo-descarga'] == '1'){
+        if ($ajax_data['tipo-descarga'] == '1') {
             $directorio = $this->input->post('cdirectorio-archivos');
-            $archivos = array();
-            if($this->input->post('images')){
+            $archivos   = array();
+            if ($this->input->post('images')) {
                 $images = $this->input->post('images');
-                foreach($images as $image){
-                    array_push($archivos,$image);
+                foreach ($images as $image) {
+                    array_push($archivos, $image);
                 }
             }
             //get file info from database
-            $fileInfo  = $this->Proyecto_model->getNombreArchivo($archivos);
+            $fileInfo = $this->Proyecto_model->getNombreArchivo($archivos);
             foreach ($fileInfo as $row) {
-                $this->zip->read_file('./ArchivosSubidos/'.$row->nombre);
+                $this->zip->read_file('./ArchivosSubidos/' . $row->nombre);
             }
-
-            $this->zip->download(''.$directorio.time().'-CDH.zip');
-        
-        }else if($ajax_data['tipo-descarga'] == '0'){
+            
+            $this->zip->download('' . $directorio . time() . '-CDH.zip');
+            
+        } else if ($ajax_data['tipo-descarga'] == '0') {
             $archivos = array();
-            if($this->input->post('images')){
+            if ($this->input->post('images')) {
                 $images = $this->input->post('images');
-                foreach($images as $image){
-                    array_push($archivos,$image);
+                foreach ($images as $image) {
+                    array_push($archivos, $image);
                 }
             }
             $this->Proyecto_model->eliminarArchivos($archivos);
-            redirect('DirectorioProyecto/'.$ajax_data['id_proyecto_dir'], 'refresh');
+            redirect('DirectorioProyecto/' . $ajax_data['id_proyecto_dir'], 'refresh');
         }
-            
+        
     }
 }
