@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var div = document.getElementById('files-error');
         for (var i=0; i<selection.files.length; i++) {
             var ext = selection.files[i].name.substr(-3);
-            if(ext!== "pdf" && ext!== "doc" && ext!== "docx" && ext !== "ppt" && ext !== "png" && ext !== "jpeg" && ext !== "jpg")  {
+            if(ext!== "pdf" && ext!== "doc" && ext!== "docx" && ext !== "ppt" && ext !== "png" && ext !== "jpeg" && ext !== "jpg" && ext !== "xlsx")  {
                 generarAvisoError("El archivo: " + selection.files[i].name + " tiene una extension no valida y no será subido");
                 div.innerHTML += "- El archivo: " + selection.files[i].name + " tiene una extension no valida y no será subido";
                 div.innerHTML += "\n";

@@ -102,7 +102,7 @@ class Proyecto extends CI_Controller
                     // File upload configuration 
                     $uploadPath              = 'ArchivosSubidos';
                     $config['upload_path']   = $uploadPath;
-                    $config['allowed_types'] = 'gif|jpg|png|xlsx|pdf|doc|mp4|docx|jpeg';
+                    $config['allowed_types'] = 'gif|jpg|png|xlsx|pdf|doc|docx|jpeg';
                     //$config['max_size']    = '100'; 
                     //$config['max_width'] = '1024'; 
                     //$config['max_height'] = '768'; 
