@@ -200,12 +200,12 @@ function subirArchivos() {
             success: function(data) {
                 if(data.response == "success"){
                     generarAvisoExitoso("Archivos subidos correctamente!");
-                    location.reload();
+                    //location.reload();
                 }
 
                 if(data.response == "error"){
                     generarAvisoExitoso("Archivos subidos correctamente!");
-                    location.reload();
+                    //location.reload();
                 }
             },
             done: function(data){
