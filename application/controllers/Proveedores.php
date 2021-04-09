@@ -84,7 +84,7 @@ class Proveedores extends CI_Controller
 				$sub_array[] = '<span class="badge badge-success">&nbsp;Activo</span>';
 			}
 			
-			$sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal"data-target="#modal-detalle-proveedor" onclick="setTablaDetalle(this)"><i class="far fa-eye"></i></button>&nbsp<button class="btn btn-warning btn-sm" id="editar_asistencia" data-toggle="modal"data-target="#modal-editar-proveedor" onclick="setTablaEditar(this)"><i class="fas fa-edit"></i></button>&nbsp<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="setIDRegistro('.$value->id_proveedor.')"><i class="fas fa-trash"></i></button>';
+			$sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal"data-target="#modal-detalle-proveedor" onclick="setTablaDetalle(this)"><i class="far fa-eye"></i></button>&nbsp<button class="btn btn-warning btn-sm" id="editar_asistencia" data-toggle="modal"data-target="#modal-editar-proveedor" onclick="setTablaEditar('.$value->id_proveedor.')"><i class="fas fa-edit"></i></button>&nbsp<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="setIDRegistro('.$value->id_proveedor.')"><i class="fas fa-trash"></i></button>';
 
             $data[] = $sub_array;
         }

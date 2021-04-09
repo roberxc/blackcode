@@ -130,14 +130,13 @@ function deleteRegistro(){
     });
 }
 
-function setTablaEditar(table){
-    var iditem = table.parentNode.parentNode.cells[0].textContent;
+function setTablaEditar(idproveedor){
     $.ajax({
         url: base_url+"Proveedores/obtenerDetalleProveedoresEdit",
         type: "post",
         dataType: "json",
         data: {
-            iditem: iditem,
+            iditem: idproveedor,
         },
         success: function(data) {
             if (data.response == "success") {
