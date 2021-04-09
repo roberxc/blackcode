@@ -4,31 +4,8 @@
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <title>BlackCode</title>
-      <!-- Tell the browser to be responsive to screen width -->
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!-- Font Awesome -->
-      <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/fontawesome-free/css/all.min.css">
-      <!-- Ionicons -->
-      <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-      <!-- Tempusdominus Bbootstrap 4 -->
-      <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-      <!-- iCheck -->
-      <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-      <!-- JQVMap -->
-      <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/jqvmap/jqvmap.min.css">
-      <!-- Theme style -->
-      <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/adminlte.min.css">
-      <!-- overlayScrollbars -->
-      <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-      <!-- Daterange picker -->
-      <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/daterangepicker/daterangepicker.css">
-      <!-- summernote -->
-      <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/summernote/summernote-bs4.css">
-      <!-- Google Font: Source Sans Pro -->
-      <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
       <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
       <link rel="stylesheet" href="<?php echo base_url();?>assets/css/stylePlanillapro.css">
-      <link rel="stylesheet" href="<?php echo base_url();?>assets/css/animate.css" />
    </head>
    <body class="hold-transition sidebar-mini sidebar-collapse">
       <input type="text" id="codigoproyecto" value="<?php echo$codigo;?>" class="form-control" />
@@ -127,7 +104,7 @@
                </div>
                <div class="modal-footer justify-content-between">
                   <button type="button" class="btn btn-primary" onclick="generarTablaRegistroMaterial()" data-toggle="modal"
-                        data-target="#materiales">Atras</button>
+                     data-target="#materiales">Atras</button>
                   </tr>
                </div>
             </div>
@@ -202,19 +179,105 @@
          <!-- /.modal-dialog -->
       </div>
       <!-- Fin dialog -->
+      <div class="modal fade" id="galeria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+               <div class="card card-primary card-tabs">
+                  <div class="card-header p-0 pt-1">
+                     <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                        <li class="pt-2 px-3">
+                           <h3 class="card-title">Registros fotograficos</h3>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">Imagenes</a>
+                        </li>
+                     </ul>
+                  </div>
+                  <div class="tab-content" id="custom-tabs-two-tabContent">
+                     <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
+                     <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
+                           <form method="post" action="<?php echo base_url(); ?>Proyecto/descargarArchivos">
+                              <input type="hidden" class="form-control" id="tipo-descarga" name="tipo-descarga">
+                              <div class="card-header">
+                                 <div class="col-md-12">
+                                    <div class="card card-primary card-outline">
+                                          <div class="table-responsive" id="tabla-fotos">
+                                          </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
    </body>
-   <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-   <!--Script alarma  -->
-   <script src="https://code.jquery.com/jquery-3.5.1.min.js"
-      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-   <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-   <!--Script alarma  -->
-   <script>
-      var base_url = '<?php echo base_url();?>';
-   </script>
-   <script src="<?php echo base_url();?>assets/js/EvaluacionProyecto/ProyectoEjecutado.js"></script>
+
+
+   <!-- ESTE PARA LAS ALERTAS --->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="<?php echo base_url();?>assets/js/sweetAlert.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.jqueryui.min.js"></script>
+<!-- Data table -->
+<script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+   integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script> 
+<script>var base_url = '<?php echo base_url();?>';</script>
+<script src="<?php echo base_url();?>assets/js/EvaluacionProyecto/ProyectoEjecutado.js"></script>
+<!-- Ekko Lightbox -->
+<script src="<?php echo base_url()?>assets/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+<!-- Filterizr-->
+<script src="<?php echo base_url()?>assets/plugins/filterizr/jquery.filterizr.min.js"></script>
+<!-- Page specific script -->
+<script>
+   $(function () {
+     $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+       event.preventDefault();
+       $(this).ekkoLightbox({
+         alwaysShowClose: true
+       });
+     });
+   
+     $('.filter-container').filterizr({gutterPixels: 3});
+     $('.btn[data-filter]').on('click', function() {
+       $('.btn[data-filter]').removeClass('active');
+       $(this).addClass('active');
+     });
+   });
+</script>
+<script>
+   //Mostrar tabla principal
+   $(document).ready(function(){
+      $('#administrador_archivos').DataTable({
+       "language": {
+         "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+         },
+       "processing": true,
+       "serverSide": true, 
+       "ajax":{url:"<?php echo base_url('Proyecto/ObtenerArchivos/'); ?>" + 0,0,
+       type: "POST"
+     },
+       "columnDefs":[
+         {
+             "targets": [1,2,3],
+             className: 'select-checkbox',
+            targets:   0
+         }
+       ],
+      select: {
+         style:    'os',
+         selector: 'td:first-child'
+      },
+     });
+   });
+</script>
 </html>

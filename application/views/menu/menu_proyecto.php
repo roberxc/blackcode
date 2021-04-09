@@ -71,7 +71,7 @@
                   <li class="nav-item">
                      <a data-toggle="modal" data-target="#modal-proyecto" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Administrador de archivos</p>
+                        <p>Directorio</p>
                      </a>
                   </li>
                </ul>

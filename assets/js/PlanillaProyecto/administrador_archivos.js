@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const tabla_fotos = document.getElementById("tabla-fotos");
     
     const div_error_files = document.getElementById("files-error");
+    const pagination_link = document.getElementById("pagination_link");
 
     //Esconder el div donde salen errores de subida de archivos
     div_error_files.style.display = "none";
@@ -25,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("tipo-archivo").value = "3";
         document.getElementById("cdirectorio-archivos").value = "Fotos";
         generarAvisoExitoso("Directorio seleccionado");
-        generarTablaFotos(3);
+        generarTablaFotos(3,1);
         //generarDataTableArchivos(3);
     });
     
@@ -106,14 +107,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     $('#files').change(function(){
-        if (div_error_files.style.display === "none") {
-            div_error_files.style.display = "block";
-        } 
+        
         var selection = document.getElementById('files');
         var div = document.getElementById('files-error');
         for (var i=0; i<selection.files.length; i++) {
             var ext = selection.files[i].name.substr(-3);
             if(ext!== "pdf" && ext!== "doc" && ext!== "docx" && ext !== "ppt" && ext !== "png" && ext !== "jpeg" && ext !== "jpg" && ext !== "xlsx")  {
+                if (div_error_files.style.display === "none") {
+                    div_error_files.style.display = "block";
+                } 
                 generarAvisoError("El archivo: " + selection.files[i].name + " tiene una extension no valida y no será subido");
                 div.innerHTML += "- El archivo: " + selection.files[i].name + " tiene una extension no valida y no será subido";
                 div.innerHTML += "\n";
@@ -121,16 +123,17 @@ document.addEventListener("DOMContentLoaded", function () {
         } 
     });
 
-    function generarTablaFotos($tipo) {
+    function generarTablaFotos($tipo,page) {
         tabla_archivo.style.display = "none";
-        if (tabla_fotos.style.display === "none") {
+        if (tabla_fotos.style.display == "none") {
             tabla_fotos.style.display = "block";
+            pagination_link.style.display = "block";
         } 
 
         var idproyecto = $('#id_proyecto_dir').val();
         $.ajax({
-            url: base_url + "Proyecto/obtenerDetalleFotos",
-            type: "post",
+            url: base_url + "Proyecto/obtenerDetalleFotos/"+page,
+            type: "get",
             dataType: "json",
             data: {
                 id_proyecto: idproyecto,
@@ -139,17 +142,26 @@ document.addEventListener("DOMContentLoaded", function () {
             success: function(data) {
                 if (data.response == "success") {
                     $('#tabla-fotos').html(data.detalle);
-                } else {
-    
-                }
+                    $('#pagination_link').html(data.pagination_link);
+                } 
             }
         });
     }   
+
+    $(document).on("click", ".pagination li a", function(event){
+        event.preventDefault();
+        var page = $(this).data("ci-pagination-page");
+        generarTablaFotos(3,page);
+       });
     
     function generarDataTableArchivos($directorio) {
         
         tabla_fotos.style.display = "none";
         tabla_archivo.style.display = "block";
+
+        if (pagination_link.style.display == "block") {
+            pagination_link.style.display = "none";
+        } 
         
     
         $('#administrador_archivos').dataTable().fnClearTable();
@@ -184,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function subirArchivos() {
     var numFiles = $("input:file")[0].files.length;
-    if(numFiles <= 20){
+    if(numFiles <= 100){
         $('#FormArchivos').ajaxForm({
             url: base_url + "Proyecto/subirArchivos",
             type: "post",
