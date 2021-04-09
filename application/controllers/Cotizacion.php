@@ -12,27 +12,9 @@ class Cotizacion extends CI_Controller
         $this->load->model('ProveedoresModel');
         $this->load->model('DocumentacionModel');
 		$this->load->model('OrdenesModel');
+		$this->load->model('Proyecto_model');
+		$this->load->helper(array('notificacion','url'));
     }
-
-    public function setNotificaciones(){
-		$data ['expiracion'] = 0;
-		$lista_fecha = $this->DocumentacionModel->ObtenerFechaDocActualizable();
-		$fechaactual = date("d-m-Y");
-		$data ['totaldocumentos'] = 0;
-		foreach($lista_fecha as $row){
-			//Paso de string a fecha
-			$d1 = new DateTime($row->fechalimite);
-			$d2 = new DateTime($fechaactual);
-			$interval = $d1->diff($d2);
-			$diasTotales    = $interval->d; 
-			if($diasTotales == 3){
-				$data ['lista_nrodocactualizables'] = $this->DocumentacionModel->ObtenerNroDocActualizable($row->fechalimite);
-				$data ['expiracion'] = 1;
-				$data ['totaldocumentos'] = $data ['totaldocumentos'] + 1;
-			}
-		}
-		$this->load->view('layout/nav',$data);
-	}
 
     public function index(){
 		$set_data = $this->session->all_userdata();
@@ -43,7 +25,8 @@ class Cotizacion extends CI_Controller
 			$data['activo'] = 19;
 			$data['lista_proveedores'] = $this->ProveedoresModel->listaProveedores();
 			$data['lista_materiales'] = $this->OrdenesModel->listaMateriales();
-			$this->setNotificaciones();
+			$data['lista_proyectos'] = $this->Proyecto_model->listaProyectosSegunUsuario($set_data['ID_Usuario']);
+			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_proyecto',$data);
 			$this->load->view('Administracion/Cotizacion');
 			$this->load->view('layout/footer');
@@ -53,7 +36,7 @@ class Cotizacion extends CI_Controller
 			$data['activo'] = 19;
 			$data['lista_proveedores'] = $this->ProveedoresModel->listaProveedores();
 			$data['lista_materiales'] = $this->OrdenesModel->listaMateriales();
-			$this->setNotificaciones();
+			setNotificaciones($this->DocumentacionModel);
 			$this->load->view('menu/menu_supremo', $data);
 			$this->load->view('Administracion/Cotizacion', $data);
 			$this->load->view('layout/footer');

@@ -13,6 +13,7 @@ class Ordenes extends CI_Controller
         $this->load->model('OrdenesModel');
         $this->load->model('Proyecto_model');
         $this->load->model('Bodega');
+		$this->load->helper(array('notificacion','url'));
     }
 
     public function index(){
@@ -21,7 +22,7 @@ class Ordenes extends CI_Controller
 			$data['lista_materiales'] = $this->OrdenesModel->listaMateriales();
 			$data['lista_cotizaciones'] = $this->CotizacionesModel->listaCotizaciones();
 			$data['lista_bodegas'] = $this->OrdenesModel->listaBodegas();
-			$data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
+			$data['lista_proyectos'] = $this->Proyecto_model->listaProyectosSegunUsuario($set_data['ID_Usuario']);
 			$data ['activomenu'] = 15;
 			$data ['activo'] = 15;
 			$this->load->view('layout/nav');
@@ -35,7 +36,7 @@ class Ordenes extends CI_Controller
 			$data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
 			$data ['activomenu'] = 15;
 			$data ['activo'] = 15;
-			$this->load->view('layout/nav');
+			setNotificaciones($this->DocumentacionModel);
 			$this->load->view('menu/menu_supremo',$data);
 			$this->load->view('Administracion/Ordenes',$data);
 			$this->load->view('layout/footer');

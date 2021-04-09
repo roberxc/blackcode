@@ -1,11 +1,10 @@
 <!-- Main Sidebar Container -->
 <!-- SELECT CON BUSCADOR -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" rel="stylesheet" />
-   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <?php $set_data = $this->session->all_userdata(); 
    if (isset($set_data['nombre_completo'])) {
      $nombre = $set_data['nombre_completo'];
@@ -69,7 +68,7 @@
                </ul>
                <ul class="nav nav-treeview">
                   <li class="nav-item">
-                     <a data-toggle="modal" data-target="#modal-proyecto" class="nav-link <?php if(isset($activo) && ($activo == 6)){echo "active"; }?>">
+                     <a data-toggle="modal" data-target="#modal-proyecto" class="nav-link <?php if(isset($activo) && ($activo == 7)){echo "active"; }?>">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Directorio</p>
                      </a>
@@ -131,8 +130,6 @@
                   </li>
                </ul>
             </li>
-
-            
             <li class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 2)){echo "menu-open"; }?>">
                <a href="#" class="nav-link <?php if(isset($activomenu) && ($activomenu == 2)){echo "active"; }?>">
                   <i class="nav-icon fas fa-cog"></i>
@@ -157,7 +154,6 @@
    </div>
    <!-- /.sidebar -->
 </aside>
-
 <div id="modal-proyecto" class="modal fade bd-example-modal-sm" role="dialog">
    <div class="modal-dialog modal-sm">
       <!-- Contenido del modal -->
@@ -170,30 +166,25 @@
             <div class="modal-body">
                <p>Seleccione el proyecto</p>
             </div>
-
-            
-                        <div class="form-group">
-                           <label for="recipient-bodega" class="col-form-label">Proyecto </label>
-                           <select name="proyecto" id="id_proyecto" style="width: 100%; height: 60%">
-                           <option value="" selected>Seleccione</option>
-                           <?php
-                              foreach($lista_proyectos as $i){
-                                 echo '<option value="'. $i->id_proyecto.'">'. $i->nombreproyecto .'</option>';
-                                 }
-                                 ?>
-                           </select>
-                        </div>
-                     
+            <div class="form-group">
+               <label for="recipient-bodega" class="col-form-label">Proyecto </label>
+               <select name="proyecto" id="id_proyecto" style="width: 100%; height: 60%">
+                  <option value="" selected>Seleccione</option>
+                  <?php
+                     foreach($lista_proyectos as $i){
+                        echo '<option value="'. $i->id_proyecto.'">'. $i->nombreproyecto .'</option>';
+                        }
+                        ?>
+               </select>
+            </div>
          </div>
          <div class="modal-footer bg-white">
-            <a type="button" class="btn btn-primary" id="vista_proyecto">Aceptar</a>
+            <button type="button" class="btn btn-primary" id="vista_proyecto">Aceptar</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
          </div>
       </div>
    </div>
 </div>
-
-
 <script type="text/javascript">
    $(document).ready(function(){
      $('#id_proyecto').select2({
@@ -201,6 +192,5 @@
      });
    });
 </script>
-
 <script>var base_url = '<?php echo base_url();?>';</script>
 <script src="<?php echo base_url()?>assets/js/PlanillaProyecto/menu_proyecto.js"></script>

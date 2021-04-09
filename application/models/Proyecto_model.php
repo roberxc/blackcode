@@ -1877,6 +1877,36 @@ class Proyecto_model extends CI_Model
 			->where("tr.id_trabajodiario", $data['id_trabajodiario'])->get();
 		return $query->result();
 	}
+
+	//Grafico inicio proyecto
+	public function ObtenerBalancePorProyecto($idusuario){
+		$query = $this
+			->db
+			->select("pr.id_proyecto,pr.nombreproyecto") # También puedes poner * si quieres seleccionar todo
+			->from("proyecto pr")
+			->join("proyecto_usuario pu", "pr.id_proyecto = pu.id_proyecto")
+			->where("pu.estado", 0)
+			->where("pu.id_usuario", $idusuario)
+			->get();
+
+        return $query->result();
+        // }
+	}
+
+	public function generarEstadisticasBalancePorProyectos($idusuario){
+
+		$lista_proyectos = $this->ObtenerBalancePorProyecto($idusuario);
+
+		foreach($lista_proyectos as $row){
+			$arraydata[] = array(
+                "proyecto" => $row->nombreproyecto,
+                "balance" => $this->TotalBalanceProyecto($row->id_proyecto),
+            );
+		}
+
+        echo json_encode($arraydata);
+
+    }
 }
 
 ?>

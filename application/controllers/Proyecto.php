@@ -20,9 +20,10 @@ class Proyecto extends CI_Controller
     }
     public function registroTrabajador()
     {
+        $set_data = $this->session->all_userdata();
         $data['activo']          = 6;
         $data['activomenu']      = 2;
-        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
+        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectosSegunUsuario($set_data['ID_Usuario']);
         $this->load->view('layout/nav');
         $this->load->view('menu/menu_proyecto', $data);
         $this->load->view('Proyecto/GestionTrabajador');
@@ -32,9 +33,10 @@ class Proyecto extends CI_Controller
     
     public function AdminArchivos($idproyecto)
     {
-        $data['activo']          = 6;
+        $set_data = $this->session->all_userdata();
+        $data['activo']          = 7;
         $data['activomenu']      = 1;
-        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
+        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectosSegunUsuario($set_data['ID_Usuario']);
         $data['id_proyecto']     = $idproyecto;
         $data['nombre_proyecto'] = $this->Proyecto_model->getNombreProyecto($idproyecto);
         $this->load->view('layout/nav');
@@ -45,9 +47,10 @@ class Proyecto extends CI_Controller
     
     public function Estado_proyecto()
     {
+        $set_data = $this->session->all_userdata();
         $data['activo']          = 4;
         $data['activomenu']      = 1;
-        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
+        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectosSegunUsuario($set_data['ID_Usuario']);
         $this->load->view('layout/nav');
         $this->load->view('menu/menu_proyecto', $data);
         $this->load->view('Proyecto/Estado');
@@ -82,10 +85,11 @@ class Proyecto extends CI_Controller
 
     public function Proyecto_ejecucion()
     {
+        $set_data = $this->session->all_userdata();
         $data['activo']     = 5;
         $data['activomenu'] = 1;
         $this->load->view('layout/nav');
-        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectos();
+        $data['lista_proyectos'] = $this->Proyecto_model->listaProyectosSegunUsuario($set_data['ID_Usuario']);
         $this->load->view('menu/menu_proyecto', $data);
         $this->load->view('Proyecto/ProyectoE');
         $this->load->view('layout/footer');
@@ -1333,6 +1337,14 @@ class Proyecto extends CI_Controller
         
     }
 
+    public function obtenerBalancePorProyecto(){
+		if ($this->input->is_ajax_request()) {
+            $set_data = $this->session->all_userdata();
+			$res = $this->Proyecto_model->generarEstadisticasBalancePorProyectos($set_data['ID_Usuario']);
+		} else {
+			echo "'No direct script access allowed'";
+		}
 
+	}
 
 }

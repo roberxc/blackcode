@@ -102,7 +102,6 @@
             </div>
             <div class="card-header">
                <!-- SELECT2 EXAMPLE -->
-               <div class="card card-default">
                   <div class="card card-primary">
                      <div class="card-header">
                         <h3 class="card-title">Filtrado</h3>
@@ -137,25 +136,39 @@
                         <!-- /.row -->
                      </div>
                   </div>
-               </div>
+               
                <div class="card card-success">
-                  <div class="card-header">
-                     <h3 class="card-title">Total costos fijos</h3>
-                     <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-                     </div>
-                  </div>
-                  <div class="card-body" id="gh">
-                     <div class="col-md-2">
-                        <div class="form-group">
-                           <button type="button" class="btn btn-block btn-warning" onclick="graficoCircular()">Circular</button>
+                  <div class="card">
+                     <div class="card-header">
+                        <h3 class="card-title">
+                           <i class="fas fa-chart-pie mr-1"></i>
+                           Total costos fijos
+                        </h3>
+                        <div class="card-tools">
+                           <ul class="nav nav-pills ml-auto">
+                              <li class="nav-item">
+                                 <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Barra</a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="nav-link" href="#sales-chart" data-toggle="tab">Circular</a>
+                              </li>
+                           </ul>
                         </div>
                      </div>
-                     <div class="chart">
-                        <canvas id="myChart" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
+                     <!-- /.card-header -->
+                     <div class="card-body">
+                        <div class="tab-content p-0">
+                           <!-- Morris chart - Sales -->
+                           <div class="chart tab-pane active" id="revenue-chart"
+                              style="position: relative; height: 500px;">
+                              <canvas id="chartbarra" height="300" style="height: 500px;"></canvas>
+                           </div>
+                           <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 500px;">
+                              <canvas id="chartcircular" height="300" style="height: 500px;"></canvas>
+                           </div>
+                        </div>
                      </div>
+                     <!-- /.card-body -->
                   </div>
                </div>
             </div>

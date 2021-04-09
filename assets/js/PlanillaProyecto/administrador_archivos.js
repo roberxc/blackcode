@@ -192,7 +192,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-
+$("#checkAll").click(function () {
+    $('input:checkbox').not(this).prop('checked', this.checked);
+});
 
 function subirArchivos() {
     var numFiles = $("input:file")[0].files.length;

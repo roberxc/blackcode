@@ -94,7 +94,7 @@ function generarAvisoExitoso($mensaje) {
 }
 
 function generarGraficoInicio() {
-	var ctx = document.getElementById('myChart').getContext('2d');
+	var ctx = document.getElementById('chartbarra').getContext('2d');
 	var myChart = new Chart(ctx, {
 		type: 'bar',
 		data: {
@@ -142,6 +142,7 @@ function generarGraficoInicio() {
 
 generarGraficoInicio();
 
+
 //Click al boton generar grafico
 $(document).on('click', '#boton-generargrafico', function(e) {
     var startDate = $('#date_range').data('daterangepicker').startDate.format('YYYY-MM-DD');
@@ -173,20 +174,19 @@ $(document).on('click', '#boton-generargrafico', function(e) {
                 g = Math.round(g);
                 var b = Math.random() * 255;
                 b = Math.round(b);
-                bgColor.push('rgba('+r+','+g+','+b+',0.2)');
+                bgColor.push('rgba('+r+','+g+','+b+',0.5)');
                 bgBorder.push('rgba('+r+','+g+','+b+',1)');
                 mont.push(response[i]['total']);
 				date.push(response[i]['mes']);
 			}
             //Se remueve el chart para limpiarlo
-            $('#myChart').remove();
+            $('#chartbarra').remove();
             var midiv = document.createElement("canvas");
-            midiv.setAttribute("id","myChart");
-            midiv.setAttribute("style","width: 300px; height: 100px;");
+            midiv.setAttribute("id","chartbarra");
             midiv.innerHTML = "";
-            document.getElementById('gh').appendChild(midiv);
+            document.getElementById('revenue-chart').appendChild(midiv);
 
-            ctx = document.getElementById('myChart');
+            ctx = document.getElementById('chartbarra');
                 myChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
@@ -215,6 +215,7 @@ $(document).on('click', '#boton-generargrafico', function(e) {
                     }
                 });
                 $('#div_dias').removeClass('hidden');
+                graficoCircular();
         },
         error: function(error) {
             console.log(error);
@@ -279,20 +280,19 @@ function graficoCircular(){
                 g = Math.round(g);
                 var b = Math.random() * 255;
                 b = Math.round(b);
-                bgColor.push('rgba('+r+','+g+','+b+',0.2)');
+                bgColor.push('rgba('+r+','+g+','+b+',0.5)');
                 bgBorder.push('rgba('+r+','+g+','+b+',1)');
                 mont.push(response[i]['total']);
 				date.push(response[i]['mes']);
 			}
             //Se remueve el chart para limpiarlo
-            $('#myChart').remove();
+            $('#chartcircular').remove();
             var midiv = document.createElement("canvas");
-            midiv.setAttribute("id","myChart");
-            midiv.setAttribute("style","width: 300px; height: 100px;");
+            midiv.setAttribute("id","chartcircular");
             midiv.innerHTML = "";
-            document.getElementById('gh').appendChild(midiv);
+            document.getElementById('sales-chart').appendChild(midiv);
 
-            ctx = document.getElementById('myChart');
+            ctx = document.getElementById('chartcircular');
                 myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
@@ -310,14 +310,6 @@ function graficoCircular(){
                             display: true,
                             text: 'Total costos fijos'
                         },
-                    scales: {
-                        yAxes: [{
-                        ticks: {
-                            beginAtZero: true, 
-                            scaleBeginAtZero : true, 
-                        }
-                        }]
-                    }
                     }
                 });
                 $('#div_dias').removeClass('hidden');

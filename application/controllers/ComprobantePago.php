@@ -11,27 +11,9 @@ class ComprobantePago extends CI_Controller
         $this->load->model('FacturasModel');
         $this->load->model('OrdenesModel');
         $this->load->model('DocumentacionModel');
+		$this->load->model('Proyecto_model');
+		$this->load->helper(array('notificacion','url'));
     }
-
-    public function setNotificaciones(){
-		$data ['expiracion'] = 0;
-		$lista_fecha = $this->DocumentacionModel->ObtenerFechaDocActualizable();
-		$fechaactual = date("d-m-Y");
-		$data ['totaldocumentos'] = 0;
-		foreach($lista_fecha as $row){
-			//Paso de string a fecha
-			$d1 = new DateTime($row->fechalimite);
-			$d2 = new DateTime($fechaactual);
-			$interval = $d1->diff($d2);
-			$diasTotales    = $interval->d; 
-			if($diasTotales == 3){
-				$data ['lista_nrodocactualizables'] = $this->DocumentacionModel->ObtenerNroDocActualizable($row->fechalimite);
-				$data ['expiracion'] = 1;
-				$data ['totaldocumentos'] = $data ['totaldocumentos'] + 1;
-			}
-		}
-		$this->load->view('layout/nav',$data);
-	}
 
 	public function subirDocumentoPago(){
 		//El metodo is_ajax_request() de la libreria input permite verificar
@@ -80,7 +62,8 @@ class ComprobantePago extends CI_Controller
 			$data['lista_facturas'] = $this->FacturasModel->listaFacturas();
 			$data['activomenu'] = 15;
 			$data['activo'] = 21;
-			$this->setNotificaciones();
+			$data['lista_proyectos'] = $this->Proyecto_model->listaProyectosSegunUsuario($set_data['ID_Usuario']);
+			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_proyecto',$data);
 			$this->load->view('Administracion/DocumentoPago');
 			$this->load->view('layout/footer');
@@ -88,7 +71,7 @@ class ComprobantePago extends CI_Controller
 			$data['lista_facturas'] = $this->FacturasModel->listaFacturas();
 			$data['activomenu'] = 15;
 			$data['activo'] = 21;
-			$this->setNotificaciones();
+			setNotificaciones($this->DocumentacionModel);
 			$this->load->view('menu/menu_supremo', $data);
 			$this->load->view('Administracion/DocumentoPago',$data);
 			$this->load->view('layout/footer');
