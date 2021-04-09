@@ -44,7 +44,6 @@
                      <li class="nav-item active">
                         <a href="#" class="nav-link" id="antecedentes-tecnicos">
                         <i class="fa fa-folder"></i> Antecedentes tecnicos
-                        <span class="badge bg-primary float-right">12</span>
                         </a>
                      </li>
                      <li class="nav-item">
@@ -110,7 +109,6 @@
                      <li class="nav-item">
                         <a href="#" class="nav-link" id="planos">
                         <i class="fa fa-folder"></i> Planos
-                        <span class="badge bg-warning float-right">65</span>
                         </a>
                      </li>
                   </ul>
@@ -139,15 +137,7 @@
                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-confirmacion-descarga" onclick="descargarArchivos()"><i class="fa fa-download"></i></button>
                         </div>
                         <button type="button" class="btn btn-default btn-sm" onclick="refresh()"><i class="fas fa-sync-alt"></i></button>
-                        <!---
-                           <div class="float-right">
-                              1-50/200
-                              <div class="btn-group">
-                                 <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
-                                 <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
-                              </div>
-                           </div>
-                           --->
+                        <div class="float-right" id="pagination_link"></div>
                      </div>
                      <div class="table-responsive" id="tabla-fotos">
                      </div>
@@ -184,7 +174,6 @@
                         </div>
                      </div>
                   </div>
-
                   <div id="modal-confirmacion-descarga" class="modal fade bd-example-modal-sm" role="dialog">
                      <div class="modal-dialog modal-sm">
                         <!-- Contenido del modal -->
@@ -206,25 +195,6 @@
                      </div>
                   </div>
             </form>
-            <!--                  
-               <div class="card-footer p-0">
-                  <div class="mailbox-controls">
-                     <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
-                     </button>
-                     <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button>
-                     </div>
-                     <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
-                     <div class="float-right">
-                        1-50/200
-                        <div class="btn-group">
-                           <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
-                           <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               --->
             </div>
             <!-- /.card -->
          </div>

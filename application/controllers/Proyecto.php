@@ -15,6 +15,7 @@ class Proyecto extends CI_Controller
             'url'
         ));
         $this->load->library('zip');
+        $this->load->library("pagination");
         $this->load->helper('url');
     }
     public function registroTrabajador()
@@ -52,6 +53,33 @@ class Proyecto extends CI_Controller
         $this->load->view('Proyecto/Estado');
         $this->load->view('layout/footer');
     }
+
+    public function ObtenerArchivosEstadoProyecto($id_proyecto)
+    {
+        $fetch_data = $this->Proyecto_model->make_datatables_detallearchivos($id_proyecto);
+        $data       = array();
+        foreach ($fetch_data as $value) {
+            $sub_array   = array();
+            $sub_array[] = $value->id_facturatrabajo;
+            $sub_array[] = $value->ubicaciondocumento;
+            $sub_array[] = $value->montototal;
+            $sub_array[] = $value->detalle;
+            $sub_array[] = "<a class='btn btn-info' href=".base_url().'Proyecto/descargarFacturaOperacion/'.$value->id_facturatrabajo."><i class='fas fa-download'></i></a>";
+            //$sub_array[] = '<a href="#"  class="fas fa-eye" data-toggle="modal" onclick="verMas('.$value->nroorden.');">';
+            $data[]      = $sub_array;
+        }
+        
+        $output = array(
+            "draw" => intval($_POST["draw"]),
+            "recordsTotal" => $this->Proyecto_model->get_all_data_detallearchivos(),
+            "recordsFiltered" => $this->Proyecto_model->get_filtered_data_detallearchivos($id_proyecto),
+            "data" => $data
+        );
+        echo json_encode($output);
+        
+    }
+
+
     public function Proyecto_ejecucion()
     {
         $data['activo']     = 5;
@@ -64,7 +92,6 @@ class Proyecto extends CI_Controller
     }
     public function Planilla_Proyecto($idproyecto)
     {
-        $data['activo']                = 6;
         $data['codigo']                = $idproyecto;
         $data['lista_proyectos']       = $this->Proyecto_model->listaProyectos();
         $data['Monto_total']           = $this->Proyecto_model->obtenerTotalFactura($data['codigo']);
@@ -73,6 +100,9 @@ class Proyecto extends CI_Controller
         $data['Monto_presupuesto']     = $this->Proyecto_model->obtenerTotalPresupuesto($data['codigo']);
         $data['Monto_balance']         = $this->Proyecto_model->TotalBalance($data['codigo']);
         $data['Monto_proyecto']        = $this->Proyecto_model->obtenerMontoProyecto($data['codigo']);
+        $data['activo']     = 5;
+        $data['activomenu'] = 1;
+        $this->load->view('layout/nav-proyecto');
         $this->load->view('menu/menu_proyecto', $data);
         $this->load->view('Proyecto/PlanillasPro', $data);
         $this->load->view('layout/footer');
@@ -265,7 +295,7 @@ class Proyecto extends CI_Controller
             } else {
                 $sub_array[] = '<span class="badge badge-success">Terminado</span>';
             }
-            $sub_array[] = '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#myModalVerMas" >';
+            $sub_array[] = '<a href="#" class="fas fa-eye" style="font-size: 20px;" onclick="setIDProyecto('.$value->id_proyecto.')" data-toggle="modal" data-target="#myModalVerMas" >';
             
             $data[] = $sub_array;
         }
@@ -311,8 +341,9 @@ class Proyecto extends CI_Controller
             
             $diasTotales   = $interval->d;
             $diasFaltantes = $intervaluno->d;
+            $medio = $diasTotales - $diasFaltantes;
             
-            $porcentajefaltante = ($diasFaltantes * 100) / $diasTotales;
+            $porcentajefaltante = ($medio * 100) / $diasTotales;
             
             
             //Dias totales entre las 2 fechas
@@ -321,7 +352,7 @@ class Proyecto extends CI_Controller
             
             
             $sub_array[] = '<a href="#" class="fas fa-eye" style="font-size: 20px;" onclick="detalleProyecto(this)" >';
-            $sub_array[] = '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#modalDocumentos" >';
+            $sub_array[] = '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#detalleDocumentos" onclick="generarDataTableArchivos(this)">';
             $data[]      = $sub_array;
         }
         $output = array(
@@ -779,7 +810,7 @@ class Proyecto extends CI_Controller
             $response .= "<td>" . $row->detalle . "</td>";
             $response .= "<td>" . $row->codigoservicio . "</td>";
             $response .= "<td> <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#personal' onclick='generarTablaPersonalQueAsiste(this)'><i class='far fa-eye'></i></button></td>";
-            $response .= "<td> <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#modal-detalle-orden' onclick=''><i class='far fa-eye'></i></button></td>";
+            $response .= "<td> <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#galeria' onclick='generarGaleriaImagenes(this)'><i class='far fa-eye'></i></button></td>";
             $response .= " </tr>";
         }
         $response .= "</tfoot>";
@@ -979,21 +1010,32 @@ class Proyecto extends CI_Controller
         echo json_encode($data);
         
     }
-    public function descargaFactura($id)
-    {
+    public function descargaFactura($id){
         if (!empty($id)) {
             //load download helper
             $this->load->helper('download');
-            
             //get file info from database
             $fileInfo = $this->Proyecto_model->getRows(array(
                 'id' => $id
             ));
-            
             //file path
             $file = 'ArchivosSubidos/' . $fileInfo['ubicaciondocumento'];
-            
-            
+            //download file from directory
+            force_download($file, NULL);
+        }
+    }
+
+    //Metodo para descargar facturas que son subidas en operaciones
+    public function descargarFacturaOperacion($id){
+        if (!empty($id)) {
+            //load download helper
+            $this->load->helper('download');
+            //get file info from database
+            $fileInfo = $this->Proyecto_model->getRows(array(
+                'id' => $id
+            ));
+            //file path
+            $file = 'ArchivosSubidos/' . $fileInfo['ubicaciondocumento'];
             //download file from directory
             force_download($file, NULL);
         }
@@ -1061,56 +1103,110 @@ class Proyecto extends CI_Controller
         
     }
     
-    public function obtenerDetalleFotos()
-    {
+    public function obtenerDetalleFotos(){
+        $ajax_data = $this->input->get();
+
+        $config = array();
+        $config["base_url"] = "#";
+        $config["total_rows"] = $this->Proyecto_model->ObtenerFilasImagenes($ajax_data);
+        $config["per_page"] = 8;
+        $config["uri_segment"] = 3;
+        $config["use_page_numbers"] = TRUE;
+        $config["full_tag_open"] = '<ul class="pagination">';
+        $config["full_tag_close"] = '</ul>';
+        $config["first_tag_open"] = '<li>';
+        $config["first_tag_close"] = '</li>';
+        $config["last_tag_open"] = '<li>';
+        $config["last_tag_close"] = '</li>';
+        $config['next_link'] = '&gt;';
+        $config["next_tag_open"] = '<li>';
+        $config["next_tag_close"] = '</li>';
+        $config["prev_link"] = "&lt;";
+        $config["prev_tag_open"] = "<li>";
+        $config["prev_tag_close"] = "</li>";
+        $config["cur_tag_open"] = "<li class='active'><a href='#'>";
+        $config["cur_tag_close"] = "</a></li>";
+        $config["num_tag_open"] = "<li>";
+        $config["num_tag_close"] = "</li>";
+        $config["num_links"] = 1;
+        $this->pagination->initialize($config);
+        $page = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
+        $start = ($page - 1) * $config["per_page"];
+        $data = array(
+            'response' => 'success',
+            'pagination_link'  => $this->pagination->create_links(),
+            'detalle'   => $this->Proyecto_model->ObtenerImagenes($ajax_data,$config["per_page"], $start)
+        );
+        
+        echo json_encode($data);
+        
+    }
+    
+    //Obtener imagenes subidas desde operaciones para mostrarlas en estado de proyecto
+    public function obtenerImagenesOperaciones(){
         $ajax_data = $this->input->post();
         
-        //Filtro de busqueda
-        if (isset($ajax_data['filtro_nombre'])) {
-            $detalle_archivos = $this->Proyecto_model->ObtenerArchivosPorNombre($ajax_data);
-        } else {
-            $detalle_archivos = $this->Proyecto_model->ObtenerArchivos($ajax_data);
+        if(isset($ajax_data['id_proyecto'])){
+            $detalle_archivos = $this->Proyecto_model->ObtenerImagenesOperacion($ajax_data);
+            $response = "<section class='content'>";
+            $response .= "<div class='container-fluid'>";
+            $response .= "<div class='row'>";
+            $response .= "<div class='col-12'>";
+            $response .= "<div class='card card-primary'>";
+            $response .= "<div class='card-body'>";
+            $response .= "<div>";
+            $response .= "</div>";
+            $response .= "<div>";
+            $response .= "<div class='filter-container p-0 row'>";
+            foreach ($detalle_archivos as $row) {
+                $response .= "<div class='filtr-item col-sm-4' data-category='1' data-sort='white sample'>";
+                $response .= "<a href='" . base_url() . "ArchivosSubidos/" . $row->imagen . "' data-toggle='lightbox' data-footer='Fecha:' data-title='Nombre: " . $row->imagen . "'>";
+                $response .= "<img src='" . base_url() . "ArchivosSubidos/" . $row->imagen . "' class='img-fluid mb-2' alt='white sample'/>";
+                $response .= "</a>";
+                $response .= "<br>";
+                $response .= "<input type='checkbox' name='images[]' class='select' value='" . $row->imagen . "'/>";
+                $response .= "</div>";
+            }
+            $response .= "</div>";
+            $response .= "</div>";
+            $response .= "</div>";
+            $response .= "</div>";
+            $response .= "</div>";
+            $response .= "</div>";
+            $response .= "</div>";
+            $response .= "</section>";
+        }
+
+        if(isset($ajax_data['id_trabajodiario'])){
+            $detalle_archivos = $this->Proyecto_model->ObtenerImagenesTrabajoDiario($ajax_data);
+            $response = "<section class='content'>";
+            $response .= "<div class='container-fluid'>";
+            $response .= "<div class='row'>";
+            $response .= "<div class='col-12'>";
+            $response .= "<div class='card card-primary'>";
+            $response .= "<div class='card-body'>";
+            $response .= "<div>";
+            $response .= "</div>";
+            $response .= "<div>";
+            $response .= "<div class='filter-container p-0 row'>";
+            foreach ($detalle_archivos as $row) {
+                $response .= "<div class='filtr-item col-sm-4' data-category='1' data-sort='white sample'>";
+                $response .= "<a href='" . base_url() . "ArchivosSubidos/" . $row->imagen . "' data-toggle='lightbox' data-title='" . $row->imagen . "'>";
+                $response .= "<img src='" . base_url() . "ArchivosSubidos/" . $row->imagen . "' class='img-fluid mb-2' alt='white sample'/>";
+                $response .= "</a>";
+                $response .= "</div>";
+            }
+            $response .= "</div>";
+            $response .= "</div>";
+            $response .= "</div>";
+            $response .= "</div>";
+            $response .= "</div>";
+            $response .= "</div>";
+            $response .= "</div>";
+            $response .= "</section>";
         }
         
-        $response = "<section class='content'>";
-        $response .= "<div class='container-fluid'>";
-        $response .= "<div class='row'>";
-        $response .= "<div class='col-12'>";
-        $response .= "<div class='card card-primary'>";
-        $response .= "<div class='card-body'>";
-        $response .= "<div>";
-        $response .= "<div class='mb-2'>";
-        $response .= "<a class='btn btn-secondary' href='javascript:void(0)' data-shuffle> -- </a>";
-        $response .= "<div class='float-right'>";
-        $response .= "<select class='custom-select' style='width: auto;' data-sortOrder>";
-        $response .= "<option value='sortData'> Ordenar por fecha </option>";
-        $response .= "</select>";
-        $response .= "<div class='btn-group'>";
-        $response .= "<input type='button' class='btn btn-default' value='Ascendente' onclick='ordenFotos(1)'/>";
-        $response .= "<input type='button' class='btn btn-default' value='Descendente' onclick='ordenFotos(2)'/>";
-        $response .= "</div>";
-        $response .= "</div>";
-        $response .= "</div>";
-        $response .= "</div>";
-        $response .= "<div>";
-        $response .= "<div class='filter-container p-0 row'>";
-        foreach ($detalle_archivos as $row) {
-            $response .= "<div class='filtr-item col-sm-4' data-category='1' data-sort='white sample'>";
-            $response .= "<a href='" . base_url() . "ArchivosSubidos/" . $row->nombre . "' data-toggle='lightbox' data-footer='Fecha: " . $row->fecha_subida . "' data-title='Nombre: " . $row->nombre . "'>";
-            $response .= "<img src='" . base_url() . "ArchivosSubidos/" . $row->nombre . "' class='img-fluid mb-2' alt='white sample'/>";
-            $response .= "</a>";
-            $response .= "<br>";
-            $response .= "<input type='checkbox' name='images[]' class='select' value='" . $row->nombre . "'/>";
-            $response .= "</div>";
-        }
-        $response .= "</div>";
-        $response .= "</div>";
-        $response .= "</div>";
-        $response .= "</div>";
-        $response .= "</div>";
-        $response .= "</div>";
-        $response .= "</div>";
-        $response .= "</section>";
+        
         $data = array(
             'response' => 'success',
             'detalle' => $response
@@ -1119,7 +1215,6 @@ class Proyecto extends CI_Controller
         echo json_encode($data);
         
     }
-    
     
     public function ordenarFotosPorFecha()
     {
@@ -1201,7 +1296,7 @@ class Proyecto extends CI_Controller
                 }
             }
             //get file info from database
-            $fileInfo = $this->Proyecto_model->getNombreArchivo($archivos);
+            $fileInfo = $this->Proyecto_model->getNombreArchivo($archivos,'nombre','archivo_proyecto');
             foreach ($fileInfo as $row) {
                 $this->zip->read_file('./ArchivosSubidos/' . $row->nombre);
             }
@@ -1218,7 +1313,26 @@ class Proyecto extends CI_Controller
             }
             $this->Proyecto_model->eliminarArchivos($archivos);
             redirect('DirectorioProyecto/' . $ajax_data['id_proyecto_dir'], 'refresh');
+        }else if ($ajax_data['tipo-descarga'] == '3') { //Estos son las imagenes que vienen de operacion y se descarga en estado de proyecto
+            $archivos   = array();
+            if ($this->input->post('images')) {
+                $images = $this->input->post('images');
+                foreach ($images as $image) {
+                    array_push($archivos, $image);
+                }
+            }
+            //get file info from database
+            $fileInfo = $this->Proyecto_model->getNombreArchivo($archivos,'imagen','detalletrabajodiario');
+            foreach ($fileInfo as $row) {
+                $this->zip->read_file('./ArchivosSubidos/' . $row->nombre);
+            }
+            
+            $this->zip->download('' . $directorio . time() . '-CDH.zip');
+            
         }
         
     }
+
+
+
 }

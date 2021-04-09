@@ -93,6 +93,27 @@ function generarTablaPersonalQueAsiste(table){
     
 }
 
+function generarGaleriaImagenes(table){
+    var idtrabajodiario = table.parentNode.parentNode.cells[0].textContent;
+    $.ajax({
+        url: base_url+"Proyecto/obtenerImagenesOperaciones",
+        type: "post",
+        dataType: "json",
+        data: {
+            id_trabajodiario:idtrabajodiario,
+        },
+        success: function(data) {
+            if (data.response == "success") {
+                $('#tabla-fotos').html(data.detalle);
+            } else {
+                generarAvisoError(data.message);
+            }
+        }
+    });
+    
+}
+
+
 function setTablaFacturas(table){
     var idtrabajodiario = table.parentNode.parentNode.cells[0].textContent;
     $('#materiales').modal('hide');
