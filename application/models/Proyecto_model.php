@@ -1877,6 +1877,16 @@ class Proyecto_model extends CI_Model
 			->where("tr.id_trabajodiario", $data['id_trabajodiario'])->get();
 		return $query->result();
 	}
+
+	//Inactivar un proveedor cambiando su estado
+    public function updateEstadoProyecto($data){
+        $dataproveedor = array(
+            'estado' => $data['estado_registro'],
+        );
+
+        $this->db->where('id_proveedor', $data['id_proveedor']);
+		return $this->db->update('proveedores',$dataproveedor);
+    }
 }
 
 ?>

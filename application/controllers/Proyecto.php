@@ -321,7 +321,8 @@ class Proyecto extends CI_Controller
             $sub_array[] = $value->fecha_inicio;
             $sub_array[] = $value->fecha_termino;
             if ($value->estado == 0) {
-                $sub_array[] = '<span class="badge badge-danger">En proceso</span>';
+                $sub_array[] = '<span class="badge badge-danger">En proceso </span>';
+                
             } else {
                 $sub_array[] = '<span class="badge badge-success">Terminado</span>';
             }
@@ -353,6 +354,7 @@ class Proyecto extends CI_Controller
             
             $sub_array[] = '<a href="#" class="fas fa-eye" style="font-size: 20px;" onclick="detalleProyecto(this)" >';
             $sub_array[] = '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#detalleDocumentos" onclick="generarDataTableArchivos(this)">';
+            $sub_array[] = '</button>&nbsp<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="setIDRegistro('.$value->id_proyecto.')"><i class="fas fa-edit"></i></button>';
             $data[]      = $sub_array;
         }
         $output = array(
@@ -1332,7 +1334,17 @@ class Proyecto extends CI_Controller
         }
         
     }
+    public function cambiarEstado(){
+		$ajax_data = $this->input->post();
+		$res = $this->ProveedoresModel->updateEstadoProyecto($ajax_data);
+        if($res){
+            $data = array('response' => 'success', 'message' => 'Exito');
+        }else{
+            $data = array('response' => 'error', 'message' => $res);
+        }
+		echo json_encode($data);
 
+	}
 
 
 }
