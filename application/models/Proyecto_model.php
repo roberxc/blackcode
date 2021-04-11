@@ -1612,6 +1612,8 @@ class Proyecto_model extends CI_Model
 	function make_query_archivos($directorio, $id_proyecto)
 	{
 		$id_directorio = $this->obtenerIDDirectorio($directorio);
+
+		
 		$this
 			->db
 			->select($this->select_columna_archivos);
