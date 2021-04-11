@@ -57,7 +57,6 @@ class Vacaciones extends CI_Controller
         $diasacumulados = implode($ajax_data['col1']);
         $diasprogresivos = implode($ajax_data['col2']);
         $subtotalacumulado = implode($ajax_data['col3']);
-        $diasproporcionales = implode($ajax_data['col4']);
         $totalvacaciones = implode($ajax_data['col5']);
         $diasausar = implode($ajax_data['col6']);
         $saldoremamente = implode($ajax_data['col7']);
@@ -114,10 +113,6 @@ class Vacaciones extends CI_Controller
         $html .="<TR>";
         $html .="<TD>Subtotal vacaciones acumuladas</TD>";
         $html .="<TH>".$subtotalacumulado."</TH>";
-        $html .="</TR>";
-        $html .="<TR>";
-        $html .="<TD>Dias proporcionales a la fecha</TD>";
-        $html .="<TH>".$diasproporcionales."</TH>";
         $html .="</TR>";
         $html .="<TR>";
         $html .="<TD>Total vacaciones pendientes</TD>";

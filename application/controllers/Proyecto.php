@@ -348,6 +348,9 @@ class Proyecto extends CI_Controller
             $medio = $diasTotales - $diasFaltantes;
             
             $porcentajefaltante = ($medio * 100) / $diasTotales;
+            if($porcentajefaltante < 0){
+                $porcentajefaltante = 0;
+            }
             
             
             //Dias totales entre las 2 fechas

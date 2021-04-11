@@ -1311,7 +1311,6 @@ class Proyecto_model extends CI_Model
 
 	public function MostrarTotalManoObra($codigo)
 	{
-
 		$query = $this
 			->db
 			->SELECT('pl.rut as rut,pl.nombrecompleto,SUM(ap.horastrabajadas) as horastrabajadas')
@@ -1320,7 +1319,8 @@ class Proyecto_model extends CI_Model
 			->join("personal_trabajo pt", "pt.id_trabajodiario=td.id_trabajodiario")
 			->join("personal pl", "pt.id_personal=pl.id_personal")
 			->join("asistencia_personal ap", "ap.id_personal=pl.id_personal")
-			->where('pr.id_proyecto', $codigo)->group_by('rut')
+			->where('pr.id_proyecto', $codigo)
+			->group_by('rut')
 			->get();
 		return $query->result();
 	}
