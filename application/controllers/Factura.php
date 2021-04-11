@@ -10,6 +10,7 @@ class Factura extends CI_Controller
         $this->load->model('FacturasModel');
         $this->load->model('OrdenesModel');
         $this->load->model('DocumentacionModel');
+		$this->load->model('Proyecto_model');
 		$this->load->helper(array('notificacion','url'));
     }
 
@@ -46,7 +47,8 @@ class Factura extends CI_Controller
 			$data['lista_ordenes'] = $this->OrdenesModel->listaOrdenes();
 			$data['activomenu'] = 15;
 			$data['activo'] = 18;
-			setNotificaciones($this->DocumentacionModel);
+			$data['lista_proyectos'] = $this->Proyecto_model->listaProyectosSegunUsuario($set_data['ID_Usuario']);
+			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_proyecto',$data);
 			$this->load->view('Administracion/Facturas');
 			$this->load->view('layout/footer');

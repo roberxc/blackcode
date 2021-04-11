@@ -5,7 +5,6 @@
    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.jqueryui.min.css">
    <!-- Latest compiled and minified CSS -->
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
-   <link rel="stylesheet" href="<?php echo base_url()?>assets/js/PlanillaProyecto/barra_subida.css">
 </head>
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
@@ -30,7 +29,7 @@
    <section class="content">
       <div class="row">
          <div class="col-md-3">
-            <button class="btn btn-primary btn-block mb-3" id="click-modal-archivos">Subir archivo</button>
+            <button class="btn btn-primary btn-block mb-3" id="click-modal-archivos"><i class="fas fa-upload"></i></button>
             <div class="card">
                <div class="card-header">
                   <h3 class="card-title">Licitaciones</h3>
@@ -129,9 +128,9 @@
                   </div>
                   <div class="card-body p-0">
                      <div class="mailbox-controls">
-                        <!---
-                           <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i></button>
-                           ---->
+                        
+                     <input type="checkbox" class="btn btn-default btn-sm checkbox-toggle" id="checkAll">
+                           
                         <div class="btn-group">
                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="eliminarArchivos()"><i class="far fa-trash-alt"></i></button>
                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-confirmacion-descarga" onclick="descargarArchivos()"><i class="fa fa-download"></i></button>
@@ -226,8 +225,8 @@
                <div class="form-group">
                   <input class="form-control" type="submit" name="fileSubmit" value="Subir" onclick="subirArchivos()"/>
                </div>
-               <div id="progress-div">
-                  <div id="progress-bar"></div>
+               <div id="progress-div" class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress-bar"></div>
                </div>
                <div id="loader-icon" style="display:none;"><img src="<?php echo base_url()?>assets/Imagen/LoaderIcon.gif" /></div>
             </div>

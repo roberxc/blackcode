@@ -30,8 +30,6 @@
       <!-- /.container-fluid -->
       <!-- /.container-fluid -->
    </div>
-  
-
    <section class="content">
       <div class="box box-info ">
          <div class="box-body">
@@ -39,24 +37,22 @@
                <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                   <thead>
                      <tr>
-                        <th>ID</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">ID</th>
                         <!-- 0 ---> 
-                        <th>Nombre Proyecto</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Nombre Proyecto</th>
                         <!-- 1 --->
-                        <th>Fecha inicio</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Fecha inicio</th>
                         <!-- 3 --->
-                        <th>Fecha termino</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Fecha termino</th>
                         <!-- 4 --->
-                        <th>Estado</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Estado</th>
                         <!-- 4 --->
-                        <th>Progreso</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Progreso</th>
                         <!-- 4 --->
-                        <th>Detallle</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Detallle</th>
                         <!-- 5 --->
-                        <th>Ver documentos</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Ver documentos</th>
                         <!-- 6 --->
-                        <th>Cambio de estado</th>
-                        <!-- 4 --->
                      </tr>
                   </thead>
                </table>
@@ -65,43 +61,6 @@
       </div>
    </section>
 </div>
- <!--Modal de cambio de estado -->
- <div id="modal-confirmacion" class="modal fade bd-example-modal-sm" role="dialog">
-      <div class="modal-dialog modal-sm">
-         <!-- Contenido del modal -->
-         <div class="modal-content">
-            <div class="modal-header bg-red">
-               <H3>Confirmación</H3>
-               <button type="button" class="close-white" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                  <p>Estás seguro que deseas cambiar la fechas de inicio o termino?</p>
-               <div class="card-body" id="dynamic_field" >
-                  <div class="box-body">
-                     <div class="form-group">
-                        
-                     <label>Cambiar Fecha de inicio</label>
-                     <div class="form-group">
-                        <input type="date" class="form-control" id="fechaInicio" required="required"  />
-                     </div>
-                     <label>Cambiar Fecha de termino</label>
-                     <div class="form-group">
-                        <input type="date" class="form-control" id="fechaTermino" required="required"  />
-                     </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="modal-footer bg-white">
-               <input type="submit" class="btn btn-primary" value="Si" onclick="cambiarestadoProyecto()">
-               <input type="hidden" id="id_usuario">
-               <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-            </div>
-         </div>
-      </div>
-   </div>
-<!--Fin Modal de cambio de estado -->
-
 <div class="modal fade" id="detalleDocumentos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">

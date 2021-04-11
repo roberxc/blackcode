@@ -192,7 +192,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-
+$("#checkAll").click(function () {
+    $('input:checkbox').not(this).prop('checked', this.checked);
+});
 
 function subirArchivos() {
     var numFiles = $("input:file")[0].files.length;
@@ -212,12 +214,12 @@ function subirArchivos() {
             success: function(data) {
                 if(data.response == "success"){
                     generarAvisoExitoso("Archivos subidos correctamente!");
-                    //location.reload();
+                    location.reload();
                 }
 
                 if(data.response == "error"){
                     generarAvisoExitoso("Archivos subidos correctamente!");
-                    //location.reload();
+                    location.reload();
                 }
             },
             done: function(data){

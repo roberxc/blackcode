@@ -22,9 +22,6 @@ function generarGraficoCostosFijos() {
                 monto_current.push(response[i]['monto_current']);
                 monto_last.push(response[i]['monto_last']);
             }
-
-
-
             'use strict'
             var ticksStyle = {
                 fontColor: '#495057',

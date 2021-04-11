@@ -1612,6 +1612,8 @@ class Proyecto_model extends CI_Model
 	function make_query_archivos($directorio, $id_proyecto)
 	{
 		$id_directorio = $this->obtenerIDDirectorio($directorio);
+
+		
 		$this
 			->db
 			->select($this->select_columna_archivos);
@@ -1878,14 +1880,34 @@ class Proyecto_model extends CI_Model
 		return $query->result();
 	}
 
-	//Inactivar un proveedor cambiando su estado
-    public function updateEstadoProyecto($data){
-        $dataproveedor = array(
-            'estado' => $data['estado_registro'],
-        );
+	//Grafico inicio proyecto
+	public function ObtenerBalancePorProyecto($idusuario){
+		$query = $this
+			->db
+			->select("pr.id_proyecto,pr.nombreproyecto") # También puedes poner * si quieres seleccionar todo
+			->from("proyecto pr")
+			->join("proyecto_usuario pu", "pr.id_proyecto = pu.id_proyecto")
+			->where("pu.estado", 0)
+			->where("pu.id_usuario", $idusuario)
+			->get();
 
-        $this->db->where('id_proveedor', $data['id_proveedor']);
-		return $this->db->update('proveedores',$dataproveedor);
+        return $query->result();
+        // }
+	}
+
+	public function generarEstadisticasBalancePorProyectos($idusuario){
+
+		$lista_proyectos = $this->ObtenerBalancePorProyecto($idusuario);
+
+		foreach($lista_proyectos as $row){
+			$arraydata[] = array(
+                "proyecto" => $row->nombreproyecto,
+                "balance" => $this->TotalBalanceProyecto($row->id_proyecto),
+            );
+		}
+
+        echo json_encode($arraydata);
+
     }
 }
 

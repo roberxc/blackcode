@@ -54,6 +54,7 @@ class Inicio extends CI_Controller {
 			$data['proyectos_acargo'] = $this->Proyecto_model->listaProyectosEjecutados($set_data['ID_Usuario']);
 			$data['proyectos_en_ejecucion'] = $this->Proyecto_model->listaProyectosEnEjecucion();
 
+			
 			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_proyecto',$data);
 			$this->load->view('Dashboard/InicioProyecto',$data);
