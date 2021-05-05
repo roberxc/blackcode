@@ -57,7 +57,7 @@
             </div>
          </div>
          <div class="card-body">
-            <div class="chart">
+            <div class="chart" id="gh">
                <canvas id="myChart" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
             </div>
          </div>

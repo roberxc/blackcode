@@ -22,7 +22,6 @@ $(document).on('click', '#add', function(e) {
         success: function(data) {
             if (data.response == "success") {                
                 $('#exampleModal').modal('hide')
-                $("#form")[0].reset();
                 generarAvisoExitoso(data.message);
 
                 window.location.href = base_url + "Administracion/CajaIngreso";

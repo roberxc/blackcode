@@ -21,7 +21,6 @@ $(document).on('click', '#add', function(e) {
         success: function(data) {
             if (data.response == "success") {
                 $('#exampleModal').modal('hide')
-                $("#form")[0].reset();
                 Command: toastr["success"](data.message)
 
                 toastr.options = {
@@ -41,6 +40,7 @@ $(document).on('click', '#add', function(e) {
                     "showMethod": "fadeIn",
                     "hideMethod": "fadeOut"
                 }
+                location.reload();
             } else {
                 Command: toastr["error"](data.message)
 

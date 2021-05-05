@@ -700,7 +700,6 @@ class Administracion extends CI_Controller {
 		$contador = 0;
 		$response = "<li>";
 		$response .= "</li>";
-
 		date_default_timezone_set("America/Santiago");
         $fecha = date("Y-m-d G:i:s");
 

@@ -10,6 +10,7 @@ class Ordenes extends CI_Controller
         //$this->load->model('FacturaModel');
         $this->load->model('CotizacionesModel');
         $this->load->model('ProveedoresModel');
+		$this->load->model('DocumentacionModel');
         $this->load->model('OrdenesModel');
         $this->load->model('Proyecto_model');
         $this->load->model('Bodega');

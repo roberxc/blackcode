@@ -1,4 +1,5 @@
 generarAlerta();
+obtenerTareas();
 function generarAlerta(){
     var estado = $('#estado-alerta').val();
     if(estado == 1){
@@ -10,11 +11,6 @@ function generarAlerta(){
             }
         }
     }
-
-    if(total_cajachica <=5000){
-        generarAvisoError("El total de la caja chica es de: " + "$"+total_cajachica);
-    }
-
     
 }
 
@@ -98,8 +94,6 @@ function obtenerTareas(){
         }
     }); 
 }
-
-obtenerTareas();
 
 function updateTarea(check){
     var idtarea = $(check).attr('value');

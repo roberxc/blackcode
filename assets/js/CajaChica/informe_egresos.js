@@ -49,7 +49,7 @@ function generarGrafico(){
 
             ctx = document.getElementById('myChart');
                 myChart = new Chart(ctx, {
-                    type: 'doughnut',
+                    type: 'bar',
                     data: {
                         labels: date,
                         datasets: [{
@@ -110,7 +110,7 @@ $(document).on('click', '#filtrado', function (e) {
 function generarGraficoInicio() {
 	var ctx = document.getElementById('myChart').getContext('2d');
 	var myChart = new Chart(ctx, {
-		type: 'doughnut',
+		type: 'bar',
 		data: {
 			labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado','Domingo'],
 			datasets: [{
