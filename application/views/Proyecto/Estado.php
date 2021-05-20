@@ -37,19 +37,19 @@
                <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                   <thead>
                      <tr>
-                        <th>ID</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">ID</th>
                         <!-- 0 ---> 
-                        <th>Nombre Proyecto</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Nombre Proyecto</th>
                         <!-- 1 --->
-                        <th>Administrador</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Administrador</th>
                         <!-- 2 --->
-                        <th>Fecha inicio</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Fecha inicio</th>
                         <!-- 3 --->
-                        <th>Fecha termino</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Fecha termino</th>
                         <!-- 4 --->
-                        <th>Estado de avance</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Estado de avance</th>
                         <!-- 5 --->
-                        <th>Ver documentos</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Ver documentos</th>
                         <!-- 6 --->
                      </tr>
                   </thead>

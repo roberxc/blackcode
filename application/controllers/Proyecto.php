@@ -329,35 +329,7 @@ class Proyecto extends CI_Controller
             } else {
                 $sub_array[] = '<span class="badge badge-success">Terminado</span>';
             }
-            
-            $hoy = date("Y-m-d");
-            
-            //Paso de string a fecha
-            $d1          = new DateTime($value->fecha_inicio);
-            $d2          = new DateTime($value->fecha_termino);
-            $fechaactual = new DateTime($hoy);
-            
-            //Dias totales del proyecto
-            $interval    = $d1->diff($d2);
-            //Dias entre  la fecha actual y la fecha termino
-            $intervaluno = $fechaactual->diff($d2);
-            
-            
-            $diasTotales   = $interval->d;
-            $diasFaltantes = $intervaluno->d;
-            $medio = $diasTotales - $diasFaltantes;
-            
-            $porcentajefaltante = ($medio * 100) / $diasTotales;
-            if($porcentajefaltante < 0){
-                $porcentajefaltante = 0;
-            }
-            
-            
-            //Dias totales entre las 2 fechas
-            $diasTotales = $interval->d;
-            $sub_array[] = '<td class="project_progress"><div class="progress progress-sm"><div class="progress-bar bg-green" role="progressbar" aria-volumenow="' . round($porcentajefaltante) . '" aria-volumemin="0" aria-volumemax="100" style="width: ' . round($porcentajefaltante) . '%"></div></div><small>' . round($porcentajefaltante) . '% Completado</small></td>';
-            
-            
+
             $sub_array[] = '<a href="#" class="fas fa-eye" style="font-size: 20px;" onclick="detalleProyecto(this)" >';
             $sub_array[] = '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#detalleDocumentos" onclick="generarDataTableArchivos(this)">';
             $data[]      = $sub_array;

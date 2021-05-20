@@ -47,8 +47,6 @@
                         <!-- 4 --->
                         <th style="width: 3%;background-color: #006699; color: white;">Estado</th>
                         <!-- 4 --->
-                        <th style="width: 3%;background-color: #006699; color: white;">Progreso</th>
-                        <!-- 4 --->
                         <th style="width: 3%;background-color: #006699; color: white;">Detallle</th>
                         <!-- 5 --->
                         <th style="width: 3%;background-color: #006699; color: white;">Ver documentos</th>
@@ -120,7 +118,7 @@
      },
        "columnDefs":[
          {
-             "targets": [1,2,3,4,5,6,7],
+             "targets": [1,2,3,4,5,6],
          }
        ]
      });
