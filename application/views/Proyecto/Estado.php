@@ -37,7 +37,6 @@
                <table id="example1" name="example1" class="table table-bordered table-striped" style="width: 100%;">
                   <thead>
                      <tr>
-                        <th style="width: 3%;background-color: #006699; color: white;">ID</th>
                         <!-- 0 ---> 
                         <th style="width: 3%;background-color: #006699; color: white;">Nombre Proyecto</th>
                         <!-- 1 --->
@@ -180,7 +179,7 @@
      },
        "columnDefs":[
          {
-             "targets": [1,2,3,4,5,6],
+             "targets": [1,2,3,4,5],
          }
        ]
      });

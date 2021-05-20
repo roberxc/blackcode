@@ -289,7 +289,6 @@ class Proyecto extends CI_Controller
         foreach ($fetch_data as $value) {
             
             $sub_array   = array();
-            $sub_array[] = $value->id_proyecto;
             $sub_array[] = $value->nombreproyecto;
             $sub_array[] = $value->nombreusuario;
             $sub_array[] = $value->fecha_inicio;
@@ -299,7 +298,7 @@ class Proyecto extends CI_Controller
             } else {
                 $sub_array[] = '<span class="badge badge-success">Terminado</span>';
             }
-            $sub_array[] = '<a href="#" class="fas fa-eye" style="font-size: 20px;" onclick="setIDProyecto('.$value->id_proyecto.')" data-toggle="modal" data-target="#myModalVerMas" >';
+            $sub_array[] = '<button class="btn btn-primary btn-sm" onclick="setIDProyecto('.$value->id_proyecto.')" data-toggle="modal" data-target="#myModalVerMas"><i class="far fa-eye"></i></button>';
             
             $data[] = $sub_array;
         }
@@ -320,7 +319,6 @@ class Proyecto extends CI_Controller
         foreach ($fetch_data as $value) {
             
             $sub_array   = array();
-            $sub_array[] = $value->id_proyecto;
             $sub_array[] = $value->nombreproyecto;
             $sub_array[] = $value->fecha_inicio;
             $sub_array[] = $value->fecha_termino;
@@ -330,8 +328,8 @@ class Proyecto extends CI_Controller
                 $sub_array[] = '<span class="badge badge-success">Terminado</span>';
             }
 
-            $sub_array[] = '<a href="#" class="fas fa-eye" style="font-size: 20px;" onclick="detalleProyecto(this)" >';
-            $sub_array[] = '<a href="#" class="fas fa-eye" style="font-size: 20px;" data-toggle="modal" data-target="#detalleDocumentos" onclick="generarDataTableArchivos(this)">';
+            $sub_array[] = '<button class="btn btn-primary btn-sm" onclick="detalleProyecto('.$value->id_proyecto.')"><i class="far fa-eye"></i></button>';
+            $sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#detalleDocumentos" onclick="generarDataTableArchivos('.$value->id_proyecto.')"><i class="far fa-eye"></i></button>';
             $data[]      = $sub_array;
         }
         $output = array(
