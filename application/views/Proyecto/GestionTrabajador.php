@@ -6,7 +6,7 @@
    <div class="container-fluid">
       <div class="row mb-2">
          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Gestionar cuenta nueva</h1>
+            <h1 class="m-0 text-dark">Registro de personal</h1>
          </div>
       </div>
    </div>
@@ -18,7 +18,7 @@
          <form role="form" id="form" method="POST">
             <div class="row">
                <div class="col-md-4">
-                  <div class="card card-info">
+                  <div class="card card-primary">
                      <div class="card-header">
                         <h3 class="card-title">Datos personales</h3>
                      </div>
@@ -45,7 +45,7 @@
                   <!-- /.card -->
                </div>
                <div class="col-md-4">
-                  <div class="card card-success">
+                  <div class="card card-primary">
                      <div class="card-header">
                         <h3 class="card-title">Datos de Contacto</h3>
                      </div>

@@ -376,10 +376,10 @@ class Proyecto extends CI_Controller
     {
         if ($this->input->is_ajax_request()) {
             //Validaciones
-            $this->form_validation->set_rules('nombreProyecto', 'nombreProyecto', 'required');
-            $this->form_validation->set_rules('fechaInicio', 'fechaInicio', 'required');
-            $this->form_validation->set_rules('fechaTermino', 'fechaTermino', 'required');
-            $this->form_validation->set_rules('monto', 'monto', 'required');
+            $this->form_validation->set_rules('nombreProyecto', 'Nombre proyecto', 'required');
+            $this->form_validation->set_rules('fechaInicio', 'Fecha de inicio', 'required');
+            $this->form_validation->set_rules('fechaTermino', 'Fecha de termino', 'required');
+            $this->form_validation->set_rules('monto', 'Monto', 'required');
             
             if ($this->form_validation->run() == FALSE) {
                 $data = array(
@@ -416,9 +416,9 @@ class Proyecto extends CI_Controller
         if ($this->input->is_ajax_request()) {
             $this->form_validation->set_rules('name', 'Nombre completo', 'required');
             $this->form_validation->set_rules('rut', 'Rut', 'required');
-            $this->form_validation->set_rules('telefono', 'Telefono', 'required');
+            $this->form_validation->set_rules('telefono', 'Telefono', 'required|numeric');
             $this->form_validation->set_rules('email', 'Correo', 'required|valid_email');
-            $this->form_validation->set_rules('cargo', 'Cargo', 'required');
+            $this->form_validation->set_rules('cargo', 'Cargo', 'required|alpha');
             
             if ($this->form_validation->run() == FALSE) {
                 $data = array(
@@ -431,7 +431,7 @@ class Proyecto extends CI_Controller
                 if (!$this->Proyecto_model->registroPersonal($ajax_data)) {
                     $data = array(
                         'response' => "success",
-                        'message' => "Proyecto Registrado"
+                        'message' => "Trabajador registrado correctamente!"
                     );
                     
                 } else {

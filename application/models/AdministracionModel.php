@@ -51,6 +51,7 @@ class AdministracionModel extends CI_Model
 		$query = $this->db
 				->select("id_tipousuario,rol") # También puedes poner * si quieres seleccionar todo
 				->from("tipousuario")
+                ->where_not_in("id_tipousuario", "1")
 				->get();
     	return $query->result();
 	}

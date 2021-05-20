@@ -110,17 +110,19 @@ document.addEventListener("DOMContentLoaded", function () {
         
         var selection = document.getElementById('files');
         var div = document.getElementById('files-error');
+        div.innerHTML = "";
+        var error = "";
         for (var i=0; i<selection.files.length; i++) {
             var ext = selection.files[i].name.substr(-3);
-            if(ext!== "pdf" && ext!== "doc" && ext!== "docx" && ext !== "ppt" && ext !== "png" && ext !== "jpeg" && ext !== "jpg" && ext !== "xlsx")  {
+            if(ext!== "pdf" && ext!== "doc" && ext!== "ocx" && ext!== "docx" && ext !== "ppt" && ext !== "png" && ext !== "jpeg" && ext !== "jpg" && ext !== "xlsx" && ext !== "xls")  {
                 if (div_error_files.style.display === "none") {
                     div_error_files.style.display = "block";
                 } 
                 generarAvisoError("El archivo: " + selection.files[i].name + " tiene una extension no valida y no será subido");
-                div.innerHTML += "- El archivo: " + selection.files[i].name + " tiene una extension no valida y no será subido";
-                div.innerHTML += "\n";
+                error += "- El archivo: " + selection.files[i].name + " tiene una extension no valida y no será subido<br>";
             }
         } 
+        div.innerHTML = error;
     });
 
     function generarTablaFotos($tipo,page) {
@@ -214,12 +216,12 @@ function subirArchivos() {
             success: function(data) {
                 if(data.response == "success"){
                     generarAvisoExitoso("Archivos subidos correctamente!");
-                    location.reload();
+                    //location.reload();
                 }
 
                 if(data.response == "error"){
                     generarAvisoExitoso("Archivos subidos correctamente!");
-                    location.reload();
+                    //location.reload();
                 }
             },
             done: function(data){

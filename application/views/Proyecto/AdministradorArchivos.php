@@ -222,16 +222,15 @@
                </div>
                <div class="alert alert-danger" id="files-error">
                </div>
-               <div class="form-group">
-                  <input class="form-control" type="submit" name="fileSubmit" value="Subir" onclick="subirArchivos()"/>
-               </div>
                <div id="progress-div" class="progress">
                   <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress-bar"></div>
                </div>
                <div id="loader-icon" style="display:none;"><img src="<?php echo base_url()?>assets/Imagen/LoaderIcon.gif" /></div>
             </div>
             <div class="modal-footer bg-white">
-               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <input class="btn btn-primary" type="submit" name="fileSubmit" value="Subir" onclick="subirArchivos()"/>
+               
             </div>
          </form>
       </div>
@@ -250,7 +249,7 @@
    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="http://malsup.github.com/jquery.form.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.js" integrity="sha512-RTxmGPtGtFBja+6BCvELEfuUdzlPcgf5TZ7qOVRmDfI9fDdX2f1IwBq+ChiELfWt72WY34n0Ti1oo2Q3cWn+kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>var base_url = '<?php echo base_url();?>';</script>
 <script src="<?php echo base_url()?>assets/js/PlanillaProyecto/administrador_archivos.js"></script>
 <!-- Ekko Lightbox -->

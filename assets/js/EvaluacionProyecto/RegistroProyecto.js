@@ -68,7 +68,7 @@ $(document).on('click', '#addProyectoModal', function(e) {
                 
 
             } else if(data.response == "error"){
-                generarAvisoError('Error al registrar el proyecto');
+                generarAvisoError(data.message);
                 
             }
             else{
