@@ -75,61 +75,6 @@
                   </li>
                </ul>
             </li>
-            <li class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 15)){echo "menu-open"; }?>">
-               <a href="#"
-                  class="nav-link <?php if(isset($activomenu) && ($activomenu == 15)){echo "active"; }?>">
-                  <i class="nav-icon fas fa-receipt"></i>
-                  <p>
-                     Compras
-                     <i class="fas fa-angle-left right"></i>
-                  </p>
-               </a>
-               <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                     <a href="<?php echo base_url()?>Proveedores"
-                        class="nav-link <?php if(isset($activo) && ($activo == 16)){echo "active"; }?>">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Proveedores</p>
-                     </a>
-                  </li>
-               </ul>
-               <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                     <a href="<?php echo base_url()?>Cotizacion"
-                        class="nav-link <?php if(isset($activo) && ($activo == 19)){echo "active"; }?>">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Cotizaciones</p>
-                     </a>
-                  </li>
-               </ul>
-               <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                     <a href="<?php echo base_url()?>Ordenes"
-                        class="nav-link <?php if(isset($activo) && ($activo == 15)){echo "active"; }?>">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Ordenes de compra</p>
-                     </a>
-                  </li>
-               </ul>
-               <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                     <a href="<?php echo base_url()?>Factura"
-                        class="nav-link <?php if(isset($activo) && ($activo == 18)){echo "active"; }?>">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Facturas</p>
-                     </a>
-                  </li>
-               </ul>
-               <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                     <a href="<?php echo base_url()?>ComprobantePago"
-                        class="nav-link <?php if(isset($activo) && ($activo == 21)){echo "active"; }?>">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Comprobantes de pago</p>
-                     </a>
-                  </li>
-               </ul>
-            </li>
             <li class="nav-item has-treeview <?php if(isset($activomenu) && ($activomenu == 2)){echo "menu-open"; }?>">
                <a href="#" class="nav-link <?php if(isset($activomenu) && ($activomenu == 2)){echo "active"; }?>">
                   <i class="nav-icon fas fa-cog"></i>
