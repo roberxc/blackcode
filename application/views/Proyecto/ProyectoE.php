@@ -1,4 +1,5 @@
 <head>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
    <!-- SELECT CON BUSCADOR -->
    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
@@ -46,9 +47,7 @@
                         <!-- 4 --->
                         <th style="width: 3%;background-color: #006699; color: white;">Estado</th>
                         <!-- 4 --->
-                        <th style="width: 3%;background-color: #006699; color: white;">Detallle</th>
-                        <!-- 5 --->
-                        <th style="width: 3%;background-color: #006699; color: white;">Ver documentos</th>
+                        <th style="width: 3%;background-color: #006699; color: white;">Accion</th>
                         <!-- 6 --->
                      </tr>
                   </thead>
@@ -101,6 +100,30 @@
       </div>
    </div>
 </div>
+
+<!-- MODAL ESTADO ORDEN DE PROYECTO --->
+<div id="modal-estado-proyecto" class="modal fade bd-example-modal-sm" role="dialog">
+      <div class="modal-dialog modal-sm">
+         <div class="table-responsive">
+            <!-- Contenido del modal -->
+            <div class="modal-content">
+               <div class="modal-header bg-blue">
+                  <H3>Estado de proyecto</H3>
+                  <button type="button" class="close-white" data-dismiss="modal">&times;</button>
+               </div>
+               <div class="modal-body">
+                  <div class="card-body" id="dynamic_field" >
+                     <div class="box-body">
+                     <H6>Seleccione para cambiar el estado del proyecto</H6>
+                        <div class="modal-body" id="estado-proyecto">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 </body>  
 </html> 
 <script>
@@ -117,7 +140,7 @@
      },
        "columnDefs":[
          {
-             "targets": [1,2,3,4,5],
+             "targets": [1,2,3,4],
          }
        ]
      });
@@ -130,5 +153,8 @@
 <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/dataTables.jqueryui.min.js"></script>
 <script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+   integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>var base_url = '<?php echo base_url();?>';</script>
 <script src="<?php echo base_url();?>assets/js/EvaluacionProyecto/proyectos.js"></script>

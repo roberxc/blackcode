@@ -1909,6 +1909,15 @@ class Proyecto_model extends CI_Model
         echo json_encode($arraydata);
 
     }
+
+	public function actualizarEstadoProyecto($estado,$idproyecto){
+
+		$set_data = $this->session->all_userdata();
+		$this->db->set('estado', $estado, FALSE);
+        $this->db->where('id_proyecto', $idproyecto);
+		$this->db->where('id_usuario', $set_data['ID_Usuario']);
+		return $this->db->update('proyecto_usuario');
+    }
 }
 
 ?>

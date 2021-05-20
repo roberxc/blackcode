@@ -328,8 +328,7 @@ class Proyecto extends CI_Controller
                 $sub_array[] = '<span class="badge badge-success">Terminado</span>';
             }
 
-            $sub_array[] = '<button class="btn btn-primary btn-sm" onclick="detalleProyecto('.$value->id_proyecto.')"><i class="far fa-eye"></i></button>';
-            $sub_array[] = '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#detalleDocumentos" onclick="generarDataTableArchivos('.$value->id_proyecto.')"><i class="far fa-eye"></i></button>';
+            $sub_array[] = '<button class="btn btn-primary btn-sm" onclick="detalleProyecto('.$value->id_proyecto.')"><i class="far fa-eye"></i></button><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detalleDocumentos" onclick="generarDataTableArchivos('.$value->id_proyecto.')"><i class="fas fa-book"></i></button><button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-estado-proyecto" onclick="setTablaEstado('.$value->id_proyecto.')"><i class="far fa-edit"></i></button>';
             $data[]      = $sub_array;
         }
         $output = array(
@@ -341,6 +340,30 @@ class Proyecto extends CI_Controller
         echo json_encode($output);
     }
     
+    public function obtenerEstadoProyecto(){
+		$ajax_data = $this->input->post(); //Datos que vienen por POST
+		$response = "<select class='form-control select2' style='width: 100%;' id='estado_proyecto' onchange='setEstadoProyecto()'>";
+		$response .= "<option value='1' selected>Seleccione</option>";
+		$response .= "<option value='0'>En proceso</option>";
+		$response .= "<option value='1'>Terminado</option>";
+		$response .= "</select>";
+		$data = array('response' => 'success', 'detalle' => $response);
+
+
+		echo json_encode($data);
+	}
+
+    public function actualizarEstadoProyecto(){
+		$ajax_data = $this->input->post();
+		$estado = $ajax_data['estado'];
+		$idproyecto = $ajax_data['id_proyecto'];
+		if ($this->Proyecto_model->actualizarEstadoProyecto($estado,$idproyecto)) {
+			$data = array('response' => "success", 'message' => "Estado de proyecto actualizado correctamente!");
+		} else {
+			$data = array('response' => "error", 'message' => "Falló la actualizacio");
+		}
+		echo json_encode($data);
+    }
     
     public function GuardarProyectos()
     {
