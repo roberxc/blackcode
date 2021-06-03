@@ -50,12 +50,6 @@
                                 <th>Color Vehiculo</th>
                                 <!-- 6 --->
                                 <th>Tipo Motor</th>
-                                <!-- 7 --->
-                                <th>Gps</th>
-                                <!-- 8 --->
-
-
-
                             </tr>
                         </thead>
                     </table>
@@ -152,7 +146,7 @@ $(document).ready(function() {
             type: "POST"
         },
         "columnDefs": [{
-            "targets": [1, 2, 3, 4, 5, 6, 7, 8],
+            "targets": [1, 2, 3, 4, 5, 6, 7],
         }]
     });
 });
