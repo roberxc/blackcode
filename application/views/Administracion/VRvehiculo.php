@@ -134,10 +134,9 @@
                                                 <div class="col-sm-10">
 
 
-                                                    <input type="date" min="2017-01-01" max="today"
-                                                        value="<?php echo date("Y-m-d\TH-i");?>"
-                                                        class="form-control datetimepicker-input"
-                                                        data-target="#reservationdate" id="ano" format="y" />
+                                                    <input type="number" 
+                                                        class="form-control"
+                                                         id="ano"/>
 
 
 
@@ -163,46 +162,8 @@
 
 
                                             <hr class="mt-3 mb-3" />
-                                            <div class="form-group row">
-                                                <label for="inputSkills" class="col-sm-2 col-form-label">Gps</label>
-                                                <div class="col-sm-10">
-                                                    <hr class="mt-3 mb-3" />
-
-                                                    <div id="parent">
-
-                                                        <input type="radio" name="group1" value="1"
-                                                            data-parent="#parent" data-toggle="collapse"
-                                                            data-target="#div1" />
-                                                        <label>Si</label>
-                                                        <input type="radio" name="group1" value="1"
-                                                            data-parent="#parent" data-toggle="collapse"
-                                                            data-target="#div1" />
-                                                        <label>No</label>
-
-                                                        <div class="panel-collapse collapse in" id="div1"><input
-                                                                type="text" style="text-transform:lowercase;"
-                                                                maxlength="12" class="form-control"
-                                                                data-inputmask="'alias': 'ip'" data-mask id="gps"
-                                                                placeholder="+56999988877"></div>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-
-
-                                            <hr class="mt-3 mb-3" />
-                                            <hr class="mt-3 mb-3" />
-                                            <div class="form-group row">
-                                                <div class="offset-sm-2 col-sm-10">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
+                                            
                                             <div class="form-group row">
                                                 <div class="col-md-3 text-center">
                                                     <button type="submit" id="addvehiculo"

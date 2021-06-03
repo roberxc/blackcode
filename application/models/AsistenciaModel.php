@@ -179,12 +179,13 @@ class AsistenciaModel extends CI_Model
         return $query->num_rows();
     }
 
-    public function ObtenerAsistenciaCompleta($idpersonal){
+    public function ObtenerAsistenciaCompleta($idpersonal,$fecha){
 		$query = $this->db
 				->select("p.rut AS rut,a.fecha_asistencia AS Fecha, a.horallegadam AS LlegadaM, a.horasalidam AS SalidaM, a.horallegadat AS LlegadaT, a.horasalidat AS SalidaT, p.nombrecompleto AS NombreCompleto, a.horastrabajadas AS HorasTrabajadas, a.horasextras AS HorasExtras,a.estado as Estado") # También puedes poner * si quieres seleccionar todo
 				->from("asistencia_personal a")
 				->join("personal p", "p.id_personal = a.id_personal")
 				->where("p.id_personal", $idpersonal)
+                ->where("a.fecha_asistencia", $fecha)
 				->get();
 		
 		return $query->result();

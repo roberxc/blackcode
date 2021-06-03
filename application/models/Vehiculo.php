@@ -28,10 +28,6 @@ class Vehiculo extends CI_Model{
             'patente' => $datos['patente'],
             'ano' => $datos['ano'],
             'id_detalle_vehiculo' => $id_detalle,
-           
-            'gps' => $datos['gps'],
-            
-          
         );
         if(!$this->db->insert('vehiculo', $datos)){
             return false;

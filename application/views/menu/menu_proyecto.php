@@ -54,7 +54,7 @@
                   <li class="nav-item">
                      <a href="<?php echo base_url();?>Proyecto/Estado_proyecto"  class="nav-link <?php if(isset($activo) && ($activo == 4)){echo "active"; }?>">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Estado del proyecto </p>
+                        <p>Estado de proyectos </p>
                      </a>
                   </li>
                </ul>

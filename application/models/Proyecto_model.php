@@ -1198,7 +1198,7 @@ class Proyecto_model extends CI_Model
 		}
 
 		$totalBalance = intval($totalMonto_limpio) - intval($totalPresupuesto_limpio);
-		$convertirPositivo = intval($totalBalance);
+		$convertirPositivo = intval(-$totalBalance);
 
 		return $convertirPositivo;
 	}

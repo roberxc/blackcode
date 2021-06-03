@@ -79,7 +79,7 @@ class CAsistencia extends CI_Controller
             $sub_array[] = '<input type="hidden" value='.$value->id_personal.'" class="name-file" disabled/>';
             $sub_array[] = $value->rut;
             $sub_array[] = $value->nombrecompleto;
-            $sub_array[] = $value->fecha_asistencia;
+            $sub_array[] = '<input value='.$value->fecha_asistencia.' class="fecha" disabled/>';
             if($value->estado == 0){
                 $sub_array[] = '<span class="badge badge-danger">No</span>';
             }else{
@@ -103,7 +103,7 @@ class CAsistencia extends CI_Controller
 
     public function obtenerAsistenciaCompleta(){
         $ajax_data = $this->input->post(); //Datos que vienen por POST
-        $asistencia_planilla = $this->AsistenciaModel->ObtenerAsistenciaCompleta($ajax_data['id_personal']);
+        $asistencia_planilla = $this->AsistenciaModel->ObtenerAsistenciaCompleta($ajax_data['id_personal'],$ajax_data['fecha']);
 
         $response = "<div class='table-responsive'>";
         $response .= "<table class='table table-bordered'>";

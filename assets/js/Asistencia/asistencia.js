@@ -160,12 +160,14 @@ function generarAvisoExitoso($mensaje) {
 $(document).on('click', '#detalle_asistencia', function(e) {
     e.preventDefault();
     var idpersonal = $(this).parents('tr').find(".name-file").val();
+    var fecha = $(this).parents('tr').find(".fecha").val();
     $.ajax({
         url: base_url+"CAsistencia/obtenerAsistenciaCompleta",
         type: "post",
         dataType: "json",
         data: {
             id_personal: idpersonal,
+            fecha: fecha,
         },
         success: function(data) {
             if (data.response == "success") {

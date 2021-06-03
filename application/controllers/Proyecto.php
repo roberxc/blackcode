@@ -104,6 +104,7 @@ class Proyecto extends CI_Controller
         $data['Monto_presupuesto']     = $this->Proyecto_model->obtenerTotalPresupuesto($data['codigo']);
         $data['Monto_balance']         = $this->Proyecto_model->TotalBalance($data['codigo']);
         $data['Monto_proyecto']        = $this->Proyecto_model->obtenerMontoProyecto($data['codigo']);
+
         $data['activo']     = 5;
         $data['activomenu'] = 1;
         $this->load->view('layout/nav-proyecto');
@@ -857,7 +858,7 @@ class Proyecto extends CI_Controller
             $response .= "<td>$" . $row->monto . "</td>";
             $response .= "<td>" . $row->detalle . "</td>";
             $response .= "<td>$" . $row->presupuesto . "</td>";
-            $response .= "<td>$" . $balance . "</td>";
+            $response .= "<td>$" . -$balance . "</td>";
             $response .= "<td> <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#MostrarFacturas' onclick='setTablaFacturas(this)'><i class='fas fa-download'></i></button></td>";
             $response .= " </tr>";
         }
@@ -873,9 +874,9 @@ class Proyecto extends CI_Controller
         $presupuesto = 0;
         foreach ($lista_presupuesto as $row) {
             $presupuesto = $row->totalpresupuesto;
-            $response .= "<th>$ " . $presupuesto . "</th>";
+            $response .= "<th>$" . $presupuesto . "</th>";
         }
-        $response .= "<th>$ " . $lista_balance . "</th>";
+        $response .= "<th>$" . $lista_balance . "</th>";
         $response .= " </tr>";
         $response .= "</tfoot>";
         $response .= " </table>";
