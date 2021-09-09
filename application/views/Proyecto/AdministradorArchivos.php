@@ -138,9 +138,16 @@
                         <button type="button" class="btn btn-default btn-sm" onclick="refresh()"><i class="fas fa-sync-alt"></i></button>
                         <div class="float-right" id="pagination_link"></div>
                      </div>
+
+
+
                      <div class="table-responsive" id="tabla-fotos">
                      </div>
-                     <div class="card-header" id="data-table">
+
+
+
+
+                     <div class="table-responsive" id="data-table">
                         <table id="administrador_archivos" class="table table-bordered table-striped" style="width: 100%;">
                            <thead>
                               <tr>
@@ -152,6 +159,10 @@
                            </thead>
                         </table>
                      </div>
+
+
+
+
                   </div>
                   <div id="modal-confirmacion" class="modal fade bd-example-modal-sm" role="dialog">
                      <div class="modal-dialog modal-sm">
@@ -257,46 +268,4 @@
 <!-- Filterizr-->
 <script src="<?php echo base_url()?>assets/plugins/filterizr/jquery.filterizr.min.js"></script>
 <!-- Page specific script -->
-<script>
-   $(function () {
-     $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-       event.preventDefault();
-       $(this).ekkoLightbox({
-         alwaysShowClose: true
-       });
-     });
-   
-     $('.filter-container').filterizr({gutterPixels: 3});
-     $('.btn[data-filter]').on('click', function() {
-       $('.btn[data-filter]').removeClass('active');
-       $(this).addClass('active');
-     });
-   });
-</script>
-<script>
-   //Mostrar tabla principal
-   $(document).ready(function(){
-      $('#administrador_archivos').DataTable({
-       "language": {
-         "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
-         },
-       "processing": true,
-       "serverSide": true, 
-       "ajax":{url:"<?php echo base_url('Proyecto/ObtenerArchivos/'); ?>" + 0,0,
-       type: "POST"
-     },
-       "columnDefs":[
-         {
-             "targets": [1,2,3],
-             className: 'select-checkbox',
-            targets:   0
-         }
-       ],
-      select: {
-         style:    'os',
-         selector: 'td:first-child'
-      },
-     });
-   });
-</script>
 </html>

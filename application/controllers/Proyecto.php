@@ -1051,7 +1051,7 @@ class Proyecto extends CI_Controller
         $data       = array();
         foreach ($fetch_data as $value) {
             $sub_array   = array();
-            $sub_array[] = '<div class="checkbox"><input type="checkbox" value="' . $value->nombrearchivo . '" name="images[]"></div>';
+            $sub_array[] = '<div class="checkbox"><input type="checkbox" value="' . $value->nombrearchivo . '" name="images[]" class="checkarchivos"></div>';
             $sub_array[] = $value->nombrearchivo;
             $sub_array[] = $value->fecha_subida;
             $sub_array[] = $value->directorio;

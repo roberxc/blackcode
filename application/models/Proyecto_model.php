@@ -1495,7 +1495,7 @@ class Proyecto_model extends CI_Model
             $response .= "<img src='" . base_url() . "ArchivosSubidos/" . $row->nombre . "' class='img-fluid mb-2' alt='white sample'/>";
             $response .= "</a>";
             $response .= "<br>";
-            $response .= "<input type='checkbox' name='images[]' class='select' value='" . $row->nombre . "'/>";
+            $response .= "<input type='checkbox' name='images[]' class='select checkfotos' value='" . $row->nombre . "'/>";
             $response .= "</div>";
         }
         $response .= "</div>";
