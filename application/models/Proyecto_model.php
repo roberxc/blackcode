@@ -1408,7 +1408,7 @@ class Proyecto_model extends CI_Model
 	 * Insert file data into the database
 	 * @param array the data for inserting into the table
 	*/
-	public function insert($data = array() , $idproyecto, $directorio)
+	public function insert($data = array(), $idproyecto, $directorio)
 	{
 		$id_directorio = $this->obtenerIDDirectorio($directorio);
 		for ($i = 0;$i < count($data);$i++)

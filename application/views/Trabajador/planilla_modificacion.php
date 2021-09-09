@@ -38,7 +38,7 @@
          <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav ml-auto">
                <li class="nav-item">
-                  <a class="nav-link page-scroll" href="<?php echo base_url()?>login" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Cancelar</a>
+                  <a class="nav-link page-scroll" href="<?php echo base_url()?>inicio" class="nav-link <?php if(isset($activo) && ($activo == 1)){echo "active"; }?>">Cancelar</a>
                </li>
             </ul>
          </div>
@@ -88,7 +88,7 @@
                         <div class="card-title">Gasto de Viaticos</div>
                         <hr class="cell-divide-hr">
                         <div class="price">
-                           <span class="currency">$</span><span class="value"><?php if(isset($total_viaticos)){if($total_viaticos[0]->Valor>0){echo $total_viaticos[0]->Valor;}else{ echo '0';}}else{ echo '0';}?></span>
+                           <span class="currency">$</span><span class="value"><?php if(isset($total_viaticos)){if($total_viaticos[0]->valor>0){echo $total_viaticos[0]->valor;}else{ echo '0';}}else{ echo '0';}?></span>
                            <div class="frequency">Total</div>
                         </div>
                         <hr class="cell-divide-hr">
@@ -97,7 +97,7 @@
                               foreach($tipos_viaticos as $row)
                               { ?>
                            <li class="media">
-                              <i class="fas <?php if($row->Valor>0){ echo 'fa-check';}else{ echo 'fa-times';}?>"></i>
+                              <i class="fas <?php if($row->valor>0){ echo 'fa-check';}else{ echo 'fa-times';}?>"></i>
                               <div class="media-body"><?php echo $row->nombre;?></div>
                            </li>
                            <?php }?>
@@ -120,7 +120,7 @@
                                  { ?>
                               <div class="form-group">
                                  <input type="hidden" class="form-control-input" id="gastosid_update" value="<?php echo $row->ID?>">
-                                 <input type="number" class="form-control-input" id="gastos_update" value="<?php echo $row->Valor?>">
+                                 <input type="number" class="form-control-input" id="gastos_update" value="<?php echo $row->valor?>">
                                  <label class="label-control" for="cname"><?php echo $row->nombre?></label>
                                  <div class="help-block with-errors"></div>
                               </div>
@@ -287,8 +287,8 @@
                <div class="col-lg-4">
                   <h4>Gasto total: <?php
                      if(isset($gasto_total) && isset($suma_asignada)){
-                        $vuelto = $suma_asignada[0]->ValorAsignado-$gasto_total[0]->Valor;
-                        echo '$'.$gasto_total[0]->Valor;
+                        $vuelto = $suma_asignada[0]->valorasignado-$gasto_total[0]->valor;
+                        echo '$'.$gasto_total[0]->valor;
                      }
                      ?>
                      </br>Vuelto: <?php echo '$'.$vuelto;?>

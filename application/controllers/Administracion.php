@@ -273,19 +273,23 @@ class Administracion extends CI_Controller {
 				$password2 = $ajax_data['password_confirm'];
 
 				if($password1 === $password2){
-					$result = $this->Users->create($ajax_data);
-					
-					if ($result == 1) {
-						$data = array('response' => "error", 'message' => "Falló el registro");
+
+					if (strlen($password1)>=8) {
+						$result = $this->Users->create($ajax_data);
+						
+						if ($result == 1) {
+							$data = array('response' => "error", 'message' => "Falló el registro");
+						}
+						
+						if ($result == 2) {
+							$data = array('response' => "success", 'message' => "Cuenta creada exitosamente!");
+						}
+						if ($result == 3) {
+							$data = array('response' => "error", 'message' => "El correo ingresado ya existe");
+						}
+					}else{
+						$data = array('response' => "error", 'message' => "La contraseña ingresada tiene menos de 8 carácteres");
 					}
-					
-					if ($result == 2) {
-						$data = array('response' => "success", 'message' => "Cuenta creada exitosamente!");
-					}
-					if ($result == 3) {
-						$data = array('response' => "error", 'message' => "El correo ingresado ya existe");
-					}
-					
 				}else{
 					$data = array('response' => "error", 'message' => "Las contraseñas ingresadas no son iguales");
 				}
@@ -294,6 +298,18 @@ class Administracion extends CI_Controller {
 		} else {
 			echo "'No direct script access allowed'";
 		}	
+	}
+
+	function randomPassword() {
+		$alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+		$pass = array(); //remember to declare $pass as an array
+		$alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+		for ($i = 0; $i < 8; $i++) {
+			$n = rand(0, $alphaLength);
+			$pass[] = $alphabet[$n];
+		}
+		$data = array('response' => "success", 'message' => implode($pass));
+		echo json_encode($data);
 	}
 
 	public function registroCombustible(){
@@ -517,7 +533,7 @@ class Administracion extends CI_Controller {
 				$ajax_data = $this->input->post();
 
 				if ($this->AdministracionModel->registroCostoFijo($ajax_data)) {
-					$data = array('response' => "success", 'message' => "Producto ingresado correctamente!");
+					$data = array('response' => "success", 'message' => "Costo fijo ingresado correctamente!");
 				} else {
 					$data = array('response' => "error", 'message' => "Falló el ingreso");
 				}

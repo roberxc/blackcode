@@ -43,7 +43,6 @@ function generarGrafico(){
             $('#myChart').remove();
             var midiv = document.createElement("canvas");
             midiv.setAttribute("id","myChart");
-            midiv.setAttribute("style","width: 300px; height: 300px;");
             midiv.innerHTML = "";
             document.getElementById('gh').appendChild(midiv);
 
