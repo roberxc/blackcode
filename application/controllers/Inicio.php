@@ -29,7 +29,7 @@ class Inicio extends CI_Controller {
 			$this->load->view('Dashboard/Inicio',$data);
 			$this->load->view('layout/footer');
 		}else if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 3) {
-			$data ['activo'] = 5;
+			$data ['activo'] = 2;
 			$this->load->view('layout/nav');
 			$this->load->view('menu/menu_bodeguero',$data);
 			$this->load->view('Dashboard/InicioBodeguero');

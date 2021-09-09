@@ -58,7 +58,7 @@
          </div>
          <div class="card-body">
             <div class="chart" id="gh">
-               <canvas id="myChart" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
+               <canvas id="myChart" style="min-height: 200px; height: 200px; max-height: 200px; max-width: 100%;"></canvas>
             </div>
          </div>
          <!-- /.card-body -->
@@ -108,8 +108,8 @@
             ],
             "firstDay": 1
         },
-        "startDate": "2020-11-01",
-        "endDate": "2020-11-30",
+        "startDate": "2021-01-01",
+        "endDate": "2021-11-30",
         "opens": "center"
       });
       });

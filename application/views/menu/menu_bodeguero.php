@@ -30,8 +30,8 @@ if (isset($set_data['nombre_completo'])) {
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 1)){echo "menu-open"; }?>">
-            <a href="<?php echo base_url()?>Inicio" class="nav-link <?php if(isset($activo) && ($activo == 5)){echo "active"; }?>">
+          <li class="nav-item has-treeview <?php if(isset($activo) && ($activo == 2)){echo "menu-open"; }?>">
+            <a href="<?php echo base_url()?>Inicio" class="nav-link <?php if(isset($activo) && ($activo == 2)){echo "active"; }?>">
               <i class="nav-icon fa fa-home"></i>
               <p>
                 Inicio
@@ -39,7 +39,7 @@ if (isset($set_data['nombre_completo'])) {
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="<?php echo base_url()?>RegistroEntrada" class="nav-link <?php if(isset($activo) && ($activo == 2)){echo "active"; }?>">
+            <a href="<?php echo base_url()?>RegistroEntrada" class="nav-link <?php if(isset($activo) && ($activo == 5)){echo "active"; }?>">
               <i class="nav-icon fa fa-cart-plus"></i>
               <p>
                 Registro entrada

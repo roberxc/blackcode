@@ -126,6 +126,10 @@
                               </div>
                            </div>
                         </div>
+
+                        <div class="form-group">
+                           <button type="button" class="btn btn-block btn-primary" id="secure_password">Generar contraseña segura</button>
+                        </div>
                         <!-- /.form group -->
                         <!-- Date and time range -->
                         <!-- /.form group -->

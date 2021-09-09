@@ -1,6 +1,5 @@
 $(document).on('click', '#add', function(e) {
     e.preventDefault();
-
     var name = $("#name").val();
     var rut = $("#rut").val();
     var telefono = $("#telefono").val();
@@ -28,6 +27,27 @@ $(document).on('click', '#add', function(e) {
                 $("#form")[0].reset();
             } else if(data.response === "error") {
                 generarAvisoError(data.message);
+
+            }
+        }
+    });
+
+});
+
+$(document).on('click', '#secure_password', function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: "randomPassword",
+        type: "post",
+        dataType: "json",
+        success: function(data) {
+            console.log(data.response);
+            if (data.response === "success") {
+                generarAvisoExitoso("Contraseña generada correctamente!");
+                document.getElementById("password").value = data.message;
+                document.getElementById("password_confirm").value = data.message;
+            } else if(data.response === "error") {
+                generarAvisoError("Error al generar la contraseña");
 
             }
         }
