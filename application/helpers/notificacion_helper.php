@@ -35,3 +35,30 @@ function setNotificaciones($documentacionmodel){
 
     $CI->load->view('layout/nav',$data); //loading of view.php
 }
+
+function setNotificacionesBodega($bodegamodel){
+    $CI = get_instance(); //creating instance of CI
+    $set_data = $CI->session->all_userdata();
+	$data [''] = 0;
+    if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 3) {
+        $lista_stock = $bodegamodel->getStockMateriales();
+        $data ['totalmateriales'] = 0;
+        $data ['totalnotificaciones'] = 0;
+        $data['is_bodega'] = false;
+        if($lista_stock){
+        foreach($lista_stock as $row){
+            $data['is_bodega'] = true;
+            $data ['totalnotificaciones'] = $data ['totalnotificaciones'] + 1;
+            $data_bodega [] = array(
+                'lista_stock' => $row->stock,
+                'lista_codigo' => $row->nombrematerial,
+            );
+            $data ['totalmateriales'] = $data ['totalmateriales'] + 1;
+            $data ['data_bodega'] = $data_bodega;
+        }
+    }       
+
+    }
+
+    $CI->load->view('layout/nav',$data); //loading of view.php
+}

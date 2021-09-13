@@ -372,7 +372,20 @@ class Bodega extends CI_Model {
      return $this->db->count_all_results();  
      }  
 
-  
+     public function getStockMateriales()
+     {
+         $this->db->SELECT('m.id_material, m.nombrematerial, m.stock');
+         $this->db->from('material m');
+         $this->db->join('tipomaterial tm', 'm.id_tipomaterial = tm.id_tipomaterial');
+         $this->db->join('tipobodega tb', 'm.id_tipobodega = tb.id_tipobodega');
+         $this->db->where('m.stock <=10');
+         $query = $this->db->get();
+         if ($query->num_rows() > 0)
+         {
+             return $query->result();
+         }
+ 
+     }
 
 
 }

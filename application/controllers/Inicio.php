@@ -11,6 +11,7 @@ class Inicio extends CI_Controller {
 		$this->load->model('AdministracionModel');
 		$this->load->model('CajaChicaModel');
 		$this->load->model('Proyecto_model');
+		$this->load->model('Bodega');
 		$this->load->helper(array('notificacion','url'));
     }
 
@@ -30,9 +31,22 @@ class Inicio extends CI_Controller {
 			$this->load->view('layout/footer');
 		}else if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 3) {
 			$data ['activo'] = 2;
-			$this->load->view('layout/nav');
+			setNotificacionesBodega($this->Bodega);
+			$stock = $this->Bodega->getStockMateriales();
+			$contador_materiales = 0;
+			$flag_stock = false;
+			if($stock){
+				foreach($stock as $row){
+					if($row->stock <=10){
+						$flag_stock = true;
+						$contador_materiales = $contador_materiales + 1;
+					}
+				}
+			}
+			$data ['total_materiales_no_stock'] = $contador_materiales;
+			$data ['flag_stock'] = $flag_stock;
 			$this->load->view('menu/menu_bodeguero',$data);
-			$this->load->view('Dashboard/InicioBodeguero');
+			$this->load->view('Dashboard/InicioBodeguero',$data);
 			$this->load->view('layout/footer');
 		}else if (isset($set_data['id_tipousuario']) && $set_data['id_tipousuario'] == 2) {
 			$data ['activo'] = 2;

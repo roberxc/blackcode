@@ -1,16 +1,12 @@
-$(document).on('click', '#vista_proyecto', function(e) {
-    e.preventDefault();
-    var id_proyecto = $('#id_proyecto').val();
-    if(id_proyecto >0){
-        window.location.href = base_url + "DirectorioProyecto/"+id_proyecto;
-        localStorage.idproyecto = id_proyecto;
-    }else{
-        generarAvisoError("No hay proyecto seleccionado");
+generarAlerta();
+function generarAlerta(){
+    if(flag_stock){
+        generarAvisoError("Existen " + lista_stock + " materiales con un stock bajo. Para más información, haz clic en las notificaciones");
     }
-});
+}
 
 function generarAvisoError($mensaje) {
-    Command: toastr["error"]($mensaje, 'Error')
+    Command: toastr["error"]($mensaje, 'Aviso')
     toastr.options = {
         "closeButton": false,
         "debug": false,
@@ -19,10 +15,10 @@ function generarAvisoError($mensaje) {
         "positionClass": "toast-top-right",
         "preventDuplicates": false,
         "onclick": null,
-        "showDuration": "2000",
-        "hideDuration": "1000",
+        "showDuration": "5000",
+        "hideDuration": "8000",
         "timeOut": "5000",
-        "extendedTimeOut": "1000",
+        "extendedTimeOut": "5000",
         "showEasing": "swing",
         "hideEasing": "linear",
         "showMethod": "fadeIn",

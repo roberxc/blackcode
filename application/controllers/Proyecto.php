@@ -412,7 +412,6 @@ class Proyecto extends CI_Controller
             $this->form_validation->set_rules('rut', 'Rut', 'required');
             $this->form_validation->set_rules('telefono', 'Telefono', 'required|numeric');
             $this->form_validation->set_rules('email', 'Correo', 'required|valid_email');
-            $this->form_validation->set_rules('cargo', 'Cargo', 'required|alpha');
             
             if ($this->form_validation->run() == FALSE) {
                 $data = array(
@@ -1341,6 +1340,39 @@ class Proyecto extends CI_Controller
 		} else {
 			echo "'No direct script access allowed'";
 		}
+
+	}
+
+    public function obtenerRegistrosTrabajadores(){
+		$fetch_data = $this->Proyecto_model->make_datatables_registrotrabajadores();
+        $data = array();
+        foreach ($fetch_data as $value){
+            $sub_array = array();
+			$sub_array[] = $value->rut;
+            $sub_array[] = $value->nombrecompleto;
+			$sub_array[] = $value->correo;
+            $sub_array[] = $value->cargo;
+			$sub_array[] = '<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-confirmacion" onclick="setIDUsuario(this)"><i class="fas fa-trash"></i></button>';			
+			$data[] = $sub_array;
+        }
+
+        $output = array(
+            "draw" => intval($_POST["draw"]) ,
+            "recordsTotal" => $this->Proyecto_model->get_all_data_registrotrabajadores() ,
+            "recordsFiltered" => $this->Proyecto_model->get_filtered_data_registrotrabajadores() ,
+            "data" => $data
+        );
+        echo json_encode($output);
+
+	}
+
+    public function listaTrabajadores(){
+        $data['activo']     = 5;
+        $data['activomenu']     = 2;
+        $this->load->view('layout/nav');
+        $this->load->view('menu/menu_proyecto', $data);
+        $this->load->view('Proyecto/listaRegistros');
+        $this->load->view('layout/footer');
 
 	}
 

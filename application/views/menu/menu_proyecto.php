@@ -91,6 +91,14 @@
                         <p>Registrar Trabajador</p>
                      </a>
                   </li>
+
+                  <li class="nav-item">
+                     <a href="<?php echo base_url()?>Proyecto/listaTrabajadores"
+                        class="nav-link <?php if(isset($activo) && ($activo == 5)){echo "active"; }?>">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Lista de registros</p>
+                     </a>
+                  </li>
                </ul>
             </li>
          </ul>

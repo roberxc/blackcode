@@ -1918,6 +1918,68 @@ class Proyecto_model extends CI_Model
 		$this->db->where('id_usuario', $set_data['ID_Usuario']);
 		return $this->db->update('proyecto_usuario');
     }
+
+	//Lista de trabajadores registrados
+	function make_datatables_registrotrabajadores(){
+        $this->make_query_registrotrabajadores();
+        if ($_POST["length"] != - 1){
+            $this->db->limit($_POST['length'], $_POST['start']);
+        }
+        $query = $this->db->get();
+        return $query->result();
+
+    }
+
+    var $tablaregistrotrabajadores = array(
+        "personal",
+    );
+    var $select_columna_registrotrabajadores = array(
+        "rut",
+        "nombrecompleto",
+		"cargo",
+        "telefono",
+		"correo",
+    );
+
+    var $order_columna_registrotrabajadores = array(
+        "rut",
+        "nombrecompleto",
+		"cargo",
+        "telefono",
+		"correo",
+    );
+
+    function make_query_registrotrabajadores(){
+        $this->db->select($this->select_columna_registrotrabajadores);
+        $this->db->from($this->tablaregistrotrabajadores);
+        if (isset($_POST["search"]["value"]) && $_POST["search"]["value"] != ''){
+            $this->db->group_start();
+            $this->db->like("rut", $_POST["search"]["value"]);
+            $this->db->or_like("nombrecompleto", $_POST["search"]["value"]);
+            $this->db->or_like("cargo", $_POST["search"]["value"]);
+			$this->db->or_like("telefono", $_POST["search"]["value"]);
+			$this->db->or_like("correo", $_POST["search"]["value"]);
+            $this->db->group_end();
+        }
+        if (isset($_POST["order"])){
+            $this->db->order_by($this->order_columna_registrotrabajadores[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        
+        }else{
+            $this->db->order_by('id_usuario', 'ASC');
+        }
+    }
+
+    function get_all_data_registrotrabajadores(){
+        $this->db->select($this->select_columna_registrotrabajadores);
+        $this->db->from($this->tablaregistrotrabajadores);
+        return $this->db->count_all_results();
+    }
+
+    function get_filtered_data_registrotrabajadores(){
+        $this->make_query_registrotrabajadores();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
 }
 
 ?>

@@ -60,6 +60,7 @@
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                <span class="dropdown-item dropdown-header"><?php if(isset($totalnotificaciones)){ echo$totalnotificaciones;}else{echo 0;}?> Notificaciones</span>
                <div class="dropdown-divider"></div>
+               
                <?php if(isset($totaldocumentos) && ($totaldocumentos>0)){?>
                <div class="dropdown-divider"></div>
                <a href="<?php echo base_url()?>Documentacion/Actualizable" class="dropdown-item">
@@ -76,7 +77,24 @@
                </a>
                <div class="dropdown-divider"></div>
                <?php } ?>
-               <a href="#" class="dropdown-item dropdown-footer">Ver todas las notificaciones</a>
+
+               <?php if(isset($is_bodega) && ($is_bodega)){?>
+                  <a href="<?php echo base_url()?>Stock" class="dropdown-item">
+               Bajo stock de los siguientes materiales
+               </a>
+               
+                  <div class="dropdown-divider"></div>
+               <?php 
+                     foreach($data_bodega as $row){ ?>   
+               <a href="<?php echo base_url()?>Stock" class="dropdown-item">
+                     
+                        <i class="fas fa-exclamation-triangle"></i> <?php echo $row['lista_codigo']." : ".$row['lista_stock'];?>
+               
+                     
+                  </a>
+                  <?php } ?>
+                  <div class="dropdown-divider"></div>
+               <?php } ?>
             </div>
          </li>
          <li class="nav-item dropdown user user-menu">

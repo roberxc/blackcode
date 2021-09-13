@@ -566,7 +566,7 @@
                         </TR>
                         <TR>
                            <TH>Cantidad</TH>
-                           <TD><input type="text" id="item_materialbodega_cantidad_update" value="<?php echo $row->Cantidad;?>" class="form-control" /></TD>
+                           <TD><input type="text" id="item_materialbodega_cantidad_update" value="<?php echo $row->cantidad;?>" class="form-control" /></TD>
                         </TR>
                         <?php }
                            }?>

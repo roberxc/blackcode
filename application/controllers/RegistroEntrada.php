@@ -10,6 +10,7 @@ class RegistroEntrada extends CI_Controller
     function __construct(){
 		parent::__construct();
 		$this->load->model('Bodega');
+        $this->load->helper(array('notificacion','url'));
 	}
 
     public function index()
@@ -20,8 +21,22 @@ class RegistroEntrada extends CI_Controller
         $data['centrocosto'] = $this->Bodega->verCentroCostos();
         $data['tipobodega'] = $this->Bodega->verBodega();
         $data['material'] = $this->Bodega->verMateriales();
-        $data ['activo'] = 2;
-        $this->load->view('layout/nav');
+        $data ['activo'] = 5;
+        
+        setNotificacionesBodega($this->Bodega);
+        $stock = $this->Bodega->getStockMateriales();
+        $contador_materiales = 0;
+        $flag_stock = false;
+        if($stock){
+            foreach($stock as $row){
+                if($row->stock <=10){
+                    $flag_stock = true;
+                    $contador_materiales = $contador_materiales + 1;
+                }
+            }
+        }
+        $data ['total_materiales_no_stock'] = $contador_materiales;
+        $data ['flag_stock'] = $flag_stock;
         $this->load->view('menu/menu_bodeguero',$data);
 		$this->load->view('Bodega/Entrada', $data);
 		$this->load->view('layout/footer');
