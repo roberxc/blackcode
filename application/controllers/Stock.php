@@ -22,7 +22,7 @@ class Stock extends CI_Controller
         $flag_stock = false;
         if($stock){
         foreach($stock as $row){
-            if($row->stock <=10){
+            if($row->stock <=5){
                 $flag_stock = true;
                 $contador_materiales = $contador_materiales + 1;
             }
