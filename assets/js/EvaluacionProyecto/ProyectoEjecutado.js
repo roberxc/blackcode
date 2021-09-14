@@ -70,6 +70,7 @@ function generarTablaManoDeObra(){
 }
 function generarTablaPersonalQueAsiste(table){
     var idtrabajodiario = table.parentNode.parentNode.cells[0].textContent;
+    var fechatrabajo = table.parentNode.parentNode.cells[1].textContent;
 
     $.ajax({
         url: base_url+"Proyecto/obtenerPersonalQueAsiste",
@@ -78,11 +79,10 @@ function generarTablaPersonalQueAsiste(table){
         data: {
 
             codigo:idtrabajodiario,
+            fechatrabajo:fechatrabajo,
         },
         success: function(data) {
             if (data.response == "success") {
-
-                
                 $('#MostrarPersonalAsiste').html(data.detalle);
             } else {
                 generarAvisoError(data.message);

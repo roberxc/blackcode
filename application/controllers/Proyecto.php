@@ -806,7 +806,7 @@ class Proyecto extends CI_Controller
         foreach ($lista_trabajo as $row) {
             $response .= "<tr>";
             $response .= "<td>" . $row->id . "</td>";
-            $response .= "<td>" . $row->fecha_inicio . "</td>";
+            $response .= "<td>" . $row->fechaasignacion . "</td>";
             $response .= "<td>" . $row->detalle . "</td>";
             $response .= "<td>" . $row->codigoservicio . "</td>";
             $response .= "<td> <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#personal' onclick='generarTablaPersonalQueAsiste(this)'><i class='far fa-eye'></i></button></td>";
@@ -947,7 +947,9 @@ class Proyecto extends CI_Controller
     {
         $ajax_data      = $this->input->post();
         $codigo         = $ajax_data['codigo'];
-        $lista_personal = $this->Proyecto_model->MostrarPersonal($codigo);
+        $fecha         = $ajax_data['fechatrabajo'];
+        $lista_personal = $this->Proyecto_model->MostrarPersonal($codigo,$fecha);
+
         
         $response = "<table id='example1' class='table table-bordered table-striped'>";
         $response .= " <thead>";

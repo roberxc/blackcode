@@ -1207,10 +1207,11 @@ class Proyecto_model extends CI_Model
 	{
 		$query = $this
 			->db
-			->SELECT('t.id_trabajodiario as id, fecha_inicio, detalle, codigoservicio')
+			->SELECT('t.id_trabajodiario as id, i.fechaasignacion, detalle, codigoservicio')
 			->from('trabajodiario t ')
 			->join("proyecto pr", "pr.id_proyecto = t.id_proyecto")
 			->join("codigoservicio c", "t.id_codigo=c.id_codigo")
+			->join("ingreso i", "i.id_trabajodiario = t.id_trabajodiario")
 			->where('pr.id_proyecto', $codigo)->get();
 		return $query->result();
 	}
@@ -1236,19 +1237,19 @@ class Proyecto_model extends CI_Model
 			->where('t.id_proyecto', $codigo)->get();
 		return $query->result();
 	}
-	public function MostrarPersonal($codigo)
+	public function MostrarPersonal($codigo,$fechatrabajo)
 	{
 
 		$query = $this
 			->db
 			->SELECT(' pl.nombrecompleto as nombre,ap.horastrabajadas as hora ')
 			->from('trabajodiario td ')
-		//->join("proyecto pr", "pr.id_proyecto = td.id_proyecto")
-		
 			->join("personal_trabajo pt", "pt.id_trabajodiario=td.id_trabajodiario")
 			->join("personal pl", "pt.id_personal=pl.id_personal")
 			->join("asistencia_personal ap", "ap.id_personal=pl.id_personal")
-			->where('td.id_trabajodiario', $codigo)->get();
+			->where('td.id_trabajodiario', $codigo)
+			->where('ap.fecha_asistencia', $fechatrabajo)
+			->get();
 		return $query->result();
 	}
 	public function MostrarDocumento($codigo)
